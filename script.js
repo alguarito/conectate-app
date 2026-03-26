@@ -232,38 +232,41 @@ themeToggleBtn.addEventListener('click', () => {
 });
 
 // Mobile Navigation Logic
-const mobileBtns = document.querySelectorAll('.m-btn');
+function setupMobileNav() {
+    const mobileBtns = document.querySelectorAll('.m-btn');
+    console.log("Configurando navegación móvil. Botones encontrados:", mobileBtns.length);
 
-mobileBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const sectionId = btn.getAttribute('data-content');
-        
-        // Si tiene un data-content, cambiamos la sección
-        if (sectionId) {
-            mobileBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    mobileBtns.forEach(btn => {
+        btn.onclick = (e) => {
+            const sectionId = btn.getAttribute('data-content');
+            console.log("Click en móvil:", sectionId);
             
-            // Sincronizar con el sidebar (opcional pero recomendado)
-            navBtns.forEach(b => {
-                b.classList.remove('active');
-                if(b.getAttribute('data-content') === sectionId) b.classList.add('active');
-            });
+            if (sectionId) {
+                mobileBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Sincronizar con el sidebar
+                navBtns.forEach(b => {
+                    b.classList.remove('active');
+                    if(b.getAttribute('data-content') === sectionId) b.classList.add('active');
+                });
 
-            renderSectionInfo(sectionId);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+                renderSectionInfo(sectionId);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
     });
-});
+}
 
 // Placeholder for specialized mobile menus
-document.getElementById('m-toggle-menu')?.addEventListener('click', () => {
-    // Aquí puedes abrir un modal con todos los grados si lo deseas
-    alert("Dime qué grado quieres consultar (6°, 7°, 8°, etc.) o usa el menú lateral en Tablet/PC.");
-});
+document.getElementById('m-toggle-menu').onclick = () => {
+    alert("Pronto: Menú desplegable de grados.");
+};
 
-document.getElementById('m-toggle-profile')?.addEventListener('click', () => {
-    alert("Profesor Álvaro Cárdenas Orozco\nPhD. en Educación y Tecnología");
-});
+document.getElementById('m-toggle-profile').onclick = () => {
+    alert("PhD. Álvaro Cárdenas Orozco\nDocente TIC");
+};
 
 // Init Load
 renderSectionInfo('sexto');
+setupMobileNav();

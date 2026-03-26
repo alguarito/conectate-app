@@ -1,5 +1,5 @@
 // Database of Content by Sections
-const APP_VERSION = '1.5';
+const APP_VERSION = '1.6';
 console.log('CONECTATE App Version:', APP_VERSION);
 
 const sectionData = {

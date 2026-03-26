@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuaderno Interactivo | 2-9-TIC</title>
+    <title>Cuaderno Interactivo | 3-9-TIC</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- BoxIcons -->
@@ -51,7 +51,6 @@
         .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
         .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
@@ -61,45 +60,31 @@
         .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.2rem; margin: 0; color: white;}
         .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
         
-        .info-box { background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
-        .info-box-title { font-weight: 700; color: #d8b4fe; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+        .timeline-container { border-left: 2px solid rgba(168, 85, 247, 0.3); margin-left: 10px; padding-left: 30px; }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item::before { content: ''; position: absolute; left: -41px; top: 0; width: 20px; height: 20px; background: #a855f7; border-radius: 50%; border: 4px solid #0d0e15; }
 
         .pulse-btn { box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3); background: #a855f7; color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: var(--font-body); font-size: 1.05rem; margin-top: 20px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
-        .pulse-btn:hover { background: #9333ea; transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5); }
         
         html.light-mode { background-color: #f0f4f8; }
         body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
         body.light-mode .concept-card, body.light-mode .interactive-section { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
-        body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
-        body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p { color: #475569 !important; }
-        body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; }
 
         @media (max-width: 480px) {
             body { padding: 8px !important; }
             .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
-            .hero { margin-bottom: 30px !important; }
             .hero h1 { font-size: 1.4rem !important; }
             .hero i { font-size: 2.2rem !important; }
-            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
-            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
-            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
-            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
-            .concept-card { padding: 12px !important; border-radius: 10px !important; }
-            .concept-card h3 { font-size: 0.85rem !important; }
-            .concept-card h3 i { font-size: 1rem !important; }
-            .concept-desc { font-size: 0.8rem !important; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
-            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
-            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
+            .interactive-section { padding: 15px 10px !important; }
+            .grid-2, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
             #btn-volver { font-size: 0.75rem !important; padding: 6px 10px !important; }
-            iframe, .iframe-container { border-radius: 8px !important; }
         }
     </style>
 </head>
 <body>
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Excavando Saber...</p>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Excavando Saberes...</p>
     </div>
 
     <div class="notebook-container glass-panel">
@@ -113,9 +98,9 @@
         </div>
 
         <header class="hero">
-            <i class='bx bx-history'></i>
-            <h1>Sesión 2: Desmontando la Historia</h1>
-            <p>Ciencia vs. Tecnología. El Triángulo del Saber y la Autopsia Tecnológica de los objetos. Entendiendo el pasado para construir el futuro.</p>
+            <i class='bx bx-search-alt'></i>
+            <h1>Sesión 3: Arqueología del Saber</h1>
+            <p>Excavando en la historia de la tecnología: De las herramientas de piedra a la inteligencia artificial. Analizando cómo la técnica nos define como especie.</p>
         </header>
 
         <!-- Video Introductorio -->
@@ -123,55 +108,47 @@
             <h2 style="justify-content: center;"><i class='bx bx-video'></i> Video de la Sesión</h2>
             <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
                 <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.02);">
-                    <p style="color: var(--text-secondary);">El video explicativo se cargará pronto...</p>
+                    <p style="color: var(--text-secondary);">El video histórico se cargará pronto...</p>
                 </div>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Próximamente: Video de profundización sobre el saber tecnológico.</p>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Próximamente: Línea del tiempo animada sobre la evolución del saber.</p>
         </section>
 
-        <!-- Contexto -->
+        <!-- Timeline: La Técnica en el Tiempo -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-pyramid'></i> 1. El Triángulo del Saber</h2>
-            <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Pensamiento Decolonial</div>
-                <p class="section-text" style="margin: 0;">Para entender la tecnología, debemos entender las tres dimensiones que la moldean: El Saber (conocimiento), El Poder (quién la controla) y El Ser (cómo nos transforma como humanos).</p>
-            </div>
-            <div class="grid-3">
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>El Saber <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">No solo es ciencia occidental. Son los saberes ancestrales, técnicos y populares que permiten transformar la realidad.</div>
+            <h2><i class='bx bx-time-five'></i> 1. Línea del Tiempo Decolonial</h2>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <h4 style="color: #22d3ee; margin: 0;">Prehistoria: La Piedra y el Fuego</h4>
+                    <p class="section-text" style="font-size: 0.95rem; margin-top: 10px;">La técnica nace como supervivencia. No solo es cazar, es el lenguaje y el arte rupestre. Primeros bio-hacks del cerebro humano.</p>
                 </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>El Poder <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">¿A quién beneficia este invento? La tecnología no es neutra; siempre responde a intereses políticos o económicos.</div>
+                <div class="timeline-item">
+                    <h4 style="color: #a855f7; margin: 0;">Edad Antigua: Saberes de Sur a Norte</h4>
+                    <p class="section-text" style="font-size: 0.95rem; margin-top: 10px;">Mientras Europa dormía, otras culturas creaban el cero, el papel y la metalurgia avanzada. La tecnología es herencia global.</p>
                 </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>El Ser <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">¿Qué humano estamos construyendo? La tecnología cambia nuestra forma de sentir, pensar y relacionarnos con la naturaleza.</div>
+                <div class="timeline-item">
+                    <h4 style="color: #ec4899; margin: 0;">Revolución Industrial: El Vapor y la Máquina</h4>
+                    <p class="section-text" style="font-size: 0.95rem; margin-top: 10px;">La tecnología empieza a sustituir la fuerza muscular humana. Nace el concepto de producción en masa y la contaminación a gran escala.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4 style="color: #10b981; margin: 0;">Era Digital: Bits e Inteligencia Artificial</h4>
+                    <p class="section-text" style="font-size: 0.95rem; margin-top: 10px;">La tecnología sustituye procesos cognitivos. Ya no solo mueve cosas, ahora "piensa" y clasifica. Entramos en la era de los Inforgs.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Ciencia vs Tecnología -->
+        <!-- El Mito de Prometeo vs la Realidad -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-analyse'></i> 2. Autopsia Tecnológica</h2>
-            <p class="section-text">Analizamos un objeto no solo por lo que hace, sino por lo que revela de su época:</p>
+            <h2><i class='bx bx-book-content'></i> 2. ¿El Progreso es Lineal?</h2>
+            <p class="section-text">A menudo nos cuentan que la tecnología siempre mejora la vida. ¿Es siempre cierto? Analiza estos contrastes:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Análisis Morfológico <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">¿Qué forma tiene y por qué? Estudiamos su estructura física y ergonomía.</div>
+                    <h3>El Relato del Progreso <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Dice que "lo nuevo siempre es mejor". Ignora que a veces perdemos saberes ancestrales o autonomía en el camino.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Análisis Funcional <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">¿Qué problema resuelve? Identificamos su utilidad principal y secundaria.</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Análisis Histórico <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">¿En qué contexto nació? Quién lo inventó y qué necesidades sociales satisfacía.</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Análisis Ético <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">¿Qué impacto tiene en la vida? Evaluamos sus consecuencias sociales y ambientales.</div>
+                    <h3>La Obsolescencia Programada <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Tecnología fabricada para morir rápido. ¿Es esto "progreso" o simplemente negocio insostenible?</div>
                 </div>
             </div>
         </section>
@@ -180,7 +157,7 @@
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="2-9-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
+                <a href="3-9-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
                     <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
                 </a>
                 <a id="drive-link" href="#" target="_blank" class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">

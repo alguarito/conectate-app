@@ -116,26 +116,22 @@
     <!-- Interfaz Móvil (Solo visible por CSS) -->
     <nav class="mobile-nav glass-panel">
         <button class="m-btn active" data-content="sexto"><i class='bx bx-home-alt'></i><span>Inicio</span></button>
-        <button class="m-btn" id="m-toggle-menu"><i class='bx bx-grid-alt'></i><span>Grados</span></button>
+        <button class="m-btn" data-content="octavo"><i class='bx bx-grid-alt'></i><span>Grados</span></button>
         <button class="m-btn" data-content="herramientas"><i class='bx bx-wrench'></i><span>Herramientas</span></button>
-        <button class="m-btn" id="m-toggle-profile"><i class='bx bx-user-circle'></i><span>Perfil</span></button>
+        <button class="m-btn" data-content="interes"><i class='bx bx-bulb'></i><span>Recursos</span></button>
     </nav>
 
     <!-- Custom JS (Al final para encontrar todos los elementos) -->
     <script src="script.js"></script>
     <script src="chat-tesla.js"></script>
+    <!-- REINCIO DE CACHE: Desactivado temporalmente para pruebas
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('Service Worker registrado con éxito en PWA:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Falló el registro del Service Worker:', error);
-                    });
+                navigator.serviceWorker.register('./sw.js');
             });
         }
     </script>
+    -->
 </body>
 </html>

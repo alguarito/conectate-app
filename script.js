@@ -1,4 +1,5 @@
 // Database of Content by Sections
+alert("SISTEMA CONECTATE CARGADO - VERSIÓN REFORZADA");
 const sectionData = {
     sexto: {
         theme: 'theme-logico', icon: '<i class="bx bx-book-bookmark"></i>', title: 'Grado Sexto', subtitle: 'Iniciación al Pensamiento Computacional (Tutor: Agente Lógico)',

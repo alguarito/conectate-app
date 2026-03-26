@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 2-9-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0;
+            padding: 40px; 
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text-primary);
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner {
+            width: 40px; height: 40px;
+            border: 3px solid rgba(255,255,255,0.05);
+            border-left-color: #a855f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #a855f7; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #22d3ee; font-size: 1.8rem; }
+        .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: #a855f7; opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(168, 85, 247, 0.5); background: rgba(168, 85, 247, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.2rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        .info-box { background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #d8b4fe; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        .pulse-btn { box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3); background: #a855f7; color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: var(--font-body); font-size: 1.05rem; margin-top: 20px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
+        .pulse-btn:hover { background: #9333ea; transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5); }
+        
+        html.light-mode { background-color: #f0f4f8; }
+        body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
+        body.light-mode .concept-card, body.light-mode .interactive-section { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
+        body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p { color: #475569 !important; }
+        body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; }
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
+            .hero { margin-bottom: 30px !important; }
+            .hero h1 { font-size: 1.4rem !important; }
+            .hero i { font-size: 2.2rem !important; }
+            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
+            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
+            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
+            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
+            .concept-card { padding: 12px !important; border-radius: 10px !important; }
+            .concept-card h3 { font-size: 0.85rem !important; }
+            .concept-card h3 i { font-size: 1rem !important; }
+            .concept-desc { font-size: 0.8rem !important; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
+            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
+            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
+            #btn-volver { font-size: 0.75rem !important; padding: 6px 10px !important; }
+            iframe, .iframe-container { border-radius: 8px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Excavando Saber...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <i class='bx bx-history'></i>
+            <h1>Sesión 2: Arqueología del Saber</h1>
+            <p>Ciencia vs. Tecnología. El Triángulo del Saber y la Autopsia Tecnológica de los objetos. Entendiendo el pasado para construir el futuro.</p>
+        </header>
+
+        <!-- Video Introductorio -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-video'></i> Video de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.02);">
+                    <p style="color: var(--text-secondary);">El video explicativo se cargará pronto...</p>
+                </div>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Próximamente: Video de profundización sobre el saber tecnológico.</p>
+        </section>
+
+        <!-- Contexto -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-pyramid'></i> 1. El Triángulo del Saber</h2>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> Pensamiento Decolonial</div>
+                <p class="section-text" style="margin: 0;">Para entender la tecnología, debemos entender las tres dimensiones que la moldean: El Saber (conocimiento), El Poder (quién la controla) y El Ser (cómo nos transforma como humanos).</p>
+            </div>
+            <div class="grid-3">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>El Saber <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">No solo es ciencia occidental. Son los saberes ancestrales, técnicos y populares que permiten transformar la realidad.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>El Poder <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">¿A quién beneficia este invento? La tecnología no es neutra; siempre responde a intereses políticos o económicos.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>El Ser <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">¿Qué humano estamos construyendo? La tecnología cambia nuestra forma de sentir, pensar y relacionarnos con la naturaleza.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ciencia vs Tecnología -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-analyse'></i> 2. Autopsia Tecnológica</h2>
+            <p class="section-text">Analizamos un objeto no solo por lo que hace, sino por lo que revela de su época:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Análisis Morfológico <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">¿Qué forma tiene y por qué? Estudiamos su estructura física y ergonomía.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Análisis Funcional <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">¿Qué problema resuelve? Identificamos su utilidad principal y secundaria.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Análisis Histórico <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">¿En qué contexto nació? Quién lo inventó y qué necesidades sociales satisfacía.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Análisis Ético <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">¿Qué impacto tiene en la vida? Evaluamos sus consecuencias sociales y ambientales.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recursos (Drive) -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="2-9-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
+                </a>
+                <a id="drive-link" href="#" target="_blank" class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Arqueología del Saber</strong> (v1.0)<br>
+                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                icon.className = document.body.classList.contains('light-mode') ? 'bx bx-sun' : 'bx bx-moon';
+            });
+        }
+
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500);
+            }
+        });
+
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelector('i');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                icon.className = 'bx bx-minus';
+            }
+        }
+    </script>
+</body>
+</html>

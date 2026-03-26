@@ -8,22 +8,21 @@ const sectionData = {
         theme: 'theme-logico', icon: '<i class="bx bx-book"></i>', title: 'Grado Séptimo', subtitle: 'Profundización en Lógica (Tutor: Agente Lógico y Ético)',
         features: [ { icon: 'bx bx-puzzle', title: 'Retos Bebras', desc: 'Ejercicios de lógica y pensamiento computacional interactivos.' }, { icon: 'bx bx-lock-alt', title: 'Ciberseguridad Escolar', desc: 'Protección de datos personales y prevención del ciberacoso.' }, { icon: 'bx bx-bulb', title: 'Proyectos Guiados', desc: 'Desarrollo de animaciones interactivas enfocadas a problemas reales.' } ]
     },
-    // Octavo has special Sessions sub-navigation enabled
     octavo: {
         theme: 'theme-maker', icon: '<i class="bx bx-book-open"></i>', title: 'Grado Octavo', subtitle: 'Robótica y Entornos Virtuales (Tutor: Agente Maker)',
         isSessions: true,
         sessions: [
-            { id: 1, title: 'Bases de la Electrónica', file: 'OCTAVO/1-8-TIC.html', desc: 'Introducción a la corriente, voltaje y resistencias. Explorando el flujo energético de tus primeros circuitos.' },
-            { id: 2, title: 'El Protoboard Mágico', file: 'OCTAVO/2-8-TIC.html', desc: 'Aprende a ensamblar tu primer circuito básico sin soldar, interactuando con LEDs y pulsadores.' },
-            { id: 3, title: 'Resistencias (Ley de Ohm)', file: 'OCTAVO/3-8-TIC.html', desc: 'Cálculo interactivo de resistencias para evitar que tus brillantes LEDs se quemen.' },
-            { id: 4, title: 'Conoce Arduino UNO', file: 'OCTAVO/4-8-TIC.html', desc: 'Analizamos la placa Arduino UNO, sus pines de entrada y el entorno de desarrollo IDE.' },
-            { id: 5, title: 'Programando el Cerebro', file: 'OCTAVO/5-8-TIC.html', desc: 'Tu primer código "Blink" paso a paso. Compilando y cargando programas.' },
-            { id: 6, title: 'Entradas Digitales', file: 'OCTAVO/6-8-TIC.html', desc: 'Conectando interruptores y botones al Arduino para controlar hardware externo.' },
-            { id: 7, title: 'Entradas Analógicas (Sensores)', file: 'OCTAVO/7-8-TIC.html', desc: 'Uso de potenciómetros y fotoresistencias (LDR) para medir luz del ambiente.' },
-            { id: 8, title: 'Salidas Variables (PWM)', file: 'OCTAVO/8-8-TIC.html', desc: 'Controlando el brillo de un LED gradualmente y encendiendo motores de forma rítmica.' },
-            { id: 9, title: 'Sensores Ultrasónicos', file: 'OCTAVO/9-8-TIC.html', desc: 'Midiendo distancias como murciélagos con el potente sensor HC-SR04.' },
-            { id: 10, title: 'Motores Micro Servo', file: 'OCTAVO/10-8-TIC.html', desc: 'Control programático de posición y movimiento con motores de precisión para brazos robóticos.' },
-            { id: 11, title: 'Feria Proyecto Final', file: 'OCTAVO/11-8-TIC.html', desc: 'Integra todos tus sensores y actuadores en un diseño de software/hardware completamente libre.' }
+            { id: 1, title: 'Bases de la Electrónica', file: './OCTAVO/1-8-TIC.html', desc: 'Introducción a la corriente, voltaje y resistencias. Explorando el flujo energético de tus primeros circuitos.' },
+            { id: 2, title: 'El Protoboard Mágico', file: './OCTAVO/2-8-TIC.html', desc: 'Aprende a ensamblar tu primer circuito básico sin soldar, interactuando con LEDs y pulsadores.' },
+            { id: 3, title: 'Resistencias (Ley de Ohm)', file: './OCTAVO/3-8-TIC.html', desc: 'Cálculo interactivo de resistencias para evitar que tus brillantes LEDs se quemen.' },
+            { id: 4, title: 'Conoce Arduino UNO', file: './OCTAVO/4-8-TIC.html', desc: 'Analizamos la placa Arduino UNO, sus pines de entrada y el entorno de desarrollo IDE.' },
+            { id: 5, title: 'Programando el Cerebro', file: './OCTAVO/5-8-TIC.html', desc: 'Tu primer código "Blink" paso a paso. Compilando y cargando programas.' },
+            { id: 6, title: 'Entradas Digitales', file: './OCTAVO/6-8-TIC.html', desc: 'Conectando interruptores y botones al Arduino para controlar hardware externo.' },
+            { id: 7, title: 'Entradas Analógicas (Sensores)', file: './OCTAVO/7-8-TIC.html', desc: 'Uso de potenciómetros y fotoresistencias (LDR) para medir luz del ambiente.' },
+            { id: 8, title: 'Salidas Variables (PWM)', file: './OCTAVO/8-8-TIC.html', desc: 'Controlando el brillo de un LED gradualmente y encendiendo motores de forma rítmica.' },
+            { id: 9, title: 'Sensores Ultrasónicos', file: './OCTAVO/9-8-TIC.html', desc: 'Midiendo distancias como murciélagos con el potente sensor HC-SR04.' },
+            { id: 10, title: 'Motores Micro Servo', file: './OCTAVO/10-8-TIC.html', desc: 'Control programático de posición y movimiento con motores de precisión para brazos robóticos.' },
+            { id: 11, title: 'Feria Proyecto Final', file: './OCTAVO/11-8-TIC.html', desc: 'Integra todos tus sensores y actuadores en un diseño de software/hardware completamente libre.' }
         ]
     },
     noveno: {
@@ -42,10 +41,6 @@ const sectionData = {
         theme: 'theme-academico', icon: '<i class="bx bx-bulb"></i>', title: 'Centro de Interés', subtitle: 'Semilleros y Actividades Extracurriculares',
         features: [ { icon: 'bx bx-bot', title: 'Club de Robótica Avanzada', desc: 'Construcción y programación de robots físicos y preparativos.' }, { icon: 'bx bx-file', title: 'Semillero LATEX', desc: 'Redacción de documentos académicos profesionales y divulgación.' }, { icon: 'bx bx-code-curly', title: 'Hackatones Escolares', desc: 'Retos de programación competitiva trimestrales.' } ]
     },
-    proyectos: {
-        theme: 'theme-etico', icon: '<i class="bx bx-trophy"></i>', title: 'Proyectos TIC', subtitle: 'Feria de la Ciencia y Tecnología CONECTATE',
-        features: [ { icon: 'bx bx-star', title: 'Proyectos Destacados 2026', desc: 'Galería interactiva mostrando los mejores trabajos del año escolar.' }, { icon: 'bx bx-video', title: 'Presentaciones en Video', desc: 'Estudiantes defendiendo sus propuestas de software e investigación.' }, { icon: 'bx bx-group', title: 'Votación Comunitaria', desc: 'Espacio para elegir y reconocer a los mejores proyectos de innovación.' } ]
-    },
     herramientas: {
         theme: 'theme-maker', icon: '<i class="bx bx-wrench"></i>', title: 'Caja de Herramientas', subtitle: 'Accesos Directos a Plataformas Educativas',
         features: [ { icon: 'bx bx-link-external', title: 'Scratch / MakeCode', desc: 'Abre la plataforma oficial para programación visual por bloques.' }, { icon: 'bx bx-link-external', title: 'Tinkercad', desc: 'Accede al simulador 3D y de circuitos electrónicos online.' }, { icon: 'bx bx-link-external', title: 'Canva / Figma', desc: 'Ingresa a las herramientas de diseño gráfico avanzado y colaborativo.' } ]
@@ -55,26 +50,46 @@ const sectionData = {
 // DOM Elements
 const sidebarMenus = document.getElementById('sidebar-menus');
 const mainNav = document.getElementById('main-nav');
-const navBtns = document.querySelectorAll('#main-nav .nav-btn');
+const navBtns = document.querySelectorAll('.nav-btn, .m-btn'); // Captura ambos menús
 const mainViewer = document.getElementById('agent-content');
 const themeToggleBtn = document.getElementById('theme-toggle');
 
 let secNavElement = null;
 
-// Render basic section (features)
-function renderSectionInfo(sectionId) {
+// Core navigation function
+function navigateTo(sectionId) {
     const data = sectionData[sectionId];
     if (!data) return;
 
+    // Actualizar estados de botones
+    document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-content') === sectionId) btn.classList.add('active');
+    });
+
+    if (data.isSessions) {
+        renderSubMenu(sectionId);
+    } else {
+        // Si hay un submenú activo de otra sección, quitarlo
+        if (secNavElement) {
+            secNavElement.remove();
+            secNavElement = null;
+            if(mainNav) mainNav.style.display = 'flex';
+        }
+        renderSectionInfo(sectionId);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderSectionInfo(sectionId) {
+    const data = sectionData[sectionId];
     mainViewer.style.animation = 'none';
-    mainViewer.offsetHeight; // Trigger reflow
+    mainViewer.offsetHeight;
 
     let html = `
         <div class="agent-viewer ${data.theme}">
             <div class="agent-header">
-                <div class="agent-icon-large glass-panel">
-                    ${data.icon}
-                </div>
+                <div class="agent-icon-large glass-panel">${data.icon}</div>
                 <div class="agent-header-text">
                     <h2>${data.title}</h2>
                     <p>${data.subtitle}</p>
@@ -84,14 +99,13 @@ function renderSectionInfo(sectionId) {
     `;
 
     if (data.features) {
-        data.features.forEach(feature => {
+        data.features.forEach(f => {
             html += `
                 <div class="feature-card glass-panel">
-                    <i class="${feature.icon}"></i>
-                    <h3>${feature.title}</h3>
-                    <p>${feature.desc}</p>
-                </div>
-            `;
+                    <i class="${f.icon}"></i>
+                    <h3>${f.title}</h3>
+                    <p>${f.desc}</p>
+                </div>`;
         });
     }
 
@@ -100,173 +114,68 @@ function renderSectionInfo(sectionId) {
     mainViewer.style.animation = 'fadeIn 0.5s ease forwards';
 }
 
-// Render dynamic detail view for a specific session
 function renderSessionDetail(sessionData, gradeData) {
-    mainViewer.style.animation = 'none';
-    mainViewer.offsetHeight; // Trigger reflow
-
-    let html = `
+    mainViewer.innerHTML = `
         <div class="agent-viewer ${gradeData.theme}">
             <div class="agent-header">
-                <div class="agent-icon-large glass-panel" style="color: white; border-color: rgba(255,255,255,0.2);">
-                    <i class='bx bx-book-reader'></i>
-                </div>
+                <div class="agent-icon-large glass-panel"><i class='bx bx-book-reader'></i></div>
                 <div class="agent-header-text">
-                    <h2 style="background: none; -webkit-text-fill-color: white;">${gradeData.title} | Sesión ${sessionData.id}</h2>
+                    <h2>${gradeData.title} | Sesión ${sessionData.id}</h2>
                     <p>Guía de Aprendizaje Activo</p>
                 </div>
             </div>
-            
-            <div class="feature-card glass-panel" style="max-width: 700px; margin: 40px auto; text-align: center; padding: 50px; background: rgba(0,0,0,0.2);">
-                <i class='bx bx-brain' style="font-size: 5rem; color: #ef4444; margin-bottom: 20px;"></i>
-                <h3 style="font-size: 2.2rem; margin-bottom: 16px;">${sessionData.title}</h3>
-                <p style="font-size: 1.15rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 40px;">
-                    ${sessionData.desc}
-                </p>
-                <a href="${sessionData.file}" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; text-decoration: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; transition: transform 0.3s ease; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4); text-transform: uppercase;">
-                    <i class='bx bx-window-open' style="font-size: 1.5rem; color: white; margin: 0;"></i>
-                    Abrir Cuaderno Interactivo
+            <div class="feature-card glass-panel" style="max-width: 700px; margin: 40px auto; text-align: center; padding: 40px;">
+                <i class='bx bx-brain' style="font-size: 4rem; color: #ef4444; margin-bottom: 20px;"></i>
+                <h3>${sessionData.title}</h3>
+                <p style="margin-bottom: 30px;">${sessionData.desc}</p>
+                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-block; padding: 15px 30px; background: #ef4444; color: white; text-decoration: none; border-radius: 12px; font-weight: bold;">
+                    ABRIR CUADERNO INTERACTIVO
                 </a>
-                <p style="margin-top: 24px; font-size: 0.85rem; color: var(--text-secondary);">El cuaderno se abrirá en una nueva pestaña (target="_blank") para mantener tu menú de grados interactivo.</p>
             </div>
-        </div>
-    `;
-
-    mainViewer.innerHTML = html;
-    mainViewer.style.animation = 'fadeIn 0.5s ease forwards';
+        </div>`;
 }
 
-// Build Sub-Navigation for Sections that have "isSessions" (Grade 8)
 function renderSubMenu(sectionId) {
     const gradeData = sectionData[sectionId];
-    if (!gradeData || !gradeData.isSessions) return;
+    if (secNavElement) secNavElement.remove();
 
-    // Create the secondary nav dynamically
     const secNav = document.createElement('nav');
     secNav.className = 'agent-nav';
-    secNav.id = 'sec-nav-' + sectionId;
-    
-    let html = `
-        <button class="nav-btn" id="btn-back" style="background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border); justify-content: flex-start; margin-bottom: 10px;">
-            <i class='bx bx-chevron-left'></i>
-            <span>« Volver a Grados</span>
+    secNav.innerHTML = `
+        <button class="nav-btn" onclick="navigateTo('sexto')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);">
+            <i class='bx bx-chevron-left'></i><span>« Volver</span>
         </button>
-        <p class="nav-title" style="margin-top: 16px;">Ruta de Aprendizaje</p>
-        <div style="overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 6px; padding-right: 4px;">
+        <p class="nav-title">SESIONES</p>
     `;
 
-    gradeData.sessions.forEach(session => {
-        html += `
-            <button class="nav-btn session-btn" data-session="${session.id}">
-                <i class='bx bx-radio-circle-marked'></i>
-                <span>Sesión ${session.id}</span>
-            </button>
-        `;
+    gradeData.sessions.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'nav-btn';
+        btn.innerHTML = `<i class='bx bx-circle'></i><span>Sesión ${s.id}</span>`;
+        btn.onclick = () => renderSessionDetail(s, gradeData);
+        secNav.appendChild(btn);
     });
-    
-    html += `</div>`;
-    secNav.innerHTML = html;
-    
-    // Hide main menu and show secondary nav
-    mainNav.style.display = 'none';
+
+    if(mainNav) mainNav.style.display = 'none';
     sidebarMenus.appendChild(secNav);
     secNavElement = secNav;
-    
-    // Default select Session 1
     renderSessionDetail(gradeData.sessions[0], gradeData);
-    const firstSessionBtn = secNav.querySelector('.session-btn');
-    if (firstSessionBtn) firstSessionBtn.classList.add('active');
-
-    // Event Listeners for the sub-menu buttons
-    const backBtn = secNav.querySelector('#btn-back');
-    backBtn.addEventListener('click', () => {
-        secNav.remove();
-        secNavElement = null;
-        mainNav.style.display = 'flex';
-        renderSectionInfo(sectionId); // Regresa a la vista general o mantiene el de octavo, pero preferimos mantener el layout visual 
-        // We simulate a click to the main degree to restore normal default dashboard if preferred, or leave it.
-        // In this case renderSectionInfo will re-render the normal interface if we removed isSessions. But wait, `isSessions` is true so it won't have normal feature content.
-        // Actually, if we go back we should select the default 'sexto' or just render empty. Let's select 'sexto'
-        const navSexto = Array.from(navBtns).find(btn => btn.getAttribute('data-content') === 'sexto');
-        if(navSexto) navSexto.click();
-    });
-
-    const sessionBtns = secNav.querySelectorAll('.session-btn');
-    sessionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            sessionBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const sid = parseInt(btn.getAttribute('data-session'));
-            const sData = gradeData.sessions.find(s => s.id === sid);
-            renderSessionDetail(sData, gradeData);
-        });
-    });
 }
 
-// Event Listeners for Main Nav (Grades and Sections)
-navBtns.forEach(btn => {
+// Global Event Listeners
+document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        navBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const sectionId = btn.getAttribute('data-content');
-        const data = sectionData[sectionId];
-        
-        if (data && data.isSessions) {
-            renderSubMenu(sectionId);
-        } else {
-            renderSectionInfo(sectionId);
-        }
+        const sid = btn.getAttribute('data-content');
+        if (sid) navigateTo(sid);
     });
 });
 
-// Theme Toggle functionality
-themeToggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    const icon = themeToggleBtn.querySelector('i');
-    if (document.body.classList.contains('light-mode')) {
-        icon.classList.replace('bx-moon', 'bx-sun');
-    } else {
-        icon.classList.replace('bx-sun', 'bx-moon');
-    }
-});
-
-// Mobile Navigation Logic
-function setupMobileNav() {
-    const mobileBtns = document.querySelectorAll('.m-btn');
-    console.log("Configurando navegación móvil. Botones encontrados:", mobileBtns.length);
-
-    mobileBtns.forEach(btn => {
-        btn.onclick = (e) => {
-            const sectionId = btn.getAttribute('data-content');
-            console.log("Click en móvil:", sectionId);
-            
-            if (sectionId) {
-                mobileBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // Sincronizar con el sidebar
-                navBtns.forEach(b => {
-                    b.classList.remove('active');
-                    if(b.getAttribute('data-content') === sectionId) b.classList.add('active');
-                });
-
-                renderSectionInfo(sectionId);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        };
-    });
+if(themeToggleBtn) {
+    themeToggleBtn.onclick = () => {
+        document.body.classList.toggle('light-mode');
+        themeToggleBtn.querySelector('i').classList.toggle('bx-moon');
+        themeToggleBtn.querySelector('i').classList.toggle('bx-sun');
+    };
 }
 
-// Placeholder for specialized mobile menus
-document.getElementById('m-toggle-menu').onclick = () => {
-    alert("Pronto: Menú desplegable de grados.");
-};
-
-document.getElementById('m-toggle-profile').onclick = () => {
-    alert("PhD. Álvaro Cárdenas Orozco\nDocente TIC");
-};
-
-// Init Load
-renderSectionInfo('sexto');
-setupMobileNav();
+navigateTo('sexto');

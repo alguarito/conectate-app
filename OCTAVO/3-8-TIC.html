@@ -37,10 +37,23 @@
         .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
         
         /* Grid Layouts */
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .notebook-container { padding: 20px 12px; border-radius: 12px; }
+            .hero h1 { font-size: 1.5rem; }
+            .hero i { font-size: 2.5rem; }
+            .hero p { font-size: 0.9rem; }
+            .interactive-section { padding: 15px 12px; }
+            .interactive-section h2 { font-size: 1.15rem; }
+            .section-text { font-size: 0.88rem; line-height: 1.6; }
+            .pulse-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 12px; }
+            #btn-volver { font-size: 0.75rem; padding: 6px 10px; }
+            .concept-card h3 { font-size: 0.9rem; }
+            .concept-desc { font-size: 0.85rem; }
+        }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
         /* Flashcards */
         .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }

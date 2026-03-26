@@ -229,5 +229,35 @@ if(themeToggleBtn) {
     };
 }
 
+// Update App Skill System (La Campana)
+const updateBtn = document.getElementById('update-app-btn');
+const updateDot = document.getElementById('update-dot');
+
+// Simulamos una detección de "nueva versión" al cabo de unos segundos
+setTimeout(() => { if(updateDot) updateDot.style.display = 'block'; }, 2000);
+
+if (updateBtn) {
+    updateBtn.onclick = () => {
+        const confirmUpdate = confirm("¿Deseas buscar y aplicar las últimas actualizaciones de CONECTATE? La página se recargará.");
+        
+        if (confirmUpdate) {
+            // Skill de Limpieza Profunda
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for (let reg of registrations) reg.unregister();
+                });
+            }
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    for (let name of names) caches.delete(name);
+                });
+            }
+            
+            // Forzamos recarga total
+            window.location.reload(true);
+        }
+    };
+}
+
 // Init Load en HOME
 navigateTo('home');

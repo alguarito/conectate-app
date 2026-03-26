@@ -26,20 +26,7 @@
         /* Notebook Container Responsive */
         .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
         
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .notebook-container { padding: 20px 12px; border-radius: 12px; }
-            .hero h1 { font-size: 1.5rem; }
-            .hero i { font-size: 2.5rem; }
-            .hero p { font-size: 0.9rem; }
-            .interactive-section { padding: 15px 12px; }
-            .interactive-section h2 { font-size: 1.15rem; }
-            .section-text { font-size: 0.88rem; line-height: 1.6; }
-            .pulse-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 12px; }
-            #btn-volver { font-size: 0.75rem; padding: 6px 10px; }
-            .concept-card h3 { font-size: 0.9rem; }
-            .concept-desc { font-size: 0.85rem; }
-        }
+        
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0d0e15; z-index: 9999;
@@ -67,20 +54,7 @@
         .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
         
         /* Grid Layouts */
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .notebook-container { padding: 20px 12px; border-radius: 12px; }
-            .hero h1 { font-size: 1.5rem; }
-            .hero i { font-size: 2.5rem; }
-            .hero p { font-size: 0.9rem; }
-            .interactive-section { padding: 15px 12px; }
-            .interactive-section h2 { font-size: 1.15rem; }
-            .section-text { font-size: 0.88rem; line-height: 1.6; }
-            .pulse-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 12px; }
-            #btn-volver { font-size: 0.75rem; padding: 6px 10px; }
-            .concept-card h3 { font-size: 0.9rem; }
-            .concept-desc { font-size: 0.85rem; }
-        }
+        
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
@@ -114,7 +88,28 @@
         body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p, body.light-mode ol, body.light-mode ul { color: #475569 !important; }
         body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.light-mode #btn-volver:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
-    </style>
+    
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
+            .hero { margin-bottom: 30px !important; }
+            .hero h1 { font-size: 1.4rem !important; }
+            .hero i { font-size: 2.2rem !important; }
+            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
+            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
+            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
+            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
+            .concept-card { padding: 12px !important; border-radius: 10px !important; }
+            .concept-card h3 { font-size: 0.85rem !important; }
+            .concept-card h3 i { font-size: 1rem !important; }
+            .concept-desc { font-size: 0.8rem !important; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
+            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
+            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
+            #btn-volver { font-size: 0.75rem !important; padding: 6px 10px !important; }
+            iframe, .iframe-container { border-radius: 8px !important; }
+        }
+</style>
 </head>
 <body>
     <!-- Preloader -->

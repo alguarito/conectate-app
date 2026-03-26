@@ -35,7 +35,20 @@ const sectionData = {
     },
     noveno: {
         theme: 'theme-uiux', icon: '<i class="bx bx-laptop"></i>', title: 'Grado Noveno', subtitle: 'Introducción al Diseño Web (Tutor: Agente UI/UX)',
-        features: [ { icon: 'bx bxl-html5', title: 'Estructura Modern Web', desc: 'Aprende HTML5 semántico y CSS3 con arquitecturas modernas.' }, { icon: 'bx bx-palette', title: 'Diseño de Interfaces', desc: 'Iniciación en UX/UI y diseño de interacciones (Estilos y Color).' }, { icon: 'bx bx-edit', title: 'Documentación de Proyectos', desc: 'Uso de ofimática avanzada e investigación guiada para reportes.' } ]
+        isSessions: true,
+        sessions: [
+            { id: 1, title: 'Sesión 1: El Despertar del Inforg', file: './NOVENO/1-9-TIC.html?v=1.1', desc: '¿Eres usuario o producto? Una introducción a la biopolítica y la ética de la información en el siglo XXI.' },
+            { id: 2, title: 'Session 2: Cargando...', file: './NOVENO/2-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 3, title: 'Session 3: Cargando...', file: './NOVENO/3-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 4, title: 'Session 4: Cargando...', file: './NOVENO/4-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 5, title: 'Session 5: Cargando...', file: './NOVENO/5-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 6, title: 'Session 6: Cargando...', file: './NOVENO/6-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 7, title: 'Session 7: Cargando...', file: './NOVENO/7-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 8, title: 'Session 8: Cargando...', file: './NOVENO/8-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 9, title: 'Session 9: Cargando...', file: './NOVENO/9-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 10, title: 'Session 10: Cargando...', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 11, title: 'Session 11: Cargando...', file: './NOVENO/11-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' }
+        ]
     },
     decimo: {
         theme: 'theme-coder', icon: '<i class="bx bx-code-block"></i>', title: 'Grado Décimo', subtitle: 'Programación Textual y Frontend (Tutores: Coder y UI/UX)',
@@ -139,13 +152,13 @@ function renderSectionInfo(sectionId) {
     mainViewer.style.animation = 'fadeIn 0.5s ease forwards';
 }
 
-function renderSessionDetail(sessionData, gradeData) {
+function renderSessionDetail(sessionData, gradeData, gradeId) {
     const isMobile = window.innerWidth <= 480;
     mainViewer.style.display = 'block';
     mainViewer.innerHTML = `
         <div class="agent-viewer ${gradeData.theme}">
             <div class="agent-header" style="${isMobile ? 'flex-direction: column; text-align: center;' : ''}">
-                <button onclick="navigateTo('octavo')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: ${isMobile ? 'flex' : 'none'}; align-items: center; gap: 5px;">
+                <button onclick="navigateTo('${gradeId || 'home'}')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: ${isMobile ? 'flex' : 'none'}; align-items: center; gap: 5px;">
                     <i class='bx bx-chevron-left'></i> Volver
                 </button>
                 <div class="agent-icon-large glass-panel" style="${isMobile ? 'margin: 0 auto 15px;' : ''}"><i class='bx bx-book-reader'></i></div>
@@ -185,7 +198,7 @@ function renderSubMenu(sectionId) {
         `;
         gradeData.sessions.forEach(s => {
             html += `
-                <div class="feature-card glass-panel" onclick='renderSessionDetail(${JSON.stringify(s)}, ${JSON.stringify(gradeData)})' style="display: flex; align-items: center; gap: 15px; padding: 15px; text-align: left;">
+                <div class="feature-card glass-panel" onclick='renderSessionDetail(${JSON.stringify(s)}, ${JSON.stringify(gradeData)}, "${sectionId}")' style="display: flex; align-items: center; gap: 15px; padding: 15px; text-align: left;">
                     <div style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">${s.id}</div>
                     <div style="flex: 1;">
                         <h4 style="margin: 0;">${s.title}</h4>
@@ -204,13 +217,13 @@ function renderSubMenu(sectionId) {
         const btn = document.createElement('button');
         btn.className = 'nav-btn';
         btn.innerHTML = `<i class='bx bx-circle'></i><span>Sesión ${s.id}: ${s.title}</span>`;
-        btn.onclick = () => renderSessionDetail(s, gradeData);
+        btn.onclick = () => renderSessionDetail(s, gradeData, sectionId);
         secNav.appendChild(btn);
     });
     if(mainNav) mainNav.style.display = 'none';
     sidebarMenus.appendChild(secNav);
     secNavElement = secNav;
-    renderSessionDetail(gradeData.sessions[0], gradeData);
+    renderSessionDetail(gradeData.sessions[0], gradeData, sectionId);
 }
 
 // Global Event Listeners

@@ -1,0 +1,17 @@
+{
+  "name": "CONÉCTATE - IE Sor María Juliana",
+  "short_name": "CONÉCTATE",
+  "description": "Plataforma educativa de Tecnología e Informática",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#a855f7",
+  "icons": [
+    {
+      "src": "./IMAGENES/LOGO 1.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

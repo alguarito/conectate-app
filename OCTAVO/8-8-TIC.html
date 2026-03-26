@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 8-8-TIC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #f97316; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #f97316, #fdba74); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
+        
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+        /* Flashcards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(59, 130, 246, 0.5); background: rgba(59, 130, 246, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        /* Info Boxes */
+        .info-box { background: rgba(249, 115, 22, 0.1); border-left: 4px solid #f97316; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #fdba74; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        /* Draft Boxes */
+        .draft-box { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; transition: all 0.3s ease;}
+        .draft-box:focus-within { background: rgba(255,255,255,0.05); border-color: #f97316;}
+
+        /* Light Mode Overrides */
+        html.light-mode { background-color: #f0f4f8; }
+        body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
+        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .iframe-container { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
+        body.light-mode .concept-card { border: 1px solid rgba(0,0,0,0.1); }
+        body.light-mode .info-box { background: rgba(255,255,255,0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p, body.light-mode ol, body.light-mode ul { color: #475569 !important; }
+        body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        body.light-mode #btn-volver:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
+        body.light-mode .draft-box { border-color: rgba(0,0,0,0.2); background: rgba(255,255,255,0.5);}
+        body.light-mode .draft-box:focus-within { border-color: #f97316; background: white;}
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Cargando Cuaderno Activo...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        
+        <!-- Controles Superiores -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <i class='bx bxs-video-recording'></i>
+            <h1>Guía 8: Storytelling Científico</h1>
+            <p>Aprenderemos el arte de contar historias para convertir los fríos datos científicos en un guion audiovisual capaz de despertar la conciencia ambiental de todo internet.</p>
+        </header>
+
+        <!-- Video Introductorio YouTube -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(249, 115, 22, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #f97316;"></i> Repaso de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); aspect-ratio: 16/9;">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7padQVEFL8g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
+        </section>
+
+        <!-- Sección 1 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-book-open'></i> 1. La Receta de la Atención</h2>
+            <p class="section-text">El cerebro humano está programado biológicamente para prestar atención a las historias. Un buen video viral no necesita bailes tontos, necesita una Estructura Emocional:</p>
+            
+            <div class="grid-4">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #ef4444"><i class='bx bxs-bolt'></i> 1. El Gancho</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>(Los primeros 3 segundos):</strong> Si no sorprendes aquí, el usuario se va. Se logra con una pregunta escandalosa, un grito o un dato visual impactante en primer plano.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #f59e0b"><i class='bx bx-bomb'></i> 2. El Conflicto</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>(El Problema):</strong> ¿Qué es lo malo, injusto o asqueroso de la situación? Aquí entra la Ética: el daño a la mina de Coltán o los ríos llenos de basura venenosa y mercurio.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #3b82f6"><i class='bx bx-line-chart'></i> 3. El Clímax</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>(El Dato Duro):</strong> El momento de revelar tu investigación. La prueba irrefutable de que lo que dices es verdad (Los cálculos de Watts y el costo de energía).</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #10b981"><i class='bx bx-bell-ring'></i> 4. El CTA</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>(Llamado a la Acción):</strong> ¿Qué quieres que haga exactamente quien ve el video? Ej: <em>"Apaga tu PC ahora", "Comparte esto", "No compres ese celular"</em>.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-chart'></i> 2. El Valle de la Muerte</h2>
+            <p class="section-text">En la *Economía de la Atención*, la línea verde es la victoria y la línea roja es el temido "Scroll" inmediato que entierra a tu video.</p>
+            
+            <div class="info-box" style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div class="info-box-title"><i class='bx bx-bar-chart-alt-2'></i> La Curva de Retención</div>
+                    <ul style="color: var(--text-secondary); line-height: 1.8; margin-top: 10px; padding-left: 20px;">
+                        <li><strong>0 a 3 seg:</strong> Es de vida o muerte. Si empiezas diciendo <em>"Hola, mi nombre es Juan y vengo a presentar mi trabajo..."</em> el 80% te abandonará.</li>
+                        <li><strong>Retención Viva:</strong> Quienes usan Storytelling mantienen al público inyectándole tensión, revelando el problema poco a poco hasta el Clímax.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; text-align: center;">
+                    <i class='bx bx-trending-down' style="color: #ef4444; font-size: 3rem;"></i>
+                    <p style="color: white; margin-top: 10px; font-weight: 600;">Regla Cero:</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Nunca, nunca te presentes aburridamente al iniciar un video corto.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-edit-alt'></i> 3. El Guion de tu Video Final</h2>
+            <p class="section-text">Saca los apuntes de tu interrogatorio de IA (Guía 7). Un video de 60 segundos equivale a hablar tan solo 120 palabras. Hazlo corto, magnético y agresivo visualmente.</p>
+            
+            <div class="grid-2">
+                <div class="draft-box">
+                    <h3 style="color: #ef4444; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bxs-bolt'></i> Parte 1: El Gancho (0 - 5 Seg)</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Pregunta provocadora o dato brutal sobre tu dispositivo sin anestesia.</p>
+                    <textarea placeholder="Ej: ¡Estás perdiendo $50.000 pesos mensuales sin saberlo por culpa de este cable!..." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
+                </div>
+                
+                <div class="draft-box">
+                    <h3 style="color: #f59e0b; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bx-bomb'></i> Parte 2: El Problema (5 - 25 Seg)</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Muestra el aparato y habla de la injusticia social o la minería extrema (Dussel).</p>
+                    <textarea placeholder="Ej: Ese celular tan bonito que tienes requirió de Coltán sangriento..." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
+                </div>
+
+                <div class="draft-box">
+                    <h3 style="color: #3b82f6; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bx-line-chart'></i> Parte 3: Clímax (25 - 45 Seg)</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">El dato duro: kWh, consumo y costos validados por la IA (Matemáticas).</p>
+                    <textarea placeholder="Ej: Según nuestras mediciones gasta 250 kWh al año..." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
+                </div>
+
+                <div class="draft-box">
+                    <h3 style="color: #10b981; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bx-bell-ring'></i> Parte 4: Llamado CTA (45 - 60 Seg)</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">El cierre moral. ¿Qué acción concreta exiges del espectador de inmediato?</p>
+                    <textarea placeholder="Ej: Desconecta el mando ahora mismo y únete a la rebelión digital." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-camera-movie'></i> 4. El Storyboard (Guion Gráfico)</h2>
+            <p class="section-text">Un video viral no es un podcast; debes mostrar imágenes contundentes. Si en tu cuaderno no puedes dibujar, visualiza espacialmente qué objetos pondrás frente a tu cámara:</p>
+            
+            <div class="grid-4" style="margin-top: 20px;">
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
+                    <i class='bx bx-images' style="font-size: 3rem; color: var(--accent-purple);"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 1 (Gancho)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Primerísimo plano a tu rostro y al aparato electrónico.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
+                    <i class='bx bx-world' style="font-size: 3rem; color: var(--accent-blue);"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 2 (Problema)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Voz en off. Fotos de minas destruidas o basura tóxica.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
+                    <i class='bx bx-calculator' style="font-size: 3rem; color: var(--accent-pink);"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 3 (Clímax)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Números de Watts ($) volando a tu alrededor en stickers.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
+                    <i class='bx bx-walk' style="font-size: 3rem; color: var(--accent-cyan);"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 4 (Cierre)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Desconectas el aparato contundentemente frente a la lente.</p>
+                </div>
+            </div>
+            
+            <p style="color: var(--accent-cyan); text-align: center; margin-top: 30px; font-weight: 600; font-family: var(--font-body); border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 20px;">
+                ¡Asegúrate de llevar tu Guion físico o celular con este texto preparado para grabar en la próxima sesión práctica!
+            </p>
+        </section>
+
+        <!-- Sección de Descargas (Final del Cuaderno) -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Recursos de Producción</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">Descarga la guía metodológica y visual en físico para escribir tu Storyboard:</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="8-8-TIC.pdf" download style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444; font-size: 1.4rem;"></i> Descargar Guía (PDF)
+                </a>
+                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6; font-size: 1.4rem;"></i> Ver Diapositivas (Drive)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                <strong>CONECTATE | Módulo "Comunicación y Storytelling"</strong><br>
+                Institución Educativa Sor María Juliana - 2026
+            </p>
+        </footer>
+    </div>
+
+    <!-- Integración Automática de Tema y Lógica -->
+    <script>
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    icon.classList.replace('bx-sun', 'bx-moon');
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500); 
+            }
+        });
+
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                if(icon) icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                if(icon) icon.className = 'bx bx-minus';
+            }
+        }
+    </script>
+    
+    <!-- Tutor Virtual IA Inyectado -->
+    <script src="../chat-tesla.js"></script>
+</body>
+</html>

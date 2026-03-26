@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 5-8-TIC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #10b981; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #10b981, #6ee7b7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
+        
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+        /* Flashcards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(59, 130, 246, 0.5); background: rgba(59, 130, 246, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        /* Info Boxes */
+        .info-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #6ee7b7; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        /* Light Mode Overrides */
+        html.light-mode { background-color: #f0f4f8; }
+        body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
+        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .iframe-container { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
+        body.light-mode .concept-card { border: 1px solid rgba(0,0,0,0.1); }
+        body.light-mode .info-box { background: rgba(255,255,255,0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p, body.light-mode ol, body.light-mode ul { color: #475569 !important; }
+        body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        body.light-mode #btn-volver:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Cargando Cuaderno Activo...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        
+        <!-- Controles Superiores -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <i class='bx bx-world'></i>
+            <h1>Guía 5: La Huella Oculta</h1>
+            <p>Tu celular no nació mágicamente en una tienda tecnológica. Sus materiales viajaron miles de kilómetros desde profundas minas. Hoy vamos a rastrear su pasaporte oculto.</p>
+        </header>
+
+        <!-- Video Introductorio YouTube -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(16, 185, 129, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #10b981;"></i> Repaso de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); aspect-ratio: 16/9;">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/5tkLtosV_1M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
+        </section>
+
+        <!-- Sección 1 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-diamond'></i> 1. La Tabla Periódica del Conflicto</h2>
+            <p class="section-text">Un dispositivo inteligente promedio contiene más de 60 elementos químicos de la tabla periódica. Algunos de ellos son demasiado escasos, valiosos y peligrosamente destructivos a la hora de extraerlos de la tierra.</p>
+            
+            <div class="grid-3">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #ef4444"><i class='bx bxs-hot'></i> El Coltán</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>(Tantalio):</strong> El 80% de sus reservas globales están ubicadas en el conflicto de la República Democrática del Congo (África). Sin él, no se podrían guardar cargas de energía en micropiezas. Se le conoce mundialmente como el <em>Mineral de Sangre</em>.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #38bdf8"><i class='bx bx-battery'></i> El Litio</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>(El Oro Blanco):</strong> Es el corazón electroquímico de TODAS las baterías modernas recargables. Se extrae de los delicados salares secos en Chile, Bolivia y Argentina secando millones y millones de litros de agua dulce.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #f59e0b"><i class='bx bx-coin-stack'></i> Oro y Cobre</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Su increíble conductividad eléctrica libre de oxidación es inigualable. Pero la forma en que se realiza la minería a cielo abierto destruye hectáreas inmensas de selvas y bosques, arrojando además el tóxico mercurio a los ríos.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-time-five'></i> 2. La Obsolescencia Programada</h2>
+            <p class="section-text">¿Has notado que la tecnología actual parece dejar de funcionar repentinamente sin razón alguna? A eso se le llama la muerte "programada" desde la fábrica para obligarnos a comprar repetidamente.</p>
+            
+            <div class="grid-2">
+                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 12px; border-left: 4px solid var(--accent-blue);">
+                    <h3 style="color: white; font-family: var(--font-heading); margin-bottom: 12px;"><i class='bx bx-recycle'></i> Opción Empresarial A</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">Diseñas e inviertes tu tecnología para fabricar un celular inteligente capaz de durar operando al máximo durante <strong>10 años seguidos</strong> sin dañarse.<br><br><em>(Vendes menos volumen, te haces un poco menos rico, pero garantizas una disminución brutal en minería esclava y ayudas al planeta Tierra).</em></p>
+                </div>
+                <div style="background: rgba(239, 68, 68, 0.05); padding: 24px; border-radius: 12px; border-left: 4px solid var(--accent-pink);">
+                    <h3 style="color: white; font-family: var(--font-heading); margin-bottom: 12px;"><i class='bx bx-trending-up'></i> Opción Empresarial B</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">Programas ocultamente el chip de la pantalla para que muera justo a los <strong>2 años exactos</strong>, o llenas tu computadora de pegamento para que no la puedan reparar.<br><br><em>(Vendes 5 unidades por usuario, multiplicas tu dinero mágicamente, pero generas millones de toneladas de basura sumamente tóxica al año).</em></p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-chat'></i> Tu Turno de Opinar</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Si en el futuro llegas a ser CEO de una gran multinacional y dependiera de ti, ¿qué opción escogerías y cómo la justificarías socialmente ante tus propios trabajadores?</p>
+            </div>
+        </section>
+
+        <!-- Sección 3 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-id-card'></i> 3. Tu Pasaporte Ciber-Físico</h2>
+            <p class="section-text">Selecciona tu móvil, teclado o portátil de tu bolsillo e inspecciona de cerca su infraestructura trasera.</p>
+            
+            <div style="background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.4); padding: 24px; border-radius: 12px;">
+                <h3 style="color: white; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">📋 Formulando la Identidad</h3>
+                <ul style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; list-style-type: none; padding-left: 0;">
+                    <li><strong><i class='bx bx-code-block' style="color: #6ee7b7;"></i> Sujeto:</strong> ¿Qué artefacto tienes ante tus manos? (Ej: Samsung A32, Base de datos).</li>
+                    <li><strong><i class='bx bx-map-pin' style="color: #6ee7b7;"></i> Nacimiento:</strong> Busca "Made In" o "Assembled In" en su placa y responde de dónde vino ensamblado finalmente.</li>
+                    <li><strong><i class='bx bx-dna' style="color: #6ee7b7;"></i> Ancestros Químicos:</strong> ¿A cuántos mineros de Litio y de Coltán le debió costar trabajo construirle esa batería interior?</li>
+                    <li><strong><i class='bx bx-health' style="color: #6ee7b7;"></i> Esperanza de Vida:</strong> De acuerdo con tu análisis, ¿cuántos meses crees que le queden de vida antes de ser basura?</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección 4 -->
+        <section class="interactive-section glass-panel" style="text-align: center;">
+            <h2 style="justify-content: center;"><i class='bx bx-bot'></i> 4. Misión IA: El Basurero Final</h2>
+            <p class="section-text">Vamos a utilizar al Prof. Álvaro, nuestro Asesor de Inteligencia Artificial que tienes ahí abajo a la derecha de la página. Ábrelo y cópiale exactamente este "Prompt" para exigirle investigar algo oscuro:</p>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #a855f7; font-family: monospace; color: #d8b4fe; font-size: 1.1rem; text-align: left; margin: 20px auto; max-width: 700px; line-height: 1.6;">
+                "Actúa como un experto en gestión ambiental. Explícame de manera rápida qué significan las letras RAEE y cuéntame qué sucede en un sitio oculto llamado Agbogbloshie."
+            </div>
+            
+            <p style="color: var(--text-secondary); font-size: 0.95rem;"><em>Nota: No olvides que el bot tiene "Memoria a Corto Plazo". Así que luego de investigarlo puedes debatir directamente con la IA sobre las tristes consecuencias.</em></p>
+        </section>
+
+        <!-- Sección 5 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-loader-circle'></i> 5. La Economía Circular</h2>
+            <p class="section-text">El modelo del siglo XXI ya no puede ser lineal (Extraer → Fabricar → Tirar al pozo). Necesitamos de la sabiduría humana para volver esta flecha un círculo indestructible.</p>
+            
+            <div class="grid-4" style="margin-top: 30px;">
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                    <i class='bx bx-pencil' style="color: #6ee7b7; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">1. Diseñar ECOLÓGICAMENTE</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                    <i class='bx bx-user-check' style="color: #6ee7b7; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">2. Usar MUCHOS AÑOS</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                    <i class='bx bx-wrench' style="color: #6ee7b7; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">3. REPARAR al dañarse</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                    <i class='bx bx-recycle' style="color: #6ee7b7; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px;">4. RECICLAR sus Metales Mágicos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Descargas (Final del Cuaderno) -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Archivos Base Descargables</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">Descarga la guía metodológica de esta sesión o guarda las diapositivas de instrucción directa:</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="5-8-TIC.pdf" download style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444; font-size: 1.4rem;"></i> Descargar Guía (PDF)
+                </a>
+                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6; font-size: 1.4rem;"></i> Ver Diapositivas (Drive)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                <strong>CONECTATE | Módulo "Moral y Ciencia: Pedestal de la Sabiduría"</strong><br>
+                Institución Educativa Sor María Juliana - 2026
+            </p>
+        </footer>
+    </div>
+
+    <!-- Lógica de Interfaz -->
+    <script>
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    icon.classList.replace('bx-sun', 'bx-moon');
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500); 
+            }
+        });
+
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                if(icon) icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                if(icon) icon.className = 'bx bx-minus';
+            }
+        }
+    </script>
+    
+    <!-- Tutor Virtual IA Inyectado -->
+    <script src="../chat-tesla.js"></script>
+</body>
+</html>

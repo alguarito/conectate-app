@@ -1,0 +1,5 @@
+# No subir el archivo del Worker (contiene la API key)
+cloudflare-worker.js
+
+# Archivos del sistema macOS
+.DS_Store

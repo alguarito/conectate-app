@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizando CONECTATE...</title>
+    <style>
+        body { background: #0d0e15; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .loader { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top: 5px solid #a855f7; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h1>Actualizando tu plataforma...</h1>
+    <p>Estamos borrando la memoria vieja del navegador para traerte las últimas novedades del Agente Académico.</p>
+
+    <script>
+        async function forceUpdate() {
+            // 1. Borrar todos los Service Workers registrados
+            if ('serviceWorker' in navigator) {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for(let registration of registrations) {
+                    await registration.unregister();
+                    console.log('SW desinstalado correctamente.');
+                }
+            }
+
+            // 2. Borrar todos los Caches Storage
+            if ('caches' in window) {
+                const keys = await caches.keys();
+                for(let key of keys) {
+                    await caches.delete(key);
+                    console.log('Cache borrado:', key);
+                }
+            }
+
+            // 3. Redirigir a la página principal con un parámetro de tiempo para evitar caché
+            setTimeout(() => {
+                window.location.href = "index.html?v=" + new Date().getTime();
+            }, 1000);
+        }
+
+        forceUpdate();
+    </script>
+</body>
+</html>

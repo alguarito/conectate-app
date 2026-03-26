@@ -47,9 +47,10 @@ const sectionData = {
             { id: 5, title: 'Sesión 5: Ingeniería del Documento', file: './NOVENO/5-9-TIC.html?v=1.0', desc: 'Dominando la estructura técnica y profesional de los trabajos académicos bajo normas APA 7.' },
             { id: 6, title: 'Sesión 6: El Arte de Citar', file: './NOVENO/6-9-TIC.html?v=1.0', desc: 'Construyendo el diálogo de saberes: Tipos de citas, honestidad académica y gestores de referencias.' },
             { id: 7, title: 'Sesión 7: Biopolítica y Biotecnología', file: './NOVENO/7-9-TIC.html?v=1.0', desc: '¿Hechos de datos? Reflexiones éticas sobre CRISPR, patentes biológicas y el control de los cuerpos.' },
-            { id: 8, title: 'Sesión 8: El algoritmo de la Desigualdad', file: './NOVENO/8-9-TIC.html?v=1.0', desc: 'Sesgos, discriminación y ética algorítmica: ¿Es la Inteligencia Artificial realmente objetiva?' },
-            { id: 9, title: 'Sesión 9: El Valor del Silencio', file: './NOVENO/9-9-TIC.html?v=1.0', desc: 'Privacidad, vigilancia y protección de datos: Defendiendo tu identidad en la era del Big Data.' },
-            { id: 10, title: 'Sesión 10: Territorios en Disputa', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Soberanía tecnológica y resistencia digital: Construyendo futuro desde lo local y comunitario.' }
+            { id: 8, title: 'Sesión 8: Algoritmos y Sesgos', file: './NOVENO/8-9-TIC.html?v=1.0', desc: 'Justicia algorítmica: ¿Son neutrales las máquinas? Descubriendo los prejuicios ocultos en el código.' },
+            { id: 9, title: 'Sesión 9: IA Generativa', file: './NOVENO/9-9-TIC.html?v=1.0', desc: 'Crear en la era de los LLM: ¿Aliado o amenaza para la creatividad humana?' },
+            { id: 10, title: 'Sesión 10: Humanismo Digital', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Hacia una tecnología al servicio de la vida: El manifiesto por un futuro digital ético y soberano.' },
+            { id: 11, title: 'Sesión 11: Prueba de Desempeño', file: './NOVENO/11-9-TIC.html?v=1.0', desc: 'Examen Global de Periodo: Demuestra tu transformación de consumidor a Inforg Crítico.' }
         ]
     },
     decimo: {

@@ -61,11 +61,30 @@ function navigateTo(sectionId) {
     const data = sectionData[sectionId];
     if (!data) return;
 
+    const isMobile = window.innerWidth <= 480;
+
     // Actualizar estados de botones
     document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.getAttribute('data-content') === sectionId) btn.classList.add('active');
     });
+
+    // En móvil, si pulsamos el botón que NO es de contenido (Grados), mostramos el picker
+    if (isMobile && sectionId === 'octavo') {
+        const picker = document.getElementById('mobile-grade-picker');
+        if (picker && picker.style.display === 'none') {
+            mainViewer.style.display = 'none';
+            picker.style.display = 'block';
+            return;
+        }
+    }
+
+    // Ocultar picker si existe
+    const picker = document.getElementById('mobile-grade-picker');
+    if (picker) {
+        picker.style.display = 'none';
+        mainViewer.style.display = 'block';
+    }
 
     if (data.isSessions) {
         renderSubMenu(sectionId);
@@ -101,10 +120,10 @@ function renderSectionInfo(sectionId) {
     if (data.features) {
         data.features.forEach(f => {
             html += `
-                <div class="feature-card glass-panel">
+                <div class="feature-card glass-panel" style="margin-bottom: 12px;">
                     <i class="${f.icon}"></i>
                     <h3>${f.title}</h3>
-                    <p>${f.desc}</p>
+                    <p style="font-size: 0.85rem;">${f.desc}</p>
                 </div>`;
         });
     }
@@ -115,20 +134,21 @@ function renderSectionInfo(sectionId) {
 }
 
 function renderSessionDetail(sessionData, gradeData) {
+    const isMobile = window.innerWidth <= 480;
     mainViewer.innerHTML = `
         <div class="agent-viewer ${gradeData.theme}">
-            <div class="agent-header">
-                <div class="agent-icon-large glass-panel"><i class='bx bx-book-reader'></i></div>
+            <div class="agent-header" style="${isMobile ? 'flex-direction: column; text-align: center;' : ''}">
+                <div class="agent-icon-large glass-panel" style="${isMobile ? 'margin: 0 auto 15px;' : ''}"><i class='bx bx-book-reader'></i></div>
                 <div class="agent-header-text">
-                    <h2>${gradeData.title} | Sesión ${sessionData.id}</h2>
+                    <h2 style="${isMobile ? 'font-size: 1.5rem;' : ''}">${gradeData.title} | Sesión ${sessionData.id}</h2>
                     <p>Guía de Aprendizaje Activo</p>
                 </div>
             </div>
-            <div class="feature-card glass-panel" style="max-width: 700px; margin: 40px auto; text-align: center; padding: 40px;">
-                <i class='bx bx-brain' style="font-size: 4rem; color: #ef4444; margin-bottom: 20px;"></i>
-                <h3>${sessionData.title}</h3>
-                <p style="margin-bottom: 30px;">${sessionData.desc}</p>
-                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-block; padding: 15px 30px; background: #ef4444; color: white; text-decoration: none; border-radius: 12px; font-weight: bold;">
+            <div class="feature-card glass-panel" style="max-width: 700px; margin: 20px auto; text-align: center; padding: ${isMobile ? '25px' : '40px'};">
+                <i class='bx bx-brain' style="font-size: ${isMobile ? '3rem' : '4rem'}; color: #ef4444; margin-bottom: 20px;"></i>
+                <h3 style="${isMobile ? 'font-size: 1.3rem;' : ''}">${sessionData.title}</h3>
+                <p style="margin-bottom: 30px; font-size: ${isMobile ? '0.9rem' : '1rem'};">${sessionData.desc}</p>
+                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-block; padding: 15px 30px; background: #ef4444; color: white; text-decoration: none; border-radius: 12px; font-weight: bold; width: 100%;">
                     ABRIR CUADERNO INTERACTIVO
                 </a>
             </div>
@@ -137,22 +157,35 @@ function renderSessionDetail(sessionData, gradeData) {
 
 function renderSubMenu(sectionId) {
     const gradeData = sectionData[sectionId];
+    const isMobile = window.innerWidth <= 480;
     if (secNavElement) secNavElement.remove();
 
     const secNav = document.createElement('nav');
     secNav.className = 'agent-nav';
+    
+    // En móvil, la lista de sesiones debe ser más vertical y compacta
+    let backTarget = isMobile ? `onclick="navigateTo('octavo')"` : `onclick="navigateTo('sexto')"`;
+
     secNav.innerHTML = `
-        <button class="nav-btn" onclick="navigateTo('sexto')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);">
+        <button class="nav-btn" ${backTarget} style="margin-bottom: 10px; background: rgba(255,255,255,0.1);">
             <i class='bx bx-chevron-left'></i><span>« Volver</span>
         </button>
-        <p class="nav-title">SESIONES</p>
+        <p class="nav-title" style="font-size: 0.8rem;">SESIONES DIGITALES</p>
     `;
 
     gradeData.sessions.forEach(s => {
         const btn = document.createElement('button');
         btn.className = 'nav-btn';
-        btn.innerHTML = `<i class='bx bx-circle'></i><span>Sesión ${s.id}</span>`;
-        btn.onclick = () => renderSessionDetail(s, gradeData);
+        btn.style.fontSize = isMobile ? '0.85rem' : '0.95rem';
+        btn.innerHTML = `<i class='bx bx-circle'></i><span>Sesión ${s.id}: ${isMobile ? s.title.substring(0,25)+'...' : s.title}</span>`;
+        btn.onclick = () => {
+            if(isMobile) {
+                // En móvil, cerramos el submenú y vamos al detalle (opcional)
+                // O simplemente renderizamos. Vamos a renderizar.
+            }
+            renderSessionDetail(s, gradeData);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
         secNav.appendChild(btn);
     });
 

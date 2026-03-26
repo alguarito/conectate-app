@@ -1,4 +1,4 @@
-const CACHE_NAME = 'conectate-cache-v1';
+const CACHE_NAME = 'conectate-cache-v2-2026'; // Versión actualizada
 const urlsToCache = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  self.skipWaiting(); // Obligamos al nuevo SW a tomar el control inmediatamente
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -18,34 +19,38 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return resource from cache if present
-        if (response) {
-          return response;
-        }
-        // Otherwise fetch from network
-        return fetch(event.request).catch(() => {
-            // Optional: return a fallback page if network fails
-        });
-      })
-  );
-});
-
-// Activate event allows us to clean up old caches
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Borrando cache viejo:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // Forzamos el control del cliente
+  );
+});
+
+// ESTRATEGIA: Network First (Red primero, luego caché)
+// Esto asegura que si hay internet, el usuario SIEMPRE vea la última versión
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  
+  event.respondWith(
+    fetch(event.request)
+      .then(networkResponse => {
+        // Guardamos una copia en el cache para uso offline
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      })
+      .catch(() => {
+        // Si la red falla (offline), devolvemos el cache
+        return caches.match(event.request);
+      })
   );
 });

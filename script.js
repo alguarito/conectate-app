@@ -135,9 +135,13 @@ function renderSectionInfo(sectionId) {
 
 function renderSessionDetail(sessionData, gradeData) {
     const isMobile = window.innerWidth <= 480;
+    mainViewer.style.display = 'block';
     mainViewer.innerHTML = `
         <div class="agent-viewer ${gradeData.theme}">
             <div class="agent-header" style="${isMobile ? 'flex-direction: column; text-align: center;' : ''}">
+                <button onclick="navigateTo('octavo')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: ${isMobile ? 'flex' : 'none'}; align-items: center; gap: 5px;">
+                    <i class='bx bx-chevron-left'></i> Volver
+                </button>
                 <div class="agent-icon-large glass-panel" style="${isMobile ? 'margin: 0 auto 15px;' : ''}"><i class='bx bx-book-reader'></i></div>
                 <div class="agent-header-text">
                     <h2 style="${isMobile ? 'font-size: 1.5rem;' : ''}">${gradeData.title} | Sesión ${sessionData.id}</h2>
@@ -147,9 +151,9 @@ function renderSessionDetail(sessionData, gradeData) {
             <div class="feature-card glass-panel" style="max-width: 700px; margin: 20px auto; text-align: center; padding: ${isMobile ? '25px' : '40px'};">
                 <i class='bx bx-brain' style="font-size: ${isMobile ? '3rem' : '4rem'}; color: #ef4444; margin-bottom: 20px;"></i>
                 <h3 style="${isMobile ? 'font-size: 1.3rem;' : ''}">${sessionData.title}</h3>
-                <p style="margin-bottom: 30px; font-size: ${isMobile ? '0.9rem' : '1rem'};">${sessionData.desc}</p>
-                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-block; padding: 15px 30px; background: #ef4444; color: white; text-decoration: none; border-radius: 12px; font-weight: bold; width: 100%;">
-                    ABRIR CUADERNO INTERACTIVO
+                <p style="margin-bottom: 30px; font-size: ${isMobile ? '0.9rem' : '1rem'}; line-height: 1.6;">${sessionData.desc}</p>
+                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 30px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; text-decoration: none; border-radius: 12px; font-weight: bold; width: 100%; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3);">
+                    <i class='bx bx-window-open'></i> ABRIR CUADERNO INTERACTIVO
                 </a>
             </div>
         </div>`;
@@ -158,16 +162,50 @@ function renderSessionDetail(sessionData, gradeData) {
 function renderSubMenu(sectionId) {
     const gradeData = sectionData[sectionId];
     const isMobile = window.innerWidth <= 480;
+    
     if (secNavElement) secNavElement.remove();
 
+    // EN MÓVIL: Renderizamos una rejilla de sesiones en el visor principal
+    if (isMobile) {
+        mainViewer.style.display = 'block';
+        let sessionsHtml = `
+            <div class="agent-viewer ${gradeData.theme}">
+                <div class="agent-header" style="flex-direction: column; text-align: center;">
+                    <div class="agent-icon-large glass-panel" style="margin: 0 auto 15px;">${gradeData.icon}</div>
+                    <div class="agent-header-text">
+                        <h2 style="font-size: 1.8rem;">Sesiones de ${gradeData.title}</h2>
+                        <p>Elige una clase para comenzar</p>
+                    </div>
+                </div>
+                <div class="dashboard-grid" style="grid-template-columns: 1fr; gap: 15px; padding-bottom: 40px;">
+        `;
+
+        gradeData.sessions.forEach(s => {
+            sessionsHtml += `
+                <div class="feature-card glass-panel" onclick='renderSessionDetail(${JSON.stringify(s)}, ${JSON.stringify(gradeData)})' style="padding: 20px; display: flex; align-items: center; gap: 15px; text-align: left;">
+                    <div style="background: rgba(255,255,255,0.1); width: 45px; height: 45px; min-width: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent-cyan);">
+                        ${s.id}
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1rem; margin: 0;">${s.title}</h3>
+                        <p style="font-size: 0.75rem; margin-top: 4px; line-height: 1.3; color: var(--text-secondary);">${s.desc.substring(0, 60)}...</p>
+                    </div>
+                    <i class='bx bx-chevron-right' style="margin-left: auto; font-size: 1.5rem; color: rgba(255,255,255,0.3);"></i>
+                </div>
+            `;
+        });
+
+        sessionsHtml += `</div></div>`;
+        mainViewer.innerHTML = sessionsHtml;
+        return;
+    }
+
+    // EN ESCRITORIO: Seguimos usando el menú lateral secundario
     const secNav = document.createElement('nav');
     secNav.className = 'agent-nav';
     
-    // En móvil, la lista de sesiones debe ser más vertical y compacta
-    let backTarget = isMobile ? `onclick="navigateTo('octavo')"` : `onclick="navigateTo('sexto')"`;
-
     secNav.innerHTML = `
-        <button class="nav-btn" ${backTarget} style="margin-bottom: 10px; background: rgba(255,255,255,0.1);">
+        <button class="nav-btn" onclick="navigateTo('sexto')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);">
             <i class='bx bx-chevron-left'></i><span>« Volver</span>
         </button>
         <p class="nav-title" style="font-size: 0.8rem;">SESIONES DIGITALES</p>
@@ -176,16 +214,8 @@ function renderSubMenu(sectionId) {
     gradeData.sessions.forEach(s => {
         const btn = document.createElement('button');
         btn.className = 'nav-btn';
-        btn.style.fontSize = isMobile ? '0.85rem' : '0.95rem';
-        btn.innerHTML = `<i class='bx bx-circle'></i><span>Sesión ${s.id}: ${isMobile ? s.title.substring(0,25)+'...' : s.title}</span>`;
-        btn.onclick = () => {
-            if(isMobile) {
-                // En móvil, cerramos el submenú y vamos al detalle (opcional)
-                // O simplemente renderizamos. Vamos a renderizar.
-            }
-            renderSessionDetail(s, gradeData);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        btn.innerHTML = `<i class='bx bx-circle'></i><span>Sesión ${s.id}: ${s.title}</span>`;
+        btn.onclick = () => renderSessionDetail(s, gradeData);
         secNav.appendChild(btn);
     });
 

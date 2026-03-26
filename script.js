@@ -40,8 +40,8 @@ const sectionData = {
         theme: 'theme-uiux', icon: '<i class="bx bx-laptop"></i>', title: 'Grado Noveno', subtitle: 'Introducción al Diseño Web (Tutor: Agente UI/UX)',
         isSessions: true,
         sessions: [
-            { id: 1, title: 'Sesión 1: El Despertar del Inforg', file: './NOVENO/1-9-TIC.html?v=1.1', desc: '¿Eres usuario o producto? Una introducción a la biopolítica y la ética de la información en el siglo XXI.' },
-            { id: 2, title: 'Session 2: Cargando...', file: './NOVENO/2-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
+            { id: 1, title: 'Sesión 1: El Despertar del Inforg', file: './NOVENO/1-9-TIC.html?v=1.3', desc: '¿Eres usuario o producto? Una introducción a la biopolítica y la ética de la información en el siglo XXI.' },
+            { id: 2, title: 'Sesión 2: Desmontando la Historia', file: './NOVENO/2-9-TIC.html?v=1.1', desc: 'Ciencia vs. Tecnología. El Triángulo del Saber y la Autopsia Tecnológica de los objetos.' },
             { id: 3, title: 'Session 3: Cargando...', file: './NOVENO/3-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
             { id: 4, title: 'Session 4: Cargando...', file: './NOVENO/4-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
             { id: 5, title: 'Session 5: Cargando...', file: './NOVENO/5-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },

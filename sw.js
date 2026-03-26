@@ -1,4 +1,4 @@
-const CACHE_NAME = 'conectate-cache-v2-2026'; // Versión actualizada
+const CACHE_NAME = 'conectate-cache-v3-final'; // Nombre de cache actualizado
 const urlsToCache = [
   './',
   './index.html',
@@ -9,8 +9,10 @@ const urlsToCache = [
   './IMAGENES/PERFIL.png'
 ];
 
+// Timestamp para forzar actualización byte-a-byte: 2026-03-26 14:56
+
 self.addEventListener('install', event => {
-  self.skipWaiting(); // Obligamos al nuevo SW a tomar el control inmediatamente
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -30,26 +32,22 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    }).then(() => self.clients.claim()) // Forzamos el control del cliente
+    }).then(() => self.clients.claim())
   );
 });
 
-// ESTRATEGIA: Network First (Red primero, luego caché)
-// Esto asegura que si hay internet, el usuario SIEMPRE vea la última versión
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   
   event.respondWith(
     fetch(event.request)
       .then(networkResponse => {
-        // Guardamos una copia en el cache para uso offline
         return caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, networkResponse.clone());
           return networkResponse;
         });
       })
       .catch(() => {
-        // Si la red falla (offline), devolvemos el cache
         return caches.match(event.request);
       })
   );

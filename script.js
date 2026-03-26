@@ -1,4 +1,7 @@
 // Database of Content by Sections
+const APP_VERSION = '1.5';
+console.log('CONECTATE App Version:', APP_VERSION);
+
 const sectionData = {
     home: {
         theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',

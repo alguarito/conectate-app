@@ -1,5 +1,13 @@
 // Database of Content by Sections
 const sectionData = {
+    home: {
+        theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
+        features: [ 
+            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.' }, 
+            { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.' },
+            { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
+        ]
+    },
     sexto: {
         theme: 'theme-logico', icon: '<i class="bx bx-book-bookmark"></i>', title: 'Grado Sexto', subtitle: 'Iniciación al Pensamiento Computacional (Tutor: Agente Lógico)',
         features: [ { icon: 'bx bx-code-block', title: 'Fundamentos en Bloques', desc: 'Aprende a programar usando bloques visuales estilo Scratch y MakeCode.' }, { icon: 'bx bx-network-chart', title: 'Algoritmos Básicos', desc: 'Descomposición de problemas y secuencias paso a paso.' }, { icon: 'bx bx-game', title: 'Ciudadanía Digital Básica', desc: 'Primeros pasos seguros en la internet y huella digital.' } ]
@@ -50,7 +58,6 @@ const sectionData = {
 // DOM Elements
 const sidebarMenus = document.getElementById('sidebar-menus');
 const mainNav = document.getElementById('main-nav');
-const navBtns = document.querySelectorAll('.nav-btn, .m-btn'); // Captura ambos menús
 const mainViewer = document.getElementById('agent-content');
 const themeToggleBtn = document.getElementById('theme-toggle');
 
@@ -58,38 +65,37 @@ let secNavElement = null;
 
 // Core navigation function
 function navigateTo(sectionId) {
-    const data = sectionData[sectionId];
-    if (!data) return;
-
     const isMobile = window.innerWidth <= 480;
+    const picker = document.getElementById('mobile-grade-picker');
 
-    // Actualizar estados de botones
-    document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-content') === sectionId) btn.classList.add('active');
-    });
+    // Deseleccionar todo
+    document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => btn.classList.remove('active'));
 
-    // En móvil, si pulsamos el botón que NO es de contenido (Grados), mostramos el picker
-    if (isMobile && sectionId === 'octavo') {
-        const picker = document.getElementById('mobile-grade-picker');
-        if (picker && picker.style.display === 'none') {
+    // CASO ESPECIAL: Selector de Grados para Móvil
+    if (sectionId === 'grados-picker' && isMobile) {
+        if (picker) {
             mainViewer.style.display = 'none';
             picker.style.display = 'block';
+            document.querySelectorAll('[data-content="grados-picker"]').forEach(b => b.classList.add('active'));
             return;
         }
     }
 
-    // Ocultar picker si existe
-    const picker = document.getElementById('mobile-grade-picker');
+    // Ocultar picker si existe y estamos cargando contenido real
     if (picker) {
         picker.style.display = 'none';
         mainViewer.style.display = 'block';
     }
 
+    const data = sectionData[sectionId];
+    if (!data) return;
+
+    // Activar estados de botones comunes
+    document.querySelectorAll(`[data-content="${sectionId}"]`).forEach(b => b.classList.add('active'));
+
     if (data.isSessions) {
         renderSubMenu(sectionId);
     } else {
-        // Si hay un submenú activo de otra sección, quitarlo
         if (secNavElement) {
             secNavElement.remove();
             secNavElement = null;
@@ -144,16 +150,16 @@ function renderSessionDetail(sessionData, gradeData) {
                 </button>
                 <div class="agent-icon-large glass-panel" style="${isMobile ? 'margin: 0 auto 15px;' : ''}"><i class='bx bx-book-reader'></i></div>
                 <div class="agent-header-text">
-                    <h2 style="${isMobile ? 'font-size: 1.5rem;' : ''}">${gradeData.title} | Sesión ${sessionData.id}</h2>
+                    <h2>${gradeData.title} | Sesión ${sessionData.id}</h2>
                     <p>Guía de Aprendizaje Activo</p>
                 </div>
             </div>
-            <div class="feature-card glass-panel" style="max-width: 700px; margin: 20px auto; text-align: center; padding: ${isMobile ? '25px' : '40px'};">
-                <i class='bx bx-brain' style="font-size: ${isMobile ? '3rem' : '4rem'}; color: #ef4444; margin-bottom: 20px;"></i>
-                <h3 style="${isMobile ? 'font-size: 1.3rem;' : ''}">${sessionData.title}</h3>
-                <p style="margin-bottom: 30px; font-size: ${isMobile ? '0.9rem' : '1rem'}; line-height: 1.6;">${sessionData.desc}</p>
-                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 30px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; text-decoration: none; border-radius: 12px; font-weight: bold; width: 100%; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3);">
-                    <i class='bx bx-window-open'></i> ABRIR CUADERNO INTERACTIVO
+            <div class="feature-card glass-panel" style="max-width: 700px; margin: 20px auto; padding: ${isMobile ? '25px' : '40px'}; text-align: center;">
+                <i class='bx bx-brain' style="font-size: 3rem; color: #ef4444; margin-bottom: 20px;"></i>
+                <h3>${sessionData.title}</h3>
+                <p style="margin-bottom: 30px; line-height: 1.6;">${sessionData.desc}</p>
+                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 10px; padding: 18px 30px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; text-decoration: none; border-radius: 12px; font-weight: bold;">
+                    <i class='bx bx-window-open'></i> ABRIR CUADERNO
                 </a>
             </div>
         </div>`;
@@ -162,55 +168,38 @@ function renderSessionDetail(sessionData, gradeData) {
 function renderSubMenu(sectionId) {
     const gradeData = sectionData[sectionId];
     const isMobile = window.innerWidth <= 480;
-    
     if (secNavElement) secNavElement.remove();
 
-    // EN MÓVIL: Renderizamos una rejilla de sesiones en el visor principal
     if (isMobile) {
         mainViewer.style.display = 'block';
-        let sessionsHtml = `
+        let html = `
             <div class="agent-viewer ${gradeData.theme}">
                 <div class="agent-header" style="flex-direction: column; text-align: center;">
+                    <button onclick="navigateTo('grados-picker')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; gap: 5px;">
+                        <i class='bx bx-chevron-left'></i> Volver
+                    </button>
                     <div class="agent-icon-large glass-panel" style="margin: 0 auto 15px;">${gradeData.icon}</div>
-                    <div class="agent-header-text">
-                        <h2 style="font-size: 1.8rem;">Sesiones de ${gradeData.title}</h2>
-                        <p>Elige una clase para comenzar</p>
-                    </div>
+                    <h2>Ruta de Sesiones: ${gradeData.title}</h2>
                 </div>
-                <div class="dashboard-grid" style="grid-template-columns: 1fr; gap: 15px; padding-bottom: 40px;">
+                <div class="dashboard-grid" style="grid-template-columns: 1fr; gap: 12px; padding-bottom: 50px;">
         `;
-
         gradeData.sessions.forEach(s => {
-            sessionsHtml += `
-                <div class="feature-card glass-panel" onclick='renderSessionDetail(${JSON.stringify(s)}, ${JSON.stringify(gradeData)})' style="padding: 20px; display: flex; align-items: center; gap: 15px; text-align: left;">
-                    <div style="background: rgba(255,255,255,0.1); width: 45px; height: 45px; min-width: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent-cyan);">
-                        ${s.id}
+            html += `
+                <div class="feature-card glass-panel" onclick='renderSessionDetail(${JSON.stringify(s)}, ${JSON.stringify(gradeData)})' style="display: flex; align-items: center; gap: 15px; padding: 15px; text-align: left;">
+                    <div style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">${s.id}</div>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0;">${s.title}</h4>
                     </div>
-                    <div>
-                        <h3 style="font-size: 1rem; margin: 0;">${s.title}</h3>
-                        <p style="font-size: 0.75rem; margin-top: 4px; line-height: 1.3; color: var(--text-secondary);">${s.desc.substring(0, 60)}...</p>
-                    </div>
-                    <i class='bx bx-chevron-right' style="margin-left: auto; font-size: 1.5rem; color: rgba(255,255,255,0.3);"></i>
-                </div>
-            `;
+                    <i class='bx bx-chevron-right'></i>
+                </div>`;
         });
-
-        sessionsHtml += `</div></div>`;
-        mainViewer.innerHTML = sessionsHtml;
+        mainViewer.innerHTML = html + `</div></div>`;
         return;
     }
 
-    // EN ESCRITORIO: Seguimos usando el menú lateral secundario
     const secNav = document.createElement('nav');
     secNav.className = 'agent-nav';
-    
-    secNav.innerHTML = `
-        <button class="nav-btn" onclick="navigateTo('sexto')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);">
-            <i class='bx bx-chevron-left'></i><span>« Volver</span>
-        </button>
-        <p class="nav-title" style="font-size: 0.8rem;">SESIONES DIGITALES</p>
-    `;
-
+    secNav.innerHTML = `<button class="nav-btn" onclick="navigateTo('home')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);"><i class='bx bx-chevron-left'></i><span>« Volver</span></button><p class="nav-title">SESIONES</p>`;
     gradeData.sessions.forEach(s => {
         const btn = document.createElement('button');
         btn.className = 'nav-btn';
@@ -218,7 +207,6 @@ function renderSubMenu(sectionId) {
         btn.onclick = () => renderSessionDetail(s, gradeData);
         secNav.appendChild(btn);
     });
-
     if(mainNav) mainNav.style.display = 'none';
     sidebarMenus.appendChild(secNav);
     secNavElement = secNav;
@@ -241,4 +229,5 @@ if(themeToggleBtn) {
     };
 }
 
-navigateTo('sexto');
+// Init Load en HOME
+navigateTo('home');

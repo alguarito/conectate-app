@@ -42,15 +42,14 @@ const sectionData = {
         sessions: [
             { id: 1, title: 'Sesión 1: El Despertar del Inforg', file: './NOVENO/1-9-TIC.html?v=1.3', desc: '¿Eres usuario o producto? Una introducción a la biopolítica y la ética de la información en el siglo XXI.' },
             { id: 2, title: 'Sesión 2: Desmontando la Historia', file: './NOVENO/2-9-TIC.html?v=1.1', desc: 'Ciencia vs. Tecnología. El Triángulo del Saber y la Autopsia Tecnológica de los objetos.' },
-            { id: 3, title: 'Session 3: Cargando...', file: './NOVENO/3-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 4, title: 'Session 4: Cargando...', file: './NOVENO/4-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 5, title: 'Session 5: Cargando...', file: './NOVENO/5-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 6, title: 'Session 6: Cargando...', file: './NOVENO/6-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 7, title: 'Session 7: Cargando...', file: './NOVENO/7-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 8, title: 'Session 8: Cargando...', file: './NOVENO/8-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 9, title: 'Session 9: Cargando...', file: './NOVENO/9-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 10, title: 'Session 10: Cargando...', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' },
-            { id: 11, title: 'Session 11: Cargando...', file: './NOVENO/11-9-TIC.html?v=1.0', desc: 'Contenido en desarrollo. Pronto descubrirás la magia del diseño web.' }
+            { id: 3, title: 'Sesión 3: Arqueología del Saber', file: './NOVENO/3-9-TIC.html?v=1.0', desc: 'Excavando en la historia de la tecnología: De las herramientas de piedra a la inteligencia artificial.' },
+            { id: 4, title: 'Sesión 4: El Dueño de las Ideas', file: './NOVENO/4-9-TIC.html?v=1.0', desc: 'Propiedad intelectual, copyleft y la lucha por el conocimiento abierto en la era digital.' },
+            { id: 5, title: 'Sesión 5: Ingeniería del Documento', file: './NOVENO/5-9-TIC.html?v=1.0', desc: 'Dominando la estructura técnica y profesional de los trabajos académicos bajo normas APA 7.' },
+            { id: 6, title: 'Sesión 6: El Arte de Citar', file: './NOVENO/6-9-TIC.html?v=1.0', desc: 'Construyendo el diálogo de saberes: Tipos de citas, honestidad académica y gestores de referencias.' },
+            { id: 7, title: 'Sesión 7: Biopolítica y Biotecnología', file: './NOVENO/7-9-TIC.html?v=1.0', desc: '¿Hechos de datos? Reflexiones éticas sobre CRISPR, patentes biológicas y el control de los cuerpos.' },
+            { id: 8, title: 'Sesión 8: El algoritmo de la Desigualdad', file: './NOVENO/8-9-TIC.html?v=1.0', desc: 'Sesgos, discriminación y ética algorítmica: ¿Es la Inteligencia Artificial realmente objetiva?' },
+            { id: 9, title: 'Sesión 9: El Valor del Silencio', file: './NOVENO/9-9-TIC.html?v=1.0', desc: 'Privacidad, vigilancia y protección de datos: Defendiendo tu identidad en la era del Big Data.' },
+            { id: 10, title: 'Sesión 10: Territorios en Disputa', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Soberanía tecnológica y resistencia digital: Construyendo futuro desde lo local y comunitario.' }
         ]
     },
     decimo: {

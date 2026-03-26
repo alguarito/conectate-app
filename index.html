@@ -124,14 +124,21 @@
     <!-- Custom JS (Con versión para forzar actualización) -->
     <script src="script.js?v=1.2"></script>
     <script src="chat-tesla.js?v=1.2"></script>
-    <!-- REINCIO DE CACHE: Desactivado temporalmente para pruebas
+    <!-- SCRIPT DE LIMPIEZA TOTAL: Obliga al navegador a borrar el caché viejo -->
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js');
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        // También limpiamos el Cache Storage directamente
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
             });
         }
     </script>
-    -->
 </body>
 </html>

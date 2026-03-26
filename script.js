@@ -20,17 +20,17 @@ const sectionData = {
         theme: 'theme-maker', icon: '<i class="bx bx-book-open"></i>', title: 'Grado Octavo', subtitle: 'Robótica y Entornos Virtuales (Tutor: Agente Maker)',
         isSessions: true,
         sessions: [
-            { id: 1, title: 'Bases de la Electrónica', file: './OCTAVO/1-8-TIC.html', desc: 'Introducción a la corriente, voltaje y resistencias. Explorando el flujo energético de tus primeros circuitos.' },
-            { id: 2, title: 'El Protoboard Mágico', file: './OCTAVO/2-8-TIC.html', desc: 'Aprende a ensamblar tu primer circuito básico sin soldar, interactuando con LEDs y pulsadores.' },
-            { id: 3, title: 'Resistencias (Ley de Ohm)', file: './OCTAVO/3-8-TIC.html', desc: 'Cálculo interactivo de resistencias para evitar que tus brillantes LEDs se quemen.' },
-            { id: 4, title: 'Conoce Arduino UNO', file: './OCTAVO/4-8-TIC.html', desc: 'Analizamos la placa Arduino UNO, sus pines de entrada y el entorno de desarrollo IDE.' },
-            { id: 5, title: 'Programando el Cerebro', file: './OCTAVO/5-8-TIC.html', desc: 'Tu primer código "Blink" paso a paso. Compilando y cargando programas.' },
-            { id: 6, title: 'Entradas Digitales', file: './OCTAVO/6-8-TIC.html', desc: 'Conectando interruptores y botones al Arduino para controlar hardware externo.' },
-            { id: 7, title: 'Entradas Analógicas (Sensores)', file: './OCTAVO/7-8-TIC.html', desc: 'Uso de potenciómetros y fotoresistencias (LDR) para medir luz del ambiente.' },
-            { id: 8, title: 'Salidas Variables (PWM)', file: './OCTAVO/8-8-TIC.html', desc: 'Controlando el brillo de un LED gradualmente y encendiendo motores de forma rítmica.' },
-            { id: 9, title: 'Sensores Ultrasónicos', file: './OCTAVO/9-8-TIC.html', desc: 'Midiendo distancias como murciélagos con el potente sensor HC-SR04.' },
-            { id: 10, title: 'Motores Micro Servo', file: './OCTAVO/10-8-TIC.html', desc: 'Control programático de posición y movimiento con motores de precisión para brazos robóticos.' },
-            { id: 11, title: 'Feria Proyecto Final', file: './OCTAVO/11-8-TIC.html', desc: 'Integra todos tus sensores y actuadores en un diseño de software/hardware completamente libre.' }
+            { id: 1, title: 'Bases de la Electrónica', file: './OCTAVO/1-8-TIC.html?v=new-layout', desc: 'Introducción a la corriente, voltaje y resistencias. Explorando el flujo energético de tus primeros circuitos.' },
+            { id: 2, title: 'El Protoboard Mágico', file: './OCTAVO/2-8-TIC.html?v=new-layout', desc: 'Aprende a ensamblar tu primer circuito básico sin soldar, interactuando con LEDs y pulsadores.' },
+            { id: 3, title: 'Resistencias (Ley de Ohm)', file: './OCTAVO/3-8-TIC.html?v=new-layout', desc: 'Cálculo interactivo de resistencias para evitar que tus brillantes LEDs se quemen.' },
+            { id: 4, title: 'Conoce Arduino UNO', file: './OCTAVO/4-8-TIC.html?v=new-layout', desc: 'Analizamos la placa Arduino UNO, sus pines de entrada y el entorno de desarrollo IDE.' },
+            { id: 5, title: 'Programando el Cerebro', file: './OCTAVO/5-8-TIC.html?v=new-layout', desc: 'Tu primer código "Blink" paso a paso. Compilando y cargando programas.' },
+            { id: 6, title: 'Entradas Digitales', file: './OCTAVO/6-8-TIC.html?v=new-layout', desc: 'Conectando interruptores y botones al Arduino para controlar hardware externo.' },
+            { id: 7, title: 'Entradas Analógicas (Sensores)', file: './OCTAVO/7-8-TIC.html?v=new-layout', desc: 'Uso de potenciómetros y fotoresistencias (LDR) para medir luz del ambiente.' },
+            { id: 8, title: 'Salidas Variables (PWM)', file: './OCTAVO/8-8-TIC.html?v=new-layout', desc: 'Controlando el brillo de un LED gradualmente y encendiendo motores de forma rítmica.' },
+            { id: 9, title: 'Sensores Ultrasónicos', file: './OCTAVO/9-8-TIC.html?v=new-layout', desc: 'Midiendo distancias como murciélagos con el potente sensor HC-SR04.' },
+            { id: 10, title: 'Motores Micro Servo', file: './OCTAVO/10-8-TIC.html?v=new-layout', desc: 'Control programático de posición y movimiento con motores de precisión para brazos robóticos.' },
+            { id: 11, title: 'Feria Proyecto Final', file: './OCTAVO/11-8-TIC.html?v=new-layout', desc: 'Integra todos tus sensores y actuadores en un diseño de software/hardware completamente libre.' }
         ]
     },
     noveno: {

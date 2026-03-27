@@ -1,4 +1,4 @@
-const CACHE_NAME = 'conectate-cache-v4-master'; // Nueva versión para forzar actualización
+const CACHE_NAME = 'conectate-cache-v5-master'; // Nueva versión para forzar actualización
 const urlsToCache = [
   './',
   './index.html',

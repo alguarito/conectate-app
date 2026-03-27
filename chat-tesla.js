@@ -1,7 +1,8 @@
 // chat-tesla.js
 
+window.addEventListener('load', function() {
 (function () {
-    // ⚡ URL de tu Cloudflare Worker (reemplaza con tu URL real después de desplegarlo)
+    // ⚡ URL de tu Cloudflare Worker
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
 
     // Check if we are in a subdirectory (like octavo/)
@@ -276,3 +277,4 @@
     });
 
 })();
+});

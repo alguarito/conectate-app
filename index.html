@@ -7,6 +7,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>IE Sor María Juliana - Tecnología e Informática</title>
+    <!-- Performance Preconnect Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- BoxIcons para iconos -->
@@ -167,21 +171,8 @@
     <!-- Custom JS (Con versión para forzar actualización) -->
     <script src="script.js?v=1.8"></script>
     <script src="chat-tesla.js?v=1.8"></script>
-    <!-- SCRIPT DE LIMPIEZA TOTAL: Solo se registra el service worker si no hay conflictos -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                }
-            });
-        }
-        // También limpiamos el Cache Storage directamente
-        if ('caches' in window) {
-            caches.keys().then(function(names) {
-                for (let name of names) caches.delete(name);
-            });
-        }
-    </script>
+    <!-- Custom JS (Con versión para forzar actualización) -->
+    <script src="script.js?v=1.8"></script>
+    <script src="chat-tesla.js?v=1.8"></script>
 </body>
 </html>

@@ -38,16 +38,36 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   
-  event.respondWith(
-    fetch(event.request)
-      .then(networkResponse => {
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
+  // Estrategia: Stale-while-revalidate para archivos del sitio, 
+  // Cache-first para imágenes y fuentes externas.
+  const isStaticAsset = event.request.url.match(/\.(png|jpg|jpeg|gif|svg|woff2|ttf|eot)$/) || 
+                       event.request.url.includes('fonts.gstatic.com') ||
+                       event.request.url.includes('unpkg.com');
+
+  if (isStaticAsset) {
+    // Cache-first
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        return cachedResponse || fetch(event.request).then(networkResponse => {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
         });
       })
-      .catch(() => {
-        return caches.match(event.request);
+    );
+  } else {
+    // Stale-while-revalidate
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        });
+        return cachedResponse || fetchPromise;
       })
-  );
+    );
+  }
 });

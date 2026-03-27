@@ -71,7 +71,13 @@ const sectionData = {
     },
     herramientas: {
         theme: 'theme-maker', icon: '<i class="bx bx-wrench"></i>', title: 'Caja de Herramientas', subtitle: 'Accesos Directos a Plataformas Educativas',
-        features: [ { icon: 'bx bx-link-external', title: 'Scratch / MakeCode', desc: 'Abre la plataforma oficial para programación visual por bloques.' }, { icon: 'bx bx-link-external', title: 'Tinkercad', desc: 'Accede al simulador 3D y de circuitos electrónicos online.' }, { icon: 'bx bx-link-external', title: 'Canva / Figma', desc: 'Ingresa a las herramientas de diseño gráfico avanzado y colaborativo.' } ]
+        features: [ 
+            { icon: 'bx bx-code-block', title: 'Scratch', desc: 'Plataforma oficial de programación visual por bloques del MIT.', url: 'https://scratch.mit.edu/' },
+            { icon: 'bx bx-chip', title: 'MakeCode', desc: 'Entorno de Microsoft para programar micro:bit y kits de robótica.', url: 'https://makecode.microbit.org/' },
+            { icon: 'bx bx-package', title: 'Cardboard LOFI', desc: 'Herramienta de programación visual para proyectos LOFI Robot.', url: 'https://cardboard.lofirobot.com/' },
+            { icon: 'bx bx-cube', title: 'Tinkercad', desc: 'Simulador 3D y de circuitos electrónicos online.', url: 'https://www.tinkercad.com/' },
+            { icon: 'bx bx-brush', title: 'Canva / Figma', desc: 'Diseño gráfico avanzado y prototipado colaborativo.', url: 'https://www.canva.com/' }
+        ]
     }
 };
 
@@ -145,13 +151,21 @@ function renderSectionInfo(sectionId) {
 
     if (data.features) {
         data.features.forEach(f => {
-            const hasAction = f.action ? `onclick="${f.action}()"` : '';
+            let actionAttr = '';
+            if (f.action) {
+                actionAttr = `onclick="${f.action}()"`;
+            } else if (f.url) {
+                actionAttr = `onclick="window.location.href='${f.url}'"`;
+            }
+            
+            const interactiveStyle = (f.action || f.url) ? 'border: 1px solid rgba(139, 92, 246, 0.3); cursor: pointer;' : '';
+            
             html += `
-                <div class="feature-card glass-panel" ${hasAction} style="margin-bottom: 12px; ${f.action ? 'border: 1px solid rgba(139, 92, 246, 0.3);' : ''}">
+                <div class="feature-card glass-panel" ${actionAttr} style="margin-bottom: 12px; ${interactiveStyle}">
                     <i class="${f.icon}"></i>
                     <h3>${f.title}</h3>
                     <p style="font-size: 0.85rem;">${f.desc}</p>
-                    ${f.action ? '<span style="font-size: 0.7rem; color: var(--accent-purple); font-weight: bold; margin-top: 10px; display: block;">CLICK PARA VER MÁS</span>' : ''}
+                    ${(f.action || f.url) ? '<span style="font-size: 0.7rem; color: var(--accent-purple); font-weight: bold; margin-top: 10px; display: block;">CLICK PARA ABRIR</span>' : ''}
                 </div>`;
         });
     }

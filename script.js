@@ -78,8 +78,43 @@ const sectionData = {
             { icon: 'bx bx-cube', title: 'Tinkercad', desc: 'Simulador 3D y de circuitos electrónicos online.', url: 'https://www.tinkercad.com/' },
             { icon: 'bx bx-brush', title: 'Canva / Figma', desc: 'Diseño gráfico avanzado y prototipado colaborativo.', url: 'https://www.canva.com/' }
         ]
+    },
+    proyectos: {
+        theme: 'theme-maker', icon: '<i class="bx bx-trophy"></i>', title: 'Galeria de Proyectos TIC', subtitle: 'Exhibición de Innovación Estudiantil',
+        isProjects: true
     }
 };
+
+// --- BASE DE DATOS PROVISIONAL DE PROYECTOS ---
+let ticProjects = [
+    { 
+        id: 1, 
+        title: 'Eco-Solar Connect', 
+        student: 'Maicol & Valentina (9-2)', 
+        tag: 'samsung', 
+        tagLabel: 'Solve for Tomorrow', 
+        desc: 'Sistema de riego inteligente alimentado por energía solar.', 
+        link: 'https://facebook.com/post/1' 
+    },
+    { 
+        id: 2, 
+        title: 'Brazo Robótico Inforg', 
+        student: 'Juan Camilo (8-4)', 
+        tag: 'energia', 
+        tagLabel: 'Feria Energía Pereira', 
+        desc: 'Prototipo de prótesis de bajo costo controlada por sensores.', 
+        link: 'https://facebook.com/post/2' 
+    },
+    { 
+        id: 3, 
+        title: 'App Contra el Ciberacoso', 
+        student: 'Grupo 10-1', 
+        tag: 'colegio', 
+        tagLabel: 'Feria Colegio', 
+        desc: 'Plataforma de denuncia anónima y apoyo emocional escolar.', 
+        link: 'https://facebook.com/post/3' 
+    }
+];
 
 // DOM Elements
 const sidebarMenus = document.getElementById('sidebar-menus');
@@ -121,6 +156,8 @@ function navigateTo(sectionId) {
 
     if (data.isSessions) {
         renderSubMenu(sectionId);
+    } else if (data.isProjects) {
+        renderProjectsGallery();
     } else {
         if (secNavElement) {
             secNavElement.remove();
@@ -387,4 +424,128 @@ function closeSocialModal() {
         modal.classList.remove('active');
         setTimeout(() => modal.remove(), 300);
     }
+}
+
+// --- SISTEMA DE GALERÍA DE PROYECTOS TIC ---
+function renderProjectsGallery(filter = 'all') {
+    const data = sectionData.proyectos;
+    mainViewer.innerHTML = `
+        <div class="agent-viewer ${data.theme}">
+            <div class="agent-header">
+                <div class="agent-icon-large glass-panel">${data.icon}</div>
+                <div class="agent-header-text">
+                    <h2>${data.title}</h2>
+                    <p>${data.subtitle}</p>
+                </div>
+            </div>
+
+            <!-- Barra de Filtros -->
+            <div class="filter-bar no-scrollbar">
+                <button class="filter-btn ${filter === 'all' ? 'active' : ''}" onclick="renderProjectsGallery('all')">Todos</button>
+                <button class="filter-btn ${filter === 'samsung' ? 'active' : ''}" onclick="renderProjectsGallery('samsung')">Samsung</button>
+                <button class="filter-btn ${filter === 'energia' ? 'active' : ''}" onclick="renderProjectsGallery('energia')">Energía Pereira</button>
+                <button class="filter-btn ${filter === 'colegio' ? 'active' : ''}" onclick="renderProjectsGallery('colegio')">Feria Colegio</button>
+                <button class="filter-btn ${filter === 'aula' ? 'active' : ''}" onclick="renderProjectsGallery('aula')">Proyecto Aula</button>
+            </div>
+
+            <div class="dashboard-grid" id="projects-grid">
+                <!-- Proyectos se insertan aquí -->
+            </div>
+
+            <button class="fab-btn" onclick="openAddProjectModal()" title="Registrar Proyecto">
+                <i class='bx bx-plus'></i>
+            </button>
+        </div>
+    `;
+
+    const grid = document.getElementById('projects-grid');
+    const filtered = filter === 'all' ? ticProjects : ticProjects.filter(p => p.tag === filter);
+
+    if (filtered.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; opacity: 0.6; padding: 50px;">Aún no hay proyectos registrados en esta categoría. ¡Sube el tuyo!</p>`;
+    } else {
+        filtered.forEach(p => {
+            const tagClass = `tag-${p.tag}`;
+            grid.innerHTML += `
+                <div class="project-card glass-panel">
+                    <div class="badge ${tagClass}">${p.tagLabel}</div>
+                    <h3>${p.title}</h3>
+                    <p class="project-author">Por: ${p.student}</p>
+                    <p class="project-desc">${p.desc}</p>
+                    <a href="${p.link}" class="cv-button project-link">
+                        <i class='bx bxl-facebook-circle'></i> VER EN FACEBOOK
+                    </a>
+                </div>
+            `;
+        });
+    }
+}
+
+function openAddProjectModal() {
+    const modalHtml = `
+        <div class="modal-overlay active" id="project-form-modal" onclick="closeProjectModal()">
+            <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 550px;">
+                <button class="modal-close" onclick="closeProjectModal()"><i class='bx bx-x'></i></button>
+                <h2 style="color: white; margin-bottom: 5px;">Postea tu Proyecto TIC</h2>
+                <p style="color: rgba(255,255,255,0.6); margin-bottom: 25px; font-size: 0.9rem;">Comparte tu innovación con la comunidad.</p>
+                
+                <form id="project-form" style="text-align: left;">
+                    <div class="form-group">
+                        <label>Nombre del Proyecto</label>
+                        <input type="text" id="p-title" required placeholder="Ej: Robot Reciclador">
+                    </div>
+                    <div class="form-group">
+                        <label>Estudiantes / Grado</label>
+                        <input type="text" id="p-student" placeholder="Ej: Diana & Carlos (11-1)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select id="p-tag">
+                            <option value="samsung">Solve for Tomorrow (Samsung)</option>
+                            <option value="energia">Feria Energía de Pereira</option>
+                            <option value="colegio">Feria de Ciencias Colegio</option>
+                            <option value="aula" selected>Proyecto de Aula</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Breve Descripción</label>
+                        <textarea id="p-desc" maxlength="150" required placeholder="Describe brevemente de qué trata tu proyecto..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Enlace Facebook (Video o Post)</label>
+                        <input type="url" id="p-link" placeholder="https://facebook.com/..." required>
+                    </div>
+                    
+                    <button type="submit" class="cv-button" style="width: 100%; justify-content: center; padding: 15px;">
+                        PUBLICAR MI PROYECTO <i class='bx bx-send'></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    document.getElementById('project-form').onsubmit = (e) => {
+        e.preventDefault();
+        const newProj = {
+            id: Date.now(),
+            title: document.getElementById('p-title').value,
+            student: document.getElementById('p-student').value,
+            tag: document.getElementById('p-tag').value,
+            tagLabel: document.getElementById('p-tag').options[document.getElementById('p-tag').selectedIndex].text.split(' (')[0],
+            desc: document.getElementById('p-desc').value,
+            link: document.getElementById('p-link').value
+        };
+        
+        ticProjects.unshift(newProj);
+        closeProjectModal();
+        renderProjectsGallery();
+        alert('¡Proyecto publicado con éxito! (Nota: Por ahora se guarda localmente)');
+    };
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('project-form-modal');
+    if (modal) modal.remove();
 }

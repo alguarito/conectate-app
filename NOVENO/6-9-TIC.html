@@ -7,75 +7,11 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- BoxIcons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <style>
-        html { background-color: #0d0e15; }
-        body { 
-            margin: 0;
-            padding: 40px; 
-            min-height: 100vh;
-            box-sizing: border-box;
-            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: var(--text-primary);
-            overflow-x: auto;
-            overflow-y: auto;
-        }
-        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
-        
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0d0e15; z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .loader-spinner {
-            width: 40px; height: 40px;
-            border: 3px solid rgba(255,255,255,0.05);
-            border-left-color: #a855f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .hero { text-align: center; margin-bottom: 50px; }
-        .hero i { font-size: 5rem; color: #a855f7; margin-bottom: 16px; }
-        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
-        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
-        
-        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #22d3ee; font-size: 1.8rem; }
-        .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
-        
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
-        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: #a855f7; opacity: 0; transition: opacity 0.3s;}
-        .concept-card:hover { border-color: rgba(168, 85, 247, 0.5); background: rgba(168, 85, 247, 0.05); transform: translateY(-3px);}
-        .concept-card:hover::before { opacity: 1; }
-        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.2rem; margin: 0; color: white;}
-        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
-        
-        .info-box { background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
-        .info-box-title { font-weight: 700; color: #d8b4fe; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
-
-        .pulse-btn { box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3); background: #a855f7; color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: var(--font-body); font-size: 1.05rem; margin-top: 20px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
-        
-        @media (max-width: 480px) {
-            body { padding: 8px !important; }
-            .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
-            .hero h1 { font-size: 1.4rem !important; }
-            .hero i { font-size: 2.2rem !important; }
-            .hero p { font-size: 0.82rem !important; }
-            .interactive-section { padding: 15px 10px !important; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr !important; gap: 12px !important; }
-            #btn-volver { font-size: 0.75rem !important; padding: 6px 10px !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=1.1">
+</head>
 </head>
 <body>
     <div id="preloader">
@@ -89,12 +25,12 @@
                 <i class='bx bx-arrow-back'></i> Volver a CONECTATE
             </a>
             <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                <i class='bx bx-moon'></i>
             </button>
         </div>
 
         <header class="hero">
-            <i class='bx bx-pen'></i>
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
             <h1>Sesión 6: El Arte de Citar</h1>
             <p>Construyendo el diálogo de saberes: Tipos de citas, honestidad académica y gestores de referencias según APA 7.</p>
         </header>
@@ -112,18 +48,18 @@
 
         <!-- ¿Por qué citar? -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-brain'></i> 1. El Diálogo de Saberes</h2>
+            <h2><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo"> 1. El Diálogo de Saberes</h2>
             <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Ética de la Información</div>
+                <div class="info-box-title"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo"> Ética de la Información</div>
                 <p style="margin: 0; font-size: 0.95rem;">Citar no es solo evitar el plagio. Es integrar tu voz en una conversación global que lleva miles de años. Es reconocer que no estamos solos en el pensamiento.</p>
             </div>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Honestidad Académica <i class='bx bx-plus'></i></h3>
+                    <h3>Honestidad Académica <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo"></h3>
                     <div class="concept-desc">Dar crédito al esfuerzo intelectual de otros. Fortalece tu credibilidad y respeta el trabajo ajeno.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Diálogo Crítico <i class='bx bx-plus'></i></h3>
+                    <h3>Diálogo Crítico <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo"></h3>
                     <div class="concept-desc">Citar permite que otros sigan el rastro de tus ideas y profundicen en los autores que mencionas.</div>
                 </div>
             </div>
@@ -135,15 +71,15 @@
             <p class="section-text">Haz clic en cada tipo para ver su estructura técnica:</p>
             <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Cita Corta <i class='bx bx-plus'></i></h3>
+                    <h3>Cita Corta <i class='bx bx-bracket'></i></h3>
                     <div class="concept-desc">Menos de 40 palabras. Se integra en el párrafo entre comillas. Ejemplo: "..." (Autor, Año, p. X).</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Cita Larga <i class='bx bx-plus'></i></h3>
+                    <h3>Cita Larga <i class='bx bx-align-left'></i></h3>
                     <div class="concept-desc">Más de 40 palabras. Se escribe en bloque aparte, con sangría y sin comillas.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Parafraseo <i class='bx bx-plus'></i></h3>
+                    <h3>Parafraseo <i class='bx bx-sync'></i></h3>
                     <div class="concept-desc">Dices la idea con tus palabras pero citando al autor. No usa comillas ni páginas obligatorias.</div>
                 </div>
             </div>
@@ -170,37 +106,6 @@
         </footer>
     </div>
 
-    <script>
-        const themeBtn = document.getElementById('notebook-theme-toggle');
-        if(themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                document.documentElement.classList.toggle('light-mode');
-                const icon = themeBtn.querySelector('i');
-                icon.className = document.body.classList.contains('light-mode') ? 'bx bx-sun' : 'bx bx-moon';
-            });
-        }
-
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                setTimeout(() => preloader.remove(), 500);
-            }
-        });
-
-        function toggleDesc(element) {
-            const desc = element.querySelector('.concept-desc');
-            const icon = element.querySelector('i');
-            if (desc.style.display === 'block') {
-                desc.style.display = 'none';
-                icon.className = 'bx bx-plus';
-            } else {
-                desc.style.display = 'block';
-                icon.className = 'bx bx-minus';
-            }
-        }
-    </script>
+    <script src="./CORE/notebook-core.js?v=1.0"></script>
 </body>
 </html>

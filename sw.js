@@ -1,15 +1,14 @@
-const CACHE_NAME = 'conectate-cache-v3-final'; // Nombre de cache actualizado
+const CACHE_NAME = 'conectate-cache-v4-master'; // Nueva versión para forzar actualización
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './script.js',
   './chat-tesla.js',
-  './IMAGENES/LOGO 1.png',
-  './IMAGENES/PERFIL.png'
+  './IMAGENES/ID_CONECTATE.png'
 ];
 
-// Timestamp para forzar actualización byte-a-byte: 2026-03-26 14:56
+// Timestamp para forzar actualización byte-a-byte: 2026-03-27 06:12
 
 self.addEventListener('install', event => {
   self.skipWaiting();

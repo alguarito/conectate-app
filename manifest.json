@@ -1,6 +1,6 @@
 {
-  "name": "CONÉCTATE - IE Sor María Juliana",
-  "short_name": "CONÉCTATE",
+  "name": "CONÉCTATE II - Módulo Docente",
+  "short_name": "CONÉCTATE II",
   "description": "Plataforma educativa de Tecnología e Informática",
   "start_url": "./index.html",
   "display": "standalone",
@@ -8,10 +8,16 @@
   "theme_color": "#a855f7",
   "icons": [
     {
-      "src": "./IMAGENES/LOGO 1.png",
-      "sizes": "192x192 512x512",
+      "src": "./IMAGENES/ID_CONECTATE.png",
+      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./IMAGENES/ID_CONECTATE.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

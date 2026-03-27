@@ -62,11 +62,11 @@ const sectionData = {
         features: [ { icon: 'bx bxl-python', title: 'Python & Datos', desc: 'Fundamentos de Python y estructuración para resolver problemas complejos.' }, { icon: 'bx bx-data', title: 'Bases de Datos', desc: 'Introducción a modelos relacionales, SQL y persistencia estructurada.' }, { icon: 'bx bx-brain', title: 'Investigación Asistida', desc: 'Uso de IA y NotebookLM para revisión de literatura y redacción en LATEX.' } ]
     },
     interes: {
-        theme: 'theme-academico', icon: '<i class="bx bx-bulb"></i>', title: 'Centro de Interés', subtitle: 'Semilleros y Actividades Extracurriculares',
+        theme: 'theme-academico', icon: '<i class="bx bx-bulb"></i>', title: 'Centro de Interés y Publicaciones', subtitle: 'Semilleros y Publicaciones Académicas',
         features: [ 
             { icon: 'bx bxl-facebook-circle', title: 'Comunidad ConectaTE', desc: '¡Únete a nuestro Fan Page oficial! Proyectos, noticias y participación activa.', action: 'openSocialModal()' },
-            { icon: 'bx bx-bot', title: 'Club de Robótica Avanzada', desc: 'Construcción y programación de robots físicos y preparativos.' }, 
-            { icon: 'bx bx-file', title: 'Semillero LATEX', desc: 'Redacción de documentos académicos profesionales y divulgación.' }
+            { icon: 'bx bx-book-open', title: 'CosmoTEC fascículo 1', desc: 'Explora la primera edición de nuestra revista digital de tecnología.', url: 'https://canva.link/l9hyanky8wmy4ms' }, 
+            { icon: 'bx bx-book-reader', title: 'CosmoTEC fascículo 2', desc: 'Segunda entrega: Innovación y pensamiento crítico en la Infoesfera.', url: 'https://canva.link/1qbbzprtgo1sf90' }
         ]
     },
     herramientas: {

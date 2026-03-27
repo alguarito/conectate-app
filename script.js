@@ -207,9 +207,31 @@ function renderSectionInfo(sectionId) {
         });
     }
 
-    html += `</div></div>`;
+    html += `</div>`;
+
+    // Inyectar sección de noticias si es HOME
+    if (sectionId === 'home') {
+        html += `
+        <div class="news-section">
+            <div class="news-header">
+                <h3><i class='bx bx-news'></i> Pulso EduTech: Noticias de hoy</h3>
+                <span class="news-badge">IA & Innovación</span>
+            </div>
+            <div id="news-container" class="news-grid">
+                <div class="news-skeleton">
+                    <i class='bx bx-loader-alt bx-spin'></i> Escaneando satélites por noticias frescas...
+                </div>
+            </div>
+        </div>`;
+    }
+
+    html += `</div>`;
     mainViewer.innerHTML = html;
     mainViewer.style.animation = 'fadeIn 0.5s ease forwards';
+    
+    if (sectionId === 'home') {
+        loadEduTechNews();
+    }
 }
 
 function renderSessionDetail(sessionData, gradeData, gradeId) {
@@ -597,5 +619,52 @@ async function refineProjectText() {
         console.error(error);
         status.innerHTML = "<i class='bx bx-error-circle' style='color: #ef4444;'></i> Error al conectar con el Profe Álvaro.";
         setTimeout(() => { status.style.display = 'none'; }, 3000);
+    }
+}
+
+// --- SKILL: ESCÁNER DE NOTICIAS IA ---
+async function loadEduTechNews() {
+    const newsContainer = document.getElementById('news-container');
+    if (!newsContainer) return;
+
+    const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
+    
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "system_instruction": {
+                    "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (resumen corto), 'summary' (una frase) y 'url' (enlace real a la noticia). No saludes, no uses markdown, solo el JSON puro." }]
+                },
+                "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de noticias EduTech de hoy." }] }]
+            })
+        });
+
+        if (!response.ok) throw new Error("News API Error");
+        const data = await response.json();
+        let newsJson = data.candidates[0].content.parts[0].text;
+        
+        // Limpiamos posible markdown
+        newsJson = newsJson.replace(/```json/g, '').replace(/```/g, '').trim();
+        const news = JSON.parse(newsJson);
+
+        newsContainer.innerHTML = news.map((item, index) => `
+            <a href="${item.url}" target="_blank" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
+                <div class="news-content">
+                    <h4>${item.title}</h4>
+                    <p>${item.summary}</p>
+                    <div class="news-footer">Leer más <i class='bx bx-right-arrow-alt'></i></div>
+                </div>
+            </a>
+        `).join('');
+
+    } catch (error) {
+        console.error("Error cargando noticias:", error);
+        newsContainer.innerHTML = `
+            <div class="news-error">
+                <p>Las bobinas de noticias tienen interferencia. <button onclick="loadEduTechNews()" style="background: var(--accent-cyan); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px;">Reintentar</button></p>
+            </div>
+        `;
     }
 }

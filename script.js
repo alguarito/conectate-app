@@ -627,44 +627,87 @@ async function loadEduTechNews() {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
 
+    const CACHE_KEY = 'edutech_news_cache';
+    const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; // 12 horas
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
     
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "system_instruction": {
-                    "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (resumen corto), 'summary' (una frase) y 'url' (enlace real a la noticia). No saludes, no uses markdown, solo el JSON puro." }]
-                },
-                "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de noticias EduTech de hoy." }] }]
-            })
-        });
+    // 1. Intentar cargar desde caché inmediatamente
+    const cachedData = localStorage.getItem(CACHE_KEY);
+    let cacheValid = false;
 
-        if (!response.ok) throw new Error("News API Error");
-        const data = await response.json();
-        let newsJson = data.candidates[0].content.parts[0].text;
-        
-        // Limpiamos posible markdown
-        newsJson = newsJson.replace(/```json/g, '').replace(/```/g, '').trim();
-        const news = JSON.parse(newsJson);
-
-        newsContainer.innerHTML = news.map((item, index) => `
-            <a href="${item.url}" target="_blank" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
-                <div class="news-content">
-                    <h4>${item.title}</h4>
-                    <p>${item.summary}</p>
-                    <div class="news-footer">Leer más <i class='bx bx-right-arrow-alt'></i></div>
-                </div>
-            </a>
-        `).join('');
-
-    } catch (error) {
-        console.error("Error cargando noticias:", error);
-        newsContainer.innerHTML = `
-            <div class="news-error">
-                <p>Las bobinas de noticias tienen interferencia. <button onclick="loadEduTechNews()" style="background: var(--accent-cyan); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px;">Reintentar</button></p>
-            </div>
-        `;
+    if (cachedData) {
+        try {
+            const cache = JSON.parse(cachedData);
+            const timePassed = Date.now() - cache.timestamp;
+            
+            renderNewsCards(cache.data); // Renderizamos lo que tengamos
+            
+            if (timePassed < CACHE_EXPIRATION) {
+                cacheValid = true;
+                console.log("Noticias cargadas desde caché (válidas)");
+            } else {
+                console.log("Caché expirado, actualizando en segundo plano...");
+            }
+        } catch (e) {
+            console.error("Error leyendo caché:", e);
+        }
     }
+
+    // 2. Si no hay caché o ha expirado, consultamos a la IA
+    if (!cacheValid) {
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "system_instruction": {
+                        "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (resumen corto), 'summary' (una frase) y 'url' (enlace real a la noticia). No saludes, no uses markdown, solo el JSON puro." }]
+                    },
+                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de noticias EduTech de hoy." }] }]
+                })
+            });
+
+            if (!response.ok) throw new Error("News API Error");
+            const data = await response.json();
+            let newsJson = data.candidates[0].content.parts[0].text;
+            
+            newsJson = newsJson.replace(/```json/g, '').replace(/```/g, '').trim();
+            const news = JSON.parse(newsJson);
+
+            // Guardar en caché
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+                timestamp: Date.now(),
+                data: news
+            }));
+
+            // Actualizar UI con nuevas noticias
+            renderNewsCards(news);
+            console.log("Noticias actualizadas desde IA");
+
+        } catch (error) {
+            console.error("Error cargando noticias:", error);
+            if (!cachedData) {
+                newsContainer.innerHTML = `
+                    <div class="news-error">
+                        <p>Las bobinas de noticias tienen interferencia. <button onclick="loadEduTechNews()" style="background: var(--accent-cyan); color: white; border/none; padding: 5px 10px; border-radius: 5px; cursor/pointer; margin-top: 10px;">Reintentar</button></p>
+                    </div>
+                `;
+            }
+        }
+    }
+}
+
+function renderNewsCards(news) {
+    const newsContainer = document.getElementById('news-container');
+    if (!newsContainer) return;
+    
+    newsContainer.innerHTML = news.map((item, index) => `
+        <a href="${item.url}" target="_blank" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
+            <div class="news-content">
+                <h4>${item.title}</h4>
+                <p>${item.summary}</p>
+                <div class="news-footer">Leer más <i class='bx bx-right-arrow-alt'></i></div>
+            </div>
+        </a>
+    `).join('');
 }

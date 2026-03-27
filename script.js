@@ -63,7 +63,11 @@ const sectionData = {
     },
     interes: {
         theme: 'theme-academico', icon: '<i class="bx bx-bulb"></i>', title: 'Centro de Interés', subtitle: 'Semilleros y Actividades Extracurriculares',
-        features: [ { icon: 'bx bx-bot', title: 'Club de Robótica Avanzada', desc: 'Construcción y programación de robots físicos y preparativos.' }, { icon: 'bx bx-file', title: 'Semillero LATEX', desc: 'Redacción de documentos académicos profesionales y divulgación.' }, { icon: 'bx bx-code-curly', title: 'Hackatones Escolares', desc: 'Retos de programación competitiva trimestrales.' } ]
+        features: [ 
+            { icon: 'bx bxl-facebook-circle', title: 'Comunidad ConectaTE', desc: '¡Únete a nuestro Fan Page oficial! Proyectos, noticias y participación activa.', action: 'openSocialModal()' },
+            { icon: 'bx bx-bot', title: 'Club de Robótica Avanzada', desc: 'Construcción y programación de robots físicos y preparativos.' }, 
+            { icon: 'bx bx-file', title: 'Semillero LATEX', desc: 'Redacción de documentos académicos profesionales y divulgación.' }
+        ]
     },
     herramientas: {
         theme: 'theme-maker', icon: '<i class="bx bx-wrench"></i>', title: 'Caja de Herramientas', subtitle: 'Accesos Directos a Plataformas Educativas',
@@ -337,3 +341,36 @@ document.addEventListener('click', (e) => {
 
 // Init Load en HOME
 navigateTo('home');
+function openSocialModal() {
+    const modalHtml = `
+        <div class="modal-overlay" id="social-modal" onclick="closeSocialModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeSocialModal()"><i class='bx bx-x'></i></button>
+                <img src="IMAGENES/LOGO CONECTATE.png" alt="Logo ConectaTE" class="profile-img-large" style="border-color: #1877f2; border-radius: 20px; padding: 10px;">
+                <h2 style="color: white; margin-bottom: 10px;">Semillero ConectaTE</h2>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 25px;">
+                    ¡Bienvenido a nuestra comunidad digital! En nuestro Fan Page de Facebook compartimos los avances de investigación, 
+                    proyectos de robótica y todas las actividades del semillero ConectaTE del Sor María Juliana.
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://www.facebook.com/conectate.2024" class="cv-button" style="background: linear-gradient(135deg, #1877f2, #0a52b5);">
+                        <i class='bx bxl-facebook-circle'></i> SEGUIR EN FACEBOOK
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => {
+        document.getElementById('social-modal').classList.add('active');
+    }, 10);
+}
+
+function closeSocialModal() {
+    const modal = document.getElementById('social-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    }
+}

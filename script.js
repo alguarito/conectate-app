@@ -176,7 +176,7 @@ function renderSessionDetail(sessionData, gradeData, gradeId) {
                 <i class='bx bx-brain' style="font-size: 3rem; color: #ef4444; margin-bottom: 20px;"></i>
                 <h3>${sessionData.title}</h3>
                 <p style="margin-bottom: 30px; line-height: 1.6;">${sessionData.desc}</p>
-                <a href="${sessionData.file}" target="_blank" class="glass-panel" style="display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 10px; padding: 18px 30px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; text-decoration: none; border-radius: 12px; font-weight: bold;">
+                <a href="${sessionData.file}" class="glass-panel" style="display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 10px; padding: 18px 30px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; text-decoration: none; border-radius: 12px; font-weight: bold;">
                     <i class='bx bx-window-open'></i> ABRIR CUADERNO
                 </a>
             </div>

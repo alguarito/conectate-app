@@ -6,7 +6,7 @@ const sectionData = {
     home: {
         theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
         features: [ 
-            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.' }, 
+            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
             { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.' },
             { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
         ]
@@ -141,11 +141,13 @@ function renderSectionInfo(sectionId) {
 
     if (data.features) {
         data.features.forEach(f => {
+            const hasAction = f.action ? `onclick="${f.action}()"` : '';
             html += `
-                <div class="feature-card glass-panel" style="margin-bottom: 12px;">
+                <div class="feature-card glass-panel" ${hasAction} style="margin-bottom: 12px; ${f.action ? 'border: 1px solid rgba(139, 92, 246, 0.3);' : ''}">
                     <i class="${f.icon}"></i>
                     <h3>${f.title}</h3>
                     <p style="font-size: 0.85rem;">${f.desc}</p>
+                    ${f.action ? '<span style="font-size: 0.7rem; color: var(--accent-purple); font-weight: bold; margin-top: 10px; display: block;">CLICK PARA VER MÁS</span>' : ''}
                 </div>`;
         });
     }
@@ -274,6 +276,64 @@ if (updateBtn) {
         }
     };
 }
+
+// Modal de Perfil Interactivo
+function openProfile() {
+    const modalHtml = `
+        <div class="modal-overlay" id="profile-modal">
+            <div class="modal-content glass-panel">
+                <button class="modal-close" onclick="closeProfile()"><i class='bx bx-x'></i></button>
+                <img src="IMAGENES/ID_CONECTATE.png" class="profile-img-large" alt="Profesor Álvaro">
+                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color: #fff;">PhD. Álvaro Cárdenas Orozco</h2>
+                <p style="color: var(--accent-cyan); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Docente TIC | Investigador Crítico</p>
+                
+                <div style="text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;">
+                    <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">
+                        Doctor en Educación con énfasis en Tecnologías del Aprendizaje. Miembro del colectivo <strong>ConciencIA</strong>, dedicado a la democratización del saber tecnológico y la pedagogía crítica de la información.
+                    </p>
+                </div>
+                
+                <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 10px;">
+                    <div style="text-align: center;">
+                        <i class='bx bx-brain' style="font-size: 1.5rem; color: var(--accent-purple);"></i>
+                        <p style="font-size: 0.7rem; opacity: 0.8;">Filosofía TIC</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class='bx bx-code-alt' style="font-size: 1.5rem; color: var(--accent-blue);"></i>
+                        <p style="font-size: 0.7rem; opacity: 0.8;">Desarrollo</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class='bx bx-globe' style="font-size: 1.5rem; color: var(--accent-cyan);"></i>
+                        <p style="font-size: 0.7rem; opacity: 0.8;">Soberanía</p>
+                    </div>
+                </div>
+
+                <a href="https://canva.link/r3b2k31f9f7ham2" target="_blank" class="cv-button">
+                    <i class='bx bx-file'></i> VER HOJA DE VIDA COMPLETA
+                </a>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => {
+        document.getElementById('profile-modal').classList.add('active');
+    }, 10);
+}
+
+function closeProfile() {
+    const modal = document.getElementById('profile-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+// Cierre al hacer clic fuera del contenido
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('profile-modal');
+    if (e.target === modal) closeProfile();
+});
 
 // Init Load en HOME
 navigateTo('home');

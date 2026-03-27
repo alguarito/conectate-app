@@ -308,7 +308,7 @@ function openProfile() {
                     </div>
                 </div>
 
-                <a href="https://canva.link/r3b2k31f9f7ham2" target="_blank" class="cv-button">
+                <a href="https://canva.link/r3b2k31f9f7ham2"  class="cv-button">
                     <i class='bx bx-file'></i> VER HOJA DE VIDA COMPLETA
                 </a>
             </div>

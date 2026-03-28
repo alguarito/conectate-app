@@ -5,9 +5,29 @@ window.addEventListener('load', function() {
     // ⚡ URL de tu Cloudflare Worker
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
 
-    // Check if we are in a subdirectory (like octavo/)
-    const isSubdir = window.location.pathname.toLowerCase().includes('/octavo/') || window.location.pathname.toLowerCase().includes('conectate/octavo/');
-    const logoPath = (isSubdir ? '../' : '') + 'IMAGENES/LOGO TESLA.png';
+    // Detect base path for images (works for root and subdirectories)
+    const getBaseImgPath = () => {
+        const pathSegments = window.location.pathname.split('/').filter(s => s !== '');
+        // Si estamos en GitHub Pages (ej: /conectate/), el primer segmento es el repo
+        // Si estamos en local (ej: /), no hay segmentos o el primero es el archivo/carpeta
+        
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const repoName = isGitHubPages ? pathSegments[0] : null;
+        
+        let depth = 0;
+        if (isGitHubPages) {
+            // En GitHub Pages: /repo/folder/file.html -> depth 1 (folder)
+            depth = Math.max(0, pathSegments.length - 2);
+        } else {
+            // En local: /folder/file.html -> depth 1
+            depth = Math.max(0, pathSegments.length - 1);
+        }
+        
+        const prefix = '../'.repeat(depth);
+        return prefix + 'IMAGENES/LOGO TESLA.png';
+    };
+
+    const logoPath = getBaseImgPath();
 
     // Inject CSS
     const style = document.createElement('style');
@@ -167,6 +187,8 @@ window.addEventListener('load', function() {
 
     function formatText(text) {
         return text
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>') // Code blocks
+            .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/\n/g, '<br>');

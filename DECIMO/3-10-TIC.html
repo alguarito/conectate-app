@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 3-10-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Diseñando con Estilo...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <h1>Sesión 3: Estilos Modernos</h1>
+            <p>De la estructura al diseño: Dominando CSS3 para dar vida, color y personalidad a tus aplicaciones web mediante el poder de las hojas de estilo en cascada.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: CSS Profundo</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/w16mRFYh3qo" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Transforma el HTML plano en una experiencia visual impactante.</p>
+        </section>
+
+        <!-- 1. El Misterio de la Cascada -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-layer-plus'></i> 1. Cascada y Especificidad</h2>
+            <p class="section-text">¿Por qué algunos estilos "ganan" sobre otros? Entender esto es la clave para no frustrarse con el código:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Orden de Cascada <i class='bx bx-sort-down'></i></h3>
+                    <div class="concept-desc">Las reglas se leen de arriba a abajo. Si hay conflicto, la última regla escrita suele ser la que se aplica al elemento.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Especificidad <i class='bx bx-bullseye'></i></h3>
+                    <div class="concept-desc">Un selector de ID (#) es más fuerte que una clase (.), y una clase es más fuerte que una etiqueta (p). ¡La precisión importa!</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Teoría del Color y Tipografía -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-palette'></i> 2. Diseño de Identidad Digital</h2>
+            <p class="section-text" style="margin-bottom: 25px;">No solo uses colores, diseña una atmósfera coherente para tu usuario:</p>
+            <div class="grid-3">
+                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(34, 211, 238, 0.1); text-align: center;">
+                    <i class='bx bx-brush-alt' style='font-size: 2.5rem; color: #22d3ee; margin-bottom: 15px; display: block;'></i>
+                    <h4 style="margin: 10px 0;">Sistemas de Color</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Aprende a usar hexadecimal (#fff), RGB y HSL para un control total del espectro visible.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.1); text-align: center;">
+                    <i class='bx bx-font' style='font-size: 2.5rem; color: #a855f7; margin-bottom: 15px; display: block;'></i>
+                    <h4 style="margin: 10px 0;">Psicología de Fuente</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Las Sans-serif transmiten modernidad, las Serif seriedad. Elige según tu propósito narrativo.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(236, 72, 153, 0.1); text-align: center;">
+                    <i class='bx bx-image-alt' style='font-size: 2.5rem; color: #ec4899; margin-bottom: 15px; display: block;'></i>
+                    <h4 style="margin: 10px 0;">Fondos y Bordes</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Gradientes, sombras (box-shadow) y bordes redondeados crean el efecto "Glassmorphism" que ves aquí.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Selector Challenge -->
+        <section class="interactive-section glass-panel" style="border-color: var(--accent-purple);">
+            <h2><i class='bx bx-target-lock'></i> 3. Laboratorio de Selectores</h2>
+            <p class="section-text" style="text-align: center;">Haz clic para identificar qué elemento se vería afectado por cada regla:</p>
+            <div class="grid-2">
+                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #22d3ee;">
+                    <h3 style="font-size: 0.95rem;">Regla: <code>p.activo { }</code> <i class='bx bx-select-multiple'></i></h3>
+                    <div class="concept-desc">Afecta solamente a los párrafos que tengan asignada la clase específica "activo".</div>
+                </div>
+                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #a855f7;">
+                    <h3 style="font-size: 0.95rem;">Regla: <code>section > h2 { }</code> <i class='bx bx-chevron-right'></i></h3>
+                    <div class="concept-desc">Afecta solo a los títulos de nivel 2 que sean hijos directos de una sección.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="3-10-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía S3 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Diseño de Interfaces</strong> (v1.0)<br>
+                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

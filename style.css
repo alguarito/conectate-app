@@ -849,4 +849,4 @@ body.light-mode .search-box input { color: var(--text-primary); }
     border-color: var(--accent-purple);
     transform: translateY(-3px);
 }
-.choice-card.selected i { color: var(--accent-purple); }
+

@@ -813,10 +813,26 @@ function updateUIForUser() {
     
     if (userDetails) {
         userDetails.innerHTML = `
-            <p class="name">${currentUser.name}</p>
+            <p class="name">${currentUser.name} ${currentUser.isAdmin ? '<span class="admin-badge">Admin</span>' : ''}</p>
             <p class="role">${currentUser.isAdmin ? 'Docente TIC' : 'Estudiante Inforg'} | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
         `;
     }
+    
+    // Inyectar botón de Dashboard si es admin
+    const sidebarMenus = document.getElementById('sidebar-menus');
+    if (currentUser.isAdmin && sidebarMenus && !document.getElementById('nav-admin-dash')) {
+        const adminBtn = document.createElement('a');
+        adminBtn.id = 'nav-admin-dash';
+        adminBtn.href = '#';
+        adminBtn.className = 'nav-item';
+        adminBtn.innerHTML = `<i class='bx bxs-dashboard' style='color: var(--accent-purple)'></i> <span>Dashboard Datos</span>`;
+        adminBtn.onclick = (e) => {
+            e.preventDefault();
+            renderAdminDashboard();
+        };
+        sidebarMenus.appendChild(adminBtn);
+    }
+
     if (userAvatar && currentUser.picture) {
         userAvatar.src = currentUser.picture;
     }
@@ -854,14 +870,17 @@ function renderCharacterizationFlow() {
                             <label>Grado y Grupo</label>
                             <select id="f-grade" required>
                                 <option value="">Selecciona tu grupo...</option>
-                                <optgroup label="Sexto">
-                                    <option>6-1</option><option>6-2</option><option>6-3</option><option>6-4</option>
+                                <optgroup label="Octavo">
+                                    <option>8-1</option><option>8-2</option><option>8-3</option>
                                 </optgroup>
                                 <optgroup label="Noveno">
-                                    <option>9-1</option><option>9-2</option><option>9-3</option><option>9-4</option>
+                                    <option>9-1</option><option>9-2</option><option>9-3</option>
+                                </optgroup>
+                                <optgroup label="Décimo">
+                                    <option>10-1</option>
                                 </optgroup>
                                 <optgroup label="Once">
-                                    <option>11-1</option><option>11-2</option>
+                                    <option>11-1</option><option>11-2</option><option>11-3</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -1024,9 +1043,204 @@ function finishRegistration() {
     checkUserStatus();
 }
 
+// --- FUNCIONES DEL DASHBOARD ADMINISTRATIVO ---
+function renderAdminDashboard() {
+    const mainViewer = document.getElementById('agent-content');
+    const allData = [];
+    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    
+    // Recolectar todos los datos de caracterización
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('data_')) {
+            const email = key.replace('data_', '');
+            const charData = JSON.parse(localStorage.getItem(key));
+            if (accounts[email]) {
+                allData.push({ ...accounts[email], ...charData });
+            }
+        }
+    });
+
+    // Procesar estadísticas para gráficas
+    const stats = {
+        grades: {},
+        stratum: {},
+        internet: {},
+        interests: {}
+    };
+
+    allData.forEach(d => {
+        stats.grades[d.grade] = (stats.grades[d.grade] || 0) + 1;
+        stats.stratum[d.stratum] = (stats.stratum[d.stratum] || 0) + 1;
+        stats.internet[d.internet] = (stats.internet[d.internet] || 0) + 1;
+        stats.interests[d.interest] = (stats.interests[d.interest] || 0) + 1;
+    });
+
+    mainViewer.innerHTML = `
+        <div class="agent-viewer theme-academico">
+            <div class="agent-header">
+                <div class="agent-icon-large glass-panel"><i class='bx bxs-doughnut-chart'></i></div>
+                <div class="agent-header-text">
+                    <h2>Panel de Analítica</h2>
+                    <p>Monitoreo de caracterización sociodemográfica y semillero.</p>
+                </div>
+                <div class="header-actions" style="margin-left: auto;">
+                    <button class="btn-secondary" onclick="window.print()"><i class='bx bx-printer'></i> PDF</button>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card glass-panel">
+                    <h4>Total Registrados</h4>
+                    <div class="stat-value">${allData.length}</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <h4>Grupos Activos</h4>
+                    <div class="stat-value">${Object.keys(stats.grades).length}</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <h4>Interés Top</h4>
+                    <div class="stat-value" style="font-size: 1.2rem; margin-top: 10px;">
+                        ${Object.entries(stats.interests).sort((a,b) => b[1]-a[1])[0]?.[0] || 'N/A'}
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card glass-panel"><canvas id="chart-grades"></canvas></div>
+                <div class="chart-card glass-panel"><canvas id="chart-stratum"></canvas></div>
+                <div class="chart-card glass-panel"><canvas id="chart-internet"></canvas></div>
+                <div class="chart-card glass-panel"><canvas id="chart-interest"></canvas></div>
+            </div>
+
+            <div class="agent-header" style="margin-top: 40px;">
+                <h3>Listado Detallado de Estudiantes</h3>
+            </div>
+            
+            <div class="search-filter-bar">
+                <input type="text" id="student-search" placeholder="Buscar por nombre o correo..." oninput="filterStudentTable()">
+                <select id="grade-filter" onchange="filterStudentTable()">
+                    <option value="">Todos los grados</option>
+                    ${Object.keys(stats.grades).map(g => `<option value="${g}">${g}</option>`).join('')}
+                </select>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Grado</th>
+                            <th>Correo</th>
+                            <th>Interés</th>
+                            <th>Fecha Reg</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body">
+                        ${allData.map(d => `
+                            <tr class="student-row" data-grade="${d.grade}" data-search="${d.name.toLowerCase()} ${d.email.toLowerCase()}">
+                                <td style="color: white; font-weight: 600;">${d.name}</td>
+                                <td><span class="admin-badge">${d.grade}</span></td>
+                                <td>${d.email}</td>
+                                <td>${d.interest}</td>
+                                <td>${new Date(d.timestamp).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+
+    // Inicializar Gráficas
+    initDashboardCharts(stats);
+}
+
+function initDashboardCharts(stats) {
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#e2e8f0', font: { family: 'Outfit' } } } },
+        scales: {
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+        }
+    };
+
+    // 1. Gráfica de Grados
+    new Chart(document.getElementById('chart-grades'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(stats.grades),
+            datasets: [{
+                label: 'Estudiantes por Grado',
+                data: Object.values(stats.grades),
+                backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                borderColor: '#8b5cf6',
+                borderWidth: 1
+            }]
+        },
+        options: commonOptions
+    });
+
+    // 2. Gráfica de Estrato
+    new Chart(document.getElementById('chart-stratum'), {
+        type: 'pie',
+        data: {
+            labels: Object.keys(stats.stratum).map(s => `Estrato ${s}`),
+            datasets: [{
+                data: Object.values(stats.stratum),
+                backgroundColor: [
+                    '#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'
+                ]
+            }]
+        },
+        options: { ...commonOptions, scales: null }
+    });
+
+    // 3. Gráfica de Internet
+    new Chart(document.getElementById('chart-internet'), {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(stats.internet),
+            datasets: [{
+                data: Object.values(stats.internet),
+                backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b']
+            }]
+        },
+        options: { ...commonOptions, scales: null }
+    });
+
+    // 4. Gráfica de Intereses
+    new Chart(document.getElementById('chart-interest'), {
+        type: 'polarArea',
+        data: {
+            labels: Object.keys(stats.interests),
+            datasets: [{
+                data: Object.values(stats.interests),
+                backgroundColor: 'rgba(6, 182, 212, 0.5)',
+                borderColor: '#06b6d4'
+            }]
+        },
+        options: { ...commonOptions, scales: null }
+    });
+}
+
+function filterStudentTable() {
+    const query = document.getElementById('student-search').value.toLowerCase();
+    const grade = document.getElementById('grade-filter').value;
+    const rows = document.querySelectorAll('.student-row');
+
+    rows.forEach(row => {
+        const matchesSearch = row.dataset.search.includes(query);
+        const matchesGrade = grade === "" || row.dataset.grade === grade;
+        row.style.display = (matchesSearch && matchesGrade) ? 'table-row' : 'none';
+    });
+}
+
 // Inicializar Auth al cargar
 window.onload = () => {
     seedAdmin();
+    // Listeners para formularios...
     
     // Listeners para formularios
     const loginForm = document.getElementById('login-form');

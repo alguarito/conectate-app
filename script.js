@@ -752,6 +752,37 @@ function handleCredentialResponse(response) {
     checkUserStatus();
 }
 
+function loginAsGuest() {
+    currentUser = {
+        name: "Estudiante de Prueba",
+        email: "estudiante@ejemplo.com",
+        picture: "IMAGENES/ID_CONECTATE.png",
+        isAdmin: false,
+        registered: localStorage.getItem(`reg_estudiante@ejemplo.com`) === 'true'
+    };
+    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+    checkUserStatus();
+}
+
+function loginAsAdmin() {
+    currentUser = {
+        name: "Álvaro Cárdenas (Admin)",
+        email: ADMIN_EMAIL,
+        picture: "IMAGENES/ID_CONECTATE.png",
+        isAdmin: true,
+        registered: true
+    };
+    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+    localStorage.setItem(`reg_${ADMIN_EMAIL}`, 'true');
+    checkUserStatus();
+}
+
+function logout() {
+    localStorage.removeItem('conectate_user');
+    currentUser = null;
+    window.location.reload();
+}
+
 function checkUserStatus() {
     const authWall = document.getElementById('auth-wall');
     const appContainer = document.querySelector('.app-container');
@@ -772,21 +803,26 @@ function checkUserStatus() {
 }
 
 function updateUIForUser() {
-    // Actualizar sidebar con info del usuario real si no es el profe (por defecto)
+    // Actualizar sidebar con info del usuario real
+    const userDetails = document.querySelector('.user-details');
+    const userAvatar = document.querySelector('.user-avatar');
+    
     if (!currentUser.isAdmin) {
-        const userDetails = document.querySelector('.user-details');
-        const userAvatar = document.querySelector('.user-avatar');
         if (userDetails) {
             userDetails.innerHTML = `
                 <p class="name">${currentUser.name}</p>
-                <p class="role">Estudiante Inforg</p>
+                <p class="role">Estudiante Inforg | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
             `;
         }
-        if (userAvatar) userAvatar.src = currentUser.picture;
     } else {
-        // Es el admin, mostrar panel de control si se desea
-        console.log("Admin Mode Active");
+        if (userDetails) {
+            userDetails.innerHTML = `
+                <p class="name">Álvaro (Admin)</p>
+                <p class="role">Docente | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
+            `;
+        }
     }
+    if (userAvatar) userAvatar.src = currentUser.picture;
 }
 
 function renderCharacterizationFlow() {

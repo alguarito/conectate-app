@@ -23,12 +23,44 @@
     <link rel="apple-touch-icon" href="IMAGENES/ID_CONECTATE.png">
     <meta name="msapplication-TileImage" content="IMAGENES/ID_CONECTATE.png">
     <meta name="theme-color" content="#a855f7">
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="background-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Muro de Acceso (Auth Wall) -->
+    <div id="auth-wall" class="auth-overlay active">
+        <div class="auth-card glass-panel">
+            <div class="auth-header">
+                <img src="IMAGENES/LOGO 1.png" alt="Logo" class="auth-logo">
+                <h2>Bienvenido a CONECTATE</h2>
+                <p>Tu ecosistema de aprendizaje digital crítico.</p>
+            </div>
+            
+            <div class="auth-body">
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_ID" 
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="filled_blue"
+                     data-text="continue_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+                <p class="auth-footer">Acceso exclusivo para la I.E. Sor María Juliana</p>
+            </div>
+        </div>
     </div>
 
     <div class="app-container glass-panel">

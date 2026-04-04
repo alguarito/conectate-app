@@ -711,3 +711,289 @@ function renderNewsCards(news) {
         </a>
     `).join('');
 }
+// --- SISTEMA DE AUTENTICACIÓN Y CARACTERIZACIÓN (CONECTATE CORE) ---
+let currentUser = JSON.parse(localStorage.getItem('conectate_user')) || null;
+const ADMIN_EMAIL = 'alvaro.cardenas.orozco@gmail.com';
+
+function decodeJwt(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error("Error decoding JWT", e);
+        return null;
+    }
+}
+
+function handleCredentialResponse(response) {
+    const payload = decodeJwt(response.credential);
+    if (!payload) return alert("Error al autenticar con Google.");
+
+    currentUser = {
+        name: payload.name,
+        email: payload.email,
+        picture: payload.picture,
+        isAdmin: payload.email === ADMIN_EMAIL,
+        registered: localStorage.getItem(`reg_${payload.email}`) === 'true'
+    };
+
+    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+    
+    // Si es admin, no necesita caracterización
+    if (currentUser.isAdmin) {
+        currentUser.registered = true;
+        localStorage.setItem(`reg_${payload.email}`, 'true');
+    }
+
+    checkUserStatus();
+}
+
+function checkUserStatus() {
+    const authWall = document.getElementById('auth-wall');
+    const appContainer = document.querySelector('.app-container');
+
+    if (!currentUser) {
+        authWall.classList.add('active');
+        appContainer.classList.remove('authenticated');
+    } else {
+        authWall.classList.remove('active');
+        if (!currentUser.registered) {
+            renderCharacterizationFlow();
+        } else {
+            appContainer.classList.add('authenticated');
+            updateUIForUser();
+            navigateTo('home');
+        }
+    }
+}
+
+function updateUIForUser() {
+    // Actualizar sidebar con info del usuario real si no es el profe (por defecto)
+    if (!currentUser.isAdmin) {
+        const userDetails = document.querySelector('.user-details');
+        const userAvatar = document.querySelector('.user-avatar');
+        if (userDetails) {
+            userDetails.innerHTML = `
+                <p class="name">${currentUser.name}</p>
+                <p class="role">Estudiante Inforg</p>
+            `;
+        }
+        if (userAvatar) userAvatar.src = currentUser.picture;
+    } else {
+        // Es el admin, mostrar panel de control si se desea
+        console.log("Admin Mode Active");
+    }
+}
+
+function renderCharacterizationFlow() {
+    const mainViewer = document.getElementById('agent-content');
+    document.querySelector('.app-container').classList.add('authenticated'); // Mostrar app pero bloqueada en el form
+    
+    let currentStep = 1;
+
+    mainViewer.innerHTML = `
+        <div class="agent-viewer theme-academico" style="max-width: 600px; margin: 0 auto;">
+            <div class="agent-header">
+                <div class="agent-icon-large glass-panel"><i class='bx bx-user-pin'></i></div>
+                <div class="agent-header-text">
+                    <h2>Caracterización Inforg</h2>
+                    <p>Hola ${currentUser.name}, activa tu perfil de investigador.</p>
+                </div>
+            </div>
+
+            <div class="step-progress">
+                <div class="step-dot active" data-step="1">1</div>
+                <div class="step-dot" data-step="2">2</div>
+                <div class="step-dot" data-step="3">3</div>
+                <div class="step-dot" data-step="4">4</div>
+            </div>
+
+            <div class="glass-panel" style="padding: 30px; border-radius: 24px;">
+                <form id="char-form">
+                    <!-- Paso 1: Básicos -->
+                    <div class="form-step active" data-step="1">
+                        <h3>Perfil Institucional</h3>
+                        <div class="form-group">
+                            <label>Grado y Grupo</label>
+                            <select id="f-grade" required>
+                                <option value="">Selecciona tu grupo...</option>
+                                <optgroup label="Sexto">
+                                    <option>6-1</option><option>6-2</option><option>6-3</option><option>6-4</option>
+                                </optgroup>
+                                <optgroup label="Noveno">
+                                    <option>9-1</option><option>9-2</option><option>9-3</option><option>9-4</option>
+                                </optgroup>
+                                <optgroup label="Once">
+                                    <option>11-1</option><option>11-2</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Edad</label>
+                            <input type="number" id="f-age" min="10" max="20" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp del Acudiente</label>
+                            <input type="tel" id="f-parent" placeholder="Ej: 310..." required>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2: Sociodemográfico -->
+                    <div class="form-step" data-step="2">
+                        <h3>Estudio Sociodemográfico</h3>
+                        <div class="form-group">
+                            <label>Estrato Socioeconómico</label>
+                            <select id="f-stratum" required>
+                                <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>¿En qué sector vives?</label>
+                            <div class="choice-grid">
+                                <div class="choice-card" onclick="selectChoice(this, 'f-zone', 'Urbana')"><i class='bx bx-buildings'></i>Urbana</div>
+                                <div class="choice-card" onclick="selectChoice(this, 'f-zone', 'Rural')"><i class='bx bx-landscape'></i>Rural</div>
+                            </div>
+                            <input type="hidden" id="f-zone" required>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3: Acceso a Medios -->
+                    <div class="form-step" data-step="3">
+                        <h3>Acceso a Medios TIC</h3>
+                        <div class="form-group">
+                            <label>¿Cómo te conectas a internet?</label>
+                            <select id="f-internet" required>
+                                <option>Fibra / WiFi Hogar</option>
+                                <option>Datos Móviles</option>
+                                <option>Solo en el Colegio</option>
+                                <option>No tengo acceso</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Dispositivo principal para tareas</label>
+                            <select id="f-device" required>
+                                <option>Celular</option>
+                                <option>Laptop / PC</option>
+                                <option>Tablet</option>
+                                <option>Ninguno</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Paso 4: Caracterización Semillero -->
+                    <div class="form-step" data-step="4">
+                        <h3>Intereses en el Semillero</h3>
+                        <div class="form-group">
+                            <label>¿Qué área te apasiona más?</label>
+                            <select id="f-interest" required>
+                                <option>Robótica y Electrónica</option>
+                                <option>Inteligencia Artificial</option>
+                                <option>Diseño Web / UX</option>
+                                <option>Programación de Videojuegos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nivel previo en tecnología</label>
+                            <select id="f-skill" required>
+                                <option>Explorador (Nada)</option>
+                                <option>Iniciado (Poco)</option>
+                                <option>Maker (Intermedio)</option>
+                                <option>Coder (Avanzado)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn-secondary" id="btn-back" style="display: none;">Atrás</button>
+                        <button type="button" class="btn-primary" id="btn-next">Siguiente</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    const form = document.getElementById('char-form');
+    const btnNext = document.getElementById('btn-next');
+    const btnBack = document.getElementById('btn-back');
+
+    btnNext.onclick = () => {
+        if (currentStep < 4) {
+            // Validar campos del paso actual
+            const currentFields = document.querySelector(`.form-step[data-step="${currentStep}"]`).querySelectorAll('input[required], select[required]');
+            let valid = true;
+            currentFields.forEach(f => { if(!f.value) valid = false; });
+            if(!valid) return alert("Por favor completa todos los campos del paso.");
+
+            currentStep++;
+            updateStepUI();
+        } else {
+            finishRegistration();
+        }
+    };
+
+    btnBack.onclick = () => {
+        if (currentStep > 1) {
+            currentStep--;
+            updateStepUI();
+        }
+    };
+
+    function updateStepUI() {
+        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+        document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+        
+        document.querySelectorAll('.step-dot').forEach(d => {
+            const step = parseInt(d.dataset.step);
+            d.classList.remove('active', 'completed');
+            if (step === currentStep) d.classList.add('active');
+            if (step < currentStep) d.classList.add('completed');
+        });
+
+        btnBack.style.display = currentStep > 1 ? 'block' : 'none';
+        btnNext.textContent = currentStep === 4 ? 'Finalizar Registro' : 'Siguiente';
+    }
+}
+
+function selectChoice(el, hiddenId, value) {
+    const parent = el.parentElement;
+    parent.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById(hiddenId).value = value;
+}
+
+function finishRegistration() {
+    const formData = {
+        grade: document.getElementById('f-grade').value,
+        age: document.getElementById('f-age').value,
+        parentContact: document.getElementById('f-parent').value,
+        stratum: document.getElementById('f-stratum').value,
+        zone: document.getElementById('f-zone').value,
+        internet: document.getElementById('f-internet').value,
+        device: document.getElementById('f-device').value,
+        interest: document.getElementById('f-interest').value,
+        skill: document.getElementById('f-skill').value,
+        timestamp: new Date().toISOString()
+    };
+
+    console.log("Registrando datos del estudiante:", formData);
+    
+    // Guardar persistencia
+    localStorage.setItem(`data_${currentUser.email}`, JSON.stringify(formData));
+    localStorage.setItem(`reg_${currentUser.email}`, 'true');
+    currentUser.registered = true;
+    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+
+    alert("¡Registro completado! Bienvenido oficialmente al ecosistema CONECTATE.");
+    checkUserStatus();
+}
+
+// Inicializar Auth al cargar
+window.onload = () => {
+    // Exponer globalmente el callback para Google
+    window.handleCredentialResponse = handleCredentialResponse;
+    checkUserStatus();
+};

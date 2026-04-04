@@ -55,7 +55,20 @@ const sectionData = {
     },
     decimo: {
         theme: 'theme-coder', icon: '<i class="bx bx-code-block"></i>', title: 'Grado Décimo', subtitle: 'Programación Textual y Frontend (Tutores: Coder y UI/UX)',
-        features: [ { icon: 'bx bxl-javascript', title: 'JavaScript & Lógica', desc: 'Transición a código texto: variables, ciclos, funciones y manipulación DOM.' }, { icon: 'bx bx-mobile', title: 'Responsive Design', desc: 'Técnicas con Flexbox, CSS Grid y adaptabilidad para móviles.' }, { icon: 'bx bxl-c-plus-plus', title: 'Arduino Intermedio', desc: 'Código estructurado para microcontroladores interactuando con hardware.' } ]
+        isSessions: true,
+        sessions: [
+            { id: 1, title: 'Sesión 1: Lógica y Algoritmia', file: './DECIMO/1-10-TIC.html?v=1.0', desc: 'Introducción al mundo del código textual. De los bloques a la sintaxis real de JavaScript.' },
+            { id: 2, title: 'Sesión 2: Estructuras Web', file: './DECIMO/2-10-TIC.html?v=1.0', desc: 'Dominando el HTML5 semántico para construir la base sólida de cualquier aplicación.' },
+            { id: 3, title: 'Sesión 3: Estilos Modernos', file: './DECIMO/3-10-TIC.html?v=1.0', desc: 'CSS3 avanzado: Selectores, cascada y el poder de los colores y tipografías.' },
+            { id: 4, title: 'Sesión 4: Layouts Flexibles', file: './DECIMO/4-10-TIC.html?v=1.0', desc: 'Diseñando con Flexbox: Alineación y distribución de elementos sin esfuerzo.' },
+            { id: 5, title: 'Sesión 5: Grid Systems', file: './DECIMO/5-10-TIC.html?v=1.0', desc: 'Poder total sobre las rejillas con CSS Grid para layouts complejos y profesionales.' },
+            { id: 6, title: 'Sesión 6: Responsive Web', file: './DECIMO/6-10-TIC.html?v=1.0', desc: 'Media Queries y estrategias de adaptabilidad para que tu web brille en cualquier pantalla.' },
+            { id: 7, title: 'Sesión 7: Variables y Tipos', file: './DECIMO/7-10-TIC.html?v=1.0', desc: 'Profundizando en JavaScript: El manejo inteligente de la información en memoria.' },
+            { id: 8, title: 'Sesión 8: Control de Flujo', file: './DECIMO/8-10-TIC.html?v=1.0', desc: 'Condicionales y bucles: Enseñando a tu programa a tomar decisiones por sí solo.' },
+            { id: 9, title: 'Sesión 9: Funciones y Modularidad', file: './DECIMO/9-10-TIC.html?v=1.0', desc: 'Escribiendo código limpio y reutilizable para resolver problemas de ingeniería.' },
+            { id: 10, title: 'Sesión 10: Manipulación DOM', file: './DECIMO/10-10-TIC.html?v=1.0', desc: 'Dando vida a la web: Interactuando con el usuario mediante eventos y cambios dinámicos.' },
+            { id: 11, title: 'Sesión 11: Proyecto Transversal', file: './DECIMO/11-10-TIC.html?v=1.0', desc: 'Integración final de lógica, diseño y estructura en una solución tecnológica real.' }
+        ]
     },
     undecimo: {
         theme: 'theme-coder', icon: '<i class="bx bx-code-alt"></i>', title: 'Grado Undécimo', subtitle: 'Desarrollo de Software y Base de Datos (Tutor: Agente Coder)',

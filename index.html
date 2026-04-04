@@ -23,8 +23,6 @@
     <link rel="apple-touch-icon" href="IMAGENES/ID_CONECTATE.png">
     <meta name="msapplication-TileImage" content="IMAGENES/ID_CONECTATE.png">
     <meta name="theme-color" content="#a855f7">
-    <!-- Google Identity Services SDK -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="background-orbs">
@@ -43,31 +41,39 @@
             </div>
             
             <div class="auth-body">
-                <div id="g_id_onload"
-                     data-client_id="YOUR_GOOGLE_CLIENT_ID" 
-                     data-context="signin"
-                     data-ux_mode="popup"
-                     data-callback="handleCredentialResponse"
-                     data-auto_prompt="false">
-                </div>
-                <div class="g_id_signin"
-                     data-type="standard"
-                     data-shape="rectangular"
-                     data-theme="filled_blue"
-                     data-text="continue_with"
-                     data-size="large"
-                     data-logo_alignment="left">
-                </div>
-                
-                <div class="auth-test-modes" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
-                    <button onclick="loginAsGuest()" class="btn-secondary" style="font-size: 0.8rem; padding: 10px; width: 100%;">
-                        <i class='bx bx-user-circle'></i> Entrar como Invitado (Prueba)
-                    </button>
-                    <button onclick="loginAsAdmin()" class="btn-secondary" style="font-size: 0.8rem; padding: 10px; width: 100%; border-color: var(--accent-purple); color: var(--accent-purple);">
-                        <i class='bx bx-shield-quarter'></i> Acceso directo Docente (Álvaro)
-                    </button>
-                </div>
-                <p class="auth-footer">Acceso exclusivo para la I.E. Sor María Juliana</p>
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label><i class='bx bx-envelope'></i> Correo Electrónico</label>
+                        <input type="email" id="login-email" placeholder="ejemplo@conectate.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class='bx bx-lock-alt'></i> Contraseña</label>
+                        <input type="password" id="login-pass" placeholder="Tu contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; padding: 15px;">INGRESAR A CONECTATE</button>
+                    <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-secondary);">¿Eres nuevo? <a href="#" onclick="toggleAuthMode('signup')" style="color: var(--accent-cyan); text-decoration: none; font-weight: 700;">Regístrate aquí</a></p>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label><i class='bx bx-user'></i> Nombre Completo</label>
+                        <input type="text" id="reg-name" placeholder="Tu nombre real" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class='bx bx-envelope'></i> Correo Electrónico</label>
+                        <input type="email" id="reg-email" placeholder="ejemplo@conectate.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class='bx bx-lock-alt'></i> Contraseña de Acceso</label>
+                        <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; padding: 15px;">CREAR MI CUENTA INFORG</button>
+                    <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-secondary);">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode('login')" style="color: var(--accent-cyan); text-decoration: none; font-weight: 700;">Inicia sesión</a></p>
+                </form>
+
+                <p class="auth-footer">Ecosistema de aprendizaje crítico | I.E. Sor María Juliana</p>
             </div>
         </div>
     </div>

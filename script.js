@@ -712,69 +712,74 @@ function renderNewsCards(news) {
     `).join('');
 }
 // --- SISTEMA DE AUTENTICACIÓN Y CARACTERIZACIÓN (CONECTATE CORE) ---
+// --- SISTEMA DE AUTENTICACIÓN LOCAL (CONECTATE CORE) ---
 let currentUser = JSON.parse(localStorage.getItem('conectate_user')) || null;
 const ADMIN_EMAIL = 'alvaro.cardenas.orozco@gmail.com';
+const ADMIN_PASS = 'mariana0';
 
-function decodeJwt(token) {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    } catch (e) {
-        console.error("Error decoding JWT", e);
-        return null;
+function seedAdmin() {
+    let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    if (!accounts[ADMIN_EMAIL]) {
+        accounts[ADMIN_EMAIL] = {
+            name: "Álvaro Cárdenas (Docente)",
+            email: ADMIN_EMAIL,
+            pass: ADMIN_PASS,
+            isAdmin: true,
+            registered: true
+        };
+        localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
     }
 }
 
-function handleCredentialResponse(response) {
-    const payload = decodeJwt(response.credential);
-    if (!payload) return alert("Error al autenticar con Google.");
-
-    currentUser = {
-        name: payload.name,
-        email: payload.email,
-        picture: payload.picture,
-        isAdmin: payload.email === ADMIN_EMAIL,
-        registered: localStorage.getItem(`reg_${payload.email}`) === 'true'
-    };
-
-    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
-    
-    // Si es admin, no necesita caracterización
-    if (currentUser.isAdmin) {
-        currentUser.registered = true;
-        localStorage.setItem(`reg_${payload.email}`, 'true');
+function toggleAuthMode(mode) {
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    if (mode === 'signup') {
+        loginForm.classList.remove('active');
+        signupForm.classList.add('active');
+    } else {
+        signupForm.classList.remove('active');
+        loginForm.classList.add('active');
     }
-
-    checkUserStatus();
 }
 
-function loginAsGuest() {
-    currentUser = {
-        name: "Estudiante de Prueba",
-        email: "estudiante@ejemplo.com",
-        picture: "IMAGENES/ID_CONECTATE.png",
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const pass = document.getElementById('login-pass').value;
+    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+
+    const user = accounts[email];
+    if (user && user.pass === pass) {
+        currentUser = { ...user };
+        delete currentUser.pass; // Seguridad básica local
+        localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+        checkUserStatus();
+    } else {
+        alert("Correo o contraseña incorrectos. Verifica tus datos.");
+    }
+}
+
+function handleSignup(e) {
+    e.preventDefault();
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pass = document.getElementById('reg-pass').value;
+    let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+
+    if (accounts[email]) return alert("Este correo ya está registrado. Intenta iniciar sesión.");
+
+    accounts[email] = {
+        name: name,
+        email: email,
+        pass: pass,
         isAdmin: false,
-        registered: localStorage.getItem(`reg_estudiante@ejemplo.com`) === 'true'
+        registered: false
     };
-    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
-    checkUserStatus();
-}
 
-function loginAsAdmin() {
-    currentUser = {
-        name: "Álvaro Cárdenas (Admin)",
-        email: ADMIN_EMAIL,
-        picture: "IMAGENES/ID_CONECTATE.png",
-        isAdmin: true,
-        registered: true
-    };
-    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
-    localStorage.setItem(`reg_${ADMIN_EMAIL}`, 'true');
-    checkUserStatus();
+    localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
+    alert("¡Cuenta creada con éxito! Ahora inicia sesión.");
+    toggleAuthMode('login');
 }
 
 function logout() {
@@ -803,26 +808,18 @@ function checkUserStatus() {
 }
 
 function updateUIForUser() {
-    // Actualizar sidebar con info del usuario real
     const userDetails = document.querySelector('.user-details');
     const userAvatar = document.querySelector('.user-avatar');
     
-    if (!currentUser.isAdmin) {
-        if (userDetails) {
-            userDetails.innerHTML = `
-                <p class="name">${currentUser.name}</p>
-                <p class="role">Estudiante Inforg | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
-            `;
-        }
-    } else {
-        if (userDetails) {
-            userDetails.innerHTML = `
-                <p class="name">Álvaro (Admin)</p>
-                <p class="role">Docente | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
-            `;
-        }
+    if (userDetails) {
+        userDetails.innerHTML = `
+            <p class="name">${currentUser.name}</p>
+            <p class="role">${currentUser.isAdmin ? 'Docente TIC' : 'Estudiante Inforg'} | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
+        `;
     }
-    if (userAvatar) userAvatar.src = currentUser.picture;
+    if (userAvatar && currentUser.picture) {
+        userAvatar.src = currentUser.picture;
+    }
 }
 
 function renderCharacterizationFlow() {
@@ -1029,7 +1026,18 @@ function finishRegistration() {
 
 // Inicializar Auth al cargar
 window.onload = () => {
-    // Exponer globalmente el callback para Google
-    window.handleCredentialResponse = handleCredentialResponse;
+    seedAdmin();
+    
+    // Listeners para formularios
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    
+    if (loginForm) loginForm.onsubmit = handleLogin;
+    if (signupForm) signupForm.onsubmit = handleSignup;
+
+    // Exponer globalmente el toggle
+    window.toggleAuthMode = toggleAuthMode;
+    window.logout = logout;
+
     checkUserStatus();
 };

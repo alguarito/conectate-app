@@ -11,13 +11,13 @@ const sectionData = {
             { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
         ]
     },
-    sexto: {
-        theme: 'theme-logico', icon: '<i class="bx bx-book-bookmark"></i>', title: 'Grado Sexto', subtitle: 'Iniciación al Pensamiento Computacional (Tutor: Agente Lógico)',
-        features: [ { icon: 'bx bx-code-block', title: 'Fundamentos en Bloques', desc: 'Aprende a programar usando bloques visuales estilo Scratch y MakeCode.' }, { icon: 'bx bx-network-chart', title: 'Algoritmos Básicos', desc: 'Descomposición de problemas y secuencias paso a paso.' }, { icon: 'bx bx-game', title: 'Ciudadanía Digital Básica', desc: 'Primeros pasos seguros en la internet y huella digital.' } ]
-    },
-    septimo: {
-        theme: 'theme-logico', icon: '<i class="bx bx-book"></i>', title: 'Grado Séptimo', subtitle: 'Profundización en Lógica (Tutor: Agente Lógico y Ético)',
-        features: [ { icon: 'bx bx-puzzle', title: 'Retos Bebras', desc: 'Ejercicios de lógica y pensamiento computacional interactivos.' }, { icon: 'bx bx-lock-alt', title: 'Ciberseguridad Escolar', desc: 'Protección de datos personales y prevención del ciberacoso.' }, { icon: 'bx bx-bulb', title: 'Proyectos Guiados', desc: 'Desarrollo de animaciones interactivas enfocadas a problemas reales.' } ]
+    home: {
+        theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
+        features: [ 
+            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
+            { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.' },
+            { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
+        ]
     },
     octavo: {
         theme: 'theme-maker', icon: '<i class="bx bx-book-open"></i>', title: 'Grado Octavo', subtitle: 'Robótica y Entornos Virtuales (Tutor: Agente Maker)',
@@ -812,28 +812,23 @@ function updateUIForUser() {
     const userAvatar = document.querySelector('.user-avatar');
     
     if (userDetails) {
-        userDetails.innerHTML = `
-            <p class="name">${currentUser.name} ${currentUser.isAdmin ? '<span class="admin-badge">Admin</span>' : ''}</p>
-            <p class="role">${currentUser.isAdmin ? 'Docente TIC' : 'Estudiante Inforg'} | <a href="#" onclick="logout()" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem;">Salir</a></p>
-        `;
+        if (currentUser.isAdmin) {
+            userDetails.innerHTML = `
+                <p class="name">${currentUser.name} <span class="admin-badge">Docente</span></p>
+                <p class="role">
+                    <a href="#" onclick="renderAdminDashboard(); return false;" style="color: var(--accent-purple); text-decoration: none; font-weight: 700;"><i class='bx bxs-dashboard'></i> Dashboard</a> | 
+                    <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none;">Salir</a>
+                </p>
+            `;
+        } else {
+            userDetails.innerHTML = `
+                <p class="name">${currentUser.name}</p>
+                <p class="role">Estudiante Inforg | <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none;">Salir</a></p>
+            `;
+        }
     }
     
-    // Inyectar botón de Dashboard si es admin
-    const sidebarMenus = document.getElementById('sidebar-menus');
-    if (currentUser.isAdmin && sidebarMenus && !document.getElementById('nav-admin-dash')) {
-        const adminBtn = document.createElement('a');
-        adminBtn.id = 'nav-admin-dash';
-        adminBtn.href = '#';
-        adminBtn.className = 'nav-item';
-        adminBtn.innerHTML = `<i class='bx bxs-dashboard' style='color: var(--accent-purple)'></i> <span>Dashboard Datos</span>`;
-        adminBtn.onclick = (e) => {
-            e.preventDefault();
-            renderAdminDashboard();
-        };
-        sidebarMenus.appendChild(adminBtn);
-    }
-
-    if (userAvatar && currentUser.picture) {
+    if (userAvatar && currentUser.picture && currentUser.picture !== "IMAGENES/ID_CONECTATE.png") {
         userAvatar.src = currentUser.picture;
     }
 }

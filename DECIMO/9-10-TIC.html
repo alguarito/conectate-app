@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 9-10-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Calibrando Vocería Digital...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 9</span>
+            <h1>El Video-Pitch</h1>
+            <p>Vender en 60 Segundos: Domina la economía de la atención y conviértete en un vocero digital persuasivo para tu proyecto de grado.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: El Minuto de Oro</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/iXhmu12GWY8?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Transforma tu informe técnico en una narrativa audiovisual poderosa.</p>
+        </section>
+
+        <!-- 1. El Código del Orador Digital -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-user-voice'></i> 1. El Pacto Ético del Rostro</h2>
+            <p class="section-text">Grabar no es solo prender la cámara. Ser Vocero Digital significa respetar a tu audiencia mediante la técnica:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Contacto Visual <i class='bx bx-show'></i></h3>
+                    <div class="concept-desc">No mires tu propia imagen en la pantalla. Mira directamente el lente de la cámara. Es la única forma de conectar realmente con quien te ve.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Prohibido Leer <i class='bx bx-no-entry'></i></h3>
+                    <div class="concept-desc">Si lees un papper en frente, pierdes naturalidad y credibilidad. Aprende tus puntos clave y déjalos fluir con seguridad.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Anatomía del Pitch (60 Segundos) -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-timer'></i> 2. La Línea de Tiempo Perfecta</h2>
+            <p class="section-text" style="margin-bottom: 25px;">Cada segundo cuenta. Divide tu video en estas 4 fases estratégicas:</p>
+            <div class="grid-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div style="background: rgba(34, 211, 238, 0.1); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(34, 211, 238, 0.2);">
+                    <h3 style="color: #22d3ee; margin-bottom: 5px;">0s - 5s</h3>
+                    <h4 style="font-size: 0.9rem;">El Gancho</h4>
+                    <p style="font-size: 0.7rem; color: var(--text-secondary);">Pregunta retórica o dato impactante.</p>
+                </div>
+                <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(168, 85, 247, 0.2);">
+                    <h3 style="color: #a855f7; margin-bottom: 5px;">5s - 20s</h3>
+                    <h4 style="font-size: 0.9rem;">El Dolor</h4>
+                    <p style="font-size: 0.7rem; color: var(--text-secondary);">El problema real que resuelves.</p>
+                </div>
+                <div style="background: rgba(236, 72, 153, 0.1); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(236, 72, 153, 0.2);">
+                    <h3 style="color: #ec4899; margin-bottom: 5px;">20s - 50s</h3>
+                    <h4 style="font-size: 0.9rem;">La Solución</h4>
+                    <p style="font-size: 0.7rem; color: var(--text-secondary);">Tu propuesta de valor única.</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <h3 style="color: #10b981; margin-bottom: 5px;">50s - 60s</h3>
+                    <h4 style="font-size: 0.9rem;">Cierre (CTA)</h4>
+                    <p style="font-size: 0.7rem; color: var(--text-secondary);">Llamado a la acción directo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Economía de la Atención -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-line-chart'></i> 3. El Valor del Tiempo</h2>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-trending-up'></i> Menos es Más</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">En la era de TikTok y los Shorts, tienes menos de 5 segundos para que alguien no deslice hacia arriba. Un Vocero Digital sabe condensar 20 páginas de informe en 60 segundos de poder puro.</p>
+            </div>
+        </section>
+
+        <!-- Misión del Vocero -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
+            <h2><i class='bx bxs-camera-movie'></i> Misión 09: Guionista Digital</h2>
+            <p class="section-text">Redacta el guion de tu Pitch siguiendo la anatomía de los 60 segundos. Léelo en voz alta cronometrando el tiempo. Si pasas de 65 segundos, ¡debes sintetizar más!</p>
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 12px; display: inline-block; margin-top: 15px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                <i class='bx bx-check-double'></i> <strong>Check de Vocería:</strong> Rostro iluminado, fondo limpio y voz firme.
+            </div>
+        </section>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S9</h2>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="9-10-TIC.pdf" download class="pulse-btn">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 9 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Persuasión Audiovisual</strong> (v1.2)<br>
+                Habilidades del Siglo XXI - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

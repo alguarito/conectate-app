@@ -1,4 +1,4 @@
-const CACHE_NAME = 'conectate-cache-v6-master'; // Force update
+const CACHE_NAME = 'conectate-cache-v7-master'; // Force update for session videos fix
 const urlsToCache = [
   './',
   './index.html',

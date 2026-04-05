@@ -58,13 +58,25 @@ const sectionData = {
             { id: 7, title: 'Sesión 7: La Evidencia Visual', file: './DECIMO/7-10-TIC.html?v=1.1', desc: 'Tablas y Figuras en APA 7: Dominando la visualización técnica de datos y la integración profesional Excel-Word.' },
             { id: 8, title: 'Sesión 8: La Venta Visual', file: './DECIMO/8-10-TIC.html?v=1.1', desc: 'Diapositivas de Alto Impacto con IA: Domina la Regla 10/20/30 y las herramientas Gamma/Canva para un pitch exitoso.' },
             { id: 9, title: 'Sesión 9: El Video-Pitch', file: './DECIMO/9-10-TIC.html?v=1.1', desc: 'Vender en 60 Segundos: Domina la oratoria digital y la economía de la atención para persuadir con tu proyecto.' },
-            { id: 10, title: 'Sesión 10: La Auditoría Final', file: './DECIMO/10-10-TIC.html?v=1.1', desc: 'Edición, Ética y Calidad: Aplica el ciclo PHVA y el rigor del auditor profesional a tu proyecto final.' },
-            { id: 11, title: 'Sesión 11: Auditoría del Libro Final', file: './DECIMO/11-10-TIC.html?v=1.1', desc: 'Laboratorio de Auditoría IA: Sube tu libro PDF, recibe feedback instantáneo sobre coherencia y envía tu reporte al profesor por WhatsApp.' }
+            { id: 10, title: 'Sesión 10: Prueba de Desempeño', file: './DECIMO/10-10-TIC.html?v=1.2', desc: 'Examen Global: Demuestra tu transformación de consumidor ciego a Auditor Crítico de IA e Ingeniería Documental.' }
         ]
     },
     undecimo: {
-        theme: 'theme-coder', icon: '<i class="bx bx-code-alt"></i>', title: 'Grado Undécimo', subtitle: 'Desarrollo de Software y Base de Datos (Tutor: Agente Coder)',
-        features: [ { icon: 'bx bxl-python', title: 'Python & Datos', desc: 'Fundamentos de Python y estructuración para resolver problemas complejos.' }, { icon: 'bx bx-data', title: 'Bases de Datos', desc: 'Introducción a modelos relacionales, SQL y persistencia estructurada.' }, { icon: 'bx bx-brain', title: 'Investigación Asistida', desc: 'Uso de IA y NotebookLM para revisión de literatura y redacción en LATEX.' } ]
+        theme: 'theme-coder', icon: '<i class="bx bx-code-alt"></i>', title: 'Grado Undécimo', subtitle: 'Ofimática Cognitiva e Inteligencia Artificial (Tutor: Agente Coder)',
+        isSessions: true,
+        sessions: [
+            { id: 1, title: 'Sesión 1: El Fin del Autor', file: './UNDECIMO/1-11-TIC.html?v=1.0', desc: 'Inteligencia Artificial y Robots: Una reflexión sobre la soberanía intelectual y el nuevo rol del humano en la Infoesfera.' },
+            { id: 2, title: 'Sesión 2: Bases de Datos I', file: './UNDECIMO/2-11-TIC.html?v=1.0', desc: 'Introducción al modelado de datos y persistencia de información.' },
+            { id: 3, title: 'Sesión 3: Estructuras Lógicas', file: './UNDECIMO/3-11-TIC.html?v=1.0', desc: 'Pensamiento computacional avanzado y algoritmia para la resolución de problemas.' },
+            { id: 4, title: 'Sesión 4: Desarrollo en Python', file: './UNDECIMO/4-11-TIC.html?v=1.0', desc: 'Sintaxis básica y lógica de programación con el lenguaje líder en IA.' },
+            { id: 5, title: 'Sesión 5: Programación Modular', file: './UNDECIMO/5-11-TIC.html?v=1.0', desc: 'Funciones, librerías y escalabilidad en el desarrollo de software.' },
+            { id: 6, title: 'Sesión 6: Ciencia de Datos', file: './UNDECIMO/6-11-TIC.html?v=1.0', desc: 'Analizando grandes volúmenes de información para la toma de decisiones.' },
+            { id: 7, title: 'Sesión 7: Machine Learning', file: './UNDECIMO/7-11-TIC.html?v=1.0', desc: 'Entrenamiento de modelos y fundamentos de aprendizaje automático.' },
+            { id: 8, title: 'Sesión 8: Aplicaciones de IA', file: './UNDECIMO/8-11-TIC.html?v=1.0', desc: 'Integración de herramientas de IA en proyectos productivos reales.' },
+            { id: 9, title: 'Sesión 9: Ética en el Código', file: './UNDECIMO/9-11-TIC.html?v=1.0', desc: 'Justicia algorítmica y responsabilidad profesional del desarrollador de software.' },
+            { id: 10, title: 'Sesión 10: Prueba de Desempeño', file: './UNDECIMO/10-11-TIC.html?v=1.0', desc: 'Examen Global de Grado Undécimo: Validando competencias en IA y Programación.' },
+            { id: 11, title: 'Sesión 11: Auditoría del Libro Final', file: './UNDECIMO/11-11-TIC.html?v=1.2', desc: 'Laboratorio de Auditoría IA: Sube tu libro PDF, recibe feedback instantáneo y envía tu reporte al profesor por WhatsApp.' }
+        ]
     },
     interes: {
         theme: 'theme-academico', icon: '<i class="bx bx-bulb"></i>', title: 'Centro de Interés y Publicaciones', subtitle: 'Semilleros y Publicaciones Académicas',

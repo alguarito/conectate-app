@@ -3,25 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuaderno Interactivo | 10-10-TIC</title>
+    <title>Examen Global | Grado Décimo</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- BoxIcons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+    <link rel="stylesheet" href="./CORE/exam-core.css?v=1.1">
 </head>
-<body class="theme-coder">
+<body>
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Ejecutando Control de Calidad PHVA...</p>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Desplegando Examen de Ingeniería Documental...</p>
+    </div>
+
+    <!-- Overlay de Envio -->
+    <div id="sending-overlay">
+        <div id="loading-ui" style="text-align: center;">
+            <div class="loader-spinner" style="border-left-color: #10b981; margin: 0 auto 20px auto;"></div>
+            <h2 style="color: white; font-family: var(--font-heading);">Validando Auditoría Final...</h2>
+            <p style="color: var(--text-secondary);">Sincronizando resultados con el servidor central.</p>
+        </div>
+        <div id="success-ui" style="text-align: center; display: none;">
+            <i class='bx bxs-check-circle success-icon' style="display: block;"></i>
+            <h2 style="color: white; font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px;">¡Examen Sellado!</h2>
+            <p style="color: #6ee7b7; font-size: 1.2rem;">Tu evaluación ha sido registrada exitosamente bajo los estándares MILC.</p>
+            
+            <div class="score-box" style="display: block;">
+                <p style="color: var(--text-secondary); margin:0; text-transform: uppercase; letter-spacing: 1px;">Tu Calificación Final</p>
+                <div class="score-value" id="final-score-display" style="color: #22d3ee;">0.0</div>
+                <p style="color: var(--text-secondary); margin:0;">Puntaje máximo: 5.0</p>
+            </div>
+            
+            <button onclick="window.location.href='../index.html'" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                Volver a la Plataforma Central
+            </button>
+        </div>
     </div>
 
     <div class="notebook-container glass-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
-                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Abandonar Evaluación
             </a>
             <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <i class='bx bx-moon'></i>
@@ -30,109 +54,107 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 10</span>
-            <h1>La Auditoría Final</h1>
-            <p>Edición, Ética y Calidad Total: Cierra el ciclo de tu proyecto aplicando el rigor del auditor profesional y el compromiso ético ante la IA.</p>
+            <h1>Examen Global: Grado Décimo</h1>
+            <p>Rethink, Audit, Persuade. Pon a prueba tus conocimientos sobre Alfabetización Digital Crítica, Normas APA 7 y Co-Redacción con IA.</p>
         </header>
 
-        <!-- Video de la Sesión -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: El Rigor del Auditor</h2>
-            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
-                <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="https://www.youtube.com/embed/TeVydLr0ElA?rel=0&enablejsapi=1" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen
-                    loading="lazy">
-                </iframe>
-            </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Nada sale al mercado sin antes pasar por el "Ojo de Águila" del auditor.</p>
-        </section>
-
-        <!-- 1. El Ciclo de Calidad (PHVA) -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-refresh'></i> 1. Mejora Continua</h2>
-            <p class="section-text">En la industria real, los productos pasan por el ciclo **PHVA**. ¿En qué etapa estás tú?</p>
-            <div class="grid-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
-                <div class="concept-card" style="text-align: center; padding: 15px;">
-                    <h3 style="color: #22d3ee;">P</h3>
-                    <p style="font-size: 0.75rem;">Planear</p>
+        <form id="exam-form">
+            <div class="student-data-panel">
+                <div class="form-group" style="flex: 2;">
+                    <label for="student-name"><i class='bx bxs-user'></i> Nombres y Apellidos Completos</label>
+                    <input type="text" id="student-name" required placeholder="Ej: Juan David Gomez Saavedra">
                 </div>
-                <div class="concept-card" style="text-align: center; padding: 15px;">
-                    <h3 style="color: #a855f7;">H</h3>
-                    <p style="font-size: 0.75rem;">Hacer</p>
-                </div>
-                <div class="concept-card" style="text-align: center; padding: 15px; border-color: #f59e0b; background: rgba(245, 158, 11, 0.05);">
-                    <h3 style="color: #f59e0b;">V</h3>
-                    <p style="font-size: 0.75rem;">Verificar</p>
-                </div>
-                <div class="concept-card" style="text-align: center; padding: 15px;">
-                    <h3 style="color: #10b981;">A</h3>
-                    <p style="font-size: 0.75rem;">Actuar</p>
+                <div class="form-group">
+                    <label for="student-grade"><i class='bx bxs-group'></i> Selecciona tu Grado</label>
+                    <select id="student-grade" required>
+                        <option value="" disabled selected>Elige un grupo...</option>
+                        <option value="10-1">Grado 10-1</option>
+                        <option value="10-2">Grado 10-2</option>
+                        <option value="10-3">Grado 10-3</option>
+                        <option value="10-4">Grado 10-4</option>
+                        <option value="10-5">Grado 10-5</option>
+                        <option value="10-Otro">Otro</option>
+                    </select>
                 </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 15px; text-align: center;">Hoy estamos en la fase **V (Verificar)**: Auditar lo que hemos construido.</p>
-        </section>
 
-        <!-- 2. Ética y Transparencia (IA) -->
-        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
-            <h2><i class='bx bx-fingerprint'></i> 2. La Declaración de Autoría</h2>
-            <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-shield-quarter'></i> Honestidad Centauro</div>
-                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Es el momento de ser transparentes. Un auditor ético declara qué herramientas de IA utilizó (ChatGPT, Bing, Gamma) y asegura que el **criterio final** y la **verificación de datos** fueron realizados por humanos.</p>
-            </div>
-            <div class="concept-card" style="margin-top: 15px;">
-                <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Ejemplo de Disclaimer:</h4>
-                <p style="font-size: 0.8rem; font-style: italic; color: rgba(255,255,255,0.5);">"Este documento fue estructurado con asistencia de ChatGPT-4, pero todos los datos han sido validados y redactados bajo la supervisión del autor humano."</p>
-            </div>
-        </section>
+            <h2 style="color: #22d3ee; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;"><i class='bx bx-check-shield'></i> Auditoría de Conocimientos</h2>
 
-        <!-- 3. El Código del Auditor -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-target-lock'></i> 3. Ojo de Águila MILC</h2>
-            <div class="grid-2">
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Rigor Técnico <i class='bx bx-table'></i></h3>
-                    <div class="concept-desc">Revisa: ¿Las tablas tienen líneas verticales? (Debes borrarlas). ¿El título está en cursiva? ¿Las márgenes son de 2.54cm?</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Control de Persuasión <i class='bx bx-video-off'></i></h3>
-                    <div class="concept-desc">Audita tu video: ¿Miraste al lente? ¿Dura exactamente 60 segundos? ¿El gancho es realmente impactante?</div>
-                </div>
+            <div id="questions-container">
+                <!-- Inyectadas por JS -->
             </div>
-        </section>
 
-        <!-- Misión de Auditoría -->
-        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
-            <h2><i class='bx bx-check-double'></i> Misión 10: Auditoría Cruzada</h2>
-            <p class="section-text">Intercambia tu trabajo con un compañero de equipo. Aplica el **Checklist MILC** de 5 puntos y encuentra al menos un detalle para mejorar antes de la entrega final.</p>
-            <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 12px; display: inline-block; margin-top: 15px;">
-                <p id="audit-text" style="font-size: 0.85rem; color: #10b981; font-weight: 600;">"El detalle mata el trato: No permitas que un error de formato arruine tu esfuerzo."</p>
-            </div>
-        </section>
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <i class='bx bxs-cloud-upload'></i> Finalizar Auditoría y Ver Calificación
+            </button>
+        </form>
 
-        <!-- Material de Apoyo -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Cierre S10</h2>
-            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="10-10-TIC.pdf" download class="pulse-btn">
-                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 10 (PDF)
-                </a>
-            </div>
-        </section>
-
-        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Gestión de Calidad</strong> (v1.2)<br>
-                Validado bajo el Protocolo de Calidad Total - I.E. Sor María Juliana.
+                <strong>CONECTATE | Módulo de Evaluación de Competencias Digitales</strong><br>
+                Validado por el Equipo de Innovación - I.E. Sor María Juliana
             </p>
         </footer>
     </div>
 
-    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+    <script src="./CORE/exam-core.js?v=1.1"></script>
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
+
+        const questionsDB = [
+            {
+                title: "¿Qué es una 'Alucinación' en una Inteligencia Artificial según la Sesión 1?",
+                opts: ["A) Cuando la IA se apaga por falta de batería.", "B) Cuando la IA genera respuestas falsas pero con una apariencia de verdad muy convincente.", "C) Cuando la IA empieza a usar colores brillantes en su interfaz."],
+                ans: 1
+            },
+            {
+                title: "¿Cuál es el propósito principal de construir un 'Segundo Cerebro Digital'?",
+                opts: ["A) Instalar un chip en el cerebro humano para mejorar la memoria.", "B) Liberar espacio mental delegando el almacenamiento y organización de información curada a herramientas digitales.", "C) Tener dos celulares al mismo tiempo."],
+                ans: 1
+            },
+            {
+                title: "En la fórmula C.R.I.F. para la creación de prompts exitosos, ¿qué representa la letra 'F'?",
+                opts: ["A) Fórmulas matemáticas complejas.", "B) Formato (la estructura en la que deseamos que la IA nos entregue la respuesta).", "C) Fin de la conversación."],
+                ans: 1
+            },
+            {
+                title: "Según la 'Arquitectura Documental', ¿por qué es preferible usar Estilos en Word en lugar de formato manual?",
+                opts: ["A) Porque el formato manual hace que el archivo pese menos.", "B) Porque los Estilos permiten actualizaciones globales, generan tablas de contenido automáticas y mantienen la jerarquía estructural.", "C) Porque los Estilos incluyen más fuentes artísticas."],
+                ans: 1
+            },
+            {
+                title: "En las Normas APA 7, ¿cuál es la diferencia fundamental entre una 'Cita' y una 'Referencia'?",
+                opts: ["A) La cita va en el cuerpo del texto; la referencia es el dato completo en la lista bibliográfica al final.", "B) Las citas son para libros y las referencias para sitios web.", "C) No hay diferencia, son sinónimos."],
+                ans: 0
+            },
+            {
+                title: "¿En qué consiste la 'Regla del 30%' establecida para el Escritor Centauro?",
+                opts: ["A) En usar la IA solo el 30% del tiempo de clase.", "B) En que el humano debe reescribir, editar y aportar criterio al menos al 30% del contenido generado por una IA.", "C) En pagar el 30% del valor de la suscripción de la IA."],
+                ans: 1
+            },
+            {
+                title: "Al presentar una Tabla técnica bajo Normas APA 7, ¿cuál de los siguientes elementos está ESTRICTAMENTE prohibido?",
+                opts: ["A) Los números en negrita.", "B) El título en la parte superior.", "C) El uso de líneas verticales para separar columnas."],
+                ans: 2
+            },
+            {
+                title: "Según la regla 10/20/30 de Guy Kawasaki para presentaciones, ¿qué significa el número 30?",
+                opts: ["A) Que la presentación debe tener exactamente 30 diapositivas.", "B) Que el tamaño de la fuente debe ser, como mínimo, de 30 puntos para asegurar la legibilidad.", "C) Que el discurso debe durar exactamente 30 minutos."],
+                ans: 1
+            },
+            {
+                title: "En la anatomía de un Video-Pitch de 60 segundos, ¿qué debe ocurrir obligatoriamente en los primeros 5 segundos?",
+                opts: ["A) Presentar todos los nombres de los integrantes del equipo.", "B) Lanzar el 'Gancho' (Hook) para capturar la atención de la audiencia.", "C) Mostrar la bibliografía consultada."],
+                ans: 1
+            },
+            {
+                title: "En el ciclo de calidad PHVA aplicado a la ingeniería documental, ¿cuál es la tarea principal de la fase 'Verificar'?",
+                opts: ["A) Empezar a escribir el documento desde cero.", "B) Auditar y comparar el producto (informe o video) con el estándar de calidad y ética esperado.", "C) Comprar una licencia nueva de Word."],
+                ans: 1
+            }
+        ];
+
+        initExam(questionsDB, GOOGLE_SCRIPT_URL);
+    </script>
 </body>
 </html>

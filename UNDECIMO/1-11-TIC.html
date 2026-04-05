@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 1-11-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Iniciando Ofimática Cognitiva...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 01</span>
+            <h1>El Fin del Autor: IA y Robots</h1>
+            <p>Bienvenido a la era de la Ofimática Cognitiva. Explora la soberanía intelectual y el nuevo rol del humano como "Director de Orquesta" de la Inteligencia Artificial.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Ofimática Cognitiva</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    id="youtube-player"
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/pVNK_LhdG8s?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">"El humano no es reemplazado por la IA, sino por el humano que sabe usar la IA."</p>
+        </section>
+
+        <!-- 1. El Manifiesto del Autor -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-edit-alt'></i> 1. El Pacto del Editor</h2>
+            <p class="section-text">En Undécimo grado, ya no solo usamos herramientas; las **auditamos**. Firma tu compromiso ético como autor soberano.</p>
+            <div class="info-box" style="border-left-color: #a855f7;">
+                <div class="info-box-title"><i class='bx bx-shield-quarter'></i> Soberanía Intelectual</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Acepto que la IA es mi copiloto, pero yo soy el capitán. Me comprometo a verificar cada dato, corregir cada alucinación y aportar mi criterio humano único a cada obra.</p>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="pulse-btn" onclick="this.innerHTML='<i class=\'bx bxs-check-shield\'></i> Pacto Firmado'; this.style.background='#10b981';">
+                    <i class='bx bx-check-shield'></i> Firmar Compromiso Ético
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. El Bucle Humano-IA -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-infinite'></i> 2. Human-in-the-loop</h2>
+            <p class="section-text">El proceso creativo moderno es un bucle infinito de colaboración. ¿Cómo interactúas tú con la máquina?</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>El Prompt (Entrada) <i class='bx bx-terminal'></i></h3>
+                    <div class="concept-desc">Tú defines la "Idea Semilla", el tono y el contexto. Sin tu instrucción, la máquina es un lienzo vacío.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>La Curaduría (Salida) <i class='bx bx-low-vision'></i></h3>
+                    <div class="concept-desc">Aquí ocurre la magia humana: detectar errores, ajustar el estilo y asegurar la coherencia del contenido.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Vocabulario Crítico -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee;">
+            <h2><i class='bx bx-list-ul'></i> 3. Código Técnico</h2>
+            <div style="background: rgba(34, 211, 238, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(34, 211, 238, 0.2);">
+                <ul id="vocab-list" style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
+                        <strong style="color: #22d3ee;">LLM:</strong> Modelos de Lenguaje Grande (como GPT-4), entrenados con miles de millones de textos humanos.
+                    </li>
+                    <li style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
+                        <strong style="color: #22d3ee;">Alucinación:</strong> Error lúdico donde la IA inventa un dato con total seguridad.
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <strong style="color: #22d3ee;">Sesgo (Bias):</strong> Prejuicios humanos heredados por el algoritmo durante su entrenamiento.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Misión 01 -->
+        <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
+            <h2><i class='bx bx-book-bookmark'></i> Misión 01: El Brief Editorial</h2>
+            <p class="section-text">Hoy inicia tu gran proyecto de grado: **El Libro Digital Co-Redactado**. Define los cimientos de tu obra.</p>
+            <div class="info-box">
+                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Define tu Idea Semilla y el Título de tu obra. Recuerda: El primer paso de un autor es la intención."</p>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="I-11-TIC.pdf" download class="pulse-btn" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981;">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 01 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Ofimática Cognitiva</strong> (v1.0)<br>
+                Validado bajo el Protocolo de Ética IA - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

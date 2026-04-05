@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 8-10-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Diseñando Impacto Visual...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 8</span>
+            <h1>La Venta Visual</h1>
+            <p>Aprende a vender tus ideas con presentaciones poderosas, minimalistas y apoyadas en IA para capturar la atención de cualquier audiencia.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Diapositivas de Alto Impacto</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/wX88wMadRYQ?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Descubre los secretos de las presentaciones de nivel Silicon Valley.</p>
+        </section>
+
+        <!-- 1. El Código de la Presentación -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-check-circle'></i> 1. Las Reglas de Oro</h2>
+            <p class="section-text">¿Me compras o te duermes? Para que tu audiencia te escuche, debes seguir este pacto ético de diseño:</p>
+            <div class="grid-3">
+                <div style="background: rgba(220, 38, 38, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(220, 38, 38, 0.2); text-align: center;">
+                    <i class='bx bx-book-open' style='font-size: 2rem; color: #ef4444; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 8px 0;">Cero Ladrillos</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary);">Si hay más de 30 palabras en una diapositiva, la gente deja de escucharte para leer.</p>
+                </div>
+                <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2); text-align: center;">
+                    <i class='bx bx-target-lock' style='font-size: 2rem; color: #3b82f6; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 8px 0;">Una Idea x Slide</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary);">No mezcles temas. Cada diapositiva debe ser un impacto directo y claro.</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2); text-align: center;">
+                    <i class='bx bx-user-voice' style='font-size: 2rem; color: #10b981; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 8px 0;">No Leeré</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary);">La diapositiva apoya tu discurso, NO es tu guion. Mira a tu audiencia.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. La Regla 10/20/30 (Guy Kawasaki) -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-math'></i> 2. El Estándar 10/20/30</h2>
+            <p class="section-text">Guy Kawasaki, experto en marketing, diseñó esta fórmula matemática para el éxito:</p>
+            <div class="grid-3">
+                <div class="concept-card" style="text-align: center;">
+                    <h1 style="color: #22d3ee; margin-bottom: 5px;">10</h1>
+                    <p style="font-size: 0.85rem; font-weight: 600;">Máximo Diapositivas</p>
+                </div>
+                <div class="concept-card" style="text-align: center;">
+                    <h1 style="color: #a855f7; margin-bottom: 5px;">20</h1>
+                    <p style="font-size: 0.85rem; font-weight: 600;">Minutos de Duración</p>
+                </div>
+                <div class="concept-card" style="text-align: center;">
+                    <h1 style="color: #ec4899; margin-bottom: 5px;">30</h1>
+                    <p style="font-size: 0.85rem; font-weight: 600;">Puntos de Fuente</p>
+                </div>
+            </div>
+            <div class="info-box" style="margin-top: 20px;">
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;"><i class='bx bx-info-circle'></i> <strong>¿Por qué fuente 30?</strong> Obliga al expositor a resumir y permite que hasta la persona al fondo del salón pueda leer sin esfuerzo.</p>
+            </div>
+        </section>
+
+        <!-- 3. IA Generadora de Diseño -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-wand'></i> 3. Tus Aliados Tecnológicos</h2>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Gamma.app <i class='bx bx-rocket'></i></h3>
+                    <div class="concept-desc">Crea presentaciones completas a partir de un simple texto. Ideal para estructurar el borrador visual de tu proyecto.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Magic Design (Canva) <i class='bx bx-spray-can'></i></h3>
+                    <div class="concept-desc">Convierte tus ideas en diapositivas con diseños profesionales en segundos usando IA generativa.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Misión del Pitch -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
+            <h2><i class='bx bxs-megaphone'></i> Misión 08: El Pitch de Venta</h2>
+            <p class="section-text">Crea el esqueleto de tu presentación de grado. Debe tener exactamente 10 diapositivas y ninguna puede tener más de un bullet point con más de 10 palabras. ¡Sintetiza al máximo!</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; display: inline-block; margin-top: 15px;">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;"><strong>Herramienta sugerida:</strong> Prototipa en Gamma.app y pule en Canva.</p>
+            </div>
+        </section>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S8</h2>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="8-10-TIC.pdf" download class="pulse-btn">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 8 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Comunicación Persuasiva</strong> (v1.2)<br>
+                Desarrollo de Competencias en Diseño y Síntesis - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

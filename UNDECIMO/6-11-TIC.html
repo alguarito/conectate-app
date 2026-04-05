@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 6-11-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Desvinculando Secciones Editoriales...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 06</span>
+            <h1>Ingeniería Editorial</h1>
+            <p>Secciones y Paginación: Domina los saltos de sección y la desvinculación para crear una estructura académica con numeración romana y arábiga profesional.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Secciones y Paginación</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/1iqEHcZm16s?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">"Dividir el documento es multiplicar su profesionalismo."</p>
+        </section>
+
+        <!-- 1. El Concepto de Sección -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-columns'></i> 1. Segmentando tu Obra</h2>
+            <p class="section-text">Un libro profesional no es un bloque único. Se divide en **Secciones** para que cada parte tenga su propia configuración:</p>
+            <div class="grid-2">
+                <div class="info-box" style="border-left-color: #22d3ee;">
+                    <div class="info-box-title">Salto de Sección</div>
+                    <p style="font-size: 0.85rem;">A diferencia de un salto de página, el salto de sección permite cambiar márgenes, orientación y **numeración** de forma independiente.</p>
+                </div>
+                <div class="info-box" style="border-left-color: #a855f7;">
+                    <div class="info-box-title">La Llave Maestra</div>
+                    <p style="font-size: 0.85rem;">**"Desvincular a la anterior"** es el paso obligatorio para romper la herencia de formato entre la portada, el índice y los capítulos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Lógica de Paginación Académica -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-list-ol'></i> 2. Protocolo de Numeración</h2>
+            <div style="background: rgba(168, 85, 247, 0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.2);">
+                <div class="step-item" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0;">
+                    <strong style="color: #a855f7;">Portada:</strong> Sin numeración (Página 1 "invisible").
+                </div>
+                <div class="step-item" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0;">
+                    <strong style="color: #a855f7;">Páginas Preliminares (Índice):</strong> Números Romanos en minúscula (**i, ii, iii**).
+                </div>
+                <div class="step-item" style="padding: 10px 0;">
+                    <strong style="color: #a855f7;">Cuerpo del Libro:</strong> Números Arábigos (**1, 2, 3**), reiniciando en la primera página del capítulo 1.
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Índices Automáticos -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-book-content'></i> 3. La Tabla de Contenido</h2>
+            <p class="section-text">Si usaste **Estilos (Título 1, Título 2)** adecuadamente en las sesiones anteriores, generar el índice es instantáneo:</p>
+            <div class="info-box">
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Ve a la pestaña **Referencias > Tabla de contenido**. El sistema detectará automáticamente tus capítulos y páginas, asegurando que el libro sea navegable.</p>
+            </div>
+        </section>
+
+        <!-- Misión 06 -->
+        <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
+            <h2><i class='bx bx-cog'></i> Misión 06: Operación Paginación</h2>
+            <p class="section-text">Hoy estructurarás tu libro como un profesional. Configura las secciones y rompe los vínculos.</p>
+            <div class="info-box">
+                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Crea 3 secciones, desvincula los pies de página y configura la numeración romana y arábiga."</p>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="6-11-TIC.pdf" download class="pulse-btn" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981;">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 06 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Ingeniería Editorial</strong> (v1.1)<br>
+                Validado bajo el Protocolo de Estructura Académica - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

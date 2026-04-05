@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Global | Grado Décimo</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./CORE/exam-core.css?v=1.1">
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Desplegando Examen de Ingeniería Documental...</p>
+    </div>
+
+    <!-- Overlay de Envio -->
+    <div id="sending-overlay">
+        <div id="loading-ui" style="text-align: center;">
+            <div class="loader-spinner" style="border-left-color: #10b981; margin: 0 auto 20px auto;"></div>
+            <h2 style="color: white; font-family: var(--font-heading);">Validando Auditoría Final...</h2>
+            <p style="color: var(--text-secondary);">Sincronizando resultados con el servidor central.</p>
+        </div>
+        <div id="success-ui" style="text-align: center; display: none;">
+            <i class='bx bxs-check-circle success-icon' style="display: block;"></i>
+            <h2 style="color: white; font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px;">¡Examen Sellado!</h2>
+            <p style="color: #6ee7b7; font-size: 1.2rem;">Tu evaluación ha sido registrada exitosamente bajo los estándares MILC.</p>
+            
+            <div class="score-box" style="display: block;">
+                <p style="color: var(--text-secondary); margin:0; text-transform: uppercase; letter-spacing: 1px;">Tu Calificación Final</p>
+                <div class="score-value" id="final-score-display" style="color: #22d3ee;">0.0</div>
+                <p style="color: var(--text-secondary); margin:0;">Puntaje máximo: 5.0</p>
+            </div>
+            
+            <button onclick="window.location.href='../index.html'" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                Volver a la Plataforma Central
+            </button>
+        </div>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Abandonar Evaluación
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <h1>Examen Global: Grado Décimo</h1>
+            <p>Rethink, Audit, Persuade. Pon a prueba tus conocimientos sobre Alfabetización Digital Crítica, Normas APA 7 y Co-Redacción con IA.</p>
+        </header>
+
+        <form id="exam-form">
+            <div class="student-data-panel">
+                <div class="form-group" style="flex: 2;">
+                    <label for="student-name"><i class='bx bxs-user'></i> Nombres y Apellidos Completos</label>
+                    <input type="text" id="student-name" required placeholder="Ej: Juan David Gomez Saavedra">
+                </div>
+                <div class="form-group">
+                    <label for="student-grade"><i class='bx bxs-group'></i> Selecciona tu Grado</label>
+                    <select id="student-grade" required>
+                        <option value="" disabled selected>Elige un grupo...</option>
+                        <option value="10-1">Grado 10-1</option>
+                        <option value="10-2">Grado 10-2</option>
+                        <option value="10-3">Grado 10-3</option>
+                        <option value="10-4">Grado 10-4</option>
+                        <option value="10-5">Grado 10-5</option>
+                        <option value="10-Otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+
+            <h2 style="color: #22d3ee; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;"><i class='bx bx-check-shield'></i> Auditoría de Conocimientos</h2>
+
+            <div id="questions-container">
+                <!-- Inyectadas por JS -->
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <i class='bx bxs-cloud-upload'></i> Finalizar Auditoría y Ver Calificación
+            </button>
+        </form>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Evaluación de Competencias Digitales</strong><br>
+                Validado por el Equipo de Innovación - I.E. Sor María Juliana
+            </p>
+        </footer>
+    </div>
+
+    <script src="./CORE/exam-core.js?v=1.1"></script>
+    <script>
+        // URL del Webhook de Google Sheets para 10MO (Misma que Noveno o una nueva si el usuario la tiene)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
+
+        const questionsDB = [
+            {
+                title: "¿Qué es una 'Alucinación' en una Inteligencia Artificial según la Sesión 1?",
+                opts: ["A) Cuando la IA se apaga por falta de batería.", "B) Cuando la IA genera respuestas falsas pero con una apariencia de verdad muy convincente.", "C) Cuando la IA empieza a usar colores brillantes en su interfaz."],
+                ans: 1
+            },
+            {
+                title: "¿Cuál es el propósito principal de construir un 'Segundo Cerebro Digital'?",
+                opts: ["A) Instalar un chip en el cerebro humano para mejorar la memoria.", "B) Liberar espacio mental delegando el almacenamiento y organización de información curada a herramientas digitales.", "C) Tener dos celulares al mismo tiempo."],
+                ans: 1
+            },
+            {
+                title: "En la fórmula C.R.I.F. para la creación de prompts exitosos, ¿qué representa la letra 'F'?",
+                opts: ["A) Fórmulas matemáticas complejas.", "B) Formato (la estructura en la que deseamos que la IA nos entregue la respuesta).", "C) Fin de la conversación."],
+                ans: 1
+            },
+            {
+                title: "Según la 'Arquitectura Documental', ¿por qué es preferible usar Estilos en Word en lugar de formato manual?",
+                opts: ["A) Porque el formato manual hace que el archivo pese menos.", "B) Porque los Estilos permiten actualizaciones globales, generan tablas de contenido automáticas y mantienen la jerarquía estructural.", "C) Porque los Estilos incluyen más fuentes artísticas."],
+                ans: 1
+            },
+            {
+                title: "En las Normas APA 7, ¿cuál es la diferencia fundamental entre una 'Cita' y una 'Referencia'?",
+                opts: ["A) La cita va en el cuerpo del texto; la referencia es el dato completo en la lista bibliográfica al final.", "B) Las citas son para libros y las referencias para sitios web.", "C) No hay diferencia, son sinónimos."],
+                ans: 0
+            },
+            {
+                title: "¿En qué consiste la 'Regla del 30%' establecida para el Escritor Centauro?",
+                opts: ["A) En usar la IA solo el 30% del tiempo de clase.", "B) En que el humano debe reescribir, editar y aportar criterio al menos al 30% del contenido generado por una IA.", "C) En pagar el 30% del valor de la suscripción de la IA."],
+                ans: 1
+            },
+            {
+                title: "Al presentar una Tabla técnica bajo Normas APA 7, ¿cuál de los siguientes elementos está ESTRICTAMENTE prohibido?",
+                opts: ["A) Los números en negrita.", "B) El título en la parte superior.", "C) El uso de líneas verticales para separar columnas."],
+                ans: 2
+            },
+            {
+                title: "Según la regla 10/20/30 de Guy Kawasaki para presentaciones, ¿qué significa el número 30?",
+                opts: ["A) Que la presentación debe tener exactamente 30 diapositivas.", "B) Que el tamaño de la fuente debe ser, como mínimo, de 30 puntos para asegurar la legibilidad.", "C) Que el discurso debe durar exactamente 30 minutos."],
+                ans: 1
+            },
+            {
+                title: "En la anatomía de un Video-Pitch de 60 segundos, ¿qué debe ocurrir obligatoriamente en los primeros 5 segundos?",
+                opts: ["A) Presentar todos los nombres de los integrantes del equipo.", "B) Lanzar el 'Gancho' (Hook) para capturar la atención de la audiencia.", "C) Mostrar la bibliografía consultada."],
+                ans: 1
+            },
+            {
+                title: "En el ciclo de calidad PHVA aplicado a la ingeniería documental, ¿cuál es la tarea principal de la fase 'Verificar'?",
+                opts: ["A) Empezar a escribir el documento desde cero.", "B) Auditar y comparar el producto (informe o video) con el estándar de calidad y ética esperado.", "C) Comprar una licencia nueva de Word."],
+                ans: 1
+            }
+        ];
+
+        // Iniciar examen con el motor modular
+        initExam(questionsDB, GOOGLE_SCRIPT_URL);
+    </script>
+</body>
+</html>

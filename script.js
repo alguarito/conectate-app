@@ -59,7 +59,7 @@ const sectionData = {
             { id: 8, title: 'Sesión 8: La Venta Visual', file: './DECIMO/8-10-TIC.html?v=1.1', desc: 'Diapositivas de Alto Impacto con IA: Domina la Regla 10/20/30 y las herramientas Gamma/Canva para un pitch exitoso.' },
             { id: 9, title: 'Sesión 9: El Video-Pitch', file: './DECIMO/9-10-TIC.html?v=1.1', desc: 'Vender en 60 Segundos: Domina la oratoria digital y la economía de la atención para persuadir con tu proyecto.' },
             { id: 10, title: 'Sesión 10: La Auditoría Final', file: './DECIMO/10-10-TIC.html?v=1.1', desc: 'Edición, Ética y Calidad: Aplica el ciclo PHVA y el rigor del auditor profesional a tu proyecto final.' },
-            { id: 11, title: 'Sesión 11: Proyecto Transversal', file: './DECIMO/11-10-TIC.html?v=1.0', desc: 'Integración final de lógica, diseño y estructura en una solución tecnológica real.' }
+            { id: 11, title: 'Sesión 11: Prueba de Desempeño', file: './DECIMO/11-10-TIC.html?v=1.1', desc: 'Demuestra tu transformación: de consumidor ciego a Auditor Crítico de IA e Ingeniería Documental.' }
         ]
     },
     undecimo: {

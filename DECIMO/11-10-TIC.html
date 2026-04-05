@@ -3,49 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen Global | Grado Décimo</title>
+    <title>Auditoría IA | Proyecto Final 10°</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- BoxIcons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./CORE/exam-core.css?v=1.1">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        .dropzone {
+            border: 2px dashed rgba(34, 211, 238, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255,255,255,0.02);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        .dropzone:hover, .dropzone.dragover {
+            background: rgba(34, 211, 238, 0.05);
+            border-color: #22d3ee;
+            transform: scale(1.01);
+        }
+        .dropzone i { font-size: 3.5rem; color: #22d3ee; margin-bottom: 15px; }
+        
+        .analysis-overlay {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+        
+        .result-card {
+            display: none;
+            margin-top: 30px;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-badge {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: var(--font-heading);
+            color: #22d3ee;
+            text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+        }
+
+        .wa-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        .wa-btn:hover {
+            background: #128c7e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .student-input {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .student-input:focus {
+            border-color: #22d3ee;
+        }
+    </style>
 </head>
-<body>
+<body class="theme-coder">
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Desplegando Examen de Ingeniería Documental...</p>
-    </div>
-
-    <!-- Overlay de Envio -->
-    <div id="sending-overlay">
-        <div id="loading-ui" style="text-align: center;">
-            <div class="loader-spinner" style="border-left-color: #10b981; margin: 0 auto 20px auto;"></div>
-            <h2 style="color: white; font-family: var(--font-heading);">Validando Auditoría Final...</h2>
-            <p style="color: var(--text-secondary);">Sincronizando resultados con el servidor central.</p>
-        </div>
-        <div id="success-ui" style="text-align: center; display: none;">
-            <i class='bx bxs-check-circle success-icon' style="display: block;"></i>
-            <h2 style="color: white; font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px;">¡Examen Sellado!</h2>
-            <p style="color: #6ee7b7; font-size: 1.2rem;">Tu evaluación ha sido registrada exitosamente bajo los estándares MILC.</p>
-            
-            <div class="score-box" style="display: block;">
-                <p style="color: var(--text-secondary); margin:0; text-transform: uppercase; letter-spacing: 1px;">Tu Calificación Final</p>
-                <div class="score-value" id="final-score-display" style="color: #22d3ee;">0.0</div>
-                <p style="color: var(--text-secondary); margin:0;">Puntaje máximo: 5.0</p>
-            </div>
-            
-            <button onclick="window.location.href='../index.html'" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-                Volver a la Plataforma Central
-            </button>
-        </div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Iniciando Laboratorio de Auditoría...</p>
     </div>
 
     <div class="notebook-container glass-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
-                <i class='bx bx-arrow-back'></i> Abandonar Evaluación
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
             </a>
             <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <i class='bx bx-moon'></i>
@@ -54,109 +115,193 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <h1>Examen Global: Grado Décimo</h1>
-            <p>Rethink, Audit, Persuade. Pon a prueba tus conocimientos sobre Alfabetización Digital Crítica, Normas APA 7 y Co-Redacción con IA.</p>
+            <span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #a855f7; margin-bottom: 10px;">Laboratorio Final de 10°</span>
+            <h1>Auditoría IA: Proyecto de Grado</h1>
+            <p>Sube tu libro PDF co-redactado con IA. Analizaremos tu **coherencia**, el cumplimiento del **Pacto del Centauro** y te daremos feedback instantáneo.</p>
         </header>
 
-        <form id="exam-form">
-            <div class="student-data-panel">
-                <div class="form-group" style="flex: 2;">
-                    <label for="student-name"><i class='bx bxs-user'></i> Nombres y Apellidos Completos</label>
-                    <input type="text" id="student-name" required placeholder="Ej: Juan David Gomez Saavedra">
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-upload'></i> 1. Carga de Proyecto</h2>
+            <p class="section-text">Asegúrate de que tu nombre esté completo en la portada del libro antes de subirlo.</p>
+            
+            <input type="text" id="student-name" placeholder="Escribe tu nombre completo aquí..." class="student-input">
+
+            <div id="dropzone" class="dropzone">
+                <i class='bx bxs-file-pdf'></i>
+                <h3>Suelta tu Libro PDF aquí</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">O haz clic para seleccionar el archivo (Máx. 10MB)</p>
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+            </div>
+
+            <div id="analysis-overlay" class="analysis-overlay">
+                <div class="loader-spinner" style="margin: 0 auto 20px auto; border-left-color: #a855f7;"></div>
+                <h3 id="status-text" style="color: #a855f7;">Leyendo páginas del libro...</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Nuestra IA está verificando la coherencia y el estilo MILC.</p>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section id="result-card" class="result-card interactive-section glass-panel" style="border-color: #10b981;">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">AUDITORÍA COMPLETADA</span>
+                <div class="score-badge" id="display-score">5.0</div>
+                <h2 style="margin: 0;">Resultado del Peritaje</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="info-box" style="border-left-color: #a855f7;">
+                    <div class="info-box-title"><i class='bx bx-comment-detail'></i> Feedback del Auditor</div>
+                    <p id="display-feedback" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
                 </div>
-                <div class="form-group">
-                    <label for="student-grade"><i class='bx bxs-group'></i> Selecciona tu Grado</label>
-                    <select id="student-grade" required>
-                        <option value="" disabled selected>Elige un grupo...</option>
-                        <option value="10-1">Grado 10-1</option>
-                        <option value="10-2">Grado 10-2</option>
-                        <option value="10-3">Grado 10-3</option>
-                        <option value="10-4">Grado 10-4</option>
-                        <option value="10-5">Grado 10-5</option>
-                        <option value="10-Otro">Otro</option>
-                    </select>
+                <div class="info-box" style="border-left-color: #22d3ee;">
+                    <div class="info-box-title"><i class='bx bx-check-shield'></i> Justificación Técnica</div>
+                    <p id="display-justification" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
                 </div>
             </div>
 
-            <h2 style="color: #22d3ee; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;"><i class='bx bx-check-shield'></i> Auditoría de Conocimientos</h2>
-
-            <div id="questions-container">
-                <!-- Inyectadas por JS -->
+            <div class="info-box" style="margin-top: 20px; border-left-color: #f59e0b;">
+                <div class="info-box-title"><i class='bx bx-bulb'></i> Oportunidades de Mejora</div>
+                <p id="display-improvements" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
             </div>
 
-            <button type="submit" class="submit-btn" id="submit-btn">
-                <i class='bx bxs-cloud-upload'></i> Finalizar Auditoría y Ver Calificación
-            </button>
-        </form>
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="send-wa-btn" class="wa-btn">
+                    <i class='bx bxl-whatsapp'></i> Enviar Reporte al Profe Álvaro
+                </button>
+            </div>
+        </section>
 
-        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Evaluación de Competencias Digitales</strong><br>
-                Validado por el Equipo de Innovación - I.E. Sor María Juliana
+                <strong>CONECTATE | Módulo de Auditoría de Inteligencia Artificial</strong><br>
+                Validado bajo el Estándar de Ética MILC - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>
 
-    <script src="./CORE/exam-core.js?v=1.1"></script>
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
     <script>
-        // URL del Webhook de Google Sheets para 10MO (Misma que Noveno o una nueva si el usuario la tiene)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-input');
+        const statusText = document.getElementById('status-text');
+        const analysisOverlay = document.getElementById('analysis-overlay');
+        const resultCard = document.getElementById('result-card');
+        const studentNameInput = document.getElementById('student-name');
 
-        const questionsDB = [
-            {
-                title: "¿Qué es una 'Alucinación' en una Inteligencia Artificial según la Sesión 1?",
-                opts: ["A) Cuando la IA se apaga por falta de batería.", "B) Cuando la IA genera respuestas falsas pero con una apariencia de verdad muy convincente.", "C) Cuando la IA empieza a usar colores brillantes en su interfaz."],
-                ans: 1
-            },
-            {
-                title: "¿Cuál es el propósito principal de construir un 'Segundo Cerebro Digital'?",
-                opts: ["A) Instalar un chip en el cerebro humano para mejorar la memoria.", "B) Liberar espacio mental delegando el almacenamiento y organización de información curada a herramientas digitales.", "C) Tener dos celulares al mismo tiempo."],
-                ans: 1
-            },
-            {
-                title: "En la fórmula C.R.I.F. para la creación de prompts exitosos, ¿qué representa la letra 'F'?",
-                opts: ["A) Fórmulas matemáticas complejas.", "B) Formato (la estructura en la que deseamos que la IA nos entregue la respuesta).", "C) Fin de la conversación."],
-                ans: 1
-            },
-            {
-                title: "Según la 'Arquitectura Documental', ¿por qué es preferible usar Estilos en Word en lugar de formato manual?",
-                opts: ["A) Porque el formato manual hace que el archivo pese menos.", "B) Porque los Estilos permiten actualizaciones globales, generan tablas de contenido automáticas y mantienen la jerarquía estructural.", "C) Porque los Estilos incluyen más fuentes artísticas."],
-                ans: 1
-            },
-            {
-                title: "En las Normas APA 7, ¿cuál es la diferencia fundamental entre una 'Cita' y una 'Referencia'?",
-                opts: ["A) La cita va en el cuerpo del texto; la referencia es el dato completo en la lista bibliográfica al final.", "B) Las citas son para libros y las referencias para sitios web.", "C) No hay diferencia, son sinónimos."],
-                ans: 0
-            },
-            {
-                title: "¿En qué consiste la 'Regla del 30%' establecida para el Escritor Centauro?",
-                opts: ["A) En usar la IA solo el 30% del tiempo de clase.", "B) En que el humano debe reescribir, editar y aportar criterio al menos al 30% del contenido generado por una IA.", "C) En pagar el 30% del valor de la suscripción de la IA."],
-                ans: 1
-            },
-            {
-                title: "Al presentar una Tabla técnica bajo Normas APA 7, ¿cuál de los siguientes elementos está ESTRICTAMENTE prohibido?",
-                opts: ["A) Los números en negrita.", "B) El título en la parte superior.", "C) El uso de líneas verticales para separar columnas."],
-                ans: 2
-            },
-            {
-                title: "Según la regla 10/20/30 de Guy Kawasaki para presentaciones, ¿qué significa el número 30?",
-                opts: ["A) Que la presentación debe tener exactamente 30 diapositivas.", "B) Que el tamaño de la fuente debe ser, como mínimo, de 30 puntos para asegurar la legibilidad.", "C) Que el discurso debe durar exactamente 30 minutos."],
-                ans: 1
-            },
-            {
-                title: "En la anatomía de un Video-Pitch de 60 segundos, ¿qué debe ocurrir obligatoriamente en los primeros 5 segundos?",
-                opts: ["A) Presentar todos los nombres de los integrantes del equipo.", "B) Lanzar el 'Gancho' (Hook) para capturar la atención de la audiencia.", "C) Mostrar la bibliografía consultada."],
-                ans: 1
-            },
-            {
-                title: "En el ciclo de calidad PHVA aplicado a la ingeniería documental, ¿cuál es la tarea principal de la fase 'Verificar'?",
-                opts: ["A) Empezar a escribir el documento desde cero.", "B) Auditar y comparar el producto (informe o video) con el estándar de calidad y ética esperado.", "C) Comprar una licencia nueva de Word."],
-                ans: 1
+        const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
+        const PROFESSOR_WA = "573206324740";
+
+        // PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        async function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') {
+                alert('Por favor sube un archivo PDF válido.');
+                return;
             }
-        ];
 
-        // Iniciar examen con el motor modular
-        initExam(questionsDB, GOOGLE_SCRIPT_URL);
+            const studentName = studentNameInput.value.trim();
+            if (!studentName) {
+                alert('Por favor ingresa tu nombre completo primero.');
+                studentNameInput.focus();
+                return;
+            }
+
+            dropzone.style.display = 'none';
+            analysisOverlay.style.display = 'block';
+
+            try {
+                const text = await extractTextFromPdf(file);
+                await auditWithAI(text, studentName);
+            } catch (err) {
+                console.error(err);
+                alert('Error al procesar el libro. Inténtalo de nuevo.');
+                dropzone.style.display = 'block';
+                analysisOverlay.style.display = 'none';
+            }
+        }
+
+        async function extractTextFromPdf(file) {
+            statusText.innerText = 'Extrayendo contenido del libro...';
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+            let fullText = '';
+            
+            // Analizamos máximo las primeras 10 páginas para no saturar el prompt
+            const pagesToRead = Math.min(pdf.numPages, 10);
+            for (let i = 1; i <= pagesToRead; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                fullText += textContent.items.map(item => item.str).join(' ') + '\n';
+            }
+            return fullText;
+        }
+
+        async function auditWithAI(bookText, studentName) {
+            statusText.innerText = 'El Auditor IA está calificando la obra...';
+            
+            const systemInstruction = `Eres el Auditor de Calidad MILC de la I.E. Sor María Juliana. Tu misión es evaluar proyectos finales de Grado Décimo (libros co-redactados con IA).
+            Evalúa:
+            1. COHERENCIA: ¿Tiene hilo conductor o son retazos de IA?
+            2. PACTO DEL CENTAURO: ¿Se nota que el alumno editó el texto y quitó muletillas de robot?
+            3. ESTILO TÉCNICO: ¿Cumple con la formalidad esperada de un libro digital?
+            
+            Responde ÚNICAMENTE en este formato JSON:
+            {
+              "nota": [Número de 1.0 a 5.0],
+              "feedback": "[Resumen cercano y motivador]",
+              "justificacion": "[Explicación técnica detallada de la nota]",
+              "mejoras": "[Tres puntos clave]"
+            }`;
+
+            const payload = {
+                system_instruction: { parts: [{ text: systemInstruction }] },
+                contents: [{ role: 'user', parts: [{ text: `Nombre del Estudiante: ${studentName}\nContenido del Libro:\n${bookText.substring(0, 5000)}` }] }]
+            };
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error('AI Error');
+            const data = await response.json();
+            const result = JSON.parse(data.candidates[0].content.parts[0].text.replace(/```json|```/g, ''));
+
+            displayResults(result, studentName);
+        }
+
+        function displayResults(res, name) {
+            analysisOverlay.style.display = 'none';
+            resultCard.style.display = 'block';
+
+            document.getElementById('display-score').innerText = res.nota.toFixed(1);
+            document.getElementById('display-feedback').innerText = res.feedback;
+            document.getElementById('display-justification').innerText = res.justificacion;
+            document.getElementById('display-improvements').innerText = res.mejoras;
+
+            if (res.nota < 3.0) document.getElementById('display-score').style.color = '#ec4899';
+            else if (res.nota < 4.0) document.getElementById('display-score').style.color = '#fbbf24';
+            else document.getElementById('display-score').style.color = '#10b981';
+
+            const waBtn = document.getElementById('send-wa-btn');
+            waBtn.onclick = () => {
+                const msg = encodeURIComponent(`*REPORTE DE AUDITORÍA TIC - 10°*\n*Estudiante:* ${name}\n*Nota:* ${res.nota.toFixed(1)}/5.0\n\n*Feedback:* ${res.feedback}\n\n*Justificación:* ${res.justificacion}\n\n*Mejoras:* ${res.mejoras}`);
+                window.open(`https://wa.me/${PROFESSOR_WA}?text=${msg}`, '_blank');
+            };
+        }
     </script>
 </body>
 </html>

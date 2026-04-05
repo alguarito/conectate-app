@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 3-11-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Sincronizando el Bucle Centauro...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; margin-bottom: 10px;">Guía de Aprendizaje N° 03</span>
+            <h1>Escritura Centauro</h1>
+            <p>Co-creando el Primer Capítulo: Domina el flujo Semilla-Expansión-Edición y aplica la regla del 30% para humanizar el contenido de tu libro digital.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(16, 185, 129, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: El Bucle Creativo</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/o_ADqrnDZiQ?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">"El autor no es quien escribe solo, sino quien dirige el flujo de la inteligencia."</p>
+        </section>
+
+        <!-- 1. El Flujo del Centauro -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-refresh'></i> 1. El Bucle de Retroalimentación</h2>
+            <p class="section-text">Escribir con IA no es copiar y pegar. Es un proceso cíclico de tres etapas:</p>
+            <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+                <div class="concept-card" style="text-align: center;">
+                    <h3 style="color: #a855f7;">Semilla</h3>
+                    <div class="concept-desc" style="display: block; font-size: 0.75rem;">Tu idea original, el prompt y el contexto que diseñas.</div>
+                </div>
+                <div class="concept-card" style="text-align: center;">
+                    <h3 style="color: #22d3ee;">Expansión</h3>
+                    <div class="concept-desc" style="display: block; font-size: 0.75rem;">La IA genera el contenido basado en tu semilla.</div>
+                </div>
+                <div class="concept-card" style="text-align: center; border-color: #10b981; background: rgba(16, 185, 129, 0.05);">
+                    <h3 style="color: #10b981;">Edición</h3>
+                    <div class="concept-desc" style="display: block; font-size: 0.75rem;">Podas, corriges, humanizas y verificas datos.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. La Regla del 30% -->
+        <section class="interactive-section glass-panel" style="border-color: #ec4899;">
+            <h2><i class='bx bx-check-shield'></i> 2. La Regla del 30%</h2>
+            <div class="info-box" style="border-left-color: #ec4899;">
+                <div class="info-box-title">Soberanía Intelectual</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Para asegurar que el libro sea **tuyo**, debes intervenir al menos el **30%** del texto de la IA. No permitas que el robot hable por ti; tú eres el dueño del mensaje.</p>
+            </div>
+            <div class="concept-card" style="margin-top: 15px;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 8px;">¿Cómo humanizar?</h4>
+                <ul style="font-size: 0.8rem; color: rgba(255,255,255,0.6); padding-left: 20px;">
+                    <li>Elimina introducciones de robot ("Como modelo de lenguaje...").</li>
+                    <li>Sustituye adjetivos complejos por un lenguaje más cercano.</li>
+                    <li>Añade anécdotas personales o ejemplos locales de tu colegio.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. Detectando Vicios de Robot -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-bug'></i> 3. Auditoría de Vicios</h2>
+            <p class="section-text">Aprende a detectar cuando la IA está fallando en su estilo:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Tono Plano y Repetitivo <i class='bx bx-redo'></i></h3>
+                    <div class="concept-desc">La IA tiende a repetir palabras como "innovador", "revolucionario" o "esencial". ¡Bórralas!</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Alucinaciones <i class='bx bx-ghost'></i></h3>
+                    <div class="concept-desc">Si la IA inventa un dato, una fecha o una cita, el responsable de corregirlo eres TÚ.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Misión 03 -->
+        <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
+            <h2><i class='bx bx-edit'></i> Misión 03: Redacción del Capítulo 1</h2>
+            <p class="section-text">Hoy escribirás y pulirás la versión final del primer capítulo de tu libro. Aplica el Bucle Centauro.</p>
+            <div class="info-box">
+                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Genera el texto, edita al menos el 30% y asegúrate de que tenga tu toque personal."</p>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="3-11-TIC.pdf" download class="pulse-btn" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981;">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 03 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Escritura Centauro</strong> (v1.1)<br>
+                Validado bajo el Protocolo de Ética Editorial - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

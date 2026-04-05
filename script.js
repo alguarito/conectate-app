@@ -67,7 +67,7 @@ const sectionData = {
         sessions: [
             { id: 1, title: 'Sesión 1: El Fin del Autor', file: './UNDECIMO/1-11-TIC.html?v=1.0', desc: 'Inteligencia Artificial y Robots: Una reflexión sobre la soberanía intelectual y el nuevo rol del humano en la Infoesfera.' },
             { id: 2, title: 'Sesión 2: Ingeniería de Prompts', file: './UNDECIMO/2-11-TIC.html?v=1.1', desc: 'El Arte de Pedir: Domina la fórmula C.R.I.F. y el principio GIGO para programar la IA con lenguaje humano y estructurar tu libro.' },
-            { id: 3, title: 'Sesión 3: Estructuras Lógicas', file: './UNDECIMO/3-11-TIC.html?v=1.0', desc: 'Pensamiento computacional avanzado y algoritmia para la resolución de problemas.' },
+            { id: 3, title: 'Sesión 3: Escritura Centauro', file: './UNDECIMO/3-11-TIC.html?v=1.1', desc: 'Co-creando el Primer Capítulo: Domina el flujo Semilla-Expansión-Edición y aplica la regla del 30% para humanizar el contenido de tu libro.' },
             { id: 4, title: 'Sesión 4: Desarrollo en Python', file: './UNDECIMO/4-11-TIC.html?v=1.0', desc: 'Sintaxis básica y lógica de programación con el lenguaje líder en IA.' },
             { id: 5, title: 'Sesión 5: Programación Modular', file: './UNDECIMO/5-11-TIC.html?v=1.0', desc: 'Funciones, librerías y escalabilidad en el desarrollo de software.' },
             { id: 6, title: 'Sesión 6: Ciencia de Datos', file: './UNDECIMO/6-11-TIC.html?v=1.0', desc: 'Analizando grandes volúmenes de información para la toma de decisiones.' },

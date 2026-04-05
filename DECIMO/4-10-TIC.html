@@ -15,7 +15,7 @@
 <body class="theme-coder">
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Flexionando el Diseño...</p>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Construyendo Jerarquía Estructural...</p>
     </div>
 
     <div class="notebook-container glass-panel">
@@ -30,13 +30,14 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <h1>Sesión 4: Layouts Flexibles</h1>
-            <p>La revolución de la maquetación: Aprende a organizar elementos de forma fluida y adaptable con CSS Flexbox. ¡Adiós a los dolores de cabeza al centrar un DIV!</p>
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 4</span>
+            <h1>El Arquitecto Documental</h1>
+            <p>Dominando los Estilos en Word: Automatización, jerarquía estructural y aplicación técnica de Normas APA 7.</p>
         </header>
 
         <!-- Video de la Sesión -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Dominando Flexbox</h2>
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Estilos y Automatización</h2>
             <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
                 <iframe 
                     width="100%" 
@@ -45,81 +46,91 @@
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
+                    allowfullscreen
+                    loading="lazy">
                 </iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Organiza tus contenedores con elegancia y precisión.</p>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Aprende el flujo de trabajo profesional para estructurar documentos impecables.</p>
         </section>
 
-        <!-- 1. El Universo Flex -->
+        <!-- 1. Formato Manual vs Estilos Pro -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-shuffle'></i> 1. El Contenedor y los Items</h2>
-            <p class="section-text">Para que la magia ocurra, necesitamos un "padre" (Container) que controle a sus "hijos" (Items). Todo comienza con <code>display: flex;</code>:</p>
+            <h2><i class='bx bx-wrench'></i> 1. Fin del Formato Manual</h2>
+            <p class="section-text">¿Sigues cambiando el tamaño y la negrita de cada título uno por uno? Esa es la forma ineficiente. El **Arquitecto Documental** usa **Estilos**:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Flex Container <i class='bx bx-rectangle'></i></h3>
-                    <div class="concept-desc">Es el elemento padre. Al activarlo, adquiere "superpoderes" para alinear y distribuir a sus hijos en un eje principal.</div>
+                    <h3>El Error Manual <i class='bx bx-error-circle'></i></h3>
+                    <div class="concept-desc">Si el profesor pide cambiar el tipo de fuente de 20 títulos, tardarías 20 minutos. El documento se vuelve inconsistente y pesado.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Flex Items <i class='bx bx-grid-small'></i></h3>
-                    <div class="concept-desc">Son los hijos directos. Podemos controlar cuánto espacio ocupan (flex-grow) y cómo se comportan individualmente.</div>
+                    <h3>El Poder del Estilo <i class='bx bx-bolt-circle'></i></h3>
+                    <div class="concept-desc">Cambias el Estilo del "Título 1" y TODOS los títulos del documento se actualizan en UN SEGUNDO de forma coherente.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. Ejes y Alineación -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-move-horizontal'></i> 2. Controladores de Movimiento</h2>
-            <p class="section-text" style="margin-bottom: 25px;">Flexbox trabaja en dos ejes: Principal (Main Axis) y Cruzado (Cross Axis):</p>
+        <!-- 2. Anatomía de las Normas APA 7 -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-category'></i> 2. Configuración Técnica (APA 7)</h2>
+            <p class="section-text" style="margin-bottom: 25px;">Microsoft Word es tu lienzo, pero las Normas APA 7 son tu regla técnica. Estos son los cimientos:</p>
             <div class="grid-3">
                 <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(34, 211, 238, 0.1); text-align: center;">
-                    <i class='bx bx-align-middle' style='font-size: 2.5rem; color: #22d3ee; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0;">Justify Content</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Alinea en el eje principal. Puede ser al inicio, centro, final o con espacios intermedios.</p>
+                    <i class='bx bx-border-outer' style='font-size: 2.5rem; color: #22d3ee; margin-bottom: 15px; display: block;'></i>
+                    <h4 style="margin: 10px 0;">Márgenes</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Deben ser de 2.54 cm (1 pulgada) por los cuatro costados exactamente.</p>
                 </div>
                 <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.1); text-align: center;">
-                    <i class='bx bx-align-bottom' style='font-size: 2.5rem; color: #a855f7; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0;">Align Items</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Alinea en el eje cruzado (verticalmente si es una fila). Control total sobre la altura.</p>
+                    <i class='bx bx-font-size' style='font-size: 2.5rem; color: #a855f7; margin-bottom: 15px; display: block;'></i>
+                    <h4 style="margin: 10px 0;">Fuentes</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Times New Roman 12, Arial 11 o Calibri 11. Sin adornos extraños.</p>
                 </div>
                 <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(236, 72, 153, 0.1); text-align: center;">
-                    <i class='bx bx-directions' style='font-size: 2.5rem; color: #ec4899; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0;">Flex Direction</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Decide si los elementos se organizan en fila (row) o en columna (column).</p>
+                    <i class='bx bx-paragraph' style='font-size: 2.5rem; color: #ec4899; margin-bottom: 15px; display: block;'></i>
+                    <h4 style="margin: 10px 0;">Sangría</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">La primera línea de cada párrafo debe tener un espacio de 1.27 cm.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Flex Challenge -->
-        <section class="interactive-section glass-panel" style="border-color: var(--accent-purple);">
-            <h2><i class='bx bx-objects-vertical-center'></i> 3. Laboratorio de Alineación</h2>
-            <p class="section-text" style="text-align: center;">Haz clic para ver cómo aplicarías estas propiedades en casos reales:</p>
-            <div class="grid-2">
-                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #22d3ee;">
-                    <h3 style="font-size: 0.95rem;">Reto: ¿Cómo centro un título en el eje principal? <i class='bx bx-target-lock'></i></h3>
-                    <div class="concept-desc">Solución: Usa <code>justify-content: center;</code> en el contenedor padre. ¡Fácil y rápido!</div>
+        <!-- 3. Automatización Documental -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-unite'></i> 3. Tablas de Contenido Automáticas</h2>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-check-double'></i> El Panel de Navegación</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Si aplicas correctamente los Estilos (Título 1 para secciones, Título 2 para sub-secciones), Word creará el Índice solo con un clic en **Referencias > Tabla de Contenido**. Si cambias una página, solo das "Actualizar" y listo.</p>
+            </div>
+            <div class="grid-2" style="margin-top: 20px;">
+                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #10b981;">
+                    <h3 style="font-size: 0.95rem;">¿Por qué se ve la tabla rota? <i class='bx bx-help-circle'></i></h3>
+                    <div class="concept-desc">Sucede cuando aplicas el estilo de "Título" a párrafos normales por error. El Arquitecto debe separar el contenido de la estructura.</div>
                 </div>
-                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #a855f7;">
-                    <h3 style="font-size: 0.95rem;">Reto: ¿Cómo hago un menú separado (extremos)? <i class='bx bx-arrow-to-left'></i></h3>
-                    <div class="concept-desc">Solución: Usa <code>justify-content: space-between;</code> para que el logo y los enlaces se alejen al máximo.</div>
+                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #f59e0b;">
+                    <h3 style="font-size: 0.95rem;">Jerarquía Estructural <i class='bx bx-list-ol'></i></h3>
+                    <div class="concept-desc">Título 1 = Capítulo (INTRODUCCIÓN).<br>Título 2 = Tema (Objetivos).<br>Título 3 = Subtema (Objetivo General).</div>
                 </div>
             </div>
+        </section>
+
+        <!-- Misión del Arquitecto -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
+            <h2><i class='bx bx-buildings'></i> Misión 04: Cimientos de Word</h2>
+            <p class="section-text">Configura tu plantilla en Microsoft Word aplicando las márgenes de 2.54 cm y modifica el estilo **"Normal"** para que use Arial 11 con interlineado de 2.0 y sangría de 1.27 cm.</p>
         </section>
 
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S4</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="4-10-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía S4 (PDF)
+                <a href="4-10-TIC.pdf" download class="pulse-btn">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 4 (PDF)
                 </a>
             </div>
         </section>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Estructuras Frontend</strong> (v1.0)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+                <strong>CONECTATE | Módulo de Arquitectura Documental</strong> (v1.1)<br>
+                Validado contra Guía de Aprendizaje Oficial - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>

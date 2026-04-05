@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 6-10-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Iniciando Pacto del Centauro...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 6</span>
+            <h1>El Escritor Centauro</h1>
+            <p>Co-Redacción con IA: Fusiona tu criterio humano con el poder algorítmico para crear informes impecables sin perder tu esencia.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Redacción Híbrida</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/1XDhkH5y7cI?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Descubre cómo el "Escritor Centauro" utiliza la IA para expandir, no para reemplazar.</p>
+        </section>
+
+        <!-- 1. El Pacto del Centauro -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-check-shield'></i> 1. El Código de Ética</h2>
+            <p class="section-text">Para ser un Escritor Centauro, debes jurar protección a tu propio pensamiento. No copies y pegues; **CO-REDACTA** siguiendo estas reglas:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>La Regla del 30% <i class='bx bx-git-pull-request'></i></h3>
+                    <div class="concept-desc">Al menos el 30% del texto final debe ser redactado totalmente por ti (correcciones, ejemplos locales, testimonios). La IA te da los cimientos, tú pones los detalles.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Eliminación de Sesgos <i class='bx bx-brain'></i></h3>
+                    <div class="concept-desc">Revisa que la IA no use términos genéricos o excluyentes. El Centauro adapta el lenguaje al contexto real de su institución y comunidad.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Detector de Robots -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-radar'></i> 2. Cazando Muletillas de IA</h2>
+            <p class="section-text" style="margin-bottom: 25px;">La IA tiene "tics" que delatan su origen. Un informe profesional debe borrar estas frases inmediatamente:</p>
+            <div class="grid-3">
+                <div style="background: rgba(255,165,0,0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,165,0,0.2); text-align: center;">
+                    <i class='bx bx-message-x' style='font-size: 1.8rem; color: #f59e0b; margin-bottom: 10px; display: block;'></i>
+                    <code>"En conclusión..."</code>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px;">Demasiado genérico. Cámbialo por un cierre con datos propios.</p>
+                </div>
+                <div style="background: rgba(255,165,0,0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,165,0,0.2); text-align: center;">
+                    <i class='bx bx-message-x' style='font-size: 1.8rem; color: #f59e0b; margin-bottom: 10px; display: block;'></i>
+                    <code>"Es importante destacar..."</code>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px;">Muro de relleno. Ve directo al punto técnico.</p>
+                </div>
+                <div style="background: rgba(255,165,0,0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,165,0,0.2); text-align: center;">
+                    <i class='bx bx-message-x' style='font-size: 1.8rem; color: #f59e0b; margin-bottom: 10px; display: block;'></i>
+                    <code>"En el dinámico mundo..."</code>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px;">Cliché robótico. Humaniza el inicio de tus párrafos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Pegado Especial (Seguridad Técnica) -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-paste'></i> 3. El Secreto del "Sin Formato"</h2>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-error-alt'></i> ¡No destruyas tu arquitectura!</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Al traer texto de una IA, NUNCA pegues directamente. Usa **Control + Shift + V** (o Pegado Especial > Texto sin formato). Esto evita que el sombreado gris y las fuentes extrañas rompan tus **Estilos APA 7** de la sesión 4.</p>
+            </div>
+        </section>
+
+        <!-- Misión del Centauro -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
+            <h2><i class='bx bxs-edit-alt'></i> Misión 06: El Primer Borrador</h2>
+            <p class="section-text">Redacta la introducción de tu anteproyecto de grado (mín. 150 palabras). Usa la IA para estructurar los párrafos, pero aplica el **Filtro Centauro**: elimina muletillas de robot y pega sin formato en tu estructura de Word.</p>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                <span style="background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem;"><i class='bx bx-check-circle' style="color: #10b981;"></i> Título 1 Aplicado</span>
+                <span style="background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem;"><i class='bx bx-check-circle' style="color: #10b981;"></i> Sin Muletillas de IA</span>
+            </div>
+        </section>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material Complementario</h2>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="6-10-TIC.pdf" download class="pulse-btn">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 6 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Redacción Asistida</strong> (v1.2)<br>
+                Validado bajo el Estándar de Integridad Académica - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 7-11-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Protegiendo tu Autoría Intelectual...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 07</span>
+            <h1>Licencias y Autoría</h1>
+            <p>Manifiesto del Autor: Aprende a proteger tu obra con Creative Commons y configura la página legal y los metadatos de tu libro digital.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Autoría y Propiedad Intelectual</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/COccosy-vu8?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">"El autor es el arquitecto del sentido, no el generador del ruido."</p>
+        </section>
+
+        <!-- 1. El Dilema del Autor IA -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-brain'></i> 1. ¿Quién es el verdadero Autor?</h2>
+            <p class="section-text">En la era de los LLM, la autoría no reside en escribir cada palabra, sino en la **Intención, Supervisión y Edición Critica**:</p>
+            <div class="info-box" style="border-left-color: #a855f7;">
+                <div class="info-box-title">El Editor-Humano</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Eres tú quien diseña los prompts, quien poda las alucinaciones y quien decide qué capítulos merece leer tu audiencia. Esa curaduría es tu propiedad intelectual.</p>
+            </div>
+        </section>
+
+        <!-- 2. Creative Commons -->
+        <section class="interactive-section glass-panel" style="border-color: #10b981;">
+            <h2><i class='bx bx-copy-alt'></i> 2. Licencias de Nueva Generación</h2>
+            <p class="section-text">Elige cómo quieres que el mundo interactúe con tu libro digital:</p>
+            <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+                <div class="concept-card" style="text-align: center;">
+                    <h3 style="color: #10b981; font-size: 1.1rem;">CC BY</h3>
+                    <p style="font-size: 0.7rem;">Cualquiera puede usarlo, editarlo y venderlo, siempre que te cite.</p>
+                </div>
+                <div class="concept-card" style="text-align: center;">
+                    <h3 style="color: #10b981; font-size: 1.1rem;">CC BY-NC</h3>
+                    <p style="font-size: 0.7rem;">Se puede compartir y editar, pero **prohibido** su uso comercial.</p>
+                </div>
+                <div class="concept-card" style="text-align: center;">
+                    <h3 style="color: #10b981; font-size: 1.1rem;">CC BY-NC-ND</h3>
+                    <p style="font-size: 0.7rem;">Se puede compartir, pero no editar ni vender. Es la más restrictiva.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. La Página Legal -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-shield-quarter'></i> 3. Metadatos Editoriales</h2>
+            <p class="section-text">Todo libro profesional lleva una "Página Legal" justo detrás de la portada con estos datos:</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; color: #6ee7b7;">
+                Título de la obra: [Tu Título]<br>
+                Autor: [Tu Nombre]<br>
+                Edición: 2026 - I.E. Sor María Juliana<br>
+                Licencia: Creative Commons [Tu Elección]<br>
+                Herramientas: Co-redactado con [IA utilizada]
+            </div>
+        </section>
+
+        <!-- Misión 07 -->
+        <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
+            <h2><i class='bx bx-check-shield'></i> Misión 07: Sello de Autoría</h2>
+            <p class="section-text">Hoy protegerás tu trabajo. Configura la página legal de tu libro en Word.</p>
+            <div class="info-box">
+                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Elige tu licencia Creative Commons, inserta el logo y crea la página legal con tus metadatos técnicos."</p>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="7-11-TIC.pdf" download class="pulse-btn" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981;">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 07 (PDF)
+                </a>
+            </div>
+        </section>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Licencias y Autoría</strong> (v1.1)<br>
+                Validado bajo el Protocolo de Propiedad Intelectual - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+</body>
+</html>

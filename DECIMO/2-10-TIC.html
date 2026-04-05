@@ -15,7 +15,7 @@
 <body class="theme-coder">
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Estructurando la Web...</p>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Sincronizando Cerebro Digital...</p>
     </div>
 
     <div class="notebook-container glass-panel">
@@ -30,96 +30,115 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <h1>Sesión 2: Estructuras Web</h1>
-            <p>Dominando el HTML5 semántico: No se trata solo de que la web se vea bien, sino de que sea comprensible para los humanos y para las máquinas.</p>
+            <span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #a855f7; margin-bottom: 10px;">Guía de Aprendizaje N° 2</span>
+            <h1>El Cerebro Digital</h1>
+            <p>Curaduría de Información: Aprende a gestionar tus fuentes y construir un sistema de memoria externa infalible.</p>
         </header>
 
         <!-- Video de la Sesión -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Maquetación Semántica</h2>
-            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Gestión del Conocimiento</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
                 <iframe 
                     width="100%" 
                     height="100%" 
-                    src="https://www.youtube.com/embed/QjDEAglCaVI" 
+                    src="https://www.youtube.com/embed/QjDEAglCaVI?rel=0&enablejsapi=1" 
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
+                    allowfullscreen
+                    loading="lazy">
                 </iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Aprende el esqueleto de las aplicaciones modernas.</p>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Descubre cómo pasar de acumular pestañas a gestionar sabiduría.</p>
         </section>
 
-        <!-- 1. El Cuerpo de la Web -->
+        <!-- 1. El Síndrome de las 50 Pestañas -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-layer'></i> 1. Anatomía de una Página</h2>
-            <p class="section-text">Cualquier sitio web moderno sigue una estructura lógica. Piensa en ella como en las habitaciones de una casa:</p>
+            <h2><i class='bx bx-windows'></i> 1. El Síndrome de las 50 Pestañas</h2>
+            <p class="section-text">¿Alguna vez has sentido que tienes demasiada información abierta pero no sabes por dónde empezar? Eso es **Infoxicación**.</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Header y Nav <i class='bx bx-dock-top'></i></h3>
-                    <div class="concept-desc">Es la entrada. Aquí va la identidad del sitio (Header) y el mapa para recorrerlo (Nav).</div>
+                    <h3>Acumulador de Datos <i class='bx bx-archive-in'></i></h3>
+                    <div class="concept-desc">Guarda links pero nunca los lee. Su escritorio es un caos de archivos sin nombre. El estrés digital lo domina.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Main y Section <i class='bx bx-square-rounded'></i></h3>
-                    <div class="concept-desc">La parte vital. Donde ocurre la magia y se despliega el contenido principal por el que el usuario nos visita.</div>
+                    <h3>Gestor de Conocimiento <i class='bx bx-brain'></i></h3>
+                    <div class="concept-desc">Filtra lo que entra. Organiza por etiquetas. Sabe exactamente dónde está cada dato cuando lo necesita.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. ¿Por qué Semántica? -->
+        <!-- 2. El Curador Digital -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-search-alt'></i> 2. La Importancia del Sentido</h2>
-            <p class="section-text" style="margin-bottom: 25px;">Usar las etiquetas correctas ayuda en tres pilares fundamentales:</p>
+            <h2><i class='bx bx-filter-alt'></i> 2. La Curaduría de Contenidos</h2>
+            <p class="section-text" style="margin-bottom: 25px;">Un buen curador no es quien más guarda, sino quien mejor selecciona:</p>
             <div class="grid-3">
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(34, 211, 238, 0.1); text-align: center;">
-                    <i class='bx bx-glasses' style='font-size: 2.5rem; color: #22d3ee; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0;">Accesibilidad</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Permite que personas con discapacidad visual naveguen usando lectores de pantalla.</p>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Seleccionar <i class='bx bx-check-circle'></i></h3>
+                    <div class="concept-desc">Separar el "trigo de la paja". Identificar fuentes primarias y descartar noticias falsas.</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.1); text-align: center;">
-                    <i class='bx bx-trending-up' style='font-size: 2.5rem; color: #a855f7; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0;">SEO (Google)</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Los buscadores entienden mejor tu contenido y dan prioridad a tu sitio.</p>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Enriquecer <i class='bx bx-edit-alt'></i></h3>
+                    <div class="concept-desc">No solo guardas el link; añades una nota propia: "¿Por qué esto es importante para mi proyecto?"</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(236, 72, 153, 0.1); text-align: center;">
-                    <i class='bx bx-code-block' style='font-size: 2.5rem; color: #ec4899; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0;">Mantenimiento</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Un código claro es fácil de actualizar por ti o por otros programadores.</p>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Compartir <i class='bx bx-share-alt'></i></h3>
+                    <div class="concept-desc">La información curada tiene más valor cuando se comparte con una explicación clara.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Identificador de Etiquetas -->
-        <section class="interactive-section glass-panel" style="border-color: var(--accent-purple);">
-            <h2><i class='bx bx-objects-horizontal-left'></i> 3. Desafío de Estructura</h2>
-            <p class="section-text" style="text-align: center;">Haz clic para auditar cada contenedor y descubrir su propósito semántico:</p>
-            <div class="grid-2">
+        <!-- 3. Flujo de Curaduría Pro -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee;">
+            <h2><i class='bx bx-recycle'></i> 3. El Flujo de Trabajo Profesional</h2>
+            <p class="section-text" style="text-align: center;">Aplica estos tres pasos para que nada se te escape:</p>
+            <div class="grid-3">
                 <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #22d3ee;">
-                    <h3 style="font-size: 0.95rem;">Etiqueta <code>&lt;article&gt;</code> <i class='bx bx-news'></i></h3>
-                    <div class="concept-desc">Propósito: Contenido independiente y relevante (como un post o noticia). Debe tener sentido por sí solo.</div>
+                    <h3 style="font-size: 0.95rem;">1. CAPTURAR <i class='bx bx-download'></i></h3>
+                    <div class="concept-desc">Usa Google Keep, OneNote o Notion para guardar el dato al instante. No confíes en tu memoria.</div>
                 </div>
                 <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #a855f7;">
-                    <h3 style="font-size: 0.95rem;">Etiqueta <code>&lt;aside&gt;</code> <i class='bx bx-sidebar'></i></h3>
-                    <div class="concept-desc">Propósito: Contenido secundario o relacionado (barras laterales). No es esencial para la trama principal.</div>
+                    <h3 style="font-size: 0.95rem;">2. PROCESAR <i class='bx bx-loader-alt'></i></h3>
+                    <div class="concept-desc">Lee el contenido, subraya lo importante y escribe un breve resumen con tus palabras.</div>
+                </div>
+                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #f59e0b;">
+                    <h3 style="font-size: 0.95rem;">3. ARCHIVAR <i class='bx bx-folder-plus'></i></h3>
+                    <div class="concept-desc">Usa **Taxonomía Personal** (etiquetas como #ProyectoAula #IA #Diseño) para encontrarlo luego.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Tu Segundo Cerebro -->
+        <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
+            <h2><i class='bx bx-chip'></i> El Segundo Cerebro Digital</h2>
+            <p class="section-text">Externaliza tu memoria. Si el sistema está bien organizado, tu cerebro biológico queda libre para lo que mejor sabe hacer: **CREAR e INNOVAR**.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+                <div class="glass-panel" style="padding: 15px; border-radius: 12px; background: rgba(16, 185, 129, 0.1);">
+                    <i class='bx bxs-tag-alt' style="font-size: 1.5rem; color: #10b981;"></i>
+                    <p style="font-size: 0.8rem; font-weight: bold; margin-top: 5px;">Etiquetado Inteligente</p>
+                </div>
+                <div class="glass-panel" style="padding: 15px; border-radius: 12px; background: rgba(16, 185, 129, 0.1);">
+                    <i class='bx bxs-cloud-upload' style="font-size: 1.5rem; color: #10b981;"></i>
+                    <p style="font-size: 0.8rem; font-weight: bold; margin-top: 5px;">Sincronización Total</p>
                 </div>
             </div>
         </section>
 
         <!-- Material de Apoyo -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="2-10-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía S2 (PDF)
+                <a href="2-10-TIC.pdf" download class="pulse-btn" style="background: linear-gradient(135deg, #a855f7, #6366f1); border: none;">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 2 (PDF)
                 </a>
             </div>
         </section>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Estructuras Frontend</strong> (v1.0)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+                <strong>CONECTATE | Módulo de Gestión de Información</strong> (v1.1)<br>
+                Validado contra Guía de Aprendizaje Oficial - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>

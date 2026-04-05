@@ -11,14 +11,6 @@ const sectionData = {
             { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
         ]
     },
-    home: {
-        theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
-        features: [ 
-            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
-            { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.' },
-            { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
-        ]
-    },
     octavo: {
         theme: 'theme-maker', icon: '<i class="bx bx-book-open"></i>', title: 'Grado Octavo', subtitle: 'Robótica y Entornos Virtuales (Tutor: Agente Maker)',
         isSessions: true,
@@ -57,10 +49,10 @@ const sectionData = {
         theme: 'theme-coder', icon: '<i class="bx bx-code-block"></i>', title: 'Grado Décimo', subtitle: 'Programación Textual y Frontend (Tutores: Coder y UI/UX)',
         isSessions: true,
         sessions: [
-            { id: 1, title: 'Sesión 1: Lógica y Algoritmia', file: './DECIMO/1-10-TIC.html?v=1.0', desc: 'Introducción al mundo del código textual. De los bloques a la sintaxis real de JavaScript.' },
-            { id: 2, title: 'Sesión 2: Estructuras Web', file: './DECIMO/2-10-TIC.html?v=1.0', desc: 'Dominando el HTML5 semántico para construir la base sólida de cualquier aplicación.' },
-            { id: 3, title: 'Sesión 3: Estilos Modernos', file: './DECIMO/3-10-TIC.html?v=1.0', desc: 'CSS3 avanzado: Selectores, cascada y el poder de los colores y tipografías.' },
-            { id: 4, title: 'Sesión 4: Layouts Flexibles', file: './DECIMO/4-10-TIC.html?v=1.0', desc: 'Diseñando con Flexbox: Alineación y distribución de elementos sin esfuerzo.' },
+            { id: 1, title: 'Sesión 1: El Detective de Datos', file: './DECIMO/1-10-TIC.html?v=1.1', desc: 'Búsqueda Veraz en la Era de la IA: Cómo encontrar información real y evitar alucinaciones digitales.' },
+            { id: 2, title: 'Sesión 2: El Cerebro Digital', file: './DECIMO/2-10-TIC.html?v=1.1', desc: 'Curaduría de Información: Gestiona tus fuentes y construye un segundo cerebro digital.' },
+            { id: 3, title: 'Sesión 3: El Analista Veloz', file: './DECIMO/3-10-TIC.html?v=1.1', desc: 'Minería de Textos con IA: Domina la fórmula C.R.I.F. para obtener prompts perfectos.' },
+            { id: 4, title: 'Sesión 4: El Arquitecto Documental', file: './DECIMO/4-10-TIC.html?v=1.1', desc: 'Dominando los Estilos en Word: Automatización, jerarquía documental y aplicación técnica de Normas APA 7.' },
             { id: 5, title: 'Sesión 5: Grid Systems', file: './DECIMO/5-10-TIC.html?v=1.0', desc: 'Poder total sobre las rejillas con CSS Grid para layouts complejos y profesionales.' },
             { id: 6, title: 'Sesión 6: Responsive Web', file: './DECIMO/6-10-TIC.html?v=1.0', desc: 'Media Queries y estrategias de adaptabilidad para que tu web brille en cualquier pantalla.' },
             { id: 7, title: 'Sesión 7: Variables y Tipos', file: './DECIMO/7-10-TIC.html?v=1.0', desc: 'Profundizando en JavaScript: El manejo inteligente de la información en memoria.' },

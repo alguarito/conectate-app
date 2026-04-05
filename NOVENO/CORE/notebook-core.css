@@ -10,14 +10,21 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
     background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
-    background-attachment: fixed;
+    background-attachment: scroll; /* Cambiado de fixed para evitar deformaciones en scroll */
     background-repeat: no-repeat;
     color: var(--text-primary);
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow-y: auto !important; /* Habilitar scroll explícitamente para los cuadernos */
 }
 
-.notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+.notebook-container { 
+    width: 100%; 
+    max-width: 950px; 
+    margin: 0 auto; 
+    padding: 40px; 
+    border-radius: 24px; 
+    transform: translateZ(0); /* Forzar aceleración GPU para suavizar scroll con blur */
+    backface-visibility: hidden;
+}
 
 /* Preloader */
 #preloader {

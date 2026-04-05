@@ -15,7 +15,7 @@
 <body class="theme-coder">
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Compilando Lógica...</p>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Escaneando Datos...</p>
     </div>
 
     <div class="notebook-container glass-panel">
@@ -30,93 +30,107 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <h1>Sesión 1: Lógica y Algoritmia</h1>
-            <p>Bienvenido al lenguaje de la web. En esta sesión daremos el salto fundamental de la programación por bloques al código textual con JavaScript.</p>
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 1</span>
+            <h1>El Detective de Datos</h1>
+            <p>Búsqueda Veraz en la Era de la IA: Cómo encontrar información real y evitar alucinaciones digitales.</p>
         </header>
 
         <!-- Video de la Sesión -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Introducción al Código</h2>
+            <h2 style="justify-content: center;"><i class='bx bx-play-circle'></i> Video Clase: Los Retos de la Información</h2>
             <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
                 <iframe 
                     width="100%" 
                     height="100%" 
-                    src="https://www.youtube.com/embed/hwGNDOSY1MM" 
+                    src="https://www.youtube.com/embed/aWq6m7SXrr0?rel=0&enablejsapi=1" 
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
+                    allowfullscreen
+                    loading="lazy">
                 </iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Sigue la guía paso a paso mientras ves el video.</p>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Analiza los retos de buscar la verdad cuando la IA puede confundirnos.</p>
         </section>
 
-        <!-- 1. El Salto al Texto -->
+        <!-- 1. El Código del Auditor -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-code-alt'></i> 1. De Bloques a Sintaxis</h2>
-            <p class="section-text">Programar con texto nos da una libertad total, pero requiere mayor atención a las reglas (sintaxis). Compara estos conceptos:</p>
+            <h2><i class='bx bx-shield-quarter'></i> 1. El Código del Auditor (Inforg Crítico)</h2>
+            <p class="section-text">Como Analista Junior, tu primera misión es adoptar los cuatro pilares del Pacto de Aula:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>El Bloque vs La Instrucción <i class='bx bx-transfer'></i></h3>
-                    <div class="concept-desc">En Scratch, un bloque encaja con otro. En JS, una instrucción termina con un punto y coma (;) y los errores de escritura detienen el programa.</div>
+                    <h3>Cero Datos Huérfanos <i class='bx bx-link-external'></i></h3>
+                    <div class="concept-desc">Toda cifra o afirmación debe tener una fuente real y verificable. Si no hay link, el dato no existe.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Variables Reales <i class='bx bx-data'></i></h3>
-                    <div class="concept-desc">Ya no solo "creamos una variable" en un menú. Ahora las declaramos usando palabras clave como `let` o `const`.</div>
+                    <h3>Verificación Humana <i class='bx bx-brain'></i></h3>
+                    <div class="concept-desc">La IA es un asistente, no el jefe. Tú tienes la última palabra y la responsabilidad de lo que entregas.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Honestidad Intelectual <i class='bx bx-check-shield'></i></h3>
+                    <div class="concept-desc">Si usaste IA para resumir o redactar, debes declararlo. La transparencia genera confianza.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Gen Ciudadano <i class='bx bx-globe'></i></h3>
+                    <div class="concept-desc">Compartir información falsa contamina la Infoesfera de nuestra comunidad. Sé un guardián de la verdad.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. Fundamentos de JavaScript -->
+        <!-- 2. El Duelo: Google vs IA -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bxl-javascript'></i> 2. Sintaxis Básica</h2>
-            <p class="section-text" style="margin-bottom: 25px;">Estos son los cimientos de cualquier programa en JavaScript:</p>
+            <h2><i class='bx bx-transfer'></i> 2. El Duelo: Buscadores vs Modelos IA</h2>
+            <p class="section-text" style="margin-bottom: 25px;">¿Cuál herramienta es mejor para cada tarea? Analicemos sus diferencias:</p>
             <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Declaración <i class='bx bx-edit-alt'></i></h3>
-                    <div class="concept-desc">`let nombre = "Antigravity";` <br> Estamos reservando un espacio en memoria para guardar texto.</div>
+                    <h3>Velocidad y Síntesis <i class='bx bx-bolt-circle'></i></h3>
+                    <div class="concept-desc"><strong>IA:</strong> Gana en resumir cientos de páginas en segundos. <br><strong>Google:</strong> Gana en darte el enlace directo original.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Operadores <i class='bx bx-plus-circle'></i></h3>
-                    <div class="concept-desc">`+`, `-`, `*`, `/`. Se comportan igual que en matemáticas pero dentro del procesador.</div>
+                    <h3>Confiabilidad <i class='bx bx-error'></i></h3>
+                    <div class="concept-desc"><strong>IA:</strong> Riesgo de Alucinaciones (datos falsos que parecen reales).<br><strong>Google:</strong> Riesgo de Fake News o SEO engañoso.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>La Consola <i class='bx bx-terminal'></i></h3>
-                    <div class="concept-desc">`console.log();` es nuestra ventana al interior del programa. Es donde el código nos habla.</div>
+                    <h3>Actualización <i class='bx bx-calendar'></i></h3>
+                    <div class="concept-desc"><strong>IA:</strong> Su conocimiento suele tener una fecha de corte.<br><strong>Google:</strong> Muestra lo que sucedió hace 5 minutos.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Laboratorio: Tu Primera Línea -->
-        <section class="interactive-section glass-panel" style="border-color: var(--accent-purple);">
-            <h2><i class='bx bx-terminal'></i> 3. Laboratorio de Consola</h2>
-            <p class="section-text" style="text-align: center;">Haz clic en los comandos para ver qué sucede en la mente de la computadora:</p>
-            <div class="grid-2">
-                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #22d3ee;">
-                    <h3 style="font-size: 0.95rem;">`let puntaje = 10;` <i class='bx bx-play-circle'></i></h3>
-                    <div class="concept-desc">La computadora reserva 64 bits para guardar el número 10 bajo el nombre "puntaje".</div>
-                </div>
-                <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #a855f7;">
-                    <h3 style="font-size: 0.95rem;">`console.log("Hola");` <i class='bx bx-play-circle'></i></h3>
-                    <div class="concept-desc">El programa envía la cadena de caracteres "Hola" a la salida estándar del sistema.</div>
-                </div>
+        <!-- 3. Laboratorio Ético: La Quiebra -->
+        <section class="interactive-section glass-panel" style="border-color: #ef4444;">
+            <h2><i class='bx bx-error-alt'></i> 3. Laboratorio Ético: "La Quiebra"</h2>
+            <div style="background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                <p style="font-style: italic; font-size: 0.95rem; color: #fca5a5; line-height: 1.6;">
+                    "Un analista Junior usó una IA gratuita para un informe de inversión. La IA dio datos desactualizados de 2021 como si fueran de 2024. La empresa invirtió a ciegas y perdió 100 millones de pesos. Resultado: La empresa quebró y 20 personas perdieron su empleo."
+                </p>
             </div>
+            <div class="concept-card challenge-card" onclick="toggleDesc(this)" style="border-left: 4px solid #ef4444;">
+                <h3 style="font-size: 0.95rem;">¿De quién es la culpa? <i class='bx bx-help-circle'></i></h3>
+                <div class="concept-desc">En el mundo profesional, la culpa no es del programa (la IA), sino del Analista Humano que no verificó las fuentes primarias antes de dar el "visto bueno".</div>
+            </div>
+        </section>
+
+        <!-- Misión del Detective -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
+            <h2><i class='bx bx-target-lock'></i> Misión 01: El Micro-Informe</h2>
+            <p class="section-text">Investiga un dato estadístico REAL de 2024 o 2025 sobre un tema que te apasione (música, deportes, IA, moda). <br> <strong>Regla:</strong> Debes incluir el dato, el nombre de la fuente primaria y el enlace directo.</p>
         </section>
 
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <a href="1-10-TIC.pdf" download class="pulse-btn">
-                    <i class='bx bxs-file-pdf'></i> Descargar Guía S1 (PDF)
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía N° 1 (PDF)
                 </a>
             </div>
         </section>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Programación Textual</strong> (v1.0)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente Coder".
+                <strong>CONECTATE | Módulo de Alfabetización Crítica</strong> (v1.1)<br>
+                Validado contra Guía de Aprendizaje Oficial - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>

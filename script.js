@@ -1005,7 +1005,10 @@ function checkUserStatus() {
             appContainer.classList.add('authenticated');
             if (teslaWidget) teslaWidget.style.display = 'block';
             updateUIForUser();
-            navigateTo('home');
+            
+            // Respect URL parameter instead of hardcoding 'home'
+            const targetSection = new URLSearchParams(window.location.search).get('section') || 'home';
+            navigateTo(targetSection);
         }
     }
 }

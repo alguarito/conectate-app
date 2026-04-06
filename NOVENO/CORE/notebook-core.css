@@ -89,7 +89,7 @@ body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%);
 body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .deep-reading { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
 body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
 body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p { color: #475569 !important; }
-body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; }
+body.light-mode #btn-volver, body.light-mode #btn-home, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; }
 
 /* Cyber-Neon Theme Overrides */
 html.theme-cyber { background-color: #030507; }
@@ -97,7 +97,7 @@ body.theme-cyber { background: radial-gradient(circle at 10% 20%, #001f0a, #0000
 body.theme-cyber .concept-card, body.theme-cyber .interactive-section, body.theme-cyber .deep-reading { background: rgba(0, 20, 10, 0.4); border-color: rgba(0, 255, 0, 0.3); box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05); }
 body.theme-cyber .concept-card h3, body.theme-cyber h1, body.theme-cyber h2, body.theme-cyber h4 { color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); }
 body.theme-cyber .concept-desc, body.theme-cyber .section-text, body.theme-cyber p { color: #00aa88 !important; }
-body.theme-cyber #btn-volver, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
+body.theme-cyber #btn-volver, body.theme-cyber #btn-home, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
 
 /* Aurora Theme Overrides */
 html.theme-aurora { background-color: #061121; }
@@ -105,7 +105,7 @@ body.theme-aurora { background: linear-gradient(135deg, #020617 0%, #0f172a 40%,
 body.theme-aurora .concept-card, body.theme-aurora .interactive-section, body.theme-aurora .deep-reading { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15); }
 body.theme-aurora .concept-card h3, body.theme-aurora h1, body.theme-aurora h2, body.theme-aurora h4 { color: #0ea5e9; text-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
 body.theme-aurora .concept-desc, body.theme-aurora .section-text, body.theme-aurora p { color: #87aebf !important; }
-body.theme-aurora #btn-volver, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
+body.theme-aurora #btn-volver, body.theme-aurora #btn-home, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
 
 /* E-Ink Theme Overrides */
 html.theme-eink { background-color: #fdfaf6; }
@@ -113,7 +113,7 @@ body.theme-eink { background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4e
 body.theme-eink .concept-card, body.theme-eink .interactive-section, body.theme-eink .deep-reading { background: rgba(245, 240, 230, 0.8); backdrop-filter: blur(10px); border-color: rgba(210, 195, 180, 0.7); box-shadow: 2px 2px 8px rgba(0,0,0,0.02); }
 body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.theme-eink h4 { color: #2c241c; text-shadow: none; font-weight: 700; }
 body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p { color: #7a6e60 !important; }
-body.theme-eink #btn-volver, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
+body.theme-eink #btn-volver, body.theme-eink #btn-home, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
 
 /* Responsiveness */
 @media (max-width: 480px) {
@@ -133,7 +133,7 @@ body.theme-eink #btn-volver, body.theme-eink #notebook-theme-toggle { background
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
     .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
     .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
-    #btn-volver { font-size: 0.75rem !important; padding: 6px 10px !important; }
+    #btn-volver, #btn-home { font-size: 0.75rem !important; padding: 6px 10px !important; }
     iframe, .iframe-container { border-radius: 8px !important; }
     .deep-reading { padding: 15px !important; }
 }

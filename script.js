@@ -605,8 +605,10 @@ function openTeslaPotential() {
     }
 }
 
-// Init Load en HOME
-navigateTo('home');
+// Init Load con soporte para URL params
+const urlParams = new URLSearchParams(window.location.search);
+const startSection = urlParams.get('section') || 'home';
+navigateTo(startSection);
 function openSocialModal() {
     const modalHtml = `
         <div class="modal-overlay" id="social-modal" onclick="closeSocialModal()">

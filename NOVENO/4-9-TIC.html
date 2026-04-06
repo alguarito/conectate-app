@@ -20,9 +20,14 @@
 
     <div class="notebook-container glass-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
-                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
-            </a>
+            <div style="display: flex; gap: 10px;">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                    <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
+                </a>
+                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                    <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
+                </a>
+            </div>
             <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <i class='bx bx-moon'></i>
             </button>

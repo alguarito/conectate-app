@@ -28,9 +28,9 @@ class GamificationManager {
         // Inicializar estructura si es nuevo y NO es administrador
         if (this.user) {
             // El docente NO participa en gamificación, pero administramos su sesión para ver el dashboard
+            // No retornamos aquí para permitir que vean las Flashcards y retos en los notebooks
             if (this.user.isAdmin === true || this.user.isAdmin === "true") {
-                console.log("Gamification: Admin session detected, UI hidden.");
-                return;
+                console.log("Gamification: Admin session detected. XP system disabled, Preview mode active.");
             }
 
             if (typeof this.user.xp === 'undefined') this.user.xp = 0;
@@ -48,12 +48,13 @@ class GamificationManager {
 
         // Evaluar en qué contexto estamos (Home vs Cuaderno)
         document.addEventListener("DOMContentLoaded", () => {
+            // La barra de perfil SÍ está restringida al estudiante
             if (!this.user?.isAdmin) {
                 this.renderProfileBar();
-                this.injectNotebookFeatures();
-                // Buscar si hay datos previos de flashcards en el HTML
-                this.detectFlashcardsInDOM();
             }
+            // Pero las funciones del cuaderno (Botones, Flashcards) son visibles para todos (Vista Previa)
+            this.injectNotebookFeatures();
+            this.detectFlashcardsInDOM();
         });
         
         // Si el DOM ya cargó (por scripts asíncronos), forzar render
@@ -61,17 +62,22 @@ class GamificationManager {
             setTimeout(() => {
                 if (!this.user?.isAdmin) {
                     this.renderProfileBar();
-                    this.injectNotebookFeatures();
-                    this.detectFlashcardsInDOM();
                 }
+                this.injectNotebookFeatures();
+                this.detectFlashcardsInDOM();
             }, 100);
         }
     }
 
     detectFlashcardsInDOM() {
-        const container = document.getElementById("flashcards-container");
-        if (container && window.FLASH_DATA) {
+        const flashContainer = document.getElementById("flashcards-container");
+        if (flashContainer && window.FLASH_DATA) {
             this.renderFlashcards(window.FLASH_DATA);
+        }
+
+        const quizContainer = document.getElementById("quiz-container");
+        if (quizContainer && window.QUIZ_DATA) {
+            this.renderQuiz(window.QUIZ_DATA);
         }
     }
 
@@ -316,11 +322,139 @@ class GamificationManager {
     }
 
     unlockCompletionButton() {
-        const btn = document.getElementById("btn-complete-session");
-        if (btn) {
-            btn.style.display = "inline-flex";
-            btn.classList.add("unlock-anim");
-            this.showToast("¡Reto completado! Ya puedes reclamar tus puntos.", "xp");
+        // En el nuevo sistema, desbloqueamos el CUESTIONARIO, no el botón de finalizar directamente
+        const quizBox = document.getElementById("quiz-lock-overlay");
+        if (quizBox) {
+            quizBox.style.display = "none";
+            this.showToast("¡Repaso completado! Cuestionario desbloqueado.", "xp");
+        } else {
+            // Fallback si no hay quiz, desbloquear botón normal
+            const btn = document.getElementById("btn-complete-session");
+            if (btn) {
+                btn.style.display = "inline-flex";
+                btn.classList.add("unlock-anim");
+            }
+        }
+    }
+
+    renderQuiz(data) {
+        const container = document.getElementById("quiz-container");
+        if (!container) return;
+
+        // Determinar ID de sesión del nombre del archivo o global
+        const urlPath = window.location.pathname;
+        const sessionId = urlPath.split('/').pop().split('-')[0] || "1";
+
+        container.innerHTML = `
+            <div class="interactive-section glass-panel" style="border-color: var(--accent-cyan); position: relative; overflow: hidden;">
+                <div id="quiz-lock-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                    <i class='bx bxs-lock' style="font-size: 3rem; color: var(--accent-purple); margin-bottom: 15px;"></i>
+                    <h3 style="color: white; margin-bottom: 10px;">Evaluación Bloqueada</h3>
+                    <p style="color: var(--text-secondary); max-width: 300px;">Completa primero el repaso de las Flashcards para activar tu cuestionario final.</p>
+                </div>
+                
+                <div id="quiz-content">
+                    <h2 style="justify-content: center; margin-bottom: 5px;"><i class='bx bx-edit-alt'></i> Cuestionario: Ética y Costos TIC</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px; text-align:center;">Prueba de desempeño de la sesión. ¡Máximo 2 intentos!</p>
+                    
+                    <div id="quiz-step-container"></div>
+                    <div id="quiz-result" style="display: none; text-align: center; padding: 20px;"></div>
+                </div>
+            </div>
+        `;
+
+        let currentQuestion = 0;
+        let score = 0;
+        let total = data.length;
+        let attempts = 0;
+
+        const renderQuestion = () => {
+            const q = data[currentQuestion];
+            const stepContainer = document.getElementById("quiz-step-container");
+            stepContainer.innerHTML = `
+                <div class="quiz-question-card" style="animation: fadeIn 0.5s ease;">
+                    <div style="font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 10px; font-weight: 700;">PREGUNTA ${currentQuestion + 1} DE ${total}</div>
+                    <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">${q.question}</h3>
+                    <div class="options-grid" style="display: grid; gap: 12px;">
+                        ${q.options.map((opt, i) => `
+                            <button class="quiz-opt-btn" onclick="GAMI.handleQuizAnswer(${i}, ${q.correct})" 
+                                    style="text-align: left; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all 0.2s;">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        };
+
+        this.handleQuizAnswer = (selected, correct) => {
+            const btns = document.querySelectorAll(".quiz-opt-btn");
+            btns.forEach(b => b.style.pointerEvents = "none");
+            
+            if (selected === correct) {
+                btns[selected].style.borderColor = "#10b981";
+                btns[selected].style.background = "rgba(16,185,129,0.2)";
+                score++;
+            } else {
+                btns[selected].style.borderColor = "#ec4899";
+                btns[selected].style.background = "rgba(236,72,153,0.2)";
+                btns[correct].style.borderColor = "#10b981";
+                btns[correct].style.background = "rgba(16,185,129,0.1)";
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < total) {
+                    renderQuestion();
+                } else {
+                    this.finishQuiz(score, total, sessionId);
+                }
+            }, 1500);
+        };
+
+        renderQuestion();
+    }
+
+    finishQuiz(score, total, sessionId) {
+        const finalGrade = (score / total) * 5;
+        const resultDiv = document.getElementById("quiz-result");
+        const stepContainer = document.getElementById("quiz-step-container");
+        
+        stepContainer.style.display = "none";
+        resultDiv.style.display = "block";
+
+        let xpReward = 50;
+        if (finalGrade === 5) xpReward = 200;
+        else if (finalGrade >= 4) xpReward = 150;
+        else if (finalGrade >= 3) xpReward = 100;
+
+        const gradeColor = finalGrade >= 3 ? "#10b981" : "#ec4899";
+
+        resultDiv.innerHTML = `
+            <div style="font-size: 3rem; margin-bottom: 15px;">${finalGrade >= 3 ? '🎉' : '⚠️'}</div>
+            <h2 style="color: white; margin-bottom: 5px;">¡Evaluación Finalizada!</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Tu desempeño ha sido procesado.</p>
+            
+            <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 25px;">
+                <div style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 5px;">Tu Nota Final</div>
+                <div style="font-size: 4rem; font-weight: 900; color: ${gradeColor}; line-height: 1;">${finalGrade.toFixed(1)}</div>
+                <div style="margin-top: 15px; color: #fbbf24; font-weight: 700; font-size: 1.2rem;">+${xpReward} XP</div>
+            </div>
+
+            <div id="quiz-actions" style="display: flex; gap: 15px; justify-content: center;">
+                <button onclick="window.location.reload()" style="background: rgba(255,255,255,0.1); color: white; border: none; padding: 12px 25px; border-radius: 12px; cursor: pointer; font-weight: 600;">Regresar</button>
+            </div>
+        `;
+
+        // Guardar resultado y XP
+        if (window.saveSessionResult) {
+            window.saveSessionResult(sessionId, finalGrade, xpReward);
+        }
+        this.addXP(xpReward, `Quiz Calificado: ${finalGrade.toFixed(1)}`);
+        
+        // Marcar sesión como completada si sacó más de 3
+        if (finalGrade >= 3) {
+            this.markSessionComplete(sessionId);
         }
     }
 

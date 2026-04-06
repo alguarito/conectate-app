@@ -26,19 +26,46 @@ function getAllAcademicRecords() {
             const email = key.replace('academic_', '');
             const academic = JSON.parse(localStorage.getItem(key));
             const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+            const gamiData = JSON.parse(localStorage.getItem(`gami_${email}`)) || { xp: 0, level: 1, completed_sessions: [] };
             const account = accounts[email] || {};
             if (!account.isAdmin) {
                 records.push({
                     email,
                     name: account.name || 'Sin nombre',
                     grade: charData.grade || 'N/A',
+                    group: charData.group || 'Sin Grupo',
                     ...charData,
-                    academic
+                    academic,
+                    gamification: gamiData
                 });
             }
         }
     });
     return records;
+}
+
+function saveSessionResult(sessionId, grade, xp) {
+    const user = JSON.parse(localStorage.getItem('conectate_user'));
+    if (!user || user.isAdmin) return;
+    
+    let academic = JSON.parse(localStorage.getItem(`academic_${user.email}`)) || { periodos: {} };
+    const currentPeriod = ACADEMIC_CONFIG.currentPeriod;
+    
+    if (!academic.periodos[currentPeriod]) academic.periodos[currentPeriod] = { talleres: {} };
+    if (!academic.periodos[currentPeriod].talleres) academic.periodos[currentPeriod].talleres = {};
+    
+    const prev = academic.periodos[currentPeriod].talleres[sessionId] || { grade: 0, attempts: 0 };
+    
+    // Solo guardamos si la nueva nota es mayor o igual
+    if (grade >= prev.grade) {
+        academic.periodos[currentPeriod].talleres[sessionId] = {
+            grade: grade,
+            xp: xp,
+            timestamp: new Date().toISOString(),
+            attempts: prev.attempts + 1
+        };
+        localStorage.setItem(`academic_${user.email}`, JSON.stringify(academic));
+    }
 }
 
 const sectionData = {
@@ -1335,6 +1362,7 @@ function renderAdminDashboard(periodOverride, tabOverride) {
     const contentTabs = [
         { id: 'examenes', label: 'Exámenes', icon: 'bx-task' },
         { id: 'auditorias', label: 'Auditorías', icon: 'bx-check-shield' },
+        { id: 'sesiones', label: 'Analítica Sesiones', icon: 'bx-line-chart' },
         { id: 'caracterizacion', label: 'Caracterización', icon: 'bx-user-pin' }
     ];
     const contentTabsHTML = contentTabs.map(t => {
@@ -1352,6 +1380,8 @@ function renderAdminDashboard(periodOverride, tabOverride) {
         tabContent = renderExamenesTab(periodData, stats);
     } else if (dashboardTab === 'auditorias') {
         tabContent = renderAuditoriasTab(withAudit);
+    } else if (dashboardTab === 'sesiones') {
+        tabContent = renderSesionesTab(allStudents);
     } else {
         tabContent = renderCaracterizacionTab(allStudents, stats);
     }
@@ -1904,3 +1934,125 @@ document.addEventListener("DOMContentLoaded", () => {
         return text.replace(regex, "<span style=\"color: #a855f7; font-weight: bold; background: rgba(168,85,247,0.2); border-radius: 4px; padding: 0 2px;\">$1</span>");
     }
 });
+
+function renderSesionesTab(allStudents) {
+    const currentPeriod = ACADEMIC_CONFIG.currentPeriod;
+    
+    // Extraer todos los resultados de sesiones de todos los estudiantes
+    const sessionResults = [];
+    allStudents.forEach(s => {
+        const talleres = s.academic.periodos?.[dashboardPeriod]?.talleres || {};
+        Object.entries(talleres).forEach(([id, data]) => {
+            sessionResults.push({
+                ...s,
+                sessionId: id,
+                sessionName: `Sesión ${id}`,
+                grade: parseFloat(data.grade),
+                xp: data.xp,
+                attempts: data.attempts,
+                timestamp: data.timestamp
+            });
+        });
+    });
+
+    // Filtros únicos para los selects
+    const groups = [...new Set(allStudents.map(s => s.group))].sort();
+    const grades = [...new Set(allStudents.map(s => s.grade))].sort();
+    const sessions = [...new Set(sessionResults.map(r => r.sessionId))].sort((a,b) => a-b);
+
+    return `
+        <div class="search-filter-bar" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+            <div class="filter-group">
+                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Grado</label>
+                <select id="filter-ses-grade" onchange="filterSessionTable()" style="width:100%; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px;">
+                    <option value="">Todos</option>
+                    ${grades.map(g => `<option value="${g}">${g}</option>`).join('')}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Grupo</label>
+                <select id="filter-ses-group" onchange="filterSessionTable()" style="width:100%; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px;">
+                    <option value="">Todos</option>
+                    ${groups.map(g => `<option value="${g}">${g}</option>`).join('')}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Sesión</label>
+                <select id="filter-ses-id" onchange="filterSessionTable()" style="width:100%; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px;">
+                    <option value="">Todas</option>
+                    ${sessions.map(s => `<option value="${s}">Sesión ${s}</option>`).join('')}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Promedio Filtro</label>
+                <div id="filter-ses-avg" style="font-size: 1.2rem; font-weight: 800; color: #10b981;">—</div>
+            </div>
+        </div>
+
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Grupo</th>
+                        <th>Estudiante</th>
+                        <th>Sesión</th>
+                        <th>Intentos</th>
+                        <th>Nota</th>
+                        <th>XP</th>
+                    </tr>
+                </thead>
+                <tbody id="session-table-body">
+                    ${sessionResults.map(r => `
+                        <tr class="session-row" 
+                            data-grade="${r.grade_orig || r.grade}" 
+                            data-group="${r.group}" 
+                            data-session="${r.sessionId}" 
+                            data-nota="${r.grade}">
+                            <td><span class="admin-badge">${r.group}</span></td>
+                            <td style="color: white; font-weight: 600;">${r.name}</td>
+                            <td>Sesión ${r.sessionId}</td>
+                            <td>${r.attempts}</td>
+                            <td style="font-weight: 800; color: ${r.grade >= 4.0 ? '#10b981' : r.grade >= 3.0 ? '#fbbf24' : '#ec4899'}; font-size: 1.1rem;">
+                                ${r.grade.toFixed(1)}
+                            </td>
+                            <td style="color: #fbbf24; font-weight: 600;">+${r.xp} XP</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function filterSessionTable() {
+    const fGrade = document.getElementById('filter-ses-grade').value;
+    const fGroup = document.getElementById('filter-ses-group').value;
+    const fSession = document.getElementById('filter-ses-id').value;
+    
+    const rows = document.querySelectorAll('.session-row');
+    let totalNota = 0;
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+        const matchesGrade = fGrade === "" || row.dataset.grade.startsWith(fGrade); // Simplificación si grade es string ej "8"
+        const matchesGroup = fGroup === "" || row.dataset.group === fGroup;
+        const matchesSession = fSession === "" || row.dataset.session === fSession;
+
+        if (matchesGrade && matchesGroup && matchesSession) {
+            row.style.display = 'table-row';
+            totalNota += parseFloat(row.dataset.nota);
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    const avgEl = document.getElementById('filter-ses-avg');
+    if (visibleCount > 0) {
+        const avg = (totalNota / visibleCount).toFixed(2);
+        avgEl.innerText = avg;
+        avgEl.style.color = avg >= 3.0 ? '#10b981' : '#ec4899';
+    } else {
+        avgEl.innerText = '—';
+    }
+}

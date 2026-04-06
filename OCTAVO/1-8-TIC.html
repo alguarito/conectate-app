@@ -295,6 +295,9 @@
             </div>
         </section>
 
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <!-- Sección de Descargas (Final del Cuaderno) -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Material de Apoyo Descargable</h2>
@@ -309,8 +312,8 @@
             </div>
         </section>
 
-        <!-- Sección de Flashcards (Reto de Saberes) -->
-        <div id="flashcards-container"></div>
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
@@ -342,6 +345,35 @@
                 question: "¿Qué sucede técnicamente en un Cortocircuito?", 
                 answer: "La corriente viaja sin resistencia (camino fácil), generando calor excesivo y peligro para la fuente de energía.",
                 icon: "bx-error-alt"
+            }
+        ];
+
+        // Datos del Cuestionario Final (1-5)
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es el costo real de un emoji al enviarlo?",
+                options: ["Es totalmente gratuito", "Energía, emisiones de CO2 y recursos de servidores", "Solo ocupa espacio en el celular"],
+                correct: 1
+            },
+            {
+                question: "¿Los datos digitales tienen un impacto ambiental real?",
+                options: ["No, porque son inmateriales", "Sí, requieren refrigeración y energía masiva en centros de datos", "Solo si se imprimen los correos"],
+                correct: 1
+            },
+            {
+                question: "Al comprar un celular, ¿el precio en la tienda es el único costo?",
+                options: ["Sí, el mercado regula todo", "No, hay costos sociales y ambientales ocultos en su origen", "Depende de la marca del dispositivo"],
+                correct: 1
+            },
+            {
+                question: "¿Qué efecto tiene el envío masivo de mensajes en la web?",
+                options: ["Una huella de carbono acumulativa para el planeta", "Hace que internet sea más rápido", "No tiene impacto observable"],
+                correct: 0
+            },
+            {
+                question: "¿Por qué la minería del Coltán es un dilema ético mundial?",
+                options: ["Porque es un mineral muy difícil de encontrar", "Por los conflictos armados y el trabajo forzado para extraerlo", "Porque encarece los dispositivos electrónicos"],
+                correct: 1
             }
         ];
 
@@ -406,8 +438,8 @@
             }
         }
     </script>
-    <script src="../gamification.js?v=2.2"></script>
-    <script src="../chat-tesla.js?v=2.2"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

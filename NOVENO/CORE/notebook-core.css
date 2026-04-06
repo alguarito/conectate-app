@@ -5,6 +5,7 @@
 
 html { background-color: #0d0e15; scroll-behavior: smooth; }
 body { 
+    display: block !important; /* CRÍTICO: Anula el flex global para que el chatbot y otros elementos absolutos no aplasten el cuaderno en horizontal */
     margin: 0;
     padding: 40px; 
     min-height: 100vh;

@@ -2,6 +2,7 @@
 
 html { background-color: #0d0e15; scroll-behavior: smooth; }
 body { 
+    display: block !important;
     margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
     background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
     background-attachment: fixed; background-repeat: no-repeat;

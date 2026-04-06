@@ -309,6 +309,9 @@
             </div>
         </section>
 
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                 <strong>CONECTATE | Módulo de Simulación Interactiva</strong><br>
@@ -318,6 +321,30 @@
     </div>
 
     <script>
+        // Datos de las Flashcards para esta sesión
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué representa el Voltaje (V) en un circuito?", 
+                answer: "Es la presión o fuerza eléctrica que empuja a los electrones a moverse a través del conductor.",
+                icon: "bx-bolt-circle"
+            },
+            { 
+                question: "¿Cuál es la unidad de medida de la Resistencia?", 
+                answer: "El Ohmio (Ω). Es la oposición que presentan los materiales al paso de la corriente.",
+                icon: "bx-unite"
+            },
+            { 
+                question: "Según la Ley de Ohm, ¿qué pasa si la Resistencia aumenta?", 
+                answer: "La Corriente disminuye, ya que a los electrones les cuesta más trabajo circular.",
+                icon: "bx-trending-down"
+            },
+            { 
+                question: "¿Qué sucede técnicamente en un Cortocircuito?", 
+                answer: "La corriente viaja sin resistencia (camino fácil), generando calor excesivo y peligro para la fuente de energía.",
+                icon: "bx-error-alt"
+            }
+        ];
+
         // Funcionalidad Temas Ciclicos
         const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
         const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
@@ -379,8 +406,8 @@
             }
         }
     </script>
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
+    <script src="../gamification.js?v=2.2"></script>
+    <script src="../chat-tesla.js?v=2.2"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

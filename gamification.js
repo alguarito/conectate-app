@@ -51,6 +51,8 @@ class GamificationManager {
             if (!this.user?.isAdmin) {
                 this.renderProfileBar();
                 this.injectNotebookFeatures();
+                // Buscar si hay datos previos de flashcards en el HTML
+                this.detectFlashcardsInDOM();
             }
         });
         
@@ -60,8 +62,16 @@ class GamificationManager {
                 if (!this.user?.isAdmin) {
                     this.renderProfileBar();
                     this.injectNotebookFeatures();
+                    this.detectFlashcardsInDOM();
                 }
             }, 100);
+        }
+    }
+
+    detectFlashcardsInDOM() {
+        const container = document.getElementById("flashcards-container");
+        if (container && window.FLASH_DATA) {
+            this.renderFlashcards(window.FLASH_DATA);
         }
     }
 
@@ -236,7 +246,9 @@ class GamificationManager {
             let alreadyCompleted = this.user?.completed_sessions?.includes(sessionId);
             
             btnContainer.innerHTML = `
-                <button id="btn-complete-session" class="${alreadyCompleted ? 'btn-completed' : 'btn-active'}">
+                <button id="btn-complete-session" 
+                    class="${alreadyCompleted ? 'btn-completed' : 'btn-active'}" 
+                    style="${!alreadyCompleted && document.getElementById('flashcards-container') ? 'display: none;' : ''}">
                      ${alreadyCompleted ? "<i class='bx bx-check-double'></i> ¡Misión Cumplida!" : "<i class='bx bx-party'></i> Marcar como Completada (+150 XP)"}
                 </button>
             `;
@@ -252,6 +264,63 @@ class GamificationManager {
                     this.markSessionComplete(sessionId);
                 });
             }
+        }
+    }
+
+    renderFlashcards(data) {
+        const container = document.getElementById("flashcards-container");
+        if (!container) return;
+
+        container.innerHTML = `
+            <div class="flashcards-section interactive-section glass-panel" style="border-color: rgba(168, 85, 247, 0.3);">
+                <h2 style="justify-content: center; margin-bottom: 5px;"><i class="bx bxs-brain"></i> Reto de Saberes: Flashcards</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 25px;">Toca las tarjetas para descubrir la respuesta y desbloquear tus créditos.</p>
+                <div class="flashcards-grid"></div>
+            </div>
+        `;
+
+        const grid = container.querySelector(".flashcards-grid");
+        let flippedCount = 0;
+        const total = data.length;
+
+        data.forEach((card, index) => {
+            const cardEl = document.createElement("div");
+            cardEl.className = "flashcard";
+            cardEl.innerHTML = `
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <span class="flashcard-badge">Pregunta ${index + 1}</span>
+                        <div class="flashcard-icon"><i class="bx ${card.icon || 'bx-help-circle'}"></i></div>
+                        <h3>${card.question}</h3>
+                        <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.5;">(Clic para revelar)</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <span class="flashcard-badge">Respuesta</span>
+                        <p>${card.answer}</p>
+                    </div>
+                </div>
+            `;
+
+            cardEl.addEventListener("click", () => {
+                if (!cardEl.classList.contains("flipped")) {
+                    cardEl.classList.add("flipped");
+                    flippedCount++;
+                    if (flippedCount === total) {
+                        this.unlockCompletionButton();
+                    }
+                }
+            });
+
+            grid.appendChild(cardEl);
+        });
+    }
+
+    unlockCompletionButton() {
+        const btn = document.getElementById("btn-complete-session");
+        if (btn) {
+            btn.style.display = "inline-flex";
+            btn.classList.add("unlock-anim");
+            this.showToast("¡Reto completado! Ya puedes reclamar tus puntos.", "xp");
         }
     }
 

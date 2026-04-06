@@ -1294,3 +1294,121 @@ body { top: 0px !important; }
     from { opacity: 0; transform: scale(0.5); }
     to { opacity: 1; transform: scale(1); }
 }
+
+
+/* =========================================
+   FLASHCARDS CLASROOM SYSTEM
+========================================= */
+
+.flashcards-section {
+    margin: 40px 0;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.flashcards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.flashcard {
+    height: 320px;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--glass-border);
+}
+
+.flashcard-front {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.flashcard-back {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(34, 211, 238, 0.15));
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    transform: rotateY(180deg);
+    border-color: var(--accent-purple);
+}
+
+.flashcard-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--accent-cyan);
+    opacity: 0.8;
+}
+
+.flashcard-front h3 {
+    font-family: var(--font-heading);
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.flashcard-back p {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.flashcard-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    color: var(--text-secondary);
+}
+
+.flashcard.flipped .flashcard-badge {
+    background: rgba(168, 85, 247, 0.3);
+    color: white;
+}
+
+/* Flashcards Unlock Animation */
+@keyframes unlockBtn {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.unlock-anim {
+    animation: unlockBtn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}

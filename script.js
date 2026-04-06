@@ -942,16 +942,20 @@ function logout() {
 function checkUserStatus() {
     const authWall = document.getElementById('auth-wall');
     const appContainer = document.querySelector('.app-container');
+    const teslaWidget = document.getElementById('tesla-widget');
 
     if (!currentUser) {
         authWall.classList.add('active');
         appContainer.classList.remove('authenticated');
+        if (teslaWidget) teslaWidget.style.display = 'none';
     } else {
         authWall.classList.remove('active');
         if (!currentUser.registered) {
             renderCharacterizationFlow();
+            if (teslaWidget) teslaWidget.style.display = 'none';
         } else {
             appContainer.classList.add('authenticated');
+            if (teslaWidget) teslaWidget.style.display = 'block';
             updateUIForUser();
             navigateTo('home');
         }

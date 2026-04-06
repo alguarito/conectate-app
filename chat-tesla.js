@@ -32,7 +32,7 @@ window.addEventListener('load', function() {
     // Inject CSS
     const style = document.createElement('style');
     style.innerHTML = `
-    #tesla-widget { position: fixed; bottom: 30px; right: 30px; z-index: 99999; font-family: 'Outfit', sans-serif; }
+    #tesla-widget { position: fixed; bottom: 30px; right: 30px; z-index: 99999; font-family: 'Outfit', sans-serif; display: none; }
     #tesla-btn { width: 140px; height: 140px; background: transparent; border: none; cursor: pointer; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; justify-content: center; align-items: center; outline: none; padding: 0; }
     #tesla-btn:hover { transform: scale(1.08) rotate(2deg); }
     #tesla-btn img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.7)); animation: float-pulse 3s infinite ease-in-out; }

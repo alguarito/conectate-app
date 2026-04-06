@@ -4,160 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 7-9-TIC</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- BoxIcons -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./CORE/notebook-core.css?v=1.1">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #6ee7b7; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #6ee7b7, #10b981); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        
+        /* Concept Cards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        .info-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #10b981; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Codificando la Vida...</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Codificando la Vida...</p>
     </div>
 
     <div class="notebook-container glass-panel">
+        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
                 <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-                <i class='bx bx-moon'></i>
-            </button></div>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button>
         </div>
 
         <header class="hero">
-            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <i class='bx bx-pulse'></i>
             <h1>Sesión 7: Biopolítica y Biotecnología</h1>
-            <p>¿Hechos de datos? Reflexiones éticas sobre CRISPR, patentes biológicas y el control de los cuerpos en la era de los algoritmos vitales.</p>
+            <p>¿Quién es el dueño de tu mapa genético? Explora cómo el poder gestiona la vida moderna mediante el ADN, la biometría y las patentes biológicas.</p>
         </header>
 
+        <!-- Video (Placeholder) -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; border-color: rgba(16, 185, 129, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px;"><i class='bx bx-video' style="color: #10b981;"></i> Video de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: rgba(0,0,0,0.4); border: 2px dashed rgba(255,255,255,0.1); aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class='bx bx-video-off' style="font-size: 4rem; color: rgba(255,255,255,0.2); margin-bottom: 10px;"></i>
+                <p style="color: var(--text-secondary);">Video en fase de producción por el profesor.</p>
+            </div>
+        </section>
 
-        <!-- Bloque 1: ¿Qué es la Biopolítica? -->
+        <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-dna'></i> 1. Biopolítica: El Poder sobre la Vida</h2>
-            <p class="section-text">Tradicionalmente, el poder se ejercía sobre el territorio. Hoy, se ejerce sobre las funciones biológicas de las personas.</p>
+            <h2><i class='bx bx- dna'></i> 1. Biopolítica: El Control de la Vida</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">El Inforg no solo es datos digitales; es un ser biológico cuyos procesos están siendo digitalizados para el control y el mercado.</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Control de Población <i class='bx bx-group'></i></h3>
-                    <div class="concept-desc">Uso de censos, salud pública y datos médicos para decidir qué vidas se potencian y cuáles se ignoran.</div>
+                    <h3>Control Biométrico <i class='bx bx-scan'></i></h3>
+                    <div class="concept-desc">Tu rostro (FaceID), huella e iris se han vuelto tu contraseña. Si se roban estos datos, no los puedes cambiar. Es vigilancia masiva de tu identidad física.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Anatomopolítica <i class='bx bx-user-check'></i></h3>
-                    <div class="concept-desc">Diciplina del cuerpo individual: horarios, posturas y rendimiento optimizado mediante tecnología.</div>
+                    <h3>Patentes Biológicas <i class='bx bx-certification'></i></h3>
+                    <div class="concept-desc">Empresas que son "dueñas" de semillas transgénicas o secuencias de genes humanos. ¿Puede la vida ser propiedad privada? El debate ético total.</div>
                 </div>
             </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-microscope'></i> 2. La era CRISPR</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">"Tijeras moleculares" que permiten editar el ADN de cualquier organismo. Prometen curar enfermedades, pero abren la puerta a la **Eugenesia** (selección de personas a la carta).</p>
             <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-book-open'></i> Reflexión de Foucault</div>
-                <p style="margin: 0; font-size: 0.95rem; font-style: italic;">"Durante milenios, el hombre siguió siendo lo que era para Aristóteles: un animal vivo y además capaz de una existencia política; el hombre moderno es un animal en cuya política está puesta en entredicho su vida de ser viviente."</p>
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> Dilema del Inforg</div>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">¿Quién decidirá qué genes son "buenos" y cuáles "malos"? Si la edición genética es costosa, ¿crearemos una sociedad dividida entre humanos "editados" y humanos "naturales"?</p>
             </div>
         </section>
 
-        <!-- Bloque 2: La Revolución Genética y el Negocio de la Vida -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-pulse'></i> 2. Biotecnología y Patentes</h2>
-            <p class="section-text">La ingeniería genética nos permite reescribir el ADN de plantas, animales e incluive humanos. ¿Quién es el dueño de esas instrucciones?</p>
-            
-            <div class="deep-reading">
-                <h4>CRISPR: Las Tijeras Moleculares</h4>
-                <p class="section-text">CRISPR-Cas9 es una tecnología que permite editar secuencias de ADN de forma precisa y barata. Sus promesas son infinitas (curar cáncer, eliminar mosquitos que transmiten malaria), pero sus riesgos éticos son gigantescos: </p>
-                <div class="grid-2">
-                    <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 20px;">
-                        <li><strong>Eugenesia Moderna:</strong> ¿Diseñaremos personas a la carta?</li>
-                        <li><strong>Heredabilidad:</strong> Los cambios afectan a toda la descendencia futura.</li>
-                    </ul>
-                    <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 20px;">
-                        <li><strong>Costo de Acceso:</strong> ¿Solo los ricos tendrán acceso a las mejoras genéticas?</li>
-                        <li><strong>Eco-Sistemas:</strong> Riesgo de extinguir especies por accidente.</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
 
-            <div class="deep-reading" style="border-color: #fbbf24; background: rgba(251, 191, 36, 0.05);">
-                <h4 style="color: #fbbf24;">Patentes Biológicas y Soberanía</h4>
-                <p class="section-text">Empresas multinacionales patentan semillas transgénicas y secuencias de genes. Esto genera un conflicto ético profundo (Dussel): </p>
-                <div class="info-box" style="border-left-color: #fbbf24; background: transparent;">
-                    <p style="margin: 0; font-size: 0.95rem;">¿Puede una empresa ser "dueña" de una semilla que ha sido patrimonio de campesinos por milenios? ¿Puede alguien ser "dueño" de un gen humano que previene una enfermedad?</p>
-                </div>
-                <p class="section-text" style="font-size: 0.9rem; margin-top: 15px;">La privatización de la vida es la máxima expresión de la biopolítica moderna: el control del alimento y la salud mediante el derecho de propiedad intelectual.</p>
-            </div>
-        </section>
-
-        <!-- Bloque 3: El Cuerpo como Dato (Vigilancia) -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-fingerprint'></i> 3. Biometría: Huellas y Rostros</h2>
-            <p class="section-text">Tu cuerpo se ha convertido en tu contraseña. Pero, a diferencia de un password, tu rostro o tu iris no se pueden cambiar si son robados de una base de datos.</p>
-            <div class="grid-3">
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
-                    <i class='bx bx-fingerprint' style='font-size: 2rem; color: #22d3ee; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0 5px;">Huella Digital</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Identificación por patrones únicos de la piel. Ubicua y fácil de falsificar.</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
-                    <i class='bx bx-scan' style='font-size: 2rem; color: #a855f7; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0 5px;">Rostro e Iris</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Reconocimiento facial. Usado para vigilancia masiva en ciudades inteligentes.</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
-                    <i class='bx bx-cloud' style='font-size: 2rem; color: #ec4899; margin-bottom: 15px; display: block;'></i>
-                    <h4 style="margin: 10px 0 5px;">ADN Digital</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Almacenamiento de información genética en la nube. ¿Quién lee tu mapa vital?</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bloque 4: Laboratorio de Dilemas -->
-        <section class="interactive-section glass-panel">
-            <div class="lab-box">
-                <h2><i class='bx bx-flask'></i> Laboratorio de Dilemas Éticos</h2>
-                <p class="section-text">Analiza las siguientes situaciones y reflexiona sobre la soberanía de tu ser:</p>
-                <div class="grid-2">
-                    <div class="concept-card" onclick="toggleDesc(this)">
-                        <h3>Dilema 1: El Chip Cerebral <i class='bx bx-bot'></i></h3>
-                        <div class="concept-desc">Una empresa ofrece un implante para descargar conocimientos de Wikipedia directo al cerebro. ¿Te lo pondrías? ¿Qué pasa si la empresa decide cobrarte una mensualidad por mantener el conocimiento activo?</div>
-                    </div>
-                    <div class="concept-card" onclick="toggleDesc(this)">
-                        <h3>Dilema 2: El Seguro Genético <i class='bx bx-dna'></i></h3>
-                        <div class="concept-desc">Una EPS exige tu examen de ADN. Si descubre que tienes genes propensos al cáncer, te niega la afiliación. ¿Es esto justicia basada en datos o discriminación biológica?</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Recursos (Drive) -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+        <!-- Recursos -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(16, 185, 129, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #10b981;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="7-9-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía de Biopolítica (PDF)
+                <a href="7-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía Biopolítica Noveno
                 </a>
             </div>
         </section>
 
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Biopolítica y Ética Genética</strong> (v1.0)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+                <strong>CONECTATE | Módulo "Cuerpo y Algoritmo"</strong><br>
+                Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <script src="./CORE/notebook-core.js?v=1.0"></script>
+    <!-- Lógica de Datos -->
+    <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es Biopolítica?", 
+                answer: "Es el uso del poder tecnológico y político para gestionar y controlar la vida biológica de las personas.",
+                icon: "bx-dna"
+            },
+            { 
+                question: "¿Huella Genética?", 
+                answer: "Es la información de tu ADN convertida en datos digitales. Permite predecir enfermedades o identificar ascendencia.",
+                icon: "bx-fingerprint"
+            },
+            { 
+                question: "¿Peligro Biométrico?", 
+                answer: "A diferencia de una contraseña, si roban tus datos biométricos (rostro, iris), no puedes cambiarlos. Tu cuerpo es hackeable.",
+                icon: "bx-scan"
+            }
+        ];
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
+        window.QUIZ_DATA = [
+            {
+                question: "La técnica CRISPR permite:",
+                options: ["Hacer videollamadas", "Editar secuencias de ADN de forma precisa", "Limpiar el disco duro"],
+                correct: 1
+            },
+            {
+                question: "¿Qué es la Eugenesia moderna?",
+                options: ["El estudio de la higiene", "La selección y mejora genética 'a la carta' de seres humanos", "Una red social"],
+                correct: 1
+            },
+            {
+                question: "En la Biopolítica de Foucault, el poder se ejerce sobre:",
+                options: ["El dinero de la gente", "La vida y los procesos biológicos de la población", "Los límites de los países"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué las patentes biológicas son un problema ético?",
+                options: ["Porque son muy caras", "Porque permiten que una empresa sea dueña de la vida o de genes universales", "Porque no funcionan"],
+                correct: 1
+            },
+            {
+                question: "Un Inforg consciente protege su biometría porque:",
+                options: ["Es su identidad física única e irreemplazable convertida en datos", "Quiere ser anónimo", "Es una moda digital"],
+                correct: 0
+            }
+        ];
+
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    icon.classList.replace('bx-sun', 'bx-moon');
+                }
+            });
+        }
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500); 
+            }
+        });
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                if(icon) icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                if(icon) icon.className = 'bx bx-minus';
+            }
         }
     </script>
+    
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

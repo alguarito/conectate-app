@@ -4,113 +4,251 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 4-9-TIC</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- BoxIcons -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./CORE/notebook-core.css?v=1.1">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #f59e0b; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        /* Flashcards / Concept Cards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(245, 158, 11, 0.5); background: rgba(245, 158, 11, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        .info-box { background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #f59e0b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; }
+            .hero h1 { font-size: 1.4rem !important; }
+            .grid-2 { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Abriendo el Saber...</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Protegiendo Ideas...</p>
     </div>
 
     <div class="notebook-container glass-panel">
+        
+        <!-- Controles Superiores -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
                 <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-                <i class='bx bx-moon'></i>
-            </button></div>
+            
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button>
         </div>
 
         <header class="hero">
-            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <i class='bx bx-copyright'></i>
             <h1>Sesión 4: El Dueño de las Ideas</h1>
-            <p>¿Se puede poseer el conocimiento? Propiedad intelectual, copyleft y la lucha por el conocimiento abierto en la era digital.</p>
+            <p>¿Se puede poseer el conocimiento? Un Inforg Crítico entiende que las ideas son semillas que crecen mejor en libertad. Descubre la lucha entre el Copyright y el Copyleft.</p>
         </header>
 
-
-        <!-- Copyright vs Copyleft -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-copyright'></i> 1. Modelos de Propiedad</h2>
-            <p class="section-text">No todas las licencias son iguales. Haz clic para entender las diferencias fundamentales:</p>
-            <div class="grid-2">
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Copyright (Tradicional) <i class='bx bx-lock'></i></h3>
-                    <div class="concept-desc">"Todos los derechos reservados". Prohíbe copiar, modificar o distribuir sin permiso explícito (y pago) del autor.</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Copyleft / FLOSS <i class='bx bx-redo'></i></h3>
-                    <div class="concept-desc">"Algunos derechos reservados". Permite copiar y mejorar el trabajo, siempre que los derivados mantengan la misma libertad.</div>
-                </div>
-            </div>
-            <div class="info-box" style="margin-top: 20px;">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Dato Ético</div>
-                <p style="margin: 0; font-size: 0.95rem;">Desde la Ética de la Liberación, el conocimiento es un bien común. Privatizarlo excesivamente excluye a los más pobres del progreso humano.</p>
+        <!-- Video (Placeholder) -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; border-color: rgba(245, 158, 11, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px;"><i class='bx bx-video' style="color: #f59e0b;"></i> Video de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: rgba(0,0,0,0.4); border: 2px dashed rgba(255,255,255,0.1); aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class='bx bx-video-off' style="font-size: 4rem; color: rgba(255,255,255,0.2); margin-bottom: 10px;"></i>
+                <p style="color: var(--text-secondary);">Video en fase de producción por el profesor.</p>
             </div>
         </section>
 
-        <!-- Creative Commons -->
+        <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-certification'></i> 2. Licencias Creative Commons</h2>
-            <p class="section-text">Son herramientas legales gratuitas para que los autores compartan su trabajo bajo sus propias condiciones. Haz clic para conocer cada restricción:</p>
+            <h2><i class='bx bx-shield-alt-2'></i> 1. Copyright vs Copyleft</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">No todos los "candados" digitales son iguales. Haz clic para conocer la filosofía detrás de cada licencia:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Copyright <i class='bx bx-lock'></i></h3>
+                    <div class="concept-desc">"Todos los derechos reservados". El autor tiene el control total sobre la copia y distribución. Generalmente requiere pagos por uso.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Copyleft <i class='bx bx-redo'></i></h3>
+                    <div class="concept-desc">"Algunos derechos reservados". Permite compartir y mejorar, siempre que el resultado final siga siendo libre (herencia de libertad).</div>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> Ética de la Liberación</div>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">Desde nuestra perspectiva, privatizar el conocimiento excesivamente excluye a los más pobres del progreso humano. El software libre es una herramienta de justicia.</p>
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-certification'></i> 2. El Código Creative Commons</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Son licencias modulares que permiten a los creadores (como tú) decidir cómo quieren ser citados y bajo qué condiciones comparten su obra:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>BY (Atribución) <i class='bx bx-user'></i></h3>
-                    <div class="concept-desc">Debes dar crédito al autor de manera adecuada, proporcionar un enlace a la licencia e indicar si se han realizado cambios. Es la base de casi todas las licencias CC.</div>
+                    <div class="concept-desc">Obligatorio dar crédito al autor original. Es la base de la honestidad intelectual.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>NC (No Comercial) <i class='bx bx-no-entry'></i></h3>
-                    <div class="concept-desc">No puedes utilizar el material para fines comerciales (ganar dinero con él) sin el permiso explícito del autor original.</div>
+                    <div class="concept-desc">Prohíbe que otros ganen dinero con tu obra sin tu permiso explícito.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>ND (Sin Derivadas) <i class='bx bx-block'></i></h3>
-                    <div class="concept-desc">Si remezclas, transformas o creas a partir del material, NO puedes difundir el material modificado. El trabajo debe compartirse intacto.</div>
+                    <div class="concept-desc">No se puede modificar la obra. Se comparte tal cual la creó el autor original.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>SA (Compartir Igual) <i class='bx bx-refresh'></i></h3>
-                    <div class="concept-desc">Si remezclas o transformas el material, debes distribuir tus contribuciones bajo la misma licencia que el original (herencia de libertad).</div>
+                    <div class="concept-desc">Si alguien modifica tu obra, debe compartirla bajo la misma licencia libre que tú usaste.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Recursos (Drive) -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
+
+        <!-- Recursos -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(245, 158, 11, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #f59e0b;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="4-9-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
+                <a href="4-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía Propiedad Intelectual
                 </a>
             </div>
         </section>
 
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Ética y Propiedad Intelectual</strong> (v1.0)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+                <strong>CONECTATE | Módulo "Propiedad de la Información"</strong><br>
+                Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <script src="./CORE/notebook-core.js?v=1.0"></script>
+    <!-- Lógica de Datos -->
+    <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es el Copyright?", 
+                answer: "Es un modelo legal donde 'todos los derechos están reservados' para el autor. Prohíbe copia o distribución sin permiso.",
+                icon: "bx-lock"
+            },
+            { 
+                question: "¿Qué es Creative Commons?", 
+                answer: "Un conjunto de licencias que permiten al autor compartir su obra con 'algunos derechos reservados' de forma gratuita.",
+                icon: "bx-certification"
+            },
+            { 
+                question: "¿Qué significa BY en CC?", 
+                answer: "Atribución. Significa que debes dar crédito obligatorio al autor original para poder usar su obra.",
+                icon: "bx-user"
+            }
+        ];
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es el objetivo principal del Copyleft?",
+                options: ["Cobrar mucho dinero", "Garantizar que la obra (y sus derivadas) sigan siendo siempre libres", "Prohibir que lean el libro"],
+                correct: 1
+            },
+            {
+                question: "Si una licencia tiene el símbolo NC, significa que:",
+                options: ["No se puede citar", "No se puede usar para fines comerciales (ganar dinero)", "No se puede copiar"],
+                correct: 1
+            },
+            {
+                question: "¿Qué licencia obliga a que lo nuevo que hagas sea tan libre como el original?",
+                options: ["BY (Atribución)", "SA (Compartir Igual)", "ND (Sin Derivadas)"],
+                correct: 1
+            },
+            {
+                question: "En la Ética de la Liberación, el conocimiento excesivamente privatizado genera:",
+                options: ["Riqueza para todos", "Exclusión y desigualdad para las comunidades vulnerables", "Mejor tecnología"],
+                correct: 1
+            },
+            {
+                question: "Un ejemplo de software Copyleft (Libre) es:",
+                options: ["Windows", "Linux", "Photoshop"],
+                correct: 1
+            }
+        ];
+
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    icon.classList.replace('bx-sun', 'bx-moon');
+                }
+            });
+        }
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500); 
+            }
+        });
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                if(icon) icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                if(icon) icon.className = 'bx bx-minus';
+            }
         }
     </script>
+    
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

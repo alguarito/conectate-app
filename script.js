@@ -883,9 +883,9 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (titular corto y atractivo) y 'summary' (una frase resumen). NO incluyas URLs ni enlaces. No saludes, no uses markdown, solo el JSON puro." }]
+                        "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (titular corto), 'summary' (resumen corto) y 'url' (URL REAL de la noticia original en un portal confiable como Wired, TechCrunch, El País, BBC News o portales educativos serios). NO inventes URLs ni generes enlaces rotos. No saludes, no uses markdown, solo el JSON puro." }]
                     },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de noticias EduTech de hoy." }] }]
+                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de las 5 noticias EduTech reales más importantes de hoy con sus enlaces directos." }] }]
                 })
             });
 
@@ -924,14 +924,21 @@ function renderNewsCards(news) {
     if (!newsContainer) return;
     
     newsContainer.innerHTML = news.map((item, index) => {
-        const searchQuery = encodeURIComponent(item.title + ' educación tecnología');
-        const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
+        // Fallback si no hay URL (aunque la pedimos)
+        const newsUrl = item.url || `https://www.google.com/search?q=${encodeURIComponent(item.title + ' educación tecnología')}`;
+        
         return `
-        <a href="${searchUrl}" target="_blank" rel="noopener" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
+        <a href="${newsUrl}" target="_blank" rel="noopener" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
             <div class="news-content">
-                <h4>${item.title}</h4>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h4>${item.title}</h4>
+                    <i class='bx bx-link-external' style="color: var(--accent-cyan); font-size: 1.1rem; opacity: 0.6;"></i>
+                </div>
                 <p>${item.summary}</p>
-                <div class="news-footer">Buscar noticia <i class='bx bx-search-alt'></i></div>
+                <div class="news-footer">
+                    <span>LEER NOTICIA COMPLETA</span>
+                    <i class='bx bx-right-arrow-alt'></i>
+                </div>
             </div>
         </a>
     `;

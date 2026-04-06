@@ -1737,3 +1737,15 @@ window.onload = () => {
 
     checkUserStatus();
 };
+
+// Funcionalidad Traducción Custom UI
+window.translatePage = function(langCode) {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
+    } else {
+        // Retry si el iframe de google no ha cargado aún
+        setTimeout(() => translatePage(langCode), 500);
+    }
+};

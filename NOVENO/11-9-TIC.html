@@ -3,174 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen Final | Grado Noveno</title>
-    <!-- Google Fonts -->
+    <title>Cuaderno Interactivo | 11-9-TIC</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- BoxIcons -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.0">
-</head>
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #f59e0b; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(245, 158, 11, 0.5); background: rgba(245, 158, 11, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        .info-box { background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #f59e0b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Desplegando Examen Global...</p>
-    </div>
-
-    <!-- Overlay de Envio -->
-    <div id="sending-overlay">
-        <div id="loading-ui" style="text-align: center;">
-            <div class="loader-spinner" style="border-left-color: #10b981; margin: 0 auto 20px auto;"></div>
-            <h2 style="color: white; font-family: var(--font-heading);">Enviando a la Base de Datos...</h2>
-            <p style="color: var(--text-secondary);">Validando respuestas con el servidor maestro.</p>
-        </div>
-        <div id="success-ui" style="text-align: center; display: none;">
-            <i class='bx bxs-check-circle success-icon' style="display: block;"></i>
-            <h2 style="color: white; font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px;">¡Examen Recibido!</h2>
-            <p style="color: #6ee7b7; font-size: 1.2rem;">Tus resultados han sido sellados como evidencia oficial de aprendizaje.</p>
-            
-            <div class="score-box" style="display: block;">
-                <p style="color: var(--text-secondary); margin:0; text-transform: uppercase; letter-spacing: 1px;">Tu Calificación Final</p>
-                <div class="score-value" id="final-score-display" style="color: #22d3ee;">0.0</div>
-                <p style="color: var(--text-secondary); margin:0;">Puntaje máximo: 5.0</p>
-            </div>
-            
-            <button onclick="window.location.href='../index.html'" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-                Volver a la Plataforma Central
-            </button>
-        </div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Preparando Discurso...</p>
     </div>
 
     <div class="notebook-container glass-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
                 <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-                <i class='bx bx-moon'></i>
-            </button></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div style="position: relative; display: inline-block;">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
         <header class="hero">
-            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <h1>Prueba de Desempeño: Noveno</h1>
-            <p>Demuestra tu transformación: de consumidor ciego a Inforg Crítico. Lee atentamente cada pregunta que resume el recorrido de este año. Solo puedes enviar este formulario una vez.</p>
+            <i class='bx bx-microphone'></i>
+            <h1>Sesión 11: Discurso Propio</h1>
+            <p>El poder de tu voz en la Infoesfera. Aprende a sustentar tus ideas con coherencia, pasión y rigor ético ante tu comunidad.</p>
         </header>
 
-        <form id="exam-form">
-            <div class="student-data-panel">
-                <div class="form-group" style="flex: 2;">
-                    <label for="student-name"><i class='bx bxs-user'></i> Nombres y Apellidos Completos</label>
-                    <input type="text" id="student-name" required placeholder="Ej: Maria Paula Ortiz Lopez">
+        <!-- Video Placeholder -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; border-color: rgba(245, 158, 11, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px;"><i class='bx bx-video' style="color: #f59e0b;"></i> Video de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: rgba(0,0,0,0.4); border: 2px dashed rgba(255,255,255,0.1); aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class='bx bx-video-off' style="font-size: 4rem; color: rgba(255,255,255,0.2); margin-bottom: 10px;"></i>
+                <p style="color: var(--text-secondary);">Video final en producción por el docente.</p>
+            </div>
+        </section>
+
+        <!-- Sección 1 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-bullseye'></i> 1. El Arte de la Sustentación</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Sustentar no es leer. Es convencer al otro de que tu investigación tiene un impacto real en la vida cotidiana de las personas.</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Presencia Digital <i class='bx bx-video-recording'></i></h3>
+                    <div class="concept-desc">Si tu sustentación es por video, cuida la luz (frente a la cara), el audio (usa manos libres) y el encuadre vertical (9:16) si es para redes.</div>
                 </div>
-                <div class="form-group">
-                    <label for="student-grade"><i class='bx bxs-group'></i> Selecciona tu Grado</label>
-                    <select id="student-grade" required>
-                        <option value="" disabled selected>Elige un grupo...</option>
-                        <option value="9-1">Grado 9-1</option>
-                        <option value="9-2">Grado 9-2</option>
-                        <option value="9-3">Grado 9-3</option>
-                        <option value="9-4">Grado 9-4</option>
-                        <option value="9-5">Grado 9-5</option>
-                        <option value="9-Otro">Otro</option>
-                    </select>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Coherencia Ética <i class='bx bx-shield-quarter'></i></h3>
+                    <div class="concept-desc">Lo que dices debe estar respaldado por lo que escribiste en el informe. No inventes datos en el aire.</div>
                 </div>
             </div>
-
-            <h2 style="color: #22d3ee; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;"><i class='bx bx-task'></i> Cuestionario de Selección Múltiple</h2>
-
-            <div id="questions-container">
-                <!-- Inyectadas por JS -->
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> Las 3 Reglas de Oro del Cine Móvil</div>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">1. <strong>El Audio es el Rey</strong> — El cerebro perdona un video borroso, pero nunca un audio malo. 2. <strong>La Luz en la Cara</strong> — Siempre de frente a la ventana, nunca de espaldas (contraluz). 3. <strong>Formato Vertical (9:16)</strong> — Para TikTok/Reels/Shorts, el celular va de pie.</p>
             </div>
+        </section>
 
-            <button type="submit" class="submit-btn" id="submit-btn">
-                <i class='bx bxs-cloud-upload'></i> Enviar Respuestas y Obtener Calificación
-            </button>
-        </form>
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-message-rounded-check'></i> 2. Características del Discurso</h2>
+            <div class="grid-3" style="text-align: center;">
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <i class='bx bx-timer' style='font-size: 2rem; color: #22d3ee; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0;">Precisión</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Sé breve y directo. Tienes poco tiempo para impactar.</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <i class='bx bx-heart' style='font-size: 2rem; color: #f472b6; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0;">Pasión</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Si a ti no te importa tu tema, a nadie le importará.</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <i class='bx bx-book-content' style='font-size: 2rem; color: #a855f7; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0;">Rigor</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Usa los conceptos correctos: Inforg, Biopolítica, Ética Hacker.</p>
+                </div>
+            </div>
+        </section>
 
-        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
+        <!-- Flashcards (4 cards) -->
+        <div id="flashcards-container"></div>
+
+        <!-- Cierre -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(245, 158, 11, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-award' style="color: #f59e0b;"></i> Misión Cumplida</h2>
+            <p class="section-text" style="color: var(--text-secondary);">Has concluido el Grado Noveno. Has pasado de ser un usuario a convertirte en un <strong>Inforg Soberano</strong>.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="11-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Protocolo de Sustentación
+                </a>
+            </div>
+        </section>
+
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Evaluación Oficial Cifrada</strong><br>
+                <strong>CONECTATE | Módulo "Oratoria Digital"</strong><br>
                 Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <script src="../CORE/exam-core.js?v=2.0"></script>
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
-
-        const questionsDB = [
-            {
-                title: "¿Qué significa que seamos 'Inforgs' (informational organisms) según el recorrido de este año?",
-                opts: ["A) Que somos seres biológicos aislados de la red.", "B) Que somos individuos hechos de información que viven en un entorno saturado de información.", "C) Que las máquinas nos controlan totalmente."],
-                ans: 1
-            },
-            {
-                title: "En el 'Triángulo del Saber', ¿cuál es el vértice que se encarga específicamente de la acción y el 'cómo hacer'?",
-                opts: ["A) La Técnica.", "B) La Ciencia.", "C) La Teoría pura."],
-                ans: 0
-            },
-            {
-                title: "Si compartes una obra bajo licencia Creative Commons 'BY-NC-ND', estás permitiendo que otros:",
-                opts: ["A) Usen la obra para ganar dinero siempre que den crédito.", "B) Usen la obra dando crédito, sin fines comerciales y sin hacer cambios a la misma.", "C) Puedan cambiarle el nombre al autor original."],
-                ans: 1
-            },
-            {
-                title: "Según las Normas APA 7 (Ingeniería del Documento), el propósito del 'Abstract' es:",
-                opts: ["A) Contar historias curiosas del autor del trabajo.", "B) Presentar un resumen fiel y conciso de los puntos principales de la investigación.", "C) Listar todas las páginas del documento."],
-                ans: 1
-            },
-            {
-                title: "¿Cuál es la diferencia fundamental entre una cita textual y una paráfrasis?",
-                opts: ["A) La cita textual no necesita autor; la paráfrasis sí.", "B) La textual copia palabras exactas entre comillas; la paráfrasis explica la idea con sus propias palabras.", "C) Ambas deben llevar siempre el número de página obligatoriamente."],
-                ans: 1
-            },
-            {
-                title: "Desde la Biopolítica Crítica, ¿cuál es el mayor riesgo de convertir nuestro cuerpo en datos biométricos (rostro, huella)?",
-                opts: ["A) Que el celular sea más difícil de abrir.", "B) Perder la soberanía sobre nuestra identidad física ante el control de las empresas y el poder.", "C) Que las cámaras nos tomen fotos borrosas."],
-                ans: 1
-            },
-            {
-                title: "¿Por qué decimos que un algoritmo puede tener 'Sesgos' (Bias)?",
-                opts: ["A) Porque funcionan con electricidad inestable.", "B) Porque son neutrales y nunca se equivocan.", "C) Porque replican prejuicios humanos presentes en los datos con los que fueron entrenados."],
-                ans: 2
-            },
-            {
-                title: "Para interactuar con una IA Generativa, un PROMPT exitoso debe contener preferiblemente:",
-                opts: ["A) Solo una palabra clave.", "B) La contraseña del usuario.", "C) Un Rol definido, un Contexto claro, una Instrucción y un Formato deseado."],
-                ans: 2
-            },
-            {
-                title: "El 'Humanismo Digital' propone principalmente que:",
-                opts: ["A) Debemos amar a los robots por encima de los humanos.", "B) La tecnología debe estar al servicio de la vida, la dignidad y la soberanía de las personas.", "C) Los algoritmos deben gobernarnos sin intervención humana."],
-                ans: 1
-            },
-            {
-                title: "¿Cuál es la característica principal de un Ciudadano Digital Crítico (Inforg Crítico)?",
-                opts: ["A) Creer todo lo que ve en redes sociales.", "B) Cuestionar el origen y el impacto ético de las herramientas tecnológicas que utiliza.", "C) Dejar de usar tecnología para vivir en el bosque."],
-                ans: 1
-            }
+        window.FLASH_DATA = [
+            { question: "¿Qué es el Discurso Propio?", answer: "Es la capacidad de expresar tus ideas originales usando argumentos técnicos y éticos sin depender de guiones genéricos.", icon: "bx-volume-full" },
+            { question: "¿La mirada en cámara?", answer: "Siempre mira al lente (punto negro) para generar conexión real con tu audiencia, no a tu propia imagen.", icon: "bx-low-vision" },
+            { question: "¿El poder del Gancho?", answer: "Inicia tu sustentación con una pregunta poderosa o un dato impactante para atrapar la atención en los primeros 10 segundos.", icon: "bx-anchor" },
+            { question: "¿Postura del Inforg?", answer: "Tu presencia física y digital comunican tanto como tus palabras. Seguridad, respeto y convicción.", icon: "bx-user-voice" }
         ];
 
-        // Iniciar examen con el motor unificado
-        initExam(questionsDB, GOOGLE_SCRIPT_URL, { gradeLevel: '9', periodId: 'P1' });
+        window.QUIZ_DATA = [
+            { question: "¿Cuál es la regla de oro para el audio en un video de sustentación?", options: ["No importa si hay ruido", "El cerebro perdona un video borroso, pero nunca un mal audio", "Cantar mientras hablas"], correct: 1 },
+            { question: "¿Dónde debe estar la fuente de luz principal al grabarte?", options: ["A tu espalda (contraluz)", "Frente a tu cara para iluminarte bien", "Debajo de la mesa"], correct: 1 },
+            { question: "¿Qué significa ser un 'Inforg Soberano' al hablar?", options: ["Que hablas rápido", "Que eres consciente del poder de tus palabras y de la ética tecnológica", "Que gritas"], correct: 1 },
+            { question: "¿Cómo debe ser el formato de video para Shorts o TikTok?", options: ["Horizontal (16:9)", "Vertical (9:16)", "Cuadrado"], correct: 1 },
+            { question: "Al finalizar tu sustentación, ¿qué es lo más importante?", options: ["Salir corriendo", "Invitar a la reflexión y agradecer el diálogo de saberes", "No dejar preguntas"], correct: 1 }
+        ];
     </script>
-
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
+    <script src="./CORE/notebook-core.js?v=1.1"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,pt,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

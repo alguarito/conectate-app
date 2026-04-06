@@ -67,3 +67,14 @@ function toggleDesc(element) {
         }
     }
 }
+
+// 4. Sistema de Traducción Global
+function translatePage(langCode) {
+    const googleCombo = document.querySelector('.goog-te-combo');
+    if (googleCombo) {
+        googleCombo.value = langCode;
+        googleCombo.dispatchEvent(new Event('change'));
+    } else {
+        console.warn("Google Translate no ha cargado completamente.");
+    }
+}

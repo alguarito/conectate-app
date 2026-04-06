@@ -4,130 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 10-9-TIC</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- BoxIcons -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./CORE/notebook-core.css?v=1.1">
-</head>
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #10b981; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        
+        /* Concept Cards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        .info-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #10b981; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Humanizando la Técnica...</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Estructurando Ideas...</p>
     </div>
 
     <div class="notebook-container glass-panel">
+        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
                 <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-                <i class='bx bx-moon'></i>
-            </button></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div style="position: relative; display: inline-block;">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
         <header class="hero">
-            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <h1>Sesión 10: Humanismo Digital</h1>
-            <p>Hacia una tecnología al servicio de la vida: El manifiesto por un futuro digital ético, crítico y soberano.</p>
+            <i class='bx bx-file-blank'></i>
+            <h1>Sesión 10: El Gran Informe Final</h1>
+            <p>Arquitectura del conocimiento aprendido. Es el momento de unir todos los hilos —ética, biopolítica e IA— en un documento sólido y argumentado.</p>
         </header>
 
+        <!-- Video (Placeholder) -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; border-color: rgba(16, 185, 129, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px;"><i class='bx bx-video' style="color: #10b981;"></i> Video de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: rgba(0,0,0,0.4); border: 2px dashed rgba(255,255,255,0.1); aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class='bx bx-video-off' style="font-size: 4rem; color: rgba(255,255,255,0.2); margin-bottom: 10px;"></i>
+                <p style="color: var(--text-secondary);">Video en fase de producción por el profesor.</p>
+            </div>
+        </section>
 
-        <!-- Bloque 1: ¿Qué es el Humanismo Digital? -->
+        <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-user'></i> 1. El Humano como Centro</h2>
-            <p class="section-text">El humanismo digital no es "odiar la tecnología". Es entender que el código debe adaptarse a nuestras necesidades éticas y no nosotros al código.</p>
+            <h2><i class='bx bx-git-branch'></i> 1. El Hilo Argumentativo</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Tu informe no es una suma de tareas. Es una tesis personal sobre cómo el Inforg debe habitar el mundo digital de forma crítica.</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Técnica para la Vida <i class='bx bx-heart'></i></h3>
-                    <div class="concept-desc">La pregunta no es "¿Qué puede hacer esta IA?", sino "¿Cómo ayuda esta IA a que nuestra comunidad viva mejor?".</div>
+                    <h3>Tesis Central <i class='bx bx-target-lock'></i></h3>
+                    <div class="concept-desc">La idea principal que defiendes. Ej: "La soberanía tecnológica es indispensable para la libertad en el siglo XXI".</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Soberanía Tecnológica <i class='bx bx-shield-alt'></i></h3>
-                    <div class="concept-desc">Luchar por no depender solo de 3 empresas transnacionales. Fomentar el software libre y el conocimiento abierto.</div>
+                    <h3>Argumentos Técnicos <i class='bx bx-code-alt'></i></h3>
+                    <div class="concept-desc">Hechos y datos aprendidos (copyright, algoritmos, biometría) que respaldan tu tesis.</div>
                 </div>
             </div>
             <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-world'></i> Síntesis Decolonial</div>
-                <p style="margin: 0; font-size: 0.95rem;">Desde nuestra realidad en el Sur Global, ser humanista digital es defender nuestros datos, nuestra cultura y nuestra autonomía frente al colonialismo digital.</p>
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> El Reto del Inforg</div>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">Debes conectar lo técnico con lo humano. ¿Por qué le importa a tu comunidad que los algoritmos tengan sesgos?</p>
             </div>
         </section>
 
-        <!-- Bloque 2: El Decálogo del Usuario Ético -->
+        <!-- Sección 2 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-list-check'></i> 2. Tu Decálogo Digital</h2>
-            <p class="section-text">10 principios para navegar el siglo XXI con dignidad y conciencia:</p>
-            <div class="grid-2">
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="color: #22d3ee; margin-top: 0;">1. Nunca serás un dato</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Recuerda que tu valor es infinito y no se reduce a un perfil publicitario o un algoritmo.</p>
+            <h2><i class='bx bx-list-check'></i> 2. Estructura de Rigor (APA 7)</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Un informe profesional se reconoce por su orden. Asegúrate de cumplir con los pilares aprendidos en la Sesión 5:</p>
+            <div class="grid-3">
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                    <i class='bx bx-id-card' style='font-size: 2rem; color: #22d3ee; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0;">Identidad</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Portada impecable con todos los datos técnicos exigidos.</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="color: #ec4899; margin-top: 0;">2. Dudarás de la pantalla</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Mantén siempre un pensamiento crítico frente a videos, noticias o respuestas de la IA.</p>
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                    <i class='bx bx-align-left' style='font-size: 2rem; color: #a855f7; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0;">Cuerpo</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Introducción clara, desarrollo profundo y conclusión crítica.</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="color: #10b981; margin-top: 0;">3. Compartirás el saber</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">El conocimiento abierto (Creative Commons) es la herramienta más poderosa contra la desigualdad.</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="color: #fbbf24; margin-top: 0;">4. Cuidarás tu rastro</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Tus datos son tu biografía. Cuida quién los lee y para qué los usa.</p>
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                    <i class='bx bx-book' style='font-size: 2rem; color: #ec4899; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0;">Fuentes</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Referencias bibliográficas completas siguiendo el estándar internacional.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Bloque 3: Manifiesto Final -->
-        <section class="interactive-section glass-panel">
-            <div class="manifesto-box">
-                <h2 style="color: #10b981; justify-content: center;"><i class='bx bx-flag'></i> Manifiesto CONECTATE</h2>
-                <div class="final-quote">
-                    "La técnica es el medio, la VIDA es el fin. <br>
-                    No somos usuarios, somos ciudadanos digitales soberanos."
-                </div>
-                <p class="section-text" style="text-align: center; font-size: 1.1rem; color: var(--text-primary);">
-                    Has llegado al final del recorrido de Noveno Grado. Has pasado de entender la historia de la informática a cuestionar la biopolítica y la inteligencia de las máquinas. Estás listo para ser un arquitecto del futuro.
-                </p>
-            </div>
-        </section>
+        <!-- Flashcards (4 cards) -->
+        <div id="flashcards-container"></div>
 
-        <!-- Recursos y Cierre -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-graduation'></i> Fin del Camino</h2>
-            <p class="section-text">Descarga el material final y celebra tu aprendizaje.</p>
+        <!-- Recursos -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(16, 185, 129, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #10b981;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="10-9-TIC.pdf" download class="pulse-btn">
-                    <i class='bx bxs-file-pdf'></i> Manifiesto Final (PDF)
+                <a href="10-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Rúbrica del Informe Final
                 </a>
             </div>
         </section>
 
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Humanismo Digital</strong> (v1.0)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".<br>
-                <em>PhD. Alvaro Cardenas Orozco - 2026</em>
+                <strong>CONECTATE | Módulo "Ingeniería del Informe"</strong><br>
+                Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <script src="./CORE/notebook-core.js?v=1.0"></script>
+    <!-- Lógica de Datos -->
+    <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es un argumento sólido?", 
+                answer: "Es una razón respaldada por evidencia (datos técnicos, conceptos aprendidos o citas de autores) que sostiene tu opinión.",
+                icon: "bx-shield"
+            },
+            { 
+                question: "¿Estructura del Informe?", 
+                answer: "Portada, Introducción, Desarrollo, Conclusiones y Referencias (APA 7).",
+                icon: "bx-list-ul"
+            },
+            { 
+                question: "¿Importancia de la Conclusión?", 
+                answer: "Es donde sintetizas lo aprendido y planteas una postura ética final sobre el futuro del Inforg.",
+                icon: "bx-check-double"
+            },
+            { 
+                question: "¿Honestidad Académica?", 
+                answer: "Reconocer las fuentes mediante citas. Sin citas, el informe carece de validez y se considera plagio.",
+                icon: "bx-award"
+            }
+        ];
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es la función principal de la Introducción en el informe final?",
+                options: ["Poner fotos bonitas", "Presentar el tema y la tesis que se va a defender", "Poner la bibliografía"],
+                correct: 1
+            },
+            {
+                question: "En el Desarrollo del informe, ¿qué se debe incluir?",
+                options: ["Solo opiniones personales sin pruebas", "Los argumentos técnicos y éticos que respaldan la tesis", "Los nombres de los compañeros"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué es obligatorio usar APA 7 en el informe?",
+                options: ["Para que el texto se vea ordenado y tenga rigor científico internacional", "Porque es una moda", "Para gastar más tinta"],
+                correct: 0
+            },
+            {
+                question: "Una tesis sólida es aquella que:",
+                options: ["No se puede debatir", "Plantea una postura clara y argumentada sobre el tema", "Es muy larga"],
+                correct: 1
+            },
+            {
+                question: "Si usas una idea del video del profesor en tu informe, debes:",
+                options: ["Copiarla sin decir nada", "Citarla siguiendo las normas de honestidad académica", "Inventar que es tuya"],
+                correct: 1
+            }
+        ];
+    </script>
+    
+    <script src="./CORE/notebook-core.js?v=1.1"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,pt,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

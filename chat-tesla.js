@@ -126,6 +126,13 @@ window.addEventListener('load', function() {
     `;
     document.body.insertAdjacentHTML('beforeend', widgetHTML);
 
+    // Initial auth check for widget visibility
+    const teslaWidget = document.getElementById('tesla-widget');
+    const localUser = JSON.parse(localStorage.getItem('conectate_user'));
+    if (localUser && localUser.registered) {
+        teslaWidget.style.display = 'block';
+    }
+
     // Initialise elements
     const btnOpen = document.getElementById('tesla-btn');
     const btnClose = document.getElementById('tesla-close');

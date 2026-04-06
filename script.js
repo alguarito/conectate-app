@@ -73,7 +73,7 @@ const sectionData = {
             { id: 6, title: 'Sesión 6: Ingeniería Editorial', file: './UNDECIMO/6-11-TIC.html?v=1.1', desc: 'Secciones y Paginación: Domina los saltos de sección y la desvinculación para crear una estructura académica con numeración romana y arábiga profesional.' },
             { id: 7, title: 'Sesión 7: Licencias y Autoría', file: './UNDECIMO/7-11-TIC.html?v=1.1', desc: 'Manifiesto del Autor: Aprende a proteger tu obra con Creative Commons y configura la página legal y los metadatos de tu libro digital.' },
             { id: 8, title: 'Sesión 8: Marketing Editorial', file: './UNDECIMO/8-11-TIC.html?v=1.1', desc: 'El Pitch y el BookTrailer: Domina la fórmula A.I.D.A. y el arte de la persuasión ética para vender tu obra en 60 segundos.' },
-            { id: 9, title: 'Sesión 9: Ética en el Código', file: './UNDECIMO/9-11-TIC.html?v=1.0', desc: 'Justicia algorítmica y responsabilidad profesional del desarrollador de software.' },
+            { id: 9, title: 'Sesión 9: La Feria del Libro', file: './UNDECIMO/9-11-TIC.html?v=1.1', desc: 'Speed Dating Literario: Presenta tu obra ante "inversores", defiende tu autoría ética y cierra el ciclo de la Ofimática Cognitiva.' },
             { id: 10, title: 'Sesión 10: Prueba de Desempeño', file: './UNDECIMO/10-11-TIC.html?v=1.0', desc: 'Examen Global de Grado Undécimo: Validando competencias en IA y Programación.' },
             { id: 11, title: 'Sesión 11: Auditoría del Libro Final', file: './UNDECIMO/11-11-TIC.html?v=1.2', desc: 'Laboratorio de Auditoría IA: Sube tu libro PDF, recibe feedback instantáneo y envía tu reporte al profesor por WhatsApp.' }
         ]

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoría IA | Proyecto Final 10°</title>
+    <title>Auditoría IA | Proyecto Final 11°</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- BoxIcons -->
@@ -115,7 +115,7 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #a855f7; margin-bottom: 10px;">Laboratorio Final de 10°</span>
+            <span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #a855f7; margin-bottom: 10px;">Laboratorio Final de 11°</span>
             <h1>Auditoría IA: Proyecto de Grado</h1>
             <p>Sube tu libro PDF co-redactado con IA. Analizaremos tu **coherencia**, el cumplimiento del **Pacto del Centauro** y te daremos feedback instantáneo.</p>
         </header>
@@ -251,7 +251,7 @@
         async function auditWithAI(bookText, studentName) {
             statusText.innerText = 'El Auditor IA está calificando la obra...';
             
-            const systemInstruction = `Eres el Auditor de Calidad MILC de la I.E. Sor María Juliana. Tu misión es evaluar proyectos finales de Grado Décimo (libros co-redactados con IA).
+            const systemInstruction = `Eres el Auditor de Calidad MILC de la I.E. Sor María Juliana. Tu misión es evaluar proyectos finales de Grado Undécimo (libros co-redactados con IA).
             Evalúa:
             1. COHERENCIA: ¿Tiene hilo conductor o son retazos de IA?
             2. PACTO DEL CENTAURO: ¿Se nota que el alumno editó el texto y quitó muletillas de robot?
@@ -298,7 +298,7 @@
 
             const waBtn = document.getElementById('send-wa-btn');
             waBtn.onclick = () => {
-                const msg = encodeURIComponent(`*REPORTE DE AUDITORÍA TIC - 10°*\n*Estudiante:* ${name}\n*Nota:* ${res.nota.toFixed(1)}/5.0\n\n*Feedback:* ${res.feedback}\n\n*Justificación:* ${res.justificacion}\n\n*Mejoras:* ${res.mejoras}`);
+                const msg = encodeURIComponent(`*REPORTE DE AUDITORÍA TIC - 11°*\n*Estudiante:* ${name}\n*Nota:* ${res.nota.toFixed(1)}/5.0\n\n*Feedback:* ${res.feedback}\n\n*Justificación:* ${res.justificacion}\n\n*Mejoras:* ${res.mejoras}`);
                 window.open(`https://wa.me/${PROFESSOR_WA}?text=${msg}`, '_blank');
             };
         }

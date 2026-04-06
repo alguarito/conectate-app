@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Global | Grado Undécimo</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./CORE/exam-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Cargando Evaluación de Ofimática Cognitiva...</p>
+    </div>
+
+    <!-- Overlay de Envio -->
+    <div id="sending-overlay">
+        <div id="loading-ui" style="text-align: center;">
+            <div class="loader-spinner" style="border-left-color: #10b981; margin: 0 auto 20px auto;"></div>
+            <h2 style="color: white; font-family: var(--font-heading);">Registrando Competencias Digitales...</h2>
+            <p style="color: var(--text-secondary);">Sincronizando con el servidor central de Auditoría.</p>
+        </div>
+        <div id="success-ui" style="text-align: center; display: none;">
+            <i class='bx bxs-graduation success-icon' style="display: block; color: #10b981; font-size: 5rem; margin-bottom: 20px;"></i>
+            <h2 style="color: white; font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px;">¡Evaluación Recibida!</h2>
+            <p style="color: #6ee7b7; font-size: 1.2rem;">Has concluido formalmente el ciclo de Ofimática Cognitiva.</p>
+            
+            <div class="score-box" style="display: block;">
+                <p style="color: var(--text-secondary); margin:0; text-transform: uppercase; letter-spacing: 1px;">Resultado Auditoría 11°</p>
+                <div class="score-value" id="final-score-display" style="color: #22d3ee;">0.0</div>
+                <p style="color: var(--text-secondary); margin:0;">Grado de Integridad Académica</p>
+            </div>
+            
+            <button onclick="window.location.href='../index.html'" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;">
+                Volver al Home
+            </button>
+        </div>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Salir del Examen
+            </a>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <h1>Examen Final: Grado Undécimo</h1>
+            <p>De Consumidores a Autores: Valida tus competencias en Ingeniería de Prompts, Diseño Editorial y Ética de la Inteligencia Artificial.</p>
+        </header>
+
+        <form id="exam-form">
+            <div class="student-data-panel">
+                <div class="form-group" style="flex: 2;">
+                    <label for="student-name"><i class='bx bxs-user-pin'></i> Tu nombre completo</label>
+                    <input type="text" id="student-name" required placeholder="Nombres y Apellidos del Autor">
+                </div>
+                <div class="form-group">
+                    <label for="student-grade"><i class='bx bx-group'></i> Grupo</label>
+                    <select id="student-grade" required>
+                        <option value="" disabled selected>Selecciona tu grado...</option>
+                        <option value="11-1">Grado 11-1</option>
+                        <option value="11-2">Grado 11-2</option>
+                        <option value="11-3">Grado 11-3</option>
+                        <option value="11-4">Grado 11-4</option>
+                        <option value="11-5">Grado 11-5</option>
+                    </select>
+                </div>
+            </div>
+
+            <h2 style="color: #22d3ee; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;"><i class='bx bx-shield-check'></i> Auditoría de Ofimática Cognitiva</h2>
+
+            <div id="questions-container">
+                <!-- Inyectadas por JS -->
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <i class='bx bxs-send'></i> Finalizar Evaluación Académica
+            </button>
+        </form>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Evaluación de Competencias Críticas</strong><br>
+                Validado por el Equipo de Innovación - I.E. Sor María Juliana
+            </p>
+        </footer>
+    </div>
+
+    <script src="./CORE/exam-core.js?v=1.1"></script>
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
+
+        const questionsDB = [
+            {
+                title: "¿Qué significa 'Human-in-the-Loop' en la ofimática cognitiva de Grado 11?",
+                opts: ["A) Que el humano queda fuera del proceso creativo.", "B) Que el humano supervisa, edita e interviene críticamente en cada ciclo de la IA.", "C) Que la IA toma las decisiones finales por el autor."],
+                ans: 1
+            },
+            {
+                title: "En la ingeniería de prompts, ¿qué significa el principio GIGO?",
+                opts: ["A) Si entra basura (prompt vago), sale basura (resultado mediocre).", "B) Generar Imágenes Grandes y Originales.", "C) Guardar Información Globalmente Ordenada."],
+                ans: 0
+            },
+            {
+                title: "¿Cuál es el orden técnico correcto de la fórmula maestra C.R.I.F.?",
+                opts: ["A) Código, Rol, Idea, Fin.", "B) Contexto, Rol, Instrucción, Formato.", "C) Cuento, Referencia, Imagen, Foto."],
+                ans: 1
+            },
+            {
+                title: "Según la 'Regla del 30%', ¿cuál es el compromiso mínimo de autoría?",
+                opts: ["A) Citar la fuente de la IA el 30% de las veces.", "B) Editar, reescribir y humanizar al menos el 30% del contenido generado por IA.", "C) Pagar el 30% de la licencia de la herramienta."],
+                ans: 1
+            },
+            {
+                title: "¿Qué es una 'Alucinación' en un modelo de lenguaje?",
+                opts: ["A) Cuando la IA se apaga por falta de datos.", "B) Cuando la IA inventa un dato falso con total seguridad y apariencia de verdad.", "C) Cuando la IA traduce mal una palabra."],
+                ans: 1
+            },
+            {
+                title: "En diseño editorial, ¿por qué son vitales los 'Márgenes Reflejados'?",
+                opts: ["A) Para que el libro se vea igual en un espejo.", "B) Para permitir la impresión a doble cara manteniendo la simetría visual de las páginas pares e impares.", "C) Para ahorrar espacio en el disco duro."],
+                ans: 1
+            },
+            {
+                title: "¿De cuánto es el 'Medianil' (Gutter) recomendado para la encuadernación profesional?",
+                opts: ["A) 5 centímetros.", "B) 1 centímetro (para compensar el espacio del lomo).", "C) No es necesario si se usa Word."],
+                ans: 1
+            },
+            {
+                title: "¿Qué tipo de fuente se recomienda para el cuerpo de texto en lecturas largas?",
+                opts: ["A) Sans Serif (limpia y sin adornos).", "B) Serif (con remates, facilita el descanso visual en papel).", "C) Fuentes decorativas o artísticas."],
+                ans: 1
+            },
+            {
+                title: "¿Cuál es el objetivo principal de usar un 'Salto de Sección' en Word?",
+                opts: ["A) Pasar simplemente a la siguiente página.", "B) Dividir el documento para aplicar formatos independientes (como numeración romana e índices).", "C) Borrar el formato anterior por error."],
+                ans: 1
+            },
+            {
+                title: "En marketing editorial, ¿qué significan las siglas de la fórmula A.I.D.A.?",
+                opts: ["A) Atención, Interés, Deseo, Acción.", "B) Archivo, Imagen, Documento, Aplicación.", "C) Autoría, Inteligencia, Diseño, Auditoría."],
+                ans: 0
+            }
+        ];
+
+        initExam(questionsDB, GOOGLE_SCRIPT_URL);
+    </script>
+</body>
+</html>

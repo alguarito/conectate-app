@@ -143,6 +143,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial</h2>
@@ -160,6 +166,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué significa la C en la fórmula C.R.I.F.?", answer: "Contexto: Explicar los antecedentes y de qué trata el tema a la IA.", icon: "bx-info-circle" },
+            { question: "¿Qué significa la R en la fórmula C.R.I.F.?", answer: "Rol: Asignar una identidad o profesión específica a la IA (ej: Eres un abogado).", icon: "bx-user-voice" },
+            { question: "¿Qué significa la I en la fórmula C.R.I.F.?", answer: "Instrucción: Decirle exactamente qué acción debe realizar (ej: Resume este texto).", icon: "bx-command" },
+            { question: "¿Qué significa la F en la fórmula C.R.I.F.?", answer: "Formato: Definir cómo quieres la respuesta (ej: Una tabla, una lista, código).", icon: "bx-layout" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "La técnica del 'Chunking' consiste en:", 
+                options: ["Borrar el historial.", "Trocear textos largos para que la IA no pierda el contexto.", "Escribir en mayúsculas."], 
+                correct: 1 
+            },
+            { 
+                question: "Un prompt sin Contexto genera respuestas:", 
+                options: ["Muy precisas.", "Genéricas y mediocres.", "Más rápidas y mejores."], 
+                correct: 1 
+            },
+            { 
+                question: "El principio GIGO (Garbage In, Garbage Out) significa:", 
+                options: ["La IA es inteligente.", "Si das instrucciones basura, recibes resultados basura.", "El basurero digital está lleno."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Cuál de estos es un Rol válido en C.R.I.F.?", 
+                options: ["'Hola'.", "'Actúa como un experto en Normas APA 7'.", "'Haz mi tarea'."], 
+                correct: 1 
+            },
+            { 
+                question: "El Formato en un prompt sirve para:", 
+                options: ["Que se vea bonito.", "Ahorrar tiempo de edición humana en la salida de datos.", "Que la IA no se canse."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

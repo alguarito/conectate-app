@@ -48,8 +48,8 @@
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
             <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 07</span>
-            <h1>Licencias y Autoría</h1>
-            <p>Manifiesto del Autor: Aprende a proteger tu obra con Creative Commons y configura la página legal y los metadatos de tu libro digital.</p>
+            <h1>Estructura Académica</h1>
+            <p>Secciones y Paginación: Domina los saltos de sección y la desvinculación para crear una estructura profesional con numeración romana y arábiga en tu libro digital.</p>
         </header>
 
         <!-- Video de la Sesión -->
@@ -70,55 +70,44 @@
             <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">"El autor es el arquitecto del sentido, no el generador del ruido."</p>
         </section>
 
-        <!-- 1. El Dilema del Autor IA -->
+        <!-- 1. El Concepto de Sección -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-brain'></i> 1. ¿Quién es el verdadero Autor?</h2>
-            <p class="section-text">En la era de los LLM, la autoría no reside en escribir cada palabra, sino en la **Intención, Supervisión y Edición Critica**:</p>
-            <div class="info-box" style="border-left-color: #a855f7;">
-                <div class="info-box-title">El Editor-Humano</div>
-                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Eres tú quien diseña los prompts, quien poda las alucinaciones y quien decide qué capítulos merece leer tu audiencia. Esa curaduría es tu propiedad intelectual.</p>
-            </div>
-        </section>
-
-        <!-- 2. Creative Commons -->
-        <section class="interactive-section glass-panel" style="border-color: #10b981;">
-            <h2><i class='bx bx-copy-alt'></i> 2. Licencias de Nueva Generación</h2>
-            <p class="section-text">Elige cómo quieres que el mundo interactúe con tu libro digital:</p>
-            <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
-                <div class="concept-card" style="text-align: center;">
-                    <h3 style="color: #10b981; font-size: 1.1rem;">CC BY</h3>
-                    <p style="font-size: 0.7rem;">Cualquiera puede usarlo, editarlo y venderlo, siempre que te cite.</p>
+            <h2><i class='bx bx-columns'></i> 1. Segmentando tu Obra</h2>
+            <p class="section-text">Un libro profesional no es un bloque único. Se divide en **Secciones** para que cada parte tenga su propia configuración:</p>
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Salto de Sección <i class='bx bx-log-in-circle'></i></h3>
+                    <div class="concept-desc">A diferencia de un salto de página, permite cambiar márgenes y numeración de forma independiente.</div>
                 </div>
-                <div class="concept-card" style="text-align: center;">
-                    <h3 style="color: #10b981; font-size: 1.1rem;">CC BY-NC</h3>
-                    <p style="font-size: 0.7rem;">Se puede compartir y editar, pero **prohibido** su uso comercial.</p>
-                </div>
-                <div class="concept-card" style="text-align: center;">
-                    <h3 style="color: #10b981; font-size: 1.1rem;">CC BY-NC-ND</h3>
-                    <p style="font-size: 0.7rem;">Se puede compartir, pero no editar ni vender. Es la más restrictiva.</p>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Desvincular Anterior <i class='bx bx-link-external'></i></h3>
+                    <div class="concept-desc">Paso obligatorio para romper la herencia de formato entre la portada, el índice y los capítulos.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. La Página Legal -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-shield-quarter'></i> 3. Metadatos Editoriales</h2>
-            <p class="section-text">Todo libro profesional lleva una "Página Legal" justo detrás de la portada con estos datos:</p>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; color: #6ee7b7;">
-                Título de la obra: [Tu Título]<br>
-                Autor: [Tu Nombre]<br>
-                Edición: 2026 - I.E. Sor María Juliana<br>
-                Licencia: Creative Commons [Tu Elección]<br>
-                Herramientas: Co-redactado con [IA utilizada]
+        <!-- 2. Lógica de Paginación -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-list-ol'></i> 2. Protocolo de Numeración</h2>
+            <div style="background: rgba(168, 85, 247, 0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.2);">
+                <div style="margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                    <strong style="color: #a855f7;">Portada:</strong> Sin número (Sección 1).
+                </div>
+                <div style="margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                    <strong style="color: #a855f7;">Preliminares:</strong> Números romanos (**i, ii, iii**) para el índice.
+                </div>
+                <div style="padding-bottom: 5px;">
+                    <strong style="color: #a855f7;">Cuerpo:</strong> Números arábigos (**1, 2, 3**) desde la Introducción.
+                </div>
             </div>
         </section>
 
         <!-- Misión 07 -->
         <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
-            <h2><i class='bx bx-check-shield'></i> Misión 07: Sello de Autoría</h2>
-            <p class="section-text">Hoy protegerás tu trabajo. Configura la página legal de tu libro en Word.</p>
+            <h2><i class='bx bx-cog'></i> Misión 07: Operación Paginación</h2>
+            <p class="section-text">Hoy estructurarás tu libro como un profesional. Configura las secciones y rompe los vínculos.</p>
             <div class="info-box">
-                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Elige tu licencia Creative Commons, inserta el logo y crea la página legal con tus metadatos técnicos."</p>
+                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Crea 3 secciones, desvincula los pies de página e inserta numeración romana y arábiga."</p>
             </div>
             <div style="margin-top: 20px;">
                 <a href="7-11-TIC.pdf" download class="pulse-btn" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981;">
@@ -127,13 +116,57 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Licencias y Autoría</strong> (v1.1)<br>
-                Validado bajo el Protocolo de Propiedad Intelectual - I.E. Sor María Juliana.
+                <strong>CONECTATE | Módulo de Estructura Académica</strong> (v1.2)<br>
+                Validado bajo el Protocolo de Ingeniería Documental - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Para qué sirve un 'Salto de Sección' en Word?", answer: "Permite configurar partes del documento de forma independiente (ej: márgenes o numeración).", icon: "bx-columns" },
+            { question: "¿Qué significa 'Desvincular a la anterior'?", answer: "Romper la herencia de formato para que el encabezado o pie sea independiente del anterior.", icon: "bx-link-external" },
+            { question: "¿Cuál es la numeración para preliminares (índice)?", answer: "Se usan Números Romanos en minúscula (i, ii, iii) centrados en el pie de página.", icon: "bx-list-ol" },
+            { question: "¿En qué página debe iniciar el número 1?", answer: "Estrictamente en la primera página del Capítulo 1 (Introducción).", icon: "bx-bookmark-plus" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Un libro profesional debe tener al menos estas 3 secciones:", 
+                options: ["Portada, Desarrollo, Final.", "Preliminares (Romanos), Cuerpo (Arábigos), Final (Sin numeración).", "Todo en una sola sección."], 
+                correct: 1 
+            },
+            { 
+                question: "Si al poner el número 1 en el Capítulo 1, también aparece en la Portada, el error es:", 
+                options: ["El mouse está dañado.", "No se desactivó la opción 'Vincular a la anterior' en el pie.", "Word es muy viejo."], 
+                correct: 1 
+            },
+            { 
+                question: "El 'Medianil' en la configuración de página sirve para:", 
+                options: ["Que el texto se vea centrado.", "Dejar espacio extra en el lomo para que el texto no se pierda al encuadernar.", "Ahorrar papel."], 
+                correct: 1 
+            },
+            { 
+                question: "Las Normas APA 7 exigen que la numeración (en trabajos académicos) esté en:", 
+                options: ["El centro abajo.", "La esquina superior derecha.", "No llevan número."], 
+                correct: 1 
+            },
+            { 
+                question: "¿La Tabla de Contenido se hace manual?", 
+                options: ["Sí, hoja por hoja.", "No, es automática basada en los Estilos (Título 1, 2, 3) que aplicaste.", "Solo si el libro es corto."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

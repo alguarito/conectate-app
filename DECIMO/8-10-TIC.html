@@ -140,6 +140,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S8</h2>
@@ -157,6 +163,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿En qué consiste la Regla 10/20/30?", answer: "10 diapositivas, 20 minutos de charla y fuente de mínimo 30 puntos de tamaño.", icon: "bx-tachometer" },
+            { question: "¿Qué es el 'Ruido Visual'?", answer: "El exceso de texto, colores chillones o animaciones innecesarias que distraen al público.", icon: "bx-volume-mute" },
+            { question: "¿Cómo ayuda la IA en el diseño?", answer: "Herramientas como Gamma o Canva IA generan layouts y sugieren imágenes basadas en el tema.", icon: "bx-wand" },
+            { question: "¿Cuál es el propósito real de una diapositiva?", answer: "Ser un APOYO VISUAL para lo que tú dices, no un guion para que tú lo leas.", icon: "bx-show" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Si una diapositiva tiene 500 palabras, ¿qué error estás cometiendo?", 
+                options: ["Interés excesivo.", "Carga Cognitiva (el público lee o te escucha, no hace ambas).", "Perfeccionismo."], 
+                correct: 1 
+            },
+            { 
+                question: "El contraste ideal en una presentación es:", 
+                options: ["Rojo sobre verde.", "Texto oscuro sobre fondo claro (o viceversa con alto contraste).", "Amarillo sobre blanco."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Qué es un 'Pitch' en una presentación?", 
+                options: ["Un programa de radio.", "Un discurso breve y persuasivo para vender una idea.", "Una falta en el béisbol."], 
+                correct: 1 
+            },
+            { 
+                question: "El uso de imágenes en alta resolución sirve para:", 
+                options: ["Que pesen más.", "Transmitir profesionalismo y mantener la atención emocional.", "Cansar la vista."], 
+                correct: 1 
+            },
+            { 
+                question: "Para evitar la 'Muerte por PowerPoint' debemos:", 
+                options: ["Usar muchas transiciones.", "Simplificar el mensaje y enfocarnos en una idea por lámina.", "Leer cada palabra."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

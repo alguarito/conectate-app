@@ -137,6 +137,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo de Escritura Centauro</strong> (v1.1)<br>
@@ -144,6 +150,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es el flujo Semilla-Expansión-Edición?", answer: "Método de dar una idea base (Semilla), dejar que la IA la desarrolle (Expansión) y lúego pulirla (Edición).", icon: "bx-rotate-right" },
+            { question: "¿Qué es la 'Alquimia Editorial'?", answer: "El proceso humano de transformar el texto crudo de la IA en una obra con alma y estilo propio.", icon: "bx-test-tube" },
+            { question: "¿Por qué es peligrosa la Expansión sin control?", answer: "Porque la IA rinde a rellenar párrafos con palabras vacías (paja digital) sin valor real.", icon: "bx-error-alt" },
+            { question: "¿Cuál es la regla del 30% en Undécimo?", answer: "Al menos el 30% del contenido final debe ser intervención humana directa (opiniones, correas).", icon: "bx-fingerprint" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Al co-crear el primer capítulo, tu función principal es:", 
+                options: ["Dejar que la IA escriba sola.", "Dirigir el flujo narrativo y verificar la coherencia de las ideas.", "Corregir solo puntos y comas."], 
+                correct: 1 
+            },
+            { 
+                question: "Un síntoma de que un texto es 100% robótico es:", 
+                options: ["Que no tiene errores ortográficos.", "El uso de muletillas como 'En el dinámico mundo de hoy...' o 'En conclusión...'.", "Que usa muchas fotos."], 
+                correct: 1 
+            },
+            { 
+                question: "La técnica de 'Semilla' implica que el humano:", 
+                options: ["No hace nada.", "Aporta la idea original, el argumento o la estructura del capítulo.", "Solo lee el final."], 
+                correct: 1 
+            },
+            { 
+                question: "Para 'humanizar' un capítulo de tu libro, debes:", 
+                options: ["Usar fuentes bonitas.", "Incluir ejemplos de tu entorno, reflexiones personales y críticas.", "Pedirlo a la IA."], 
+                correct: 1 
+            },
+            { 
+                question: "La 'Edición Crítica' consiste en:", 
+                options: ["Borrar todo.", "Podar lo innecesario y asegurar que cada palabra tenga un propósito.", "Leer rápido."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

@@ -137,6 +137,12 @@
             <p class="section-text">Busca tres fuentes comerciales reales (Ej. Revista Dinero, Cámara de Comercio) y regístralas en el administrador de fuentes de Word. Luego, genera la bibliografía automática aplicando la **Sangría Francesa**.</p>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S5</h2>
@@ -154,6 +160,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es una Cita Textual Corta?", answer: "Menos de 40 palabras, va entre comillas y dentro del párrafo.", icon: "bx-message-square-detail" },
+            { question: "¿Qué es una Cita Textual Larga?", answer: "40 palabras o más, va en un bloque independiente con sangría y sin comillas.", icon: "bx-list-plus" },
+            { question: "¿Qué datos son obligatorios en una cita textual?", answer: "Apellido del autor, año de publicación y número de página (p.).", icon: "bx-id-card" },
+            { question: "¿Qué es el Parafraseo?", answer: "Explicar la idea de un autor con tus propias palabras, pero acreditando siempre la fuente.", icon: "bx-comment-edit" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Si lo copias idéntico y no pones comillas, estás cometiendo:", 
+                options: ["Un error leve.", "Plagio (robo de propiedad intelectual).", "Una técnica de resumen."], 
+                correct: 1 
+            },
+            { 
+                question: "La diferencia entre 'Cita' y 'Referencia' es:", 
+                options: ["Son lo mismo.", "La cita va en el texto; la referencia al final en la lista bibliográfica.", "El color de la letra."], 
+                correct: 1 
+            },
+            { 
+                question: "En una cita de parafraseo, según APA 7:", 
+                options: ["La página es obligatoria.", "La página es opcional, pero recomendada.", "No se pone el año."], 
+                correct: 1 
+            },
+            { 
+                question: "El botón 'Insertar Cita' en Word sirve para:", 
+                options: ["Traducir el texto.", "Automatizar la bibliografía y evitar errores de formato.", "Buscar en internet."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Qué significa 'et al.' en una cita?", 
+                options: ["'Y otros datos'.", "'Y otros' (usado cuando hay 3 o más autores).", "'Fin del párrafo'."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

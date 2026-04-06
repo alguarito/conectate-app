@@ -73,7 +73,24 @@ class GamificationManager {
                 }
                 this.injectNotebookFeatures();
                 this.detectFlashcardsInDOM();
+                this._removePreloader();
             }, 100);
+        } else {
+            // Caso normal: esperar al evento load para suavidad
+            window.addEventListener('load', () => {
+                this._removePreloader();
+            });
+        }
+    }
+
+    _removePreloader() {
+        const preloader = document.getElementById("preloader");
+        if (preloader) {
+            preloader.style.opacity = "0";
+            preloader.style.visibility = "hidden";
+            setTimeout(() => {
+                if (preloader.parentNode) preloader.remove();
+            }, 600);
         }
     }
 
@@ -528,3 +545,24 @@ class GamificationManager {
 // Iniciar Global Manager y Exponer Clase
 window.GamificationManager = GamificationManager;
 window.GAMI = new GamificationManager();
+
+// CONTROLADOR GLOBAL DEL PRELOADER
+// Se ejecuta al finalizar la carga de los recursos pesados (imágenes, iframes)
+// Esto asegura que NINGÚN grado (Décimo, Undécimo, Noveno) se quede con el loader infinito
+// incluso si los scripts locales fallan o no existen dentro de la guía.
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Suavizar la salida
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+        preloader.style.transition = 'opacity 0.5s ease, visibility 0.5s ease';
+        
+        // Remover del DOM para liberar memoria y evitar bloqueos de clics
+        setTimeout(() => {
+            if(preloader.parentNode) {
+                preloader.remove();
+            }
+        }, 600);
+    }
+});

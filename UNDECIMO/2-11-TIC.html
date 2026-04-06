@@ -130,6 +130,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo de Ingeniería de Instrucciones</strong> (v1.1)<br>
@@ -137,6 +143,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es la 'Ingeniería de Prompts'?", answer: "La disciplina de diseñar, pulir y optimizar las instrucciones dadas a una IA para obtener resultados precisos.", icon: "bx-code-block" },
+            { question: "¿En qué ayuda el 'Rol' en un prompt?", answer: "Sitúa a la IA en un marco de conocimiento específico (ej: 'Actúa como un Editor de Libros').", icon: "bx-user-pin" },
+            { question: "¿Qué función cumple el 'Formato'?", answer: "Define la estructura de salida (tabla, lista, código, párrafo) para ahorrar tiempo de edición.", icon: "bx-layout" },
+            { question: "¿Qué es el principio GIGO?", answer: "'Garbage In, Garbage Out': Si la instrucción es basura o pobre, el resultado será de baja calidad.", icon: "bx-trash" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Un prompt efectivo para un libro debe incluir:", 
+                options: ["Solo el título.", "Contexto detallado, Público Objetivo y Tono de voz.", "Muchas gracias y por favor."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Cuál es la diferencia entre un Prompt y una búsqueda en Google?", 
+                options: ["Ninguna.", "El prompt es una instrucción de creación; Google es una de localización.", "Uno es más caro."], 
+                correct: 1 
+            },
+            { 
+                question: "Para que la IA no invente datos (alucine) en un libro, es clave:", 
+                options: ["Pedirle que no mienta.", "Proporcionarle tú mismo la información base o documentos de referencia.", "Usar solo mayúsculas."], 
+                correct: 1 
+            },
+            { 
+                question: "En la fórmula C.R.I.F., el 'Contexto' sirve para:", 
+                options: ["Que la IA se salude.", "Darle los antecedentes necesarios para que la respuesta sea relevante.", "Ocupar espacio."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Por qué el 'Rol' mejora la calidad de la respuesta?", 
+                options: ["Porque la IA se vuelve inteligente.", "Porque prioriza ciertos patrones de lenguaje y conocimientos técnicos.", "Porque es más divertido."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

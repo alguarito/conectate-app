@@ -106,6 +106,12 @@
             </button>
         </form>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS (REPASO GLOBAL) -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ (RESULTADOS Y DISCUSIÓN) -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo de Evaluación de Competencias Digitales</strong><br>
@@ -113,6 +119,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué debe contener la sección de Resultados?", answer: "Datos puros, tablas y figuras que muestran los hallazgos sin interpretaciones personales todavía.", icon: "bx-line-chart" },
+            { question: "¿Qué es la 'Discusión' en un informe?", answer: "El análisis donde comparas tus resultados con lo que dicen otros autores citando sus fuentes.", icon: "bx-conversation" },
+            { question: "¿Cómo se redacta una Conclusión efectiva?", answer: "Respondiendo directamente a los objetivos planteados y resumiendo el aprendizaje principal.", icon: "bx-target-lock" },
+            { question: "¿Cuál es la diferencia entre Referencia y Bibliografía?", answer: "Referencias: textos citados. Bibliografía: textos leídos pero no citados.", icon: "bx-book-reader" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "La sección donde se interpretan los datos y se da la opinión técnica es:", 
+                options: ["Resultados.", "Discusión.", "Introducción."], 
+                correct: 1 
+            },
+            { 
+                question: "Un error grave en las conclusiones es:", 
+                options: ["Ser breve.", "Incluir información nueva que no se analizó antes.", "Responder los objetivos."], 
+                correct: 1 
+            },
+            { 
+                question: "Las recomendaciones de un trabajo sirven para:", 
+                options: ["Que el profe ponga 5.", "Sugerir acciones futuras basadas en lo que se descubrió.", "Llenar la hoja final."], 
+                correct: 1 
+            },
+            { 
+                question: "En APA 7, la lista de referencias se organiza por:", 
+                options: ["Orden de aparición.", "Orden alfabético del apellido del autor.", "Importancia del tema."], 
+                correct: 1 
+            },
+            { 
+                question: "¿La IA puede redactar las conclusiones de tu trabajo sola?", 
+                options: ["Sí, ella sabe qué hice.", "No, solo el humano conoce la experiencia real y el impacto de su hallazgo.", "Solo si le doy el prompt."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../CORE/exam-core.js?v=2.0"></script>
     <script>

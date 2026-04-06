@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 11-10-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+</head>
+<body class="theme-coder">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Iniciando Auditoría Final...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div style="display: flex; gap: 10px;">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                    <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
+                </a>
+                <a id="btn-volver" href="../index.html?section=decimo" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                    <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
+                </a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div class="translate-wrapper">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)">
+                        <option value="es" class="translate-option">🇪🇸 Español</option>
+                        <option value="en" class="translate-option">🇺🇸 English</option>
+                        <option value="pt" class="translate-option">🇧🇷 Português</option>
+                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                    </select>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon'></i>
+                </button>
+            </div>
+        </div>
+
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Sesión de Cierre N° 11</span>
+            <h1>La Auditoría Final</h1>
+            <p>Calidad Documental y Ética: Revisión exhaustiva, integridad académica y exportación profesional del Informe Final de Grado Décimo.</p>
+        </header>
+
+        <!-- Video de la Sesión -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center;"><i class='bx bx-check-double'></i> Video Clase: El Sello de Calidad</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/5aYh46p8tQo?rel=0&enablejsapi=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Asegura que tu trabajo hable bien de tu profesionalismo y ética.</p>
+        </section>
+
+        <!-- 1. El Rigor del Auditor -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-search-alt'></i> 1. El Ojo del Auditor</h2>
+            <p class="section-text">Un trabajo "Expert" no solo tiene buen contenido, sino una arquitectura impecable. Revisa estos tres pilares:</p>
+            <div class="grid-3">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Integridad de Citas <i class='bx bx-link'></i></h3>
+                    <div class="concept-desc">¿Cada vez que mencionaste a un autor en el texto, aparece su referencia completa al final? Si falta una, es un error de integridad.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Jerarquía Visual <i class='bx bx-layer'></i></h3>
+                    <div class="concept-desc">Verifica que los Títulos 1, 2 y 3 sigan el orden lógico y que la Tabla de Contenido se actualice sin errores (sin "Error!").</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Gramática de IA <i class='bx bx-brush'></i></h3>
+                    <div class="concept-desc">Limpia las frases robóticas. Asegúrate de que el informe fluya con tu voz humana y que no haya repeticiones vacías.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Exportación a PDF -->
+        <section class="interactive-section glass-panel" style="border-color: #ef4444;">
+            <h2><i class='bx bxs-file-pdf'></i> 2. El Formato Universal</h2>
+            <div class="info-box" style="border-left-color: #ef4444;">
+                <div class="info-box-title">Por qué usar PDF</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">El PDF congela tu diseño. No importa si el evaluador usa Windows, Mac o Linux; verá tu trabajo exactamente como tú lo diseñaste, protegiendo las **Normas APA 7**.</p>
+            </div>
+        </section>
+
+        <!-- Misión Final -->
+        <section class="interactive-section glass-panel" style="border-color: #22d3ee; text-align: center;">
+            <h2><i class='bx bxs-graduation'></i> Misión Final: Entrega de Grado</h2>
+            <p class="section-text">Sube tu Informe Final a la carpeta compartida en formato PDF. Asegúrate de que el nombre del archivo sea institucional: <strong>Grupo_Apellido_Nombre_Proyecto.pdf</strong>.</p>
+        </section>
+
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Cierre Académico</strong> (v1.2)<br>
+                Validado bajo el Estándar de Auditoría Documental - I.E. Sor María Juliana.
+            </p>
+        </footer>
+    </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es la 'Auditoría Documental'?", answer: "La revisión final y exhaustiva del archivo para asegurar que cumple con todos los estándares técnicos y éticos.", icon: "bx-search" },
+            { question: "¿Cual es el formato de entrega profesional?", answer: "Archivo PDF, con nombre claro y sin errores de conversión para mantener el formato.", icon: "bx-file" },
+            { question: "¿Qué es el 'Checklist de Integridad'?", answer: "Verificar que cada cita tenga su referencia y que no haya párrafos copiados sin crédito.", icon: "bx-check-square" },
+            { question: "¿Por qué es vital el Double Check humano?", answer: "Para corregir errores de dedo, saltos de página huérfanos o imágenes movidas.", icon: "bx-user-check" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Antes de exportar a PDF, un Auditor Documental debe revisar:", 
+                options: ["El color de la hoja.", "La Tabla de Contenido automática y la correspondencia de las citas.", "El fondo de pantalla."], 
+                correct: 1 
+            },
+            { 
+                question: "Una característica de un informe de nivel 'Expert' es:", 
+                options: ["Tener 100 páginas.", "Cero errores de formato, lenguaje técnico y honestidad intelectual.", "Muchas animaciones."], 
+                correct: 1 
+            },
+            { 
+                question: "Si una cita en el texto no aparece en la lista final de referencias:", 
+                options: ["No pasa nada.", "Se considera un error técnico grave y falta de rigor académico.", "Se borra la cita."], 
+                correct: 1 
+            },
+            { 
+                question: "Exportar a PDF garantiza que:", 
+                options: ["El archivo no pese nada.", "El formato se mantenga idéntico sin importar el dispositivo.", "La IA no lo lea."], 
+                correct: 1 
+            },
+            { 
+                question: "Al finalizar 10°, un estudiante de CONECTATE es capaz de:", 
+                options: ["Jugar en el PC.", "Gestionar información técnica con estándares internacionales y ética IA.", "Escribir rápido."], 
+                correct: 1 
+            }
+        ];
+    </script>
+
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
+
+    <!-- Motor de Traducción Global -->
+    <script src="../translate-engine.js?v=2.3"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

@@ -125,6 +125,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo S7</h2>
@@ -142,6 +148,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Cuál es la diferencia entre 'Tabla' y 'Figura'?", answer: "Tablas: valores numéricos en filas y columnas. Figuras: gráficos, fotos, diagramas y otros visuales.", icon: "bx-spreadsheet" },
+            { question: "¿Dónde se coloca el título de una Tabla?", answer: "Siempre ENCIMA de la tabla, con el número en negrita y el título en cursiva.", icon: "bx-dock-top" },
+            { question: "¿Qué es la 'Nota de Tabla'?", answer: "Texto debajo de la tabla que explica abreviaturas o da el crédito de la fuente original.", icon: "bx-edit" },
+            { question: "¿Cómo es el diseño de bordes en una Tabla APA?", answer: "Minimalista: solo tres líneas horizontales (arriba, abajo y encabezado). Sin líneas verticales.", icon: "bx-border-none" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "En APA 7, las gráficas estadísticas se clasifican como:", 
+                options: ["Tablas de datos.", "Figuras.", "Anexos visuales."], 
+                correct: 1 
+            },
+            { 
+                question: "El título de una figura debe ubicarse:", 
+                options: ["Debajo de la imagen.", "Encima de la imagen, en cursiva.", "Dentro de la imagen."], 
+                correct: 1 
+            },
+            { 
+                question: "Si una tabla es de 'Autoría Propia' en una investigación:", 
+                options: ["No se le pone nota.", "Se indica en la nota debajo de la tabla.", "Se deja en blanco."], 
+                correct: 1 
+            },
+            { 
+                question: "El formato de tablas APA prohíbe:", 
+                options: ["Usar números.", "El uso de líneas verticales y celdas de colores fuertes.", "Ponerle nombre."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Para qué sirve citar una figura en el texto?", 
+                options: ["Para que se vea profesional.", "Para conectar el análisis escrito con la evidencia visual.", "Para llenar espacio."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

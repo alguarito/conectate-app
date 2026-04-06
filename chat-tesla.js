@@ -5,22 +5,22 @@ window.addEventListener('load', function() {
     // ⚡ URL de tu Cloudflare Worker
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
 
-    // Detect base path for images (works for root and subdirectories)
+    // Detección Robusta de Ruta del LOGO (Funciona en todos los niveles)
+    // Detección Ultra-Robusta del LOGO (Incluso para file:// y subcarpetas)
     const getBaseImgPath = () => {
-        const pathSegments = window.location.pathname.split('/').filter(s => s !== '');
-        // Si estamos en GitHub Pages (ej: /conectate/), el primer segmento es el repo
-        // Si estamos en local (ej: /), no hay segmentos o el primero es el archivo/carpeta
+        const path = window.location.pathname;
+        const isLocal = window.location.protocol === 'file:';
         
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const repoName = isGitHubPages ? pathSegments[0] : null;
+        // Buscamos dónde está la carpeta raíz del proyecto (donde vive index.html)
+        // En local: /Users/.../CONECTATE/OCTAVO/guia.html
+        // En GitHub: /conectate-repo/OCTAVO/guia.html
         
+        const segments = path.split('/');
+        // Retrocedemos desde el archivo actual hasta encontrar la raíz
+        // Las guías están en subcarpetas de Grados, así que usualmente subimos 1 nivel
         let depth = 0;
-        if (isGitHubPages) {
-            // En GitHub Pages: /repo/folder/file.html -> depth 1 (folder)
-            depth = Math.max(0, pathSegments.length - 2);
-        } else {
-            // En local: /folder/file.html -> depth 1
-            depth = Math.max(0, pathSegments.length - 1);
+        if (segments.includes('OCTAVO') || segments.includes('NOVENO') || segments.includes('DECIMO') || segments.includes('UNDECIMO')) {
+            depth = 1;
         }
         
         const prefix = '../'.repeat(depth);
@@ -82,7 +82,9 @@ window.addEventListener('load', function() {
     html.light-mode .msg.bot pre { background: #e2e8f0; }
     
     @media (max-width: 480px) {
-        #tesla-chat-box { width: 92vw; right: 0; }
+        #tesla-widget { right: 10px; bottom: 10px; }
+        #tesla-btn { width: 100px; height: 100px; }
+        #tesla-chat-box { width: 92vw; right: 0; bottom: 110px; }
     }
     `;
     document.head.appendChild(style);

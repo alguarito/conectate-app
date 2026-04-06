@@ -142,6 +142,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial</h2>
@@ -159,6 +165,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es la Curaduría de Contenidos?", answer: "El arte de encontrar, filtrar, organizar y dar sentido a la información dispersa.", icon: "bx-filter-alt" },
+            { question: "¿Qué es un 'Segundo Cerebro Digital'?", answer: "Un sistema externo donde guardamos y conectamos conocimientos para liberar nuestra memoria biográfica.", icon: "bx-brain" },
+            { question: "¿Cuál es el primer paso de un Curador?", answer: "Filtrar la relevancia: separar el 'ruido' de los datos inútiles de la verdadera 'señal' informativa.", icon: "bx-check-double" },
+            { question: "¿Por qué la IA ayuda a la curaduría?", answer: "Porque puede categorizar y etiquetar grandes volúmenes de datos automáticamente según nuestras reglas.", icon: "bx-chip" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Al curar información, lo más importante es:", 
+                options: ["Guardar todo lo que encuentres.", "Aportar tu propio criterio y análisis al contenido.", "Copiar y pegar rápido."], 
+                correct: 1 
+            },
+            { 
+                question: "Un sistema de gestión de conocimiento sirve para:", 
+                options: ["Jugar videojuegos.", "Liberar carga cognitiva de nuestra memoria biológica.", "Evitar estudiar."], 
+                correct: 1 
+            },
+            { 
+                question: "La 'Infoxicación' ocurre cuando:", 
+                options: ["No hay internet.", "Estamos saturados de información y no podemos procesarla.", "La pantalla brilla mucho."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Qué herramienta es ideal para un Segundo Cerebro?", 
+                options: ["TikTok.", "WhatsApp personal.", "Gestores de notas estructuradas (Notion, Obsidian)."], 
+                correct: 2 
+            },
+            { 
+                question: "En la curaduría con IA, el humano actúa como:", 
+                options: ["Esclavo del código.", "Director de orquesta que valida la relevancia.", "Un observador pasivo."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

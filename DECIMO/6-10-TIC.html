@@ -128,6 +128,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material Complementario</h2>
@@ -145,6 +151,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es un Escritor 'Centauro'?", answer: "Un humano que combina su creatividad y juicio crítico con la velocidad de procesamiento de la IA.", icon: "bx-user-plus" },
+            { question: "¿Cuál es el riesgo de la 'Pereza Cognitiva'?", answer: "Dejar que la IA redacte todo sin revisar, perdiendo nuestro estilo personal y voz propia.", icon: "bx-low-vision" },
+            { question: "¿Cómo se declara el uso de IA?", answer: "Mediante una nota aclaratoria o en la sección de metodología del documento según el protocolo ético.", icon: "bx-comment-error" },
+            { question: "¿Qué es la 'Curaduría Estilística'?", answer: "Editar el texto de la IA para quitarle muletillas robóticas, errores rítmicos o palabras excesivamente raras.", icon: "bx-brush" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "El 'Pacto del Centauro' establece que:", 
+                options: ["La IA es el autor principal.", "El humano es el director de orquesta y responsable final.", "No se puede usar IA."], 
+                correct: 1 
+            },
+            { 
+                question: "Un texto generado 100% por IA sin edición humana suele ser:", 
+                options: ["Perfecto y original.", "Plano, repetitivo y carece de matices emocionales.", "Ilegal en todo el mundo."], 
+                correct: 1 
+            },
+            { 
+                question: "Para 'humanizar' un texto de IA, lo mejor es:", 
+                options: ["Cambiar el color de fuente.", "Inyectar anécdotas, ejemplos locales y opiniones críticas.", "Pedirle que sea más humano."], 
+                correct: 1 
+            },
+            { 
+                question: "¿La IA tiene derechos de autor sobre lo que escribe?", 
+                options: ["Sí, ella es la dueña.", "No, legalmente las máquinas no son sujetos de derecho.", "Solo si pagas la suscripción."], 
+                correct: 1 
+            },
+            { 
+                question: "El gran valor del humano en la co-redacción es:", 
+                options: ["Escribir más rápido.", "La ética, el contexto social y el propósito de la obra.", "Corregir la ortografía."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

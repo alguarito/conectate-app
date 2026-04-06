@@ -134,6 +134,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo de Ofimática Cognitiva</strong> (v1.0)<br>
@@ -141,6 +147,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es la 'Soberanía Intelectual'?", answer: "El derecho y la capacidad de un humano para ser el dueño original de sus ideas, usando la tecnología como herramienta.", icon: "bx-crown" },
+            { question: "¿Qué define a la 'Infoesfera'?", answer: "El ecosistema global de información donde interactuamos humanos, algoritmos y datos.", icon: "bx-world" },
+            { question: "¿Cuál es el nuevo rol ante la IA?", answer: "Pasar de ser un 'escritor manual' a ser un Director Editorial y Curador Crítico.", icon: "bx-user-voice" },
+            { question: "¿Por qué la IA no es 'autora' legal?", answer: "Porque carece de conciencia, intención ética y responsabilidad legal sobre sus actos.", icon: "bx-shield-x" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "La principal amenaza de usar IA sin criterio es:", 
+                options: ["Que se dañe el PC.", "La pérdida de la voz propia y la uniformidad del pensamiento.", "Que escriba muy lento."], 
+                correct: 1 
+            },
+            { 
+                question: "En la era del Centauro, el valor del trabajo humano reside en:", 
+                options: ["La velocidad.", "El juicio ético, el contexto y la intención de la obra.", "El número de páginas."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Qué significa que la IA sea una 'Caja Negra'?", 
+                options: ["Que es de color negro.", "Que no siempre sabemos cómo llega a sus conclusiones o qué sesgos tiene.", "Que no tiene pantalla."], 
+                correct: 1 
+            },
+            { 
+                question: "El 'Fin del Autor' se refiere a:", 
+                options: ["Que ya nadie escribirá.", "La crisis de identidad provocada por contenidos generados masivamente por máquinas.", "El cierre de las bibliotecas."], 
+                correct: 1 
+            },
+            { 
+                question: "Para proteger nuestra soberanía intelectual debemos:", 
+                options: ["Dejar de usar IA.", "Cuestionar siempre los resultados de la IA y editarlos con nuestra visión.", "Copiar todo."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

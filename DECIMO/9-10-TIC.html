@@ -132,6 +132,12 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S9</h2>
@@ -149,6 +155,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es la Economía de la Atención?", answer: "El hecho de que hoy la atención es escasa y debemos captarla en los primeros 5 segundos.", icon: "bx-stopwatch" },
+            { question: "¿Qué significa A.I.D.A. para un video?", answer: "Atención, Interés, Deseo y Acción.", icon: "bx-signal-5" },
+            { question: "¿Cuál es la duración ideal de un Video-Pitch?", answer: "Entre 60 y 90 segundos. Menos es incompleto, más es aburrido.", icon: "bx-timer" },
+            { question: "¿Qué es un 'Call to Action' (CTA)?", answer: "La instrucción final que le das a quien ve el video (ej: 'Sígueme', 'Vota por mi proyecto').", icon: "bx-megaphone" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "El 'Gancho' de un video debe ocurrir en:", 
+                options: ["El final.", "Los primeros 5 a 10 segundos.", "El minuto 2."], 
+                correct: 1 
+            },
+            { 
+                question: "Un error común en la oratoria digital es:", 
+                options: ["Mirar a la cámara.", "Mirarse a uno mismo en la pantalla en lugar de a la lente.", "Hablar claro."], 
+                correct: 1 
+            },
+            { 
+                question: "El lenguaje no verbal en video implica:", 
+                options: ["No moverse.", "Tener una postura abierta, sonreír y gesticular con sentido.", "Usar manos solo para señalar."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Para qué sirve un guion en un video corto?", 
+                options: ["Para leerlo textual.", "Para estructurar las ideas y no divagar en el tiempo limitado.", "Para entregarlo al profe."], 
+                correct: 1 
+            },
+            { 
+                question: "La clave de un pitch exitoso es:", 
+                options: ["Ser muy serio.", "Resolver un problema real con una solución innovadora.", "Usar efectos especiales."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

@@ -134,6 +134,12 @@
             <p class="section-text">Configura tu plantilla en Microsoft Word aplicando las márgenes de 2.54 cm y modifica el estilo **"Normal"** para que use Arial 11 con interlineado de 2.0 y sangría de 1.27 cm.</p>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial S4</h2>
@@ -151,6 +157,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Para qué sirven los 'Estilos' en Word?", answer: "Para dar una estructura jerárquica y coherente al documento (Título 1, Título 2), permitiendo automatizar índices.", icon: "bx-layout" },
+            { question: "Según APA 7, ¿cómo debe ser la alineación?", answer: "Alineado a la izquierda (sin justificar) para facilitar la lectura técnica.", icon: "bx-align-left" },
+            { question: "¿Cuál es la sangría reglamentaria inicial?", answer: "Una sangría de 1.27 cm (media pulgada) al inicio de cada párrafo.", icon: "bx-paragraph" },
+            { question: "¿Qué ventaja tiene usar Estilos sobre manual?", answer: "Si cambias un Estilo, todo el documento se actualiza automáticamente de forma consistente.", icon: "bx-refresh" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "La jerarquía de títulos en APA 7 permite hasta:", 
+                options: ["3 niveles.", "5 niveles de títulos.", "Títulos infinitos."], 
+                correct: 1 
+            },
+            { 
+                question: "El interlineado reglamentario para trabajos APA es:", 
+                options: ["Sencillo.", "Doble (2.0) en todo el documento.", "1.5 líneas."], 
+                correct: 1 
+            },
+            { 
+                question: "Para crear un Índice Automático en Word es obligatorio:", 
+                options: ["Escribir los números a mano.", "Haber aplicado correctamente los Estilos de Título.", "Poner negrita a todo."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Cuál es la fuente permitida en APA 7?", 
+                options: ["Solo Times New Roman.", "Varias (Calibri 11, Arial 11, Times 12, etc.).", "Comic Sans."], 
+                correct: 1 
+            },
+            { 
+                question: "El 'Arquitecto Documental' se enfoca en:", 
+                options: ["Decorar las hojas.", "La estructura lógica y técnica de la información.", "Solo en corregir ortografía."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

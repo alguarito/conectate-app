@@ -134,6 +134,12 @@
             <p class="section-text">Investiga un dato estadístico REAL de 2024 o 2025 sobre un tema que te apasione (música, deportes, IA, moda). <br> <strong>Regla:</strong> Debes incluir el dato, el nombre de la fuente primaria y el enlace directo.</p>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <!-- Material de Apoyo -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
             <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Guía Oficial</h2>
@@ -151,6 +157,44 @@
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es una 'Alucinación' de la IA?", answer: "Es cuando la IA genera información falsa pero la presenta con total seguridad y coherencia.", icon: "bx-ghost" },
+            { question: "¿Qué define a un 'Dato Huérfano'?", answer: "Un dato que no tiene una fuente primaria, un autor o un enlace verificable que lo respalde.", icon: "bx-link-external" },
+            { question: "¿Cuál es la principal ventaja de Google sobre la IA?", answer: "Ofrecer información en tiempo real (de hace minutos) y enlaces directos a las fuentes originales.", icon: "bx-bolt-circle" },
+            { question: "¿De quién es la responsabilidad legal de un informe?", answer: "Siempre es del Analista Humano que firma y entrega el trabajo, no de la máquina.", icon: "bx-check-shield" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Si una IA te da una cifra económica de 2024 sin citar fuente, ¿qué debes hacer?", 
+                options: ["Usarla de inmediato.", "Dudar y buscar la fuente primaria en buscadores.", "Pedirle a la misma IA que jure que es verdad."], 
+                correct: 1 
+            },
+            { 
+                question: "El 'Pacto del Auditor' implica que:", 
+                options: ["La IA hace todo.", "Declaras honestamente si usaste IA y verificas cada dato.", "No usas tecnología para nada."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Cuál es un riesgo de las Fake News en Google?", 
+                options: ["Que son muy rápidas.", "El SEO engañoso que posiciona mentiras como verdades.", "Que no tienen colores."], 
+                correct: 1 
+            },
+            { 
+                question: "En el laboratorio 'La Quiebra', ¿por qué se perdió el dinero?", 
+                options: ["Por mala suerte.", "La IA se dañó.", "Por delegar el juicio humano a un algoritmo sin curaduría."], 
+                correct: 2 
+            },
+            { 
+                question: "Un Inforg Crítico se caracteriza por:", 
+                options: ["Saber programar en Python.", "Ser un guardián de la verdad en la Infoesfera.", "Usar solo redes sociales."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

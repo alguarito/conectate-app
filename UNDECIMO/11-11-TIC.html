@@ -50,9 +50,12 @@
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
             <span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #a855f7; margin-bottom: 10px;">Laboratorio Final de 11°</span>
-            <h1>Auditoría IA: Proyecto de Grado</h1>
-            <p>Sube tu libro PDF co-redactado con IA. Analizaremos tu **coherencia**, el cumplimiento del **Pacto del Centauro** y te daremos feedback instantáneo.</p>
+            <h1>La Gran Inauguración</h1>
+            <p>Auditoría Final y Cierre: Valida la integridad de tu libro, defiende tu autoría ética y prepárate para el lanzamiento oficial en el ecosistema CONECTATE.</p>
         </header>
+
+        <!-- RETO DE CERTIFICACIÓN: FLASHCARDS -->
+        <div id="flashcards-container" style="margin-bottom: 40px;"></div>
 
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-upload'></i> 1. Carga de Proyecto</h2>
@@ -105,6 +108,9 @@
             </div>
         </section>
 
+        <!-- EVALUACIÓN DE CIERRE ÉTICO -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo de Auditoría de Inteligencia Artificial</strong><br>
@@ -136,6 +142,43 @@
               "mejoras": "[Tres puntos clave]"
             }`
         });
+    </script>
+
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Ya revisaste los Enlaces 404?", answer: "Verifica que todos los links en tu PDF y Landing Page funcionen correctamente.", icon: "bx-link-external" },
+            { question: "¿El nombre del archivo es profesional?", answer: "Debe seguir el estándar: 11-X_Apellido_Nombre_TituloLibro.pdf.", icon: "bx-rename" },
+            { question: "¿La Portada tiene contraste?", answer: "El título debe ser legible incluso en una miniatura pequeña de celular.", icon: "bx-image" },
+            { question: "¿Tu 'Pitch' está listo?", answer: "Debes poder explicar el valor de tu libro en menos de 60 segundos.", icon: "bx-megaphone" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "El momento del 'Lanzamiento' implica:", 
+                options: ["Borrar el archivo de Word.", "Publicar la Landing Page y compartir el link del libro con la comunidad.", "Apagar el computador."], 
+                correct: 1 
+            },
+            { 
+                question: "Si un lector encuentra un dato falso en tu libro, el responsable es:", 
+                options: ["ChatGPT.", "Tú como autor y curador final de la obra.", "Nadie."], 
+                correct: 1 
+            },
+            { 
+                question: "La 'Feria del Libro Digital' sirve para:", 
+                options: ["Ganar nota.", "Socializar el conocimiento y demostrar el dominio de la Ofimática Cognitiva.", "Ver los trabajos de los otros."], 
+                correct: 1 
+            },
+            { 
+                question: "¿Qué sigue después de terminar tu primer libro con IA?", 
+                options: ["No volver a usar IA.", "Seguir usando la tecnología como un co-piloto para potenciar tu creatividad humana.", "Vender la cuenta de Canva."], 
+                correct: 1 
+            },
+            { 
+                question: "CONECTATE es un ecosistema de:", 
+                options: ["Computadores.", "Investigación, Ética y Transformación Digital.", "Redes sociales."], 
+                correct: 1 
+            }
+        ];
     </script>
 
     <script src="../gamification.js?v=2.3"></script>

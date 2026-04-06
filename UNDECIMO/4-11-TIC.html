@@ -47,9 +47,9 @@
 
         <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; margin-bottom: 10px;">Guía de Aprendizaje N° 04</span>
-            <h1>Cazadores de Alucinaciones</h1>
-            <p>Control de Calidad y Verdad: Aprende a detectar datos falsos, podar "vicios de robot" y verificar fuentes para asegurar la veracidad de tu libro digital.</p>
+            <span class="badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee; margin-bottom: 10px;">Guía de Aprendizaje N° 04</span>
+            <h1>El Diseño de Portada</h1>
+            <p>Identidad Visual y Persuasión: Domina la psicología del color, la proporción áurea y el uso de IA generativa para crear la primera impresión de tu libro digital.</p>
         </header>
 
         <!-- Video de la Sesión -->
@@ -70,68 +70,51 @@
             <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">"El error de la IA es tu error si decides publicarlo sin verificar."</p>
         </section>
 
-        <!-- 1. El Peligro de las Alucinaciones -->
+        <!-- 1. Psicología y Color -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-ghost'></i> 1. El Lado Oscuro de la IA</h2>
-            <p class="section-text">La IA es un motor de predicción, no una base de datos de verdad. Por eso, a veces "alucina":</p>
-            <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
-                <div class="concept-card">
-                    <h3 style="color: #ef4444; font-size: 0.9rem;">Citas Falsas</h3>
-                    <p style="font-size: 0.75rem;">Inventa autores o frases célebres que nunca existieron.</p>
-                </div>
-                <div class="concept-card">
-                    <h3 style="color: #ef4444; font-size: 0.9rem;">Enlaces 404</h3>
-                    <p style="font-size: 0.75rem;">Genera links a páginas web que no existen o están rotas.</p>
-                </div>
-                <div class="concept-card">
-                    <h3 style="color: #ef4444; font-size: 0.9rem;">Errores Lógicos</h3>
-                    <p style="font-size: 0.75rem;">Confunde fechas, personajes o procesos técnicos complejos.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. La Poda de Estilo -->
-        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
-            <h2><i class='bx bx-cut'></i> 2. Eliminando Muletillas de Robot</h2>
-            <p class="section-text">Si tu texto usa estas palabras en exceso, el lector sabrá que lo escribió una máquina. ¡Pódalas!</p>
-            <div class="info-box" style="border-left-color: #a855f7;">
-                <div class="grid-2" style="font-size: 0.85rem;">
-                    <ul style="color: #a855f7; font-weight: 600;">
-                        <li>Vasto / Multifacético</li>
-                        <li>En suma / En conclusión</li>
-                        <li>Imperativo / Esencial</li>
-                    </ul>
-                    <ul style="color: var(--text-secondary);">
-                        <li>Punto de inflexión</li>
-                        <li>A través de los tiempos</li>
-                        <li>No solo... sino también</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Fact-Checking Humano -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-search-alt'></i> 3. Verificación de Fuentes</h2>
-            <p class="section-text">Aplica el protocolo de auditoría externa antes de dar por terminado un capítulo:</p>
+            <h2><i class='bx bx-palette'></i> 1. El Lenguaje del Color</h2>
+            <p class="section-text">Tu libro entra por los ojos. El color no es decorativo, es emocional:</p>
             <div class="grid-2">
-                <div class="concept-card">
-                    <h3>Google Search <i class='bx bxl-google'></i></h3>
-                    <div class="concept-desc" style="display: block; font-size: 0.75rem;">Busca cada dato estadístico o técnico para confirmar su veracidad.</div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Impacto Emocional <i class='bx bx-heart'></i></h3>
+                    <div class="concept-desc">Azul transmite confianza y tecnología. Rojo evoca urgencia o pasión. Elige una paleta alineada al tema de tu libro.</div>
                 </div>
-                <div class="concept-card">
-                    <h3>Enciclopedias <i class='bx bx-book-reader'></i></h3>
-                    <div class="concept-desc" style="display: block; font-size: 0.75rem;">Contrasta las fechas y nombres históricos con fuentes oficiales (Wikipedia, Britannica).</div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>Contraste y Legibilidad <i class='bx bx-font'></i></h3>
+                    <div class="concept-desc">Un título debe leerse a 2 metros de distancia en una miniatura. Usa alto contraste entre el texto y el fondo.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Composición y IA -->
+        <section class="interactive-section glass-panel" style="border-color: #a855f7;">
+            <h2><i class='bx bx-image-add'></i> 2. Creando con Co-Pilotos</h2>
+            <p class="section-text" style="margin-bottom: 25px;">Usa la IA para generar el concepto visual y Canva para la tipografía final:</p>
+            <div class="grid-3">
+                <div style="background: rgba(168, 85, 247, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.2); text-align: center;">
+                    <i class='bx bx-wand' style='font-size: 2rem; color: #a855f7; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 8px 0; font-size: 0.9rem;">IA Generativa</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary);">Promptea tu portada en DALL-E o Midjourney para arte original.</p>
+                </div>
+                <div style="background: rgba(34, 211, 238, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(34, 211, 238, 0.2); text-align: center;">
+                    <i class='bx bx-border-inner' style='font-size: 2rem; color: #22d3ee; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 8px 0; font-size: 0.9rem;">Proporción Áurea</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary);">Ubica el elemento principal en los puntos de interés para armonía visual.</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2); text-align: center;">
+                    <i class='bx bx-pencil' style='font-size: 2rem; color: #10b981; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 8px 0; font-size: 0.9rem;">Tipografía</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary);">Elige una fuente "Display" poderosa para el título principal.</p>
                 </div>
             </div>
         </section>
 
         <!-- Misión 04 -->
         <section class="interactive-section glass-panel" style="border-color: #10b981; text-align: center;">
-            <h2><i class='bx bx-shield-check'></i> Misión 04: Cirugía Técnica del Capítulo 2</h2>
-            <p class="section-text">Hoy auditarás la verdad. Realiza una cirugía profunda a tu segundo capítulo.</p>
+            <h2><i class='bx bx-landscape'></i> Misión 04: El Rostro de tu Obra</h2>
+            <p class="section-text">Diseña la portada final de tu libro digital. Debe ser profesional, conceptual y visualmente impactante.</p>
             <div class="info-box">
-                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Verifica al menos 3 datos clave en Google, elimina las muletillas de robot y certifica la veracidad de tu obra."</p>
+                <p style="font-size: 0.95rem; color: #10b981; font-weight: 600;">"Genera tu imagen con IA en Canva Magic Media y añade la tipografía aplicando la regla de contrastes."</p>
             </div>
             <div style="margin-top: 20px;">
                 <a href="4-11-TIC.pdf" download class="pulse-btn" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981;">
@@ -140,13 +123,57 @@
             </div>
         </section>
 
+        <!-- RETO DE APRENDIZAJE: FLASHCARDS -->
+        <div id="flashcards-container"></div>
+
+        <!-- EVALUACIÓN: QUIZ -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Auditoría de Verdad</strong> (v1.1)<br>
-                Validado bajo el Estándar de Curaduría Ética - I.E. Sor María Juliana.
+                <strong>CONECTATE | Módulo de Identidad Visual</strong> (v1.2)<br>
+                Validado bajo el Estándar de Diseño Editorial - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>
+
+    <!-- DATA PARA EL MOTOR DE GAMIFICACIÓN -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Qué es la 'Psicología del Color' en una portada?", answer: "El uso de colores para evocar emociones específicas (ej: azul para tecnología/confianza, rojo para urgencia).", icon: "bx-palette" },
+            { question: "¿Cuál es la proporción áurea en diseño?", answer: "Una regla matemática de composición que hace que los elementos visuales se vean equilibrados y armoniosos.", icon: "bx-border-radius" },
+            { question: "¿Cómo ayuda la IA Generativa en portadas?", answer: "Permite crear imágenes conceptuales únicas y de alta calidad a partir de un prompt descriptivo.", icon: "bx-brain" },
+            { question: "¿Qué tipografía se recomienda para el título?", answer: "Una fuente con personalidad (Display) que sea legible pero que destaque sobre la imagen de fondo.", icon: "bx-font" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "Una buena portada debe capturar la atención en menos de:", 
+                options: ["10 segundos.", "3 segundos.", "Un minuto."], 
+                correct: 1 
+            },
+            { 
+                question: "El 'Contraste' en diseño sirve para:", 
+                options: ["Que se vea oscuro.", "Hacer que el título resalte sobre el fondo y sea fácil de leer.", "Usar muchos colores."], 
+                correct: 1 
+            },
+            { 
+                question: "Un error común en el diseño de portadas es:", 
+                options: ["Usar una sola imagen.", "Saturar el espacio con demasiado texto e imágenes pequeñas.", "Poner el nombre del autor."], 
+                correct: 1 
+            },
+            { 
+                question: "En Canva/IA, el botón de 'Retirar Fondo' es útil para:", 
+                options: ["Borrar toda la imagen.", "Aislar un objeto o persona para integrarlo mejor en la composición.", "Cambiar el color."], 
+                correct: 1 
+            },
+            { 
+                question: "¿La portada define el valor del libro?", 
+                options: ["No, solo importa el texto.", "Sí, es la primera capa de persuasión y profesionalismo de la obra.", "Solo si tiene fotos reales."], 
+                correct: 1 
+            }
+        ];
+    </script>
 
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>

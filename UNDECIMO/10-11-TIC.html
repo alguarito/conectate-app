@@ -75,6 +75,9 @@
             <p>De Consumidores a Autores: Valida tus competencias en Ingeniería de Prompts, Diseño Editorial y Ética de la Inteligencia Artificial.</p>
         </header>
 
+        <!-- RETO DE REPASO: FLASHCARDS ANTES DEL EXAMEN -->
+        <div id="flashcards-container" style="margin-bottom: 40px;"></div>
+
         <form id="exam-form">
             <div class="student-data-panel">
                 <div class="form-group" style="flex: 2;">
@@ -171,6 +174,15 @@
         ];
 
         initExam(questionsDB, GOOGLE_SCRIPT_URL, { gradeLevel: '11', periodId: 'P1' });
+    </script>
+
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Cuál es la tríada de la Ingeniería de Prompts?", answer: "Contexto (Rol), Instrucción Clara (Tarea) y Formato (Salida).", icon: "bx-brain" },
+            { question: "¿Cómo se evita la 'IA-Dependencia'?", answer: "Mediante la Auditoría Humana obligatoria de cada dato y la inyección de voz propia en el texto.", icon: "bx-shield-quarter" },
+            { question: "¿Qué define la calidad de un libro digital?", answer: "La armonía entre diseño visual, integridad ética (citas) y valor del contenido.", icon: "bx-star" },
+            { question: "¿Cuál es el formato de preservación a largo plazo?", answer: "El PDF optimizado con metadatos de autoría y licencia Creative Commons.", icon: "bx-file-blank" }
+        ];
     </script>
 
     <script src="../gamification.js?v=2.3"></script>

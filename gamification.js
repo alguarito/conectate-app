@@ -21,6 +21,10 @@ class GamificationManager {
             { id: 5, name: "Centauro de IA", threshold: 2500, icon: "🤖" }
         ];
 
+        // Configuración Global de Temas
+        this.THEMES = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
+        this.THEME_ICONS = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
+
         this.init();
     }
 
@@ -35,9 +39,13 @@ class GamificationManager {
 
             if (typeof this.user.xp === 'undefined') this.user.xp = 0;
             if (typeof this.user.level === 'undefined') this.user.level = 1;
+            if (typeof this.user.themeIndex === 'undefined') this.user.themeIndex = 0;
             if (!this.user.completed_sessions) this.user.completed_sessions = [];
             this.saveUser();
         }
+
+        // Aplicar el tema actual del usuario inmediatamente
+        this.applyTheme(this.user ? this.user.themeIndex : 0);
 
         // Crear contenedor global para notificaciones (Solo Estudiantes)
         if (!document.getElementById("gamification-toast-container") && !this.user?.isAdmin) {
@@ -185,6 +193,45 @@ class GamificationManager {
         c.innerHTML = `<h1>🎉 ¡NIVEL ALCANZADO! 🎉</h1><p>${this.getCurrentLevelInfo().name}</p>`;
         document.body.appendChild(c);
         setTimeout(() => c.remove(), 2500);
+    }
+
+    // --- SISTEMA INTERNO DE TEMAS ---
+    applyTheme(index) {
+        // Limpiar clases previas
+        this.THEMES.forEach(t => {
+            if (t !== 'default') {
+                document.body.classList.remove(t);
+                document.documentElement.classList.remove(t);
+            }
+        });
+        
+        const nextClass = this.THEMES[index];
+        if (nextClass !== 'default') {
+            document.body.classList.add(nextClass);
+            document.documentElement.classList.add(nextClass);
+        }
+
+        // Actualizar el botón si existe en el DOM
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if (themeBtn) {
+            const icon = themeBtn.querySelector('i');
+            if (icon) {
+                icon.className = `bx ${this.THEME_ICONS[index]}`;
+            }
+            
+            // Re-vincular el evento click si es la primera vez
+            if (!themeBtn.dataset.themeBound) {
+                themeBtn.dataset.themeBound = "true";
+                themeBtn.addEventListener('click', () => {
+                    const nextIndex = ( (this.user ? this.user.themeIndex : 0) + 1) % this.THEMES.length;
+                    if (this.user) {
+                        this.user.themeIndex = nextIndex;
+                        this.saveUser();
+                    }
+                    this.applyTheme(nextIndex);
+                });
+            }
+        }
     }
 
     // --- HOME WIDGET INJECTION ---

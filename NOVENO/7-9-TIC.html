@@ -74,7 +74,18 @@
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
-            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div class="translate-wrapper">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)">
+                        <option value="es" class="translate-option">🇪🇸 Español</option>
+                        <option value="en" class="translate-option">🇺🇸 English</option>
+                        <option value="pt" class="translate-option">🇧🇷 Português</option>
+                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                    </select>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
                 <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
             </button>
         </div>
@@ -161,6 +172,11 @@
                 question: "¿Peligro Biométrico?", 
                 answer: "A diferencia de una contraseña, si roban tus datos biométricos (rostro, iris), no puedes cambiarlos. Tu cuerpo es hackeable.",
                 icon: "bx-scan"
+            },
+            { 
+                question: "¿Soberanía Genómica?", 
+                answer: "El derecho a ser el único dueño de tu información biológica y decidir quién puede acceder a tu ADN digitalizado.",
+                icon: "bx-shield-quarter"
             }
         ];
 
@@ -229,7 +245,9 @@
     <script src="./CORE/notebook-core.js?v=1.1"></script>
     <script src="../gamification.js?v=2.3"></script>
     <script src="../chat-tesla.js?v=2.3"></script>
-    <script src="../translate-engine.js"></script>
+
+    <!-- Motor de Traducción Global -->
+    <script src="../translate-engine.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

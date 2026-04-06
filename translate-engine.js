@@ -4,31 +4,32 @@
 */
 
 function translatePage(langCode) {
-    // Intentar vía el widget nativo de Google Translate (más fiable)
     var select = document.querySelector('.goog-te-combo');
-    if (select) {
-        if (langCode === 'es') {
-            // Para volver a español, Google usa cadena vacía o 'es'
+    
+    if (langCode === 'es') {
+        // Forzar retorno a español vía cookies (método más robusto)
+        document.cookie = "googtrans=/es/es; path=/";
+        document.cookie = "googtrans=/es/es; path=/; domain=" + location.hostname;
+        document.cookie = "googtrans=/es/es; path=/; domain=." + location.hostname;
+        
+        if (select) {
             select.value = 'es';
             select.dispatchEvent(new Event('change'));
-            // Limpiar cookies por si acaso
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
-            // Pequeño delay y recargar para limpiar completamente
-            setTimeout(function() { location.reload(); }, 300);
-        } else {
-            select.value = langCode;
-            select.dispatchEvent(new Event('change'));
         }
+        
+        setTimeout(function() {
+            location.reload();
+        }, 150);
+        return;
+    }
+
+    if (select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
     } else {
-        // Fallback si el widget no ha cargado: usar cookies + recarga
-        if (langCode === 'es') {
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
-        } else {
-            document.cookie = 'googtrans=/es/' + langCode + '; path=/';
-            document.cookie = 'googtrans=/es/' + langCode + '; path=/; domain=.' + location.hostname;
-        }
+        document.cookie = "googtrans=/es/" + langCode + "; path=/";
+        document.cookie = "googtrans=/es/" + langCode + "; path=/; domain=" + location.hostname;
+        document.cookie = "googtrans=/es/" + langCode + "; path=/; domain=." + location.hostname;
         location.reload();
     }
 }

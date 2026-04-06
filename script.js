@@ -1822,31 +1822,7 @@ window.onload = () => {
     checkUserStatus();
 };
 
-// Funcionalidad Traducción Custom UI
-window.translatePage = function(langCode) {
-    var select = document.querySelector('.goog-te-combo');
-    if (select) {
-        if (langCode === 'es') {
-            select.value = 'es';
-            select.dispatchEvent(new Event('change'));
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
-            setTimeout(function() { location.reload(); }, 300);
-        } else {
-            select.value = langCode;
-            select.dispatchEvent(new Event('change'));
-        }
-    } else {
-        if (langCode === 'es') {
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
-        } else {
-            document.cookie = 'googtrans=/es/' + langCode + '; path=/';
-            document.cookie = 'googtrans=/es/' + langCode + '; path=/; domain=.' + location.hostname;
-        }
-        location.reload();
-    }
-};
+// Funcionalidad Traducción delegada a translate-engine.js
 
 
 // --- BUSCADOR GLOBAL INTELIGENTE ---

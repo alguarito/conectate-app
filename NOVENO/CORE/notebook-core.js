@@ -1,45 +1,15 @@
 /* 
-   CONECTATE - Notebook Core Logic (v1.0)
-   Centralized Interaction System for Grade 9
+   CONECTATE - Notebook Core Logic (v1.1)
+   Centralized Interaction System - Legacy Support
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-    const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
-    const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
-
-    let currentThemeIndex = parseInt(localStorage.getItem('conectate_themeIndex')) || 0;
+    // Nota: El sistema de temas ahora es gestionado por gamification.js de forma global para todos los grados.
+    
+    // Re-chequeo sutil de tema si el botón existe (por si gamification cargó antes o después)
     const themeBtn = document.getElementById('notebook-theme-toggle');
-
-    function applyTheme(index) {
-        themes.forEach(t => {
-            if (t !== 'default') {
-                document.body.classList.remove(t);
-                document.documentElement.classList.remove(t);
-            }
-        });
-        
-        const nextClass = themes[index];
-        if (nextClass !== 'default') {
-            document.body.classList.add(nextClass);
-            document.documentElement.classList.add(nextClass);
-        }
-
-        if (themeBtn) {
-            const icon = themeBtn.querySelector('i');
-            if (icon) {
-                icon.className = `bx ${themeIcons[index]}`;
-            }
-        }
-    }
-
-    applyTheme(currentThemeIndex);
-
-    if(themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            applyTheme(currentThemeIndex);
-            localStorage.setItem('conectate_themeIndex', currentThemeIndex);
-        });
+    if (themeBtn && window.GAMI) {
+        window.GAMI.applyTheme(window.GAMI.user ? window.GAMI.user.themeIndex : 0);
     }
 
     // 2. Preloader Removal

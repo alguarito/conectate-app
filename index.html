@@ -82,12 +82,12 @@
 
     <div class="app-container glass-panel">
         <aside class="sidebar" style="overflow-y: auto;">
-            <div class="logo-container" id="logo-home-btn" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: opacity 0.3s;" title="Volver al Inicio">
-                <div style="padding: 12px; margin-bottom: 10px; display: inline-flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.95); border-radius: 50%; box-shadow: 0 0 15px rgba(34, 211, 238, 0.4); border: 2px solid var(--accent-cyan); width: 85px; height: 85px;">
-                    <img src="IMAGENES/LOGO 1.png?v=7" alt="IE Sor Maria Juliana" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: brightness(1.05) contrast(1.1);">
+            <div class="logo-container" id="logo-home-btn" title="Volver al Inicio">
+                <div class="logo-img-wrapper">
+                    <img src="IMAGENES/LOGO 1.png?v=7" alt="IE Sor Maria Juliana" class="logo-img">
                 </div>
-                <h1 style="font-size: 0.9rem; line-height: 1.2; white-space: normal; letter-spacing: 0.5px; font-weight: 800; margin-bottom: 0; color: #fff;">I.E. SOR MARÍA JULIANA</h1>
-                <p style="font-size: 0.75rem; margin-top: 2px; opacity: 0.8; color: #22d3ee; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Tecnología e Informática</p>
+                <h1 class="logo-title">I.E. SOR MARÍA JULIANA</h1>
+                <p class="logo-subtitle">Tecnología e Informática</p>
             </div>
             
             <div id="sidebar-menus">
@@ -151,18 +151,17 @@
                     <input type="text" id="global-search-input" placeholder="Buscar temas, guías o herramientas..." autocomplete="off">
                     <div id="global-search-dropdown" class="glass-dropdown" style="display: none;"></div>
                 </div>
-                <div class="header-actions" style="display: flex; align-items: center; gap: 10px;">
+                <div class="header-actions">
                     <!-- Google Translate Hidden Widget & Custom UI -->
                     <div style="display: none;" id="google_translate_element"></div>
-                    <div style="position: relative; display: inline-block;">
-                        <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">
-                            <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>
-                            <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>
-                    
-                            <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-                            <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>
+                    <div class="translate-wrapper">
+                        <select id="custom-translate-select" onchange="translatePage(this.value)">
+                            <option value="es" class="translate-option">🇪🇸 Español</option>
+                            <option value="en" class="translate-option">🇺🇸 English</option>
+                            <option value="pt" class="translate-option">🇧🇷 Português</option>
+                            <option value="fr" class="translate-option">🇫🇷 Français</option>
                         </select>
-                        <i class='bx bx-chevron-down' style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i>
+                        <i class='bx bx-chevron-down'></i>
                     </div>
                     <button class="icon-btn glass-panel" id="home-btn" title="Volver al Inicio">
                         <i class='bx bx-home-alt'></i>
@@ -215,12 +214,8 @@
         <button class="m-btn" data-content="interes"><i class='bx bx-bulb'></i><span>Recursos</span></button>
     </nav>
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-        }
-    </script>
+    <!-- Motor de Traducción Global -->
+    <script src="translate-engine.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script src="script.js?v=2.3"></script>

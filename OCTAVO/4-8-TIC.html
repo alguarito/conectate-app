@@ -238,6 +238,9 @@
             </div>
         </section>
 
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <!-- Sección de Descargas (Final del Cuaderno) -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Informes Oficiales Descargables</h2>
@@ -252,6 +255,9 @@
             </div>
         </section>
 
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                 <strong>CONECTATE | Módulo de Práctica de Aula</strong><br>
@@ -262,6 +268,54 @@
 
     <!-- Integración Automática de Tema y Lógica -->
     <script>
+        // Datos de Flashcards (Enfoque: Factura y Medición)
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es el Kilovatio-hora (kWh)?", 
+                answer: "Es la unidad con la que la empresa de energía mide tu consumo. Representa usar 1000 Watts por una hora completa.",
+                icon: "bx-tachometer"
+            },
+            { 
+                question: "¿Qué es la Obsolescencia Programada?", 
+                answer: "Es la decisión de los fabricantes de hacer que los electrodomésticos duren poco tiempo para obligarte a comprar nuevos.",
+                icon: "bx-time-five"
+            },
+            { 
+                question: "¿Por qué el Arduino consume menos?", 
+                answer: "Al ser un sistema específico y pequeño, su gasto energético es mínimo comparado con un computador o un monitor.",
+                icon: "bx-chip"
+            }
+        ];
+
+        // Datos del Cuestionario Final (ENERGÍA Y COSTOS REALES)
+        window.QUIZ_DATA = [
+            {
+                question: "¿En qué unidad nos cobran la energía en el recibo de la luz?",
+                options: ["En Amperios", "En Kilovatios-hora (kWh)", "En Voltios totales"],
+                correct: 1
+            },
+            {
+                question: "El 'Costo Real' de un electrodoméstico incluye...",
+                options: ["Solo el precio que pagaste en la tienda", "Toda la huella de carbono de su fabricación y el costo de su futuro desecho", "Solo el envío a tu casa"],
+                correct: 1
+            },
+            {
+                question: "¿Cómo podemos saber cuánta energía gasta un aparato al mes?",
+                options: ["Mirando su color", "Multiplicando su potencia (W) por las horas de uso y dividiendo por 1000", "No se puede saber"],
+                correct: 1
+            },
+            {
+                question: "Hábito Saludable: ¿Qué es mejor para el planeta y tu bolsillo?",
+                options: ["Cambiar de celular cada vez que sale uno nuevo", "Hacer mantenimiento preventivo a los aparatos para que sean eficientes", "Dejar la nevera abierta para enfriar la cocina"],
+                correct: 1
+            },
+            {
+                question: "¿Qué significa que un electrodoméstico tenga etiqueta de eficiencia 'Clase A'?",
+                options: ["Que es el más caro", "Que consume mucha menos energía para hacer el mismo trabajo", "Que es de color azul"],
+                correct: 1
+            }
+        ];
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
@@ -299,8 +353,8 @@
     </script>
 
     <!-- Chatbot del Profesor Álvaro -->
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

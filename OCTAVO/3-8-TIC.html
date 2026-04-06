@@ -232,6 +232,11 @@
             </div>
         </section>
 
+        </section>
+
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <!-- Sección de Descargas (Final del Cuaderno) -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Material de Apoyo Descargable</h2>
@@ -246,6 +251,9 @@
             </div>
         </section>
 
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                 <strong>CONECTATE | Módulo de Arquitectura Digital</strong><br>
@@ -255,6 +263,54 @@
     </div>
 
     <script>
+        // Datos de Flashcards (Enfoque: Cuerpos Digitales)
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es el Hardware?", 
+                answer: "Es el cuerpo físico de la tecnología: metales, silicio y plásticos que puedes tocar y ensamblar.",
+                icon: "bx-wrench"
+            },
+            { 
+                question: "¿Qué es el Software?", 
+                answer: "Es el pensamiento invisible: instrucciones y códigos que le indican al hardware qué hacer.",
+                icon: "bx-code-alt"
+            },
+            { 
+                question: "¿'La Nube' existe físicamente?", 
+                answer: "Sí. No es aire ni magia; son edificios (Data Centers) con servidores que consumen gigavatios de energía.",
+                icon: "bx-server"
+            }
+        ];
+
+        // Datos del Cuestionario Final (HARDWARE/SOFTWARE/DATOS)
+        window.QUIZ_DATA = [
+            {
+                question: "Si puedes golpearlo con un martillo, es...",
+                options: ["Software", "Hardware", "Un algoritmo"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué los Data Centers (Centros de Datos) son un reto ambiental?",
+                options: ["Porque ocupan poco espacio", "Porque requieren millones de litros de agua para enfriar sus computadores", "Porque no consumen electricidad"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál de estos es un ejemplo de Software?",
+                options: ["La batería de tu celular", "La aplicación de Instagram", "El cable del cargador"],
+                correct: 1
+            },
+            {
+                question: "Hábito Saludable: ¿Qué costo tiene enviar o guardar un correo basura (Spam)?",
+                options: ["Ninguno, el espacio digital es infinito", "Genera una huella de carbono real por el procesamiento en los servidores", "Solo gasta el tiempo de quien lo recibe"],
+                correct: 1
+            },
+            {
+                question: "¿Cómo podemos reducir nuestra huella de datos ambiental?",
+                options: ["Comprando un celular nuevo cada año", "Borrando correos viejos y fotos innecesarias de la nube", "Viendo videos siempre en la máxima resolución"],
+                correct: 1
+            }
+        ];
+
         // Funcionalidad Temas Ciclicos
         const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
         const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
@@ -316,8 +372,8 @@
             }
         }
     </script>
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

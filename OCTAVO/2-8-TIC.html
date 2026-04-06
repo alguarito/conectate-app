@@ -239,6 +239,11 @@
             </div>
         </section>
 
+        </section>
+
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <!-- Sección de Descargas (Final del Cuaderno) -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Material de Apoyo Descargable</h2>
@@ -253,6 +258,9 @@
             </div>
         </section>
 
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                 <strong>CONECTATE | Módulo de Simulación Interactiva</strong><br>
@@ -262,6 +270,54 @@
     </div>
 
     <script>
+        // Datos de Flashcards (Enfoque: Consumo Vampiro)
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es el 'Consumo Vampiro'?", 
+                answer: "Es la energía que gastan los aparatos cuando están apagados pero siguen enchufados (modo Standby).",
+                icon: "bx-ghost"
+            },
+            { 
+                question: "¿Cuál es la función del LED indicador?", 
+                answer: "Avisar que el circuito está recibiendo energía, aunque el aparato principal no esté realizando su función.",
+                icon: "bx-low-vision"
+            },
+            { 
+                question: "¿Cómo cortar el flujo vampiro fácilmente?", 
+                answer: "Usando multitomas con interruptor central (switch) o desconectando físicamente el cable.",
+                icon: "bx-power-off"
+            }
+        ];
+
+        // Datos del Cuestionario Final (HÁBITOS SALUDABLES)
+        window.QUIZ_DATA = [
+            {
+                question: "¿A qué se le conoce como 'Consumo en Espera' o Standby?",
+                options: ["Cuando el aparato está prendido a máxima potencia", "Cuando el aparato está apagado pero sigue consumiendo energía residual", "Cuando el aparato está desconectado de la pared"],
+                correct: 1
+            },
+            {
+                question: "¿Cuánto puede representar el consumo vampiro en un recibo de luz promedio?",
+                options: ["Cero pesos", "Entre el 5% y el 10% del consumo total del hogar", "Más del 80% de la factura"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál de estos aparatos suele ser un gran 'vampiro' de energía?",
+                options: ["Una bombilla LED apagada", "Decodificadores de TV y Consolas de Videojuegos", "Una plancha desenchufada"],
+                correct: 1
+            },
+            {
+                question: "Hábito saludable: ¿Qué es lo más responsable al salir de casa por mucho tiempo?",
+                options: ["Dejar todo enchufado para que no se dañe", "Bajar los tacos o desconectar los aparatos que no sean vitales (como el refrigerador)", "Dejar el cargador del celular pegado a la pared"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué el desperdicio de energía es un problema ético?",
+                options: ["Porque la energía es infinita", "Porque su generación tiene un alto costo ambiental que afecta a todos los seres vivos", "Porque la empresa de luz no quiere que gastemos"],
+                correct: 1
+            }
+        ];
+
         // Funcionalidad Temas Ciclicos
         const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
         const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
@@ -323,8 +379,8 @@
             }
         }
     </script>
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

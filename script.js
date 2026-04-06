@@ -455,6 +455,22 @@ if(themeToggleBtn) {
     };
 }
 
+// Home Button (Top Bar) + Logo (Sidebar) → Navigate to Home
+function goHome() {
+    // Restaurar sidebar original (quitar sesiones si estaban visibles)
+    const secNav = document.getElementById('session-nav');
+    if (secNav) secNav.remove();
+    if (mainNav) mainNav.style.display = '';
+    // Navegar al home
+    navigateTo('home');
+}
+
+const homeBtn = document.getElementById('home-btn');
+if (homeBtn) homeBtn.addEventListener('click', goHome);
+
+const logoHomeBtn = document.getElementById('logo-home-btn');
+if (logoHomeBtn) logoHomeBtn.addEventListener('click', goHome);
+
 // Update App Skill System (La Campana)
 const updateBtn = document.getElementById('update-app-btn');
 const updateDot = document.getElementById('update-dot');

@@ -101,6 +101,7 @@ body {
 }
 
 .logo-container { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 24px; }
+.logo-container:hover { opacity: 0.8; }
 .logo-container i {
     font-size: 2.5rem; color: var(--accent-cyan); margin-bottom: 8px;
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));

@@ -82,7 +82,7 @@
 
     <div class="app-container glass-panel">
         <aside class="sidebar" style="overflow-y: auto;">
-            <div class="logo-container" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div class="logo-container" id="logo-home-btn" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: opacity 0.3s;" title="Volver al Inicio">
                 <div style="padding: 5px; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.3));">
                     <img src="IMAGENES/LOGO 1.png?v=7" alt="IE Sor Maria Juliana" style="max-width: 80px; height: auto; display: block; filter: brightness(1.1) contrast(1.1);">
                 </div>
@@ -150,6 +150,9 @@
                     <input type="text" placeholder="Buscar temas, guías o herramientas...">
                 </div>
                 <div class="header-actions">
+                    <button class="icon-btn glass-panel" id="home-btn" title="Volver al Inicio">
+                        <i class='bx bx-home-alt'></i>
+                    </button>
                     <button class="icon-btn glass-panel" id="update-app-btn" title="Buscar actualizaciones">
                         <i class='bx bx-bell'></i>
                         <span id="update-dot" style="display: none; position: absolute; top: 8px; right: 8px; width: 10px; height: 10px; background: #a855f7; border-radius: 50%; box-shadow: 0 0 10px #a855f7; animation: blink 2s infinite;"></span>

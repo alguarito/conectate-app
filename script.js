@@ -1260,7 +1260,9 @@ function renderAdminDashboard(periodOverride, tabOverride) {
     Object.keys(accounts).forEach(email => {
         if (accounts[email].isAdmin) return;
         const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+        const gamiData = JSON.parse(localStorage.getItem(`gami_${email}`)) || { xp: 0, level: 1, completed_sessions: [] };
         const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
+        
         if (charData.grade) {
             allStudents.push({
                 email,
@@ -1273,7 +1275,8 @@ function renderAdminDashboard(periodOverride, tabOverride) {
                 zone: charData.zone,
                 parentContact: charData.parentContact,
                 timestamp: charData.timestamp,
-                academic: academicData
+                academic: academicData,
+                gamification: gamiData
             });
         }
     });
@@ -1292,12 +1295,19 @@ function renderAdminDashboard(periodOverride, tabOverride) {
     const pending = allStudents.length - withExam.length;
 
     // Stats de caracterización
-    const stats = { grades: {}, stratum: {}, internet: {}, interests: {} };
+    const stats = { grades: {}, stratum: {}, internet: {}, interests: {}, levels: {} };
     allStudents.forEach(d => {
         stats.grades[d.grade] = (stats.grades[d.grade] || 0) + 1;
         if (d.stratum) stats.stratum[d.stratum] = (stats.stratum[d.stratum] || 0) + 1;
         if (d.internet) stats.internet[d.internet] = (stats.internet[d.internet] || 0) + 1;
         if (d.interest) stats.interests[d.interest] = (stats.interests[d.interest] || 0) + 1;
+        
+        // Stats de Niveles
+        const xpValue = d.gamification ? d.gamification.xp : 0;
+        const lvlInfo = (window.GamificationManager && typeof window.GamificationManager.getLevelInfo === "function") 
+            ? window.GamificationManager.getLevelInfo(xpValue) 
+            : { name: "N/A" };
+        stats.levels[lvlInfo.name] = (stats.levels[lvlInfo.name] || 0) + 1;
     });
 
     // Distribución de notas para gráfico
@@ -1416,10 +1426,10 @@ function renderExamenesTab(periodData, stats) {
         <div class="data-table-container">
             <table class="data-table">
                 <thead>
-                    <tr><th>Nombre</th><th>Grado</th><th>Nota</th><th>Aciertos</th><th>Estado</th><th>Acción</th></tr>
+                    <tr><th>Nombre</th><th>Grado</th><th>Nota</th><th>Aciertos</th><th>Créditos</th><th>Estado</th><th>Acción</th></tr>
                 </thead>
                 <tbody id="student-table-body">
-                    ${periodData.map(d => {
+                         ${periodData.map(d => {
                         const nota = d.examen ? d.examen.nota.toFixed(1) : '—';
                         const aciertos = d.examen ? `${d.examen.correctas}/${d.examen.total}` : '—';
                         let statusHTML = '<span style="color: #f59e0b;">⏳ Pendiente</span>';
@@ -1435,6 +1445,7 @@ function renderExamenesTab(periodData, stats) {
                                 <td><span class="admin-badge">${d.grade}</span></td>
                                 <td style="color: ${notaColor}; font-weight: 700; font-size: 1.1rem;">${nota}</td>
                                 <td>${aciertos}</td>
+                                <td style="color: #fbbf24; font-weight: 600;">${d.gamification.xp} XP</td>
                                 <td>${statusHTML}</td>
                                 <td><button onclick="showStudentProfile('${d.email}')" style="background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class='bx bx-user'></i> Ver</button></td>
                             </tr>`;
@@ -1488,8 +1499,9 @@ function renderCaracterizacionTab(allStudents, stats) {
     const allGrades = Object.keys(stats.grades).sort();
     return `
         <div class="charts-grid" style="margin-bottom: 30px;">
-            <div class="chart-card glass-panel"><canvas id="chart-stratum"></canvas></div>
-            <div class="chart-card glass-panel"><canvas id="chart-internet"></canvas></div>
+            <div class="chart-card glass-panel" style="height: 250px;"><canvas id="chart-stratum"></canvas></div>
+            <div class="chart-card glass-panel" style="height: 250px;"><canvas id="chart-internet"></canvas></div>
+            <div class="chart-card glass-panel" style="height: 250px;"><canvas id="chart-levels"></canvas></div>
         </div>
         <div class="search-filter-bar">
             <input type="text" id="student-search" placeholder="Buscar por nombre o correo..." oninput="filterStudentTable()">
@@ -1501,7 +1513,7 @@ function renderCaracterizacionTab(allStudents, stats) {
         <div class="data-table-container">
             <table class="data-table">
                 <thead>
-                    <tr><th>Nombre</th><th>Grado</th><th>Correo</th><th>Interés</th><th>Estrato</th><th>Acción</th></tr>
+                    <tr><th>Nombre</th><th>Grado</th><th>Correo</th><th>Créditos</th><th>Estrato</th><th>Acción</th></tr>
                 </thead>
                 <tbody id="student-table-body">
                     ${allStudents.map(d => `
@@ -1509,7 +1521,7 @@ function renderCaracterizacionTab(allStudents, stats) {
                             <td style="color: white; font-weight: 600;">${d.name}</td>
                             <td><span class="admin-badge">${d.grade}</span></td>
                             <td>${d.email}</td>
-                            <td>${d.interest || '—'}</td>
+                            <td style="color: #fbbf24; font-weight: 600;">${d.gamification.xp} XP</td>
                             <td>${d.stratum || '—'}</td>
                             <td><button onclick="showStudentProfile('${d.email}')" style="background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class='bx bx-user'></i> Ver</button></td>
                         </tr>
@@ -1526,6 +1538,7 @@ function showStudentProfile(email) {
     const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
     const account = accounts[email] || {};
     const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+    const gamiData = JSON.parse(localStorage.getItem(`gami_${email}`)) || { xp: 0, level: 1, completed_sessions: [] };
     const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
 
     let periodsHTML = '';
@@ -1566,6 +1579,23 @@ function showStudentProfile(email) {
                     <h3 style="color: var(--accent-purple); font-size: 1rem; margin-bottom: 12px;"><i class='bx bx-bar-chart-alt-2'></i> Historial Académico</h3>
                     <div style="display: grid; gap: 10px;">
                         ${periodsHTML}
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; border-radius: 12px; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);">
+                    <h3 style="color: white; font-size: 0.9rem; margin-bottom: 8px;"><i class='bx bxs-zap' style="color: #fbbf24;"></i> Estatus de Gamificación</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Nivel Actual</div>
+                            <div style="font-weight: 700; color: var(--accent-cyan);">${GamificationManager.getLevelInfo(gamiData.xp || 0).icon} ${GamificationManager.getLevelInfo(gamiData.xp || 0).name}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Total XP</div>
+                            <div style="font-weight: 800; color: #fbbf24; font-size: 1.2rem;">${gamiData.xp || 0}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-secondary);">
+                        Sesiones completadas: <span style="color: white; font-weight: 600;">${(gamiData.completed_sessions || []).length}</span>
                     </div>
                 </div>
 
@@ -1703,6 +1733,30 @@ function initCharacterizationCharts(stats) {
                 datasets: [{ data: Object.values(stats.internet), backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'] }]
             },
             options: commonPie
+        });
+    }
+
+    const chartLevels = document.getElementById('chart-levels');
+    if (chartLevels) {
+        new Chart(chartLevels, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(stats.levels),
+                datasets: [{
+                    label: 'Estudiantes por Nivel',
+                    data: Object.values(stats.levels),
+                    backgroundColor: 'rgba(34, 211, 238, 0.6)',
+                    borderColor: '#22d3ee',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...commonPie,
+                scales: {
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                }
+            }
         });
     }
 }

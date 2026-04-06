@@ -25,16 +25,22 @@ class GamificationManager {
     }
 
     init() {
-        // Inicializar estructura si es nuevo
+        // Inicializar estructura si es nuevo y NO es administrador
         if (this.user) {
+            // El docente NO participa en gamificación, pero administramos su sesión para ver el dashboard
+            if (this.user.isAdmin === true || this.user.isAdmin === "true") {
+                console.log("Gamification: Admin session detected, UI hidden.");
+                return;
+            }
+
             if (typeof this.user.xp === 'undefined') this.user.xp = 0;
             if (typeof this.user.level === 'undefined') this.user.level = 1;
             if (!this.user.completed_sessions) this.user.completed_sessions = [];
             this.saveUser();
         }
 
-        // Crear contenedor global para notificaciones
-        if (!document.getElementById("gamification-toast-container")) {
+        // Crear contenedor global para notificaciones (Solo Estudiantes)
+        if (!document.getElementById("gamification-toast-container") && !this.user?.isAdmin) {
             const container = document.createElement("div");
             container.id = "gamification-toast-container";
             document.body.appendChild(container);
@@ -42,15 +48,19 @@ class GamificationManager {
 
         // Evaluar en qué contexto estamos (Home vs Cuaderno)
         document.addEventListener("DOMContentLoaded", () => {
-            this.renderProfileBar();
-            this.injectNotebookFeatures();
+            if (!this.user?.isAdmin) {
+                this.renderProfileBar();
+                this.injectNotebookFeatures();
+            }
         });
         
         // Si el DOM ya cargó (por scripts asíncronos), forzar render
         if(document.readyState === "complete" || document.readyState === "interactive") {
             setTimeout(() => {
-                this.renderProfileBar();
-                this.injectNotebookFeatures();
+                if (!this.user?.isAdmin) {
+                    this.renderProfileBar();
+                    this.injectNotebookFeatures();
+                }
             }, 100);
         }
     }
@@ -58,6 +68,15 @@ class GamificationManager {
     saveUser() {
         if(this.user) {
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.user));
+            // Persistencia universal por email para que el docente pueda leer los datos
+            if (this.user.email) {
+                const gamiData = {
+                    xp: this.user.xp,
+                    level: this.user.level,
+                    completed_sessions: this.user.completed_sessions
+                };
+                localStorage.setItem(`gami_${this.user.email}`, JSON.stringify(gamiData));
+            }
         }
     }
 
@@ -154,6 +173,7 @@ class GamificationManager {
 
     // --- HOME WIDGET INJECTION ---
     renderProfileBar() {
+        if (this.user?.isAdmin) return; // Doble verificación de seguridad
         const slot = document.getElementById("xp-profile-slot");
         if(!slot || !this.user) return;
 
@@ -189,6 +209,7 @@ class GamificationManager {
 
     // --- NOTEBOOK FEATURES INJECTION ---
     injectNotebookFeatures() {
+        if (this.user?.isAdmin) return; // Doble verificación de seguridad
         // Identificar si estamos en un HTML de sesión
         const container = document.querySelector(".notebook-container") || document.querySelector(".content-area");
         if(!container) return; // Probablemente en el main index
@@ -233,7 +254,27 @@ class GamificationManager {
             }
         }
     }
+
+    // --- UTILS PARA EL DASHBOARD DOCENTE ---
+    static getLevelInfo(xp) {
+        // Redefinimos los niveles estáticos aquí para acceso sin instancia
+        const LEVELS = [
+            { id: 1, name: "Explorador Digital", threshold: 0, icon: "🎒" },
+            { id: 2, name: "Inforg", threshold: 500, icon: "🦾" },
+            { id: 3, name: "Ciborg Académico", threshold: 1200, icon: "🧠" },
+            { id: 4, name: "Hacker Ético", threshold: 1900, icon: "⚡" },
+            { id: 5, name: "Centauro de IA", threshold: 2500, icon: "🤖" }
+        ];
+        let currentLvl = LEVELS[0];
+        for (let lvl of LEVELS) {
+            if (xp >= lvl.threshold) {
+                currentLvl = lvl;
+            }
+        }
+        return currentLvl;
+    }
 }
 
-// Iniciar Global Manager
+// Iniciar Global Manager y Exponer Clase
+window.GamificationManager = GamificationManager;
 window.GAMI = new GamificationManager();

@@ -4,15 +4,30 @@
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Theme Toggle Logic
+    const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
+    const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
+    let currentThemeIndex = 0;
+
     const themeBtn = document.getElementById('notebook-theme-toggle');
     if(themeBtn) {
         themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            document.documentElement.classList.toggle('light-mode');
+            const currentClass = themes[currentThemeIndex];
+            if (currentClass !== 'default') {
+                document.body.classList.remove(currentClass);
+                document.documentElement.classList.remove(currentClass); // For html tag
+            }
+
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+
+            const nextClass = themes[currentThemeIndex];
+            if (nextClass !== 'default') {
+                document.body.classList.add(nextClass);
+                document.documentElement.classList.add(nextClass); // html tag background handling
+            }
+
             const icon = themeBtn.querySelector('i');
             if (icon) {
-                icon.className = document.body.classList.contains('light-mode') ? 'bx bx-sun' : 'bx bx-moon';
+                icon.className = `bx ${themeIcons[currentThemeIndex]}`;
             }
         });
     }

@@ -62,14 +62,38 @@
         /* Light Mode Overrides */
         html.light-mode { background-color: #f0f4f8; }
         body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
-        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .iframe-container { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .iframe-container, body.light-mode .deep-reading { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
         body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
         body.light-mode .concept-card { border: 1px solid rgba(0,0,0,0.1); }
         body.light-mode .info-box { background: rgba(255,255,255,0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p, body.light-mode ol, body.light-mode ul { color: #475569 !important; }
         body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.light-mode #btn-volver:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
-    
+
+        /* Cyber-Neon Theme Overrides */
+        html.theme-cyber { background-color: #030507; }
+        body.theme-cyber { background: radial-gradient(circle at 10% 20%, #001f0a, #000000 80%) fixed; color: #00ffcc; }
+        body.theme-cyber .concept-card, body.theme-cyber .interactive-section, body.theme-cyber .iframe-container, body.theme-cyber .deep-reading { background: rgba(0, 20, 10, 0.4); border-color: rgba(0, 255, 0, 0.3); box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05); }
+        body.theme-cyber .concept-card h3, body.theme-cyber h1, body.theme-cyber h2, body.theme-cyber h4 { color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); }
+        body.theme-cyber .concept-desc, body.theme-cyber .section-text, body.theme-cyber p, body.theme-cyber ol, body.theme-cyber ul { color: #00aa88 !important; }
+        body.theme-cyber #btn-volver, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
+
+        /* Aurora Theme Overrides */
+        html.theme-aurora { background-color: #061121; }
+        body.theme-aurora { background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) fixed; color: #e2f1f8; }
+        body.theme-aurora .concept-card, body.theme-aurora .interactive-section, body.theme-aurora .iframe-container, body.theme-aurora .deep-reading { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(25px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15); }
+        body.theme-aurora .concept-card h3, body.theme-aurora h1, body.theme-aurora h2, body.theme-aurora h4 { color: #0ea5e9; text-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
+        body.theme-aurora .concept-desc, body.theme-aurora .section-text, body.theme-aurora p, body.theme-aurora ol, body.theme-aurora ul { color: #87aebf !important; }
+        body.theme-aurora #btn-volver, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
+
+        /* E-Ink Theme Overrides */
+        html.theme-eink { background-color: #fdfaf6; }
+        body.theme-eink { background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed; color: #4a3f35; }
+        body.theme-eink .concept-card, body.theme-eink .interactive-section, body.theme-eink .iframe-container, body.theme-eink .deep-reading { background: rgba(245, 240, 230, 0.8); backdrop-filter: blur(10px); border-color: rgba(210, 195, 180, 0.7); box-shadow: 2px 2px 8px rgba(0,0,0,0.02); }
+        body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.theme-eink h4 { color: #2c241c; text-shadow: none; font-weight: 700; }
+        body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p, body.theme-eink ol, body.theme-eink ul { color: #7a6e60 !important; }
+        body.theme-eink #btn-volver, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
+
         @media (max-width: 480px) {
             body { padding: 8px !important; }
             .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
@@ -232,17 +256,31 @@
     </div>
 
     <script>
-        // Funcionalidad Modo Claro/Oscuro
+        // Funcionalidad Temas Ciclicos
+        const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
+        const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
+        let currentThemeIndex = 0;
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                document.documentElement.classList.toggle('light-mode');
+                const currentClass = themes[currentThemeIndex];
+                if (currentClass !== 'default') {
+                    document.body.classList.remove(currentClass);
+                    document.documentElement.classList.remove(currentClass);
+                }
+
+                currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+
+                const nextClass = themes[currentThemeIndex];
+                if (nextClass !== 'default') {
+                    document.body.classList.add(nextClass);
+                    document.documentElement.classList.add(nextClass);
+                }
+
                 const icon = themeBtn.querySelector('i');
-                if (document.body.classList.contains('light-mode')) {
-                    icon.classList.replace('bx-moon', 'bx-sun');
-                } else {
-                    icon.classList.replace('bx-sun', 'bx-moon');
+                if (icon) {
+                    icon.className = `bx ${themeIcons[currentThemeIndex]}`;
                 }
             });
         }

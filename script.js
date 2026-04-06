@@ -504,20 +504,20 @@ if (updateBtn) {
 // Modal de Perfil Interactivo
 function openProfile() {
     const modalHtml = `
-        <div class="modal-overlay" id="profile-modal">
+        <div class="modal-overlay" id="profile-modal" onclick="if(event.target===this)closeProfile()">
             <div class="modal-content glass-panel">
                 <button class="modal-close" onclick="closeProfile()"><i class='bx bx-x'></i></button>
                 <img src="IMAGENES/ID_CONECTATE.png" class="profile-img-large" alt="Profesor Álvaro">
-                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color: #fff;">PhD. Álvaro Cárdenas Orozco</h2>
-                <p style="color: var(--accent-cyan); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Docente TIC | Investigador Crítico</p>
+                <h2 style="font-family: var(--font-heading); font-size: clamp(1.2rem, 4vw, 1.8rem); margin-bottom: 5px; color: #fff;">PhD. Álvaro Cárdenas Orozco</h2>
+                <p style="color: var(--accent-cyan); font-weight: 600; font-size: 0.85rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Docente TIC | Investigador Crítico</p>
                 
-                <div style="text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;">
-                    <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">
+                <div style="text-align: left; background: rgba(255,255,255,0.03); padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;">
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary);">
                         Doctor en Educación con énfasis en Tecnologías del Aprendizaje. Miembro del colectivo <strong>ConciencIA</strong>, dedicado a la democratización del saber tecnológico y la pedagogía crítica de la información.
                     </p>
                 </div>
                 
-                <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">
                     <div style="text-align: center;">
                         <i class='bx bx-brain' style="font-size: 1.5rem; color: var(--accent-purple);"></i>
                         <p style="font-size: 0.7rem; opacity: 0.8;">Filosofía TIC</p>
@@ -532,8 +532,8 @@ function openProfile() {
                     </div>
                 </div>
 
-                <a href="https://canva.link/r3b2k31f9f7ham2"  class="cv-button">
-                    <i class='bx bx-file'></i> VER HOJA DE VIDA COMPLETA
+                <a href="https://canva.link/r3b2k31f9f7ham2" target="_blank" rel="noopener" class="cv-button">
+                    <i class='bx bx-file'></i> VER HOJA DE VIDA
                 </a>
             </div>
         </div>

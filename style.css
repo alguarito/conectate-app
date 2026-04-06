@@ -459,6 +459,39 @@ body.light-mode .search-box input { color: var(--text-primary); }
     box-shadow: 0 15px 25px rgba(139, 92, 246, 0.4);
     filter: brightness(1.1);
 }
+
+/* Mobile Modal Fixes */
+@media (max-width: 480px) {
+    .modal-overlay {
+        z-index: 999999;
+        padding: 16px;
+        align-items: flex-start;
+        padding-top: 5vh;
+    }
+    .modal-content {
+        padding: 24px 20px;
+        border-radius: 20px;
+        max-height: 85vh;
+        overflow-y: auto;
+        width: 95%;
+    }
+    .modal-close {
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+    }
+    .profile-img-large {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 14px;
+    }
+    .cv-button {
+        padding: 12px 24px;
+        font-size: 0.85rem;
+        margin-top: 20px;
+    }
+}
 /* ============================================================
    SISTEMA DE PROYECTOS TIC
    ============================================================ */

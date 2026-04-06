@@ -808,7 +808,7 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (resumen corto), 'summary' (una frase) y 'url' (enlace real a la noticia). No saludes, no uses markdown, solo el JSON puro." }]
+                        "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (titular corto y atractivo) y 'summary' (una frase resumen). NO incluyas URLs ni enlaces. No saludes, no uses markdown, solo el JSON puro." }]
                     },
                     "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de noticias EduTech de hoy." }] }]
                 })
@@ -848,15 +848,19 @@ function renderNewsCards(news) {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
     
-    newsContainer.innerHTML = news.map((item, index) => `
-        <a href="${item.url}" target="_blank" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
+    newsContainer.innerHTML = news.map((item, index) => {
+        const searchQuery = encodeURIComponent(item.title + ' educación tecnología');
+        const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
+        return `
+        <a href="${searchUrl}" target="_blank" rel="noopener" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
             <div class="news-content">
                 <h4>${item.title}</h4>
                 <p>${item.summary}</p>
-                <div class="news-footer">Leer más <i class='bx bx-right-arrow-alt'></i></div>
+                <div class="news-footer">Buscar noticia <i class='bx bx-search-alt'></i></div>
             </div>
         </a>
-    `).join('');
+    `;
+    }).join('');
 }
 // --- SISTEMA DE AUTENTICACIÓN Y CARACTERIZACIÓN (CONECTATE CORE) ---
 // --- SISTEMA DE AUTENTICACIÓN LOCAL (CONECTATE CORE) ---

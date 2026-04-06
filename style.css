@@ -868,3 +868,18 @@ body.light-mode .search-box input { color: var(--text-primary); }
     transform: translateY(-3px);
 }
 
+/* Period Card Active Hover */
+.period-card-active:hover {
+    transform: translateY(-8px) !important;
+    border-color: rgba(168, 85, 247, 0.6) !important;
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2) !important;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(34, 211, 238, 0.12)) !important;
+}
+
+/* Student Profile Modal */
+#student-profile-modal .modal-content {
+    text-align: left;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+

@@ -3,378 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen Final | Grado Octavo</title>
+    <title>Auditoría Proyecto Final | Grado Octavo</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <style>
-        html { background-color: #0d0e15; scroll-behavior: smooth; }
-        body { 
-            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
-            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
-            background-attachment: fixed; background-repeat: no-repeat;
-            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
-        }
-        .notebook-container { width: 100%; max-width: 900px; margin: 0 auto; padding: 40px; border-radius: 24px; }
-        
-        /* Preloader */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .loader-spinner { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.05); border-left-color: #fca5a5; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Typography & Layout */
-        .hero { text-align: center; margin-bottom: 50px; }
-        .hero i { font-size: 5rem; color: #f87171; margin-bottom: 16px; }
-        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #ef4444, #fca5a5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
-        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
-        
-        .student-data-panel { background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 30px; border-radius: 16px; margin-bottom: 40px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;}
-        .form-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 250px;}
-        .form-group label { color: #fca5a5; font-weight: 600; font-family: var(--font-body); font-size: 0.95rem; display: flex; align-items: center; gap: 6px;}
-        .form-group input, .form-group select { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 16px; border-radius: 8px; font-family: var(--font-body); font-size: 1rem; transition: all 0.3s;}
-        .form-group input:focus, .form-group select:focus { border-color: #f87171; outline: none; background: rgba(0,0,0,0.5);}
-
-        /* Questions */
-        .question-card { margin-bottom: 25px; padding: 30px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;}
-        .question-card:hover { border-color: rgba(239, 68, 68, 0.3); background: rgba(255,255,255,0.03);}
-        .question-title { font-family: var(--font-heading); font-size: 1.25rem; color: white; margin-bottom: 20px; font-weight: 600; line-height: 1.5; display: flex; gap: 12px;}
-        .question-number { background: #f87171; color: #450a0a; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; font-weight: 800; flex-shrink: 0;}
-        
-        .options-grid { display: grid; gap: 12px;}
-        .option-label { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.2); padding: 15px 20px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s ease;}
-        .option-label:hover { background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.3);}
-        .option-label input[type="radio"] { margin: 0; transform: scale(1.2); cursor: pointer; accent-color: #f87171;}
-        .option-text { color: var(--text-secondary); font-size: 1rem; line-height: 1.5;}
-        
-        /* Selected state via JS */
-        .option-label:has(input:checked) { background: rgba(239, 68, 68, 0.1); border-color: #f87171; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);}
-        .option-label:has(input:checked) .option-text { color: white; font-weight: 500;}
-
-        /* Submit Button */
-        .submit-btn { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: white; border: none; padding: 18px 40px; font-size: 1.2rem; font-weight: 700; font-family: var(--font-heading); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3); width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 40px;}
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(239, 68, 68, 0.5);}
-        .submit-btn:disabled { background: #475569; box-shadow: none; cursor: not-allowed; transform: none;}
-
-        /* Overlay Envio */
-        #sending-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(13, 14, 21, 0.9); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; visibility: hidden; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(10px);}
-        .success-icon { font-size: 6rem; color: #10b981; margin-bottom: 20px; animation: scaleIn 0.5s ease forwards; display: none;}
-        @keyframes scaleIn { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
-        
-        .score-box { background: rgba(255,255,255,0.05); padding: 30px 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; margin-top: 20px; display: none;}
-        .score-value { font-family: var(--font-heading); font-size: 4rem; font-weight: 800; line-height: 1; margin: 10px 0;}
-
-        /* Light Mode */
-        html.light-mode { background-color: #f0f4f8; }
-        body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
-        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .question-card, body.light-mode .student-data-panel { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
-        body.light-mode .form-group input, body.light-mode .form-group select { background: white; color: #1e293b; border-color: rgba(0,0,0,0.2);}
-        body.light-mode .option-label { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.1);}
-        body.light-mode .option-text, body.light-mode p { color: #475569; }
-        body.light-mode .question-title, body.light-mode h1, body.light-mode h2 { color: #1e293b; }
-        body.light-mode .option-label:has(input:checked) { background: rgba(239, 68, 68, 0.05); border-color: #f87171;}
-        body.light-mode .option-label:has(input:checked) .option-text { color: #1e293b; font-weight: 600;}
-        body.light-mode #btn-volver, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; }
-    
-        @media (max-width: 480px) {
-            body { padding: 8px !important; }
-            .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
-            .hero { margin-bottom: 30px !important; }
-            .hero h1 { font-size: 1.4rem !important; }
-            .hero i { font-size: 2.2rem !important; }
-            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
-            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
-            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
-            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
-            .concept-card { padding: 12px !important; border-radius: 10px !important; }
-            .concept-card h3 { font-size: 0.85rem !important; }
-            .concept-card h3 i { font-size: 1rem !important; }
-            .concept-desc { font-size: 0.8rem !important; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
-            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
-            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
-            #btn-volver { font-size: 0.75rem !important; padding: 6px 10px !important; }
-            iframe, .iframe-container { border-radius: 8px !important; }
-        }
-</style>
+    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.0">
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 </head>
 <body>
     <div id="preloader">
-        <div class="loader-spinner"></div>
-        <p style="color: #fca5a5; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Desplegando Examen Global...</p>
-    </div>
-
-    <!-- Overlay de Envio (Aparece al presionar enviar) -->
-    <div id="sending-overlay">
-        <div id="loading-ui" style="text-align: center;">
-            <div class="loader-spinner" style="border-left-color: #10b981; margin: 0 auto 20px auto;"></div>
-            <h2 style="color: white; font-family: var(--font-heading);">Enviando a la Base de Datos...</h2>
-            <p style="color: var(--text-secondary);">Validando respuestas con el servidor maestro.</p>
-        </div>
-        <div id="success-ui" style="text-align: center; display: none;">
-            <i class='bx bxs-check-circle success-icon' style="display: block;"></i>
-            <h2 style="color: white; font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px;">¡Examen Recibido!</h2>
-            <p style="color: #6ee7b7; font-size: 1.2rem;">Tus resultados han sido sellados en la base de datos oficial.</p>
-            
-            <div class="score-box" style="display: block;">
-                <p style="color: var(--text-secondary); margin:0; text-transform: uppercase; letter-spacing: 1px;">Tu Calificación Final</p>
-                <div class="score-value" id="final-score-display" style="color: #10b981;">0.0</div>
-                <p style="color: var(--text-secondary); margin:0;">Puntaje perfecto: 5.0</p>
-            </div>
-            
-            <button onclick="window.location.href='../index.html'" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-                Volver a la Plataforma Central
-            </button>
-        </div>
+        <div class="loader-spinner" style="border-left-color: #f87171;"></div>
+        <p style="color: #fca5a5; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Iniciando Laboratorio de Auditoría...</p>
     </div>
 
     <div class="notebook-container glass-panel">
-        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
-                <i class='bx bx-arrow-back'></i> Abandonar Examen
+            <a id="btn-volver" href="../index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <i class='bx bx-arrow-back'></i> Volver a CONECTATE
             </a>
-            
-            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon'></i>
             </button>
         </div>
 
         <header class="hero">
-            <i class='bx bxs-brain'></i>
-            <h1>Prueba Final de Periodo</h1>
-            <p>Demuestra tu transformación: de consumidor ciego a Inforg Crítico. Lee atentamente cada pregunta. Solo puedes enviar este formulario una vez. ¡Confía en tus conocimientos!</p>
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(248, 113, 113, 0.2); color: #f87171; margin-bottom: 10px;">Proyecto Final de 8°</span>
+            <h1 style="background: linear-gradient(to right, #f87171, #fca5a5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Auditoría IA: Proyecto de Feria</h1>
+            <p>Sube tu informe de proyecto (PDF) del prototipo de robótica o electrónica. Nuestra IA evaluará la documentación técnica, la creatividad y la coherencia de tu trabajo.</p>
         </header>
 
-        <form id="exam-form">
-            <!-- Datos del Estudiante -->
-            <div class="student-data-panel">
-                <div class="form-group" style="flex: 2;">
-                    <label for="student-name"><i class='bx bxs-user'></i> Nombres y Apellidos Completos</label>
-                    <input type="text" id="student-name" required placeholder="Ej: Juan Diego Pérez Gómez">
+        <section class="interactive-section glass-panel">
+            <h2 style="color: #f87171;"><i class='bx bx-upload'></i> 1. Carga del Informe</h2>
+            <p class="section-text">Asegúrate de que tu nombre y grupo estén en la portada del informe antes de subirlo. El documento debe incluir: descripción del proyecto, componentes utilizados, diagrama de circuito y reflexión ética.</p>
+            
+            <input type="text" id="student-name" placeholder="Escribe tu nombre completo aquí..." class="student-input">
+
+            <div id="dropzone" class="dropzone" style="border-color: rgba(248,113,113,0.4);">
+                <i class='bx bxs-file-pdf' style="color: #f87171;"></i>
+                <h3>Suelta tu Informe PDF aquí</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">O haz clic para seleccionar el archivo (Máx. 10MB)</p>
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+            </div>
+
+            <div id="analysis-overlay" class="analysis-overlay">
+                <div class="loader-spinner" style="margin: 0 auto 20px auto; border-left-color: #f87171;"></div>
+                <h3 id="status-text" style="color: #f87171;">Leyendo el informe del proyecto...</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Nuestra IA está verificando la documentación técnica y la coherencia.</p>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section id="result-card" class="result-card interactive-section glass-panel" style="border-color: #10b981;">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">AUDITORÍA COMPLETADA</span>
+                <div class="score-badge" id="display-score">5.0</div>
+                <h2 style="margin: 0;">Resultado de la Evaluación</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="info-box" style="border-left-color: #f87171;">
+                    <div class="info-box-title"><i class='bx bx-comment-detail'></i> Feedback del Auditor</div>
+                    <p id="display-feedback" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
                 </div>
-                <div class="form-group">
-                    <label for="student-grade"><i class='bx bxs-group'></i> Selecciona tu Grado</label>
-                    <select id="student-grade" required>
-                        <option value="" disabled selected>Elige un grupo...</option>
-                        <option value="8-1">Grado 8-1</option>
-                        <option value="8-2">Grado 8-2</option>
-                        <option value="8-3">Grado 8-3</option>
-                        <option value="8-4">Grado 8-4</option>
-                        <option value="8-Otro">Otro</option>
-                    </select>
+                <div class="info-box" style="border-left-color: #22d3ee;">
+                    <div class="info-box-title"><i class='bx bx-check-shield'></i> Justificación Técnica</div>
+                    <p id="display-justification" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
                 </div>
             </div>
 
-            <h2 style="color: var(--accent-pink); font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;"><i class='bx bx-task'></i> Cuestionario de Selección Múltiple</h2>
-
-            <!-- Preguntas -->
-            <div id="questions-container">
-                <!-- Inyectadas por JS para manejar valor de respuestas fácilmente -->
+            <div class="info-box" style="margin-top: 20px; border-left-color: #f59e0b;">
+                <div class="info-box-title"><i class='bx bx-bulb'></i> Oportunidades de Mejora</div>
+                <p id="display-improvements" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
             </div>
 
-            <button type="submit" class="submit-btn" id="submit-btn">
-                <i class='bx bxs-cloud-upload'></i> Enviar Respuestas y Obtener Calificación
-            </button>
-        </form>
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="send-wa-btn" class="wa-btn">
+                    <i class='bx bxl-whatsapp'></i> Enviar Reporte al Profe Álvaro
+                </button>
+            </div>
+        </section>
 
-        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 50px;">
-            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                <strong>CONECTATE | Módulo de Evaluación Oficial Cifrada</strong><br>
-                Institución Educativa Sor María Juliana - 2026
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Auditoría de Proyectos Maker</strong><br>
+                Validado bajo el Estándar de Innovación - I.E. Sor María Juliana.
             </p>
         </footer>
     </div>
 
-    <!-- Integración Automática de Tema y Lógica -->
+    <script src="../CORE/audit-core.js?v=1.0"></script>
     <script>
-        // --- Webhook de Google Apps Script proporcionado por el usuario ---
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
-
-        // --- Base de Datos de Preguntas ---
-        const questionsDB = [
-            {
-                guide: 1, 
-                title: "¿Qué es en realidad un Algoritmo Informático?", 
-                opts: ["A) Un robot de Inteligencia Artificial.", "B) Una serie de pasos lógicos y ordenados para resolver un problema.", "C) Una fórmula matemática secreta usada por Google."], 
-                ans: 1 // Indice 0-basado. B es correcto.
-            },
-            {
-                guide: 2, 
-                title: "¿A qué se refiere el llamado 'Consumo Vampiro' de energía?", 
-                opts: ["A) Al consumo silencioso de los aparatos cuando están apagados pero siguen enchufados a la pared.", "B) A los virus informáticos que consumen la batería de tu celular rápido.", "C) A usar el celular con el brillo de la pantalla al máximo durante la noche."], 
-                ans: 0 
-            },
-            {
-                guide: 3, 
-                title: "¿Por qué se le denomina Mineral de Sangre al Coltán (usado en tu celular)?", 
-                opts: ["A) Porque su color natural es rojo escarlata.", "B) Porque es radiactivo y contamina la sangre humana.", "C) Porque su extracción en el Congo financia guerras y explota el trabajo forzado e infantil."], 
-                ans: 2 
-            },
-            {
-                guide: 4, 
-                title: "Según lo estudiado, la 'Obsolescencia Programada' es:", 
-                opts: ["A) Cuando el gobierno programa cortes de energía en la ciudad.", "B) Una estrategia de las empresas donde diseñan productos para que se dañen o vuelvan lentos intencionalmente tras un tiempo.", "C) Un virus que borra tus fotos antiguas."], 
-                ans: 1 
-            },
-            {
-                guide: 5, 
-                title: "Si una red social poderosa como TikTok o Instagram es 100% 'gratis', ¿Cuál es el producto real que están vendiendo?", 
-                opts: ["A) Tu privacidad, tus datos personales y tu tiempo de atención (para vendérselo a anunciantes).", "B) El internet que consumes.", "C) Las monedas virtuales y los directos."], 
-                ans: 0 
-            },
-            {
-                guide: 6, 
-                title: "Según Enrique Dussel y la Filosofía de la Liberación, ¿Cuál debería ser el propósito principal de la tecnología?", 
-                opts: ["A) Preservar, cuidar la vida y la dignidad humana de todos los trabajadores involucrados.", "B) Generar la mayor ganancia económica posible para los países del primer mundo.", "C) Fabricar Inteligencia Artificial que reemplace a los humanos."], 
-                ans: 0 
-            },
-            {
-                guide: 7, 
-                title: "Al usar Inteligencias Artificiales Generativas, ¿Qué es un 'Prompt' de alta calidad?", 
-                opts: ["A) Una instrucción detallada que le otorga a la IA un Rol, un Contexto y un Público Objetivo.", "B) Escribir \"Hola, hazme mi tarea por favor\".", "C) Pagar la versión Premium del software para que no cometa errores."], 
-                ans: 0 
-            },
-            {
-                guide: 8, 
-                title: "En el mundo del Storytelling y la 'Economía de la Atención', ¿Qué es un Gancho?", 
-                opts: ["A) Comprar seguidores para que tu cuenta se vea famosa.", "B) Una frase provocadora o visual en los primeros 3 segundos de un video para que el usuario no ruede la pantalla hacia abajo.", "C) El trípode que sostiene tu celular al grabar."], 
-                ans: 1 
-            },
-            {
-                guide: 9, 
-                title: "La Regla de Oro inquebrantable de la producción audiovisual que jamás perdona el cerebro humano es:", 
-                opts: ["A) Que el teléfono no sea de última generación.", "B) Que el video se grabe horizontalmente en todas las redes.", "C) Que el audio se escuche nítido y sin eco, ya que se perdona el video borroso pero no un audio ruidoso."], 
-                ans: 2 
-            },
-            {
-                guide: 10, 
-                title: "En la ética de edición, ¿Qué es un Deepfake?", 
-                opts: ["A) Ocultar el celular de un compañero.", "B) Un video en las profundidades del mar.", "C) La alteración o manipulación de un video real usando Inteligencia Artificial para hacer parecer que alguien dijo o hizo algo falso."], 
-                ans: 2 
-            }
-        ];
-
-        // --- Inyectar DOM ---
-        const container = document.getElementById('questions-container');
-        questionsDB.forEach((q, idx) => {
-            const card = document.createElement('div');
-            card.className = 'question-card glass-panel';
+        initAudit({
+            gradeLevel: '8',
+            periodId: 'P1',
+            projectType: 'Proyecto de Feria (Robótica/Electrónica)',
+            maxPages: 10,
+            professorWA: '573206324740',
+            apiUrl: 'https://gemini-proxy.alvaro-cardenas-orozco.workers.dev',
+            systemPrompt: `Eres el Auditor de Proyectos Maker de la I.E. Sor María Juliana. Tu misión es evaluar los informes de proyectos finales de Grado Octavo (Robótica, Electrónica y Entornos Virtuales).
             
-            let optionsHTML = '';
-            q.opts.forEach((optText, optIdx) => {
-                optionsHTML += `
-                    <label class="option-label">
-                        <input type="radio" name="q${idx}" value="${optIdx}" required>
-                        <span class="option-text">${optText}</span>
-                    </label>
-                `;
-            });
-
-            card.innerHTML = `
-                <div class="question-title">
-                    <div class="question-number">${idx + 1}</div>
-                    <div>${q.title}</div>
-                </div>
-                <div class="options-grid">
-                    ${optionsHTML}
-                </div>
-            `;
-            container.appendChild(card);
-        });
-
-        // --- Logica de Calificacion y Envío ---
-        document.getElementById('exam-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Detener el reload
-
-            const btn = document.getElementById('submit-btn');
-            btn.disabled = true;
-            btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Calculando Nota y Conectando...";
-
-            // 1. Mostrar el overlay
-            const overlay = document.getElementById('sending-overlay');
-            overlay.style.visibility = 'visible';
-            overlay.style.opacity = '1';
-
-            // 2. Calcular Puntaje
-            let scoreCount = 0;
-            questionsDB.forEach((q, idx) => {
-                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                if (selected && parseInt(selected.value) === q.ans) {
-                    scoreCount++;
-                }
-            });
-
-            // Cada pregunta vale 0.5 (10 preguntas = 5.0 máximo)
-            let notaDecimal = (scoreCount * 0.5).toFixed(1);
-
-            // 3. Preparar Payload
-            const payload = {
-                nombre: document.getElementById('student-name').value.trim(),
-                grado: document.getElementById('student-grade').value,
-                puntaje: notaDecimal
-            };
-
-            // 4. Enviar a Google Apps Script usando no-cors
-            // Nota: no-cors no nos devuelve el body final por seguridad del navegador, 
-            // pero si la peticion no arroja error de Red, asumimos éxito.
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                // Éxito Simulacion Final
-                setTimeout(() => {
-                    document.getElementById('loading-ui').style.display = 'none';
-                    document.getElementById('success-ui').style.display = 'block';
-                    
-                    // Colorear nota final según desempeño
-                    const dScore = document.getElementById('final-score-display');
-                    dScore.textContent = notaDecimal;
-                    if(notaDecimal < 3.0) dScore.style.color = '#ef4444'; // Rojo reprobado
-                    else if (notaDecimal < 4.0) dScore.style.color = '#eab308'; // Amarillo basico
-                    else dScore.style.color = '#10b981'; // Verde excelente
-                    
-                }, 800); // Artificial delay to let user see "sending..."
-
-            }).catch(error => {
-                console.error('Error al enviar a Database:', error);
-                alert("Hubo un error de conexión con los servidores de Google Drive. Avisa al Profesor Álvaro. Tu nota obtenida era: " + notaDecimal);
-                overlay.style.opacity = '0';
-                setTimeout(() => overlay.style.visibility = 'hidden', 300);
-                btn.disabled = false;
-                btn.innerHTML = "<i class='bx bxs-cloud-upload'></i> Reintentar Envío";
-            });
-        });
-
-        // Theme and Preloader logic
-        const themeBtn = document.getElementById('notebook-theme-toggle');
-        if(themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                document.documentElement.classList.toggle('light-mode');
-                const icon = themeBtn.querySelector('i');
-                if (document.body.classList.contains('light-mode')) {
-                    icon.classList.replace('bx-moon', 'bx-sun');
-                } else {
-                    icon.classList.replace('bx-sun', 'bx-moon');
-                }
-            });
-        }
-
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                setTimeout(() => preloader.remove(), 500); 
-            }
+            Evalúa:
+            1. DOCUMENTACIÓN TÉCNICA: ¿El informe incluye descripción clara del proyecto, listado de componentes (Arduino, sensores, actuadores), diagrama de circuito y código?
+            2. INNOVACIÓN Y CREATIVIDAD: ¿El proyecto resuelve un problema real? ¿Es original o solo copia un tutorial sin modificaciones?
+            3. REFLEXIÓN ÉTICA: ¿El estudiante reflexiona sobre el impacto social, ambiental o ético de su proyecto tecnológico?
+            4. COHERENCIA Y REDACCIÓN: ¿El informe tiene estructura lógica, buena ortografía y demuestra comprensión del tema?
+            
+            Responde ÚNICAMENTE en este formato JSON:
+            {
+              "nota": [Número de 1.0 a 5.0],
+              "feedback": "[Resumen cercano y motivador sobre el proyecto]",
+              "justificacion": "[Explicación técnica detallada de la nota]",
+              "mejoras": "[Tres puntos clave de mejora]"
+            }`
         });
     </script>
 </body>

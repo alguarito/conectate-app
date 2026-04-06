@@ -1,6 +1,45 @@
 // Database of Content by Sections
-const APP_VERSION = '1.6';
+const APP_VERSION = '2.0';
 console.log('CONECTATE App Version:', APP_VERSION);
+
+// --- CONFIGURACIÓN ACADÉMICA POR PERIODOS ---
+const ACADEMIC_CONFIG = {
+    currentPeriod: 'P1',
+    year: 2026,
+    periods: {
+        P1: { label: 'Primer Periodo', status: 'active', icon: 'bx-rocket', color: '#a855f7' },
+        P2: { label: 'Segundo Periodo', status: 'locked', icon: 'bx-lock-alt', color: '#64748b' },
+        P3: { label: 'Tercer Periodo', status: 'locked', icon: 'bx-lock-alt', color: '#64748b' }
+    }
+};
+
+// --- UTILIDADES DE REGISTRO ACADÉMICO ---
+function getAcademicRecord(email) {
+    return JSON.parse(localStorage.getItem(`academic_${email}`)) || null;
+}
+
+function getAllAcademicRecords() {
+    const records = [];
+    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('academic_')) {
+            const email = key.replace('academic_', '');
+            const academic = JSON.parse(localStorage.getItem(key));
+            const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+            const account = accounts[email] || {};
+            if (!account.isAdmin) {
+                records.push({
+                    email,
+                    name: account.name || 'Sin nombre',
+                    grade: charData.grade || 'N/A',
+                    ...charData,
+                    academic
+                });
+            }
+        }
+    });
+    return records;
+}
 
 const sectionData = {
     home: {
@@ -25,7 +64,7 @@ const sectionData = {
             { id: 8, title: 'Salidas Variables (PWM)', file: './OCTAVO/8-8-TIC.html?v=new-layout', desc: 'Controlando el brillo de un LED gradualmente y encendiendo motores de forma rítmica.' },
             { id: 9, title: 'Sensores Ultrasónicos', file: './OCTAVO/9-8-TIC.html?v=new-layout', desc: 'Midiendo distancias como murciélagos con el potente sensor HC-SR04.' },
             { id: 10, title: 'Motores Micro Servo', file: './OCTAVO/10-8-TIC.html?v=new-layout', desc: 'Control programático de posición y movimiento con motores de precisión para brazos robóticos.' },
-            { id: 11, title: 'Feria Proyecto Final', file: './OCTAVO/11-8-TIC.html?v=new-layout', desc: 'Integra todos tus sensores y actuadores en un diseño de software/hardware completamente libre.' }
+            { id: 11, title: 'Auditoría: Proyecto Final', file: './OCTAVO/11-8-TIC.html?v=2.0', desc: 'Sube el informe PDF de tu proyecto de robótica/electrónica y recibe evaluación IA con retroalimentación detallada.' }
         ]
     },
     noveno: {
@@ -172,7 +211,8 @@ function navigateTo(sectionId) {
     document.querySelectorAll(`[data-content="${sectionId}"]`).forEach(b => b.classList.add('active'));
 
     if (data.isSessions) {
-        renderSubMenu(sectionId);
+        // Mostrar selector de periodos ANTES de las sesiones
+        renderPeriodSelector(sectionId);
     } else if (data.isProjects) {
         renderProjectsGallery();
     } else {
@@ -277,6 +317,80 @@ function renderSessionDetail(sessionData, gradeData, gradeId) {
         </div>`;
 }
 
+// --- VISTA DE PERIODOS ---
+function renderPeriodSelector(gradeId) {
+    const gradeData = sectionData[gradeId];
+    const isMobile = window.innerWidth <= 480;
+    
+    // Limpiar sidebar secundario
+    if (secNavElement) {
+        secNavElement.remove();
+        secNavElement = null;
+        if(mainNav) mainNav.style.display = 'flex';
+    }
+
+    const totalSessions = gradeData.sessions.length;
+    
+    let periodsHTML = '';
+    Object.entries(ACADEMIC_CONFIG.periods).forEach(([pId, pConfig]) => {
+        const isActive = pConfig.status === 'active';
+        const gradientBg = isActive 
+            ? 'background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(34,211,238,0.08));' 
+            : 'background: rgba(255,255,255,0.015);';
+        const borderStyle = isActive 
+            ? 'border: 1px solid rgba(168,85,247,0.4);' 
+            : 'border: 1px solid rgba(255,255,255,0.06);';
+        const cursorStyle = isActive ? 'cursor: pointer;' : 'cursor: not-allowed;';
+        const opacityStyle = isActive ? '' : 'opacity: 0.5;';
+        const hoverClass = isActive ? 'period-card-active' : '';
+        const onClickAction = isActive ? `onclick="renderSubMenu('${gradeId}')"` : '';
+
+        const statusBadge = isActive 
+            ? '<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; background: rgba(16,185,129,0.2); color: #10b981; text-transform: uppercase; letter-spacing: 1px;">Activo</span>'
+            : '<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; background: rgba(100,116,139,0.2); color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">En Construcción</span>';
+
+        const contentInfo = isActive 
+            ? `<p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px;">${totalSessions} sesiones interactivas + Evaluación final</p>`
+            : '<p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px;">Contenido disponible próximamente</p>';
+
+        periodsHTML += `
+            <div class="feature-card glass-panel ${hoverClass}" ${onClickAction}
+                 style="padding: 30px; text-align: center; border-radius: 20px; ${gradientBg} ${borderStyle} ${cursorStyle} ${opacityStyle} transition: all 0.3s ease; position: relative; overflow: hidden;">
+                ${isActive ? '<div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee);"></div>' : ''}
+                <i class='bx ${pConfig.icon}' style="font-size: 2.5rem; color: ${pConfig.color}; margin-bottom: 12px; display: block;"></i>
+                ${statusBadge}
+                <h3 style="margin: 12px 0 5px; font-family: var(--font-heading); font-size: 1.3rem;">${pConfig.label}</h3>
+                ${contentInfo}
+                ${isActive ? '<div style="margin-top: 15px; display: inline-flex; align-items: center; gap: 6px; color: #a855f7; font-weight: 600; font-size: 0.9rem;"><i class=\'bx bx-right-arrow-alt\'></i> Entrar al Periodo</div>' : ''}
+            </div>`;
+    });
+
+    const backTarget = isMobile ? 'grados-picker' : 'home';
+
+    mainViewer.innerHTML = `
+        <div class="agent-viewer ${gradeData.theme}">
+            <div class="agent-header" style="${isMobile ? 'flex-direction: column; text-align: center;' : ''}">
+                <button onclick="navigateTo('${backTarget}')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: ${isMobile ? 'flex' : 'none'}; align-items: center; gap: 5px;">
+                    <i class='bx bx-chevron-left'></i> Volver
+                </button>
+                <div class="agent-icon-large glass-panel" style="${isMobile ? 'margin: 0 auto 15px;' : ''}">${gradeData.icon}</div>
+                <div class="agent-header-text">
+                    <h2>${gradeData.title}</h2>
+                    <p>${gradeData.subtitle}</p>
+                </div>
+            </div>
+
+            <h3 style="font-family: var(--font-heading); margin-bottom: 20px; color: var(--text-secondary); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 8px;">
+                <i class='bx bx-calendar'></i> Periodos Académicos ${ACADEMIC_CONFIG.year}
+            </h3>
+
+            <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding-bottom: 50px;">
+                ${periodsHTML}
+            </div>
+        </div>
+    `;
+}
+
 function renderSubMenu(sectionId) {
     const gradeData = sectionData[sectionId];
     const isMobile = window.innerWidth <= 480;
@@ -287,11 +401,11 @@ function renderSubMenu(sectionId) {
         let html = `
             <div class="agent-viewer ${gradeData.theme}">
                 <div class="agent-header" style="flex-direction: column; text-align: center;">
-                    <button onclick="navigateTo('grados-picker')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; gap: 5px;">
-                        <i class='bx bx-chevron-left'></i> Volver
+                    <button onclick="renderPeriodSelector('${sectionId}')" style="align-self: flex-start; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; gap: 5px;">
+                        <i class='bx bx-chevron-left'></i> Volver a Periodos
                     </button>
                     <div class="agent-icon-large glass-panel" style="margin: 0 auto 15px;">${gradeData.icon}</div>
-                    <h2>Ruta de Sesiones: ${gradeData.title}</h2>
+                    <h2>${gradeData.title} — ${ACADEMIC_CONFIG.periods[ACADEMIC_CONFIG.currentPeriod].label}</h2>
                 </div>
                 <div class="dashboard-grid" style="grid-template-columns: 1fr; gap: 12px; padding-bottom: 50px;">
         `;
@@ -311,7 +425,7 @@ function renderSubMenu(sectionId) {
 
     const secNav = document.createElement('nav');
     secNav.className = 'agent-nav';
-    secNav.innerHTML = `<button class="nav-btn" onclick="navigateTo('home')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);"><i class='bx bx-chevron-left'></i><span>« Volver</span></button><p class="nav-title">SESIONES</p>`;
+    secNav.innerHTML = `<button class="nav-btn" onclick="renderPeriodSelector('${sectionId}')" style="margin-bottom: 10px; background: rgba(255,255,255,0.1);"><i class='bx bx-chevron-left'></i><span>« Periodos</span></button><p class="nav-title">${ACADEMIC_CONFIG.periods[ACADEMIC_CONFIG.currentPeriod].label.toUpperCase()}</p>`;
     gradeData.sessions.forEach(s => {
         const btn = document.createElement('button');
         btn.className = 'nav-btn';
@@ -1055,119 +1169,383 @@ function finishRegistration() {
     checkUserStatus();
 }
 
-// --- FUNCIONES DEL DASHBOARD ADMINISTRATIVO ---
-function renderAdminDashboard() {
+// --- FUNCIONES DEL DASHBOARD ADMINISTRATIVO EVOLUCIONADO ---
+let dashboardPeriod = ACADEMIC_CONFIG.currentPeriod;
+let dashboardTab = 'examenes';
+
+function renderAdminDashboard(periodOverride, tabOverride) {
+    if (periodOverride) dashboardPeriod = periodOverride;
+    if (tabOverride) dashboardTab = tabOverride;
+
     const mainViewer = document.getElementById('agent-content');
-    const allData = [];
     const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
     
-    // Recolectar todos los datos de caracterización
-    Object.keys(localStorage).forEach(key => {
-        if (key.startsWith('data_')) {
-            const email = key.replace('data_', '');
-            const charData = JSON.parse(localStorage.getItem(key));
-            if (accounts[email]) {
-                allData.push({ ...accounts[email], ...charData });
-            }
+    // Recolectar TODOS los datos (caracterización + académico)
+    const allStudents = [];
+    Object.keys(accounts).forEach(email => {
+        if (accounts[email].isAdmin) return;
+        const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+        const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
+        if (charData.grade) {
+            allStudents.push({
+                email,
+                name: accounts[email].name || 'Sin nombre',
+                grade: charData.grade || 'N/A',
+                stratum: charData.stratum,
+                internet: charData.internet,
+                interest: charData.interest,
+                device: charData.device,
+                zone: charData.zone,
+                parentContact: charData.parentContact,
+                timestamp: charData.timestamp,
+                academic: academicData
+            });
         }
     });
 
-    // Procesar estadísticas para gráficas
-    const stats = {
-        grades: {},
-        stratum: {},
-        internet: {},
-        interests: {}
-    };
-
-    allData.forEach(d => {
-        stats.grades[d.grade] = (stats.grades[d.grade] || 0) + 1;
-        stats.stratum[d.stratum] = (stats.stratum[d.stratum] || 0) + 1;
-        stats.internet[d.internet] = (stats.internet[d.internet] || 0) + 1;
-        stats.interests[d.interest] = (stats.interests[d.interest] || 0) + 1;
+    // Estadísticas para el periodo seleccionado
+    const periodData = allStudents.map(s => {
+        const p = s.academic.periodos?.[dashboardPeriod] || {};
+        return { ...s, examen: p.examen || null, auditoria: p.auditoria || null };
     });
+
+    const withExam = periodData.filter(s => s.examen);
+    const withAudit = periodData.filter(s => s.auditoria);
+    const avgExam = withExam.length ? (withExam.reduce((a, b) => a + b.examen.nota, 0) / withExam.length).toFixed(1) : '—';
+    const approved = withExam.filter(s => s.examen.nota >= 3.0).length;
+    const approvalRate = withExam.length ? Math.round((approved / withExam.length) * 100) : 0;
+    const pending = allStudents.length - withExam.length;
+
+    // Stats de caracterización
+    const stats = { grades: {}, stratum: {}, internet: {}, interests: {} };
+    allStudents.forEach(d => {
+        stats.grades[d.grade] = (stats.grades[d.grade] || 0) + 1;
+        if (d.stratum) stats.stratum[d.stratum] = (stats.stratum[d.stratum] || 0) + 1;
+        if (d.internet) stats.internet[d.internet] = (stats.internet[d.internet] || 0) + 1;
+        if (d.interest) stats.interests[d.interest] = (stats.interests[d.interest] || 0) + 1;
+    });
+
+    // Distribución de notas para gráfico
+    const gradeScores = {};
+    withExam.forEach(s => {
+        if (!gradeScores[s.grade]) gradeScores[s.grade] = [];
+        gradeScores[s.grade].push(s.examen.nota);
+    });
+    const gradeAverages = {};
+    Object.entries(gradeScores).forEach(([g, scores]) => {
+        gradeAverages[g] = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+    });
+
+    // Period tabs HTML
+    const periodTabsHTML = Object.entries(ACADEMIC_CONFIG.periods).map(([pId, pCfg]) => {
+        const isActive = pId === dashboardPeriod;
+        return `<button onclick="renderAdminDashboard('${pId}')" 
+                    style="padding: 10px 20px; border: none; border-radius: 10px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.3s;
+                    ${isActive ? 'background: linear-gradient(135deg, #a855f7, #22d3ee); color: white; box-shadow: 0 4px 15px rgba(168,85,247,0.3);' : 'background: rgba(255,255,255,0.05); color: var(--text-secondary);'}">
+                    ${pCfg.label}
+                </button>`;
+    }).join('');
+
+    // Content tabs HTML
+    const contentTabs = [
+        { id: 'examenes', label: 'Exámenes', icon: 'bx-task' },
+        { id: 'auditorias', label: 'Auditorías', icon: 'bx-check-shield' },
+        { id: 'caracterizacion', label: 'Caracterización', icon: 'bx-user-pin' }
+    ];
+    const contentTabsHTML = contentTabs.map(t => {
+        const isActive = t.id === dashboardTab;
+        return `<button onclick="renderAdminDashboard(null, '${t.id}')" 
+                    style="padding: 8px 16px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px;
+                    ${isActive ? 'background: rgba(168,85,247,0.2); color: #a855f7; border: 1px solid rgba(168,85,247,0.3);' : 'background: rgba(255,255,255,0.03); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.05);'}">
+                    <i class='bx ${t.icon}'></i> ${t.label}
+                </button>`;
+    }).join('');
+
+    // Tab content
+    let tabContent = '';
+    if (dashboardTab === 'examenes') {
+        tabContent = renderExamenesTab(periodData, stats);
+    } else if (dashboardTab === 'auditorias') {
+        tabContent = renderAuditoriasTab(withAudit);
+    } else {
+        tabContent = renderCaracterizacionTab(allStudents, stats);
+    }
 
     mainViewer.innerHTML = `
         <div class="agent-viewer theme-academico">
             <div class="agent-header">
-                <div class="agent-icon-large glass-panel"><i class='bx bxs-doughnut-chart'></i></div>
+                <div class="agent-icon-large glass-panel"><i class='bx bxs-dashboard'></i></div>
                 <div class="agent-header-text">
-                    <h2>Panel de Analítica</h2>
-                    <p>Monitoreo de caracterización sociodemográfica y semillero.</p>
-                </div>
-                <div class="header-actions" style="margin-left: auto;">
-                    <button class="btn-secondary" onclick="window.print()"><i class='bx bx-printer'></i> PDF</button>
+                    <h2>Panel de Analítica Académica</h2>
+                    <p>Registro integrado de evaluaciones y caracterización — ${ACADEMIC_CONFIG.year}</p>
                 </div>
             </div>
 
+            <!-- Selector de Periodo -->
+            <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+                ${periodTabsHTML}
+            </div>
+
+            <!-- KPIs -->
             <div class="stats-container">
                 <div class="stat-card glass-panel">
                     <h4>Total Registrados</h4>
-                    <div class="stat-value">${allData.length}</div>
+                    <div class="stat-value">${allStudents.length}</div>
                 </div>
                 <div class="stat-card glass-panel">
-                    <h4>Grupos Activos</h4>
-                    <div class="stat-value">${Object.keys(stats.grades).length}</div>
+                    <h4>Promedio Periodo</h4>
+                    <div class="stat-value" style="color: ${avgExam !== '—' && parseFloat(avgExam) >= 3.0 ? '#10b981' : '#fbbf24'};">${avgExam}</div>
                 </div>
                 <div class="stat-card glass-panel">
-                    <h4>Interés Top</h4>
-                    <div class="stat-value" style="font-size: 1.2rem; margin-top: 10px;">
-                        ${Object.entries(stats.interests).sort((a,b) => b[1]-a[1])[0]?.[0] || 'N/A'}
-                    </div>
+                    <h4>Tasa Aprobación</h4>
+                    <div class="stat-value" style="color: ${approvalRate >= 60 ? '#10b981' : '#ec4899'};">${approvalRate}%</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <h4>Pendientes</h4>
+                    <div class="stat-value" style="color: #f59e0b;">${pending}</div>
                 </div>
             </div>
 
+            <!-- Gráficos -->
             <div class="charts-grid">
                 <div class="chart-card glass-panel"><canvas id="chart-grades"></canvas></div>
-                <div class="chart-card glass-panel"><canvas id="chart-stratum"></canvas></div>
-                <div class="chart-card glass-panel"><canvas id="chart-internet"></canvas></div>
-                <div class="chart-card glass-panel"><canvas id="chart-interest"></canvas></div>
+                <div class="chart-card glass-panel"><canvas id="chart-scores"></canvas></div>
             </div>
 
-            <div class="agent-header" style="margin-top: 40px;">
-                <h3>Listado Detallado de Estudiantes</h3>
-            </div>
-            
-            <div class="search-filter-bar">
-                <input type="text" id="student-search" placeholder="Buscar por nombre o correo..." oninput="filterStudentTable()">
-                <select id="grade-filter" onchange="filterStudentTable()">
-                    <option value="">Todos los grados</option>
-                    ${Object.keys(stats.grades).map(g => `<option value="${g}">${g}</option>`).join('')}
-                </select>
+            <!-- Content Tabs -->
+            <div style="display: flex; gap: 8px; margin: 30px 0 20px; flex-wrap: wrap;">
+                ${contentTabsHTML}
+                <button onclick="exportDashboardCSV()" style="margin-left: auto; padding: 8px 16px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; gap: 6px;">
+                    <i class='bx bx-download'></i> Exportar CSV
+                </button>
             </div>
 
-            <div class="data-table-container">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Grado</th>
-                            <th>Correo</th>
-                            <th>Interés</th>
-                            <th>Fecha Reg</th>
-                        </tr>
-                    </thead>
-                    <tbody id="student-table-body">
-                        ${allData.map(d => `
-                            <tr class="student-row" data-grade="${d.grade}" data-search="${d.name.toLowerCase()} ${d.email.toLowerCase()}">
-                                <td style="color: white; font-weight: 600;">${d.name}</td>
-                                <td><span class="admin-badge">${d.grade}</span></td>
-                                <td>${d.email}</td>
-                                <td>${d.interest}</td>
-                                <td>${new Date(d.timestamp).toLocaleDateString()}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
+            ${tabContent}
         </div>
     `;
 
-    // Inicializar Gráficas
-    initDashboardCharts(stats);
+    // Gráficas
+    initDashboardCharts(stats, gradeAverages);
 }
 
-function initDashboardCharts(stats) {
+function renderExamenesTab(periodData, stats) {
+    const allGrades = Object.keys(stats.grades).sort();
+    return `
+        <div class="search-filter-bar">
+            <input type="text" id="student-search" placeholder="Buscar por nombre..." oninput="filterStudentTable()">
+            <select id="grade-filter" onchange="filterStudentTable()">
+                <option value="">Todos los grados</option>
+                ${allGrades.map(g => `<option value="${g}">${g}</option>`).join('')}
+            </select>
+        </div>
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Nombre</th><th>Grado</th><th>Nota</th><th>Aciertos</th><th>Estado</th><th>Acción</th></tr>
+                </thead>
+                <tbody id="student-table-body">
+                    ${periodData.map(d => {
+                        const nota = d.examen ? d.examen.nota.toFixed(1) : '—';
+                        const aciertos = d.examen ? `${d.examen.correctas}/${d.examen.total}` : '—';
+                        let statusHTML = '<span style="color: #f59e0b;">⏳ Pendiente</span>';
+                        if (d.examen) {
+                            statusHTML = d.examen.nota >= 3.0 
+                                ? '<span style="color: #10b981;">✅ Aprobado</span>' 
+                                : '<span style="color: #ec4899;">❌ Reprobado</span>';
+                        }
+                        const notaColor = !d.examen ? 'var(--text-secondary)' : d.examen.nota >= 4.0 ? '#10b981' : d.examen.nota >= 3.0 ? '#fbbf24' : '#ec4899';
+                        return `
+                            <tr class="student-row" data-grade="${d.grade}" data-search="${d.name.toLowerCase()}">
+                                <td style="color: white; font-weight: 600;">${d.name}</td>
+                                <td><span class="admin-badge">${d.grade}</span></td>
+                                <td style="color: ${notaColor}; font-weight: 700; font-size: 1.1rem;">${nota}</td>
+                                <td>${aciertos}</td>
+                                <td>${statusHTML}</td>
+                                <td><button onclick="showStudentProfile('${d.email}')" style="background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class='bx bx-user'></i> Ver</button></td>
+                            </tr>`;
+                    }).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function renderAuditoriasTab(withAudit) {
+    if (withAudit.length === 0) {
+        return `<div style="text-align: center; padding: 60px 20px; opacity: 0.6;">
+            <i class='bx bx-search-alt' style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
+            <p>No hay auditorías registradas en este periodo aún.</p>
+        </div>`;
+    }
+    return `
+        <div class="data-table-container">
+            ${withAudit.map(d => {
+                const a = d.auditoria;
+                const notaColor = a.nota >= 4.0 ? '#10b981' : a.nota >= 3.0 ? '#fbbf24' : '#ec4899';
+                return `
+                <div class="glass-panel" style="padding: 25px; border-radius: 16px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.06);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                        <div>
+                            <h4 style="margin: 0; color: white;">${d.name}</h4>
+                            <span class="admin-badge">${d.grade}</span>
+                        </div>
+                        <div style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: ${notaColor};">${a.nota.toFixed(1)}</div>
+                    </div>
+                    <div style="background: rgba(168,85,247,0.05); padding: 15px; border-radius: 10px; border-left: 3px solid #a855f7; margin-bottom: 10px;">
+                        <strong style="color: #a855f7; font-size: 0.8rem;">FEEDBACK</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 5px 0 0;">${a.feedback}</p>
+                    </div>
+                    <div style="background: rgba(34,211,238,0.05); padding: 15px; border-radius: 10px; border-left: 3px solid #22d3ee; margin-bottom: 10px;">
+                        <strong style="color: #22d3ee; font-size: 0.8rem;">JUSTIFICACIÓN</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 5px 0 0;">${a.justificacion}</p>
+                    </div>
+                    <div style="background: rgba(245,158,11,0.05); padding: 15px; border-radius: 10px; border-left: 3px solid #f59e0b;">
+                        <strong style="color: #f59e0b; font-size: 0.8rem;">MEJORAS</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 5px 0 0;">${a.mejoras}</p>
+                    </div>
+                </div>`;
+            }).join('')}
+        </div>
+    `;
+}
+
+function renderCaracterizacionTab(allStudents, stats) {
+    const allGrades = Object.keys(stats.grades).sort();
+    return `
+        <div class="charts-grid" style="margin-bottom: 30px;">
+            <div class="chart-card glass-panel"><canvas id="chart-stratum"></canvas></div>
+            <div class="chart-card glass-panel"><canvas id="chart-internet"></canvas></div>
+        </div>
+        <div class="search-filter-bar">
+            <input type="text" id="student-search" placeholder="Buscar por nombre o correo..." oninput="filterStudentTable()">
+            <select id="grade-filter" onchange="filterStudentTable()">
+                <option value="">Todos los grados</option>
+                ${allGrades.map(g => `<option value="${g}">${g}</option>`).join('')}
+            </select>
+        </div>
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Nombre</th><th>Grado</th><th>Correo</th><th>Interés</th><th>Estrato</th><th>Acción</th></tr>
+                </thead>
+                <tbody id="student-table-body">
+                    ${allStudents.map(d => `
+                        <tr class="student-row" data-grade="${d.grade}" data-search="${d.name.toLowerCase()} ${d.email.toLowerCase()}">
+                            <td style="color: white; font-weight: 600;">${d.name}</td>
+                            <td><span class="admin-badge">${d.grade}</span></td>
+                            <td>${d.email}</td>
+                            <td>${d.interest || '—'}</td>
+                            <td>${d.stratum || '—'}</td>
+                            <td><button onclick="showStudentProfile('${d.email}')" style="background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class='bx bx-user'></i> Ver</button></td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+    // Nota: los charts de caracterización se inicializan por separado
+    setTimeout(() => initCharacterizationCharts(stats), 100);
+}
+
+function showStudentProfile(email) {
+    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    const account = accounts[email] || {};
+    const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+    const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
+
+    let periodsHTML = '';
+    Object.entries(ACADEMIC_CONFIG.periods).forEach(([pId, pCfg]) => {
+        const pData = academicData.periodos?.[pId] || {};
+        const exam = pData.examen;
+        const audit = pData.auditoria;
+
+        let examInfo = '<span style="color: var(--text-secondary); opacity: 0.5;">Sin presentar</span>';
+        if (exam) {
+            const color = exam.nota >= 4.0 ? '#10b981' : exam.nota >= 3.0 ? '#fbbf24' : '#ec4899';
+            examInfo = `<span style="color: ${color}; font-weight: 700; font-size: 1.2rem;">${exam.nota.toFixed(1)}</span> <span style="color: var(--text-secondary); font-size: 0.8rem;">(${exam.correctas}/${exam.total})</span>`;
+        }
+
+        let auditInfo = '';
+        if (audit) {
+            const color = audit.nota >= 4.0 ? '#10b981' : audit.nota >= 3.0 ? '#fbbf24' : '#ec4899';
+            auditInfo = `<div style="margin-top: 8px;">Auditoría: <span style="color: ${color}; font-weight: 700;">${audit.nota.toFixed(1)}</span></div>`;
+        }
+
+        periodsHTML += `
+            <div style="padding: 15px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
+                <h4 style="margin: 0 0 8px; color: ${pId === dashboardPeriod ? '#a855f7' : 'var(--text-secondary)'};">${pCfg.label}</h4>
+                <div>Examen: ${examInfo}</div>
+                ${auditInfo}
+            </div>`;
+    });
+
+    const modalHtml = `
+        <div class="modal-overlay active" id="student-profile-modal" onclick="closeStudentProfile()">
+            <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 550px;">
+                <button class="modal-close" onclick="closeStudentProfile()"><i class='bx bx-x'></i></button>
+                <h2 style="color: white; margin-bottom: 5px;">${account.name || 'Estudiante'}</h2>
+                <p style="color: var(--accent-cyan); font-weight: 600; font-size: 0.9rem; margin-bottom: 5px;">${charData.grade || 'Sin grado'} | ${email}</p>
+                ${charData.parentContact ? `<p style="color: var(--text-secondary); font-size: 0.8rem;"><i class='bx bxl-whatsapp' style="color: #25d366;"></i> Acudiente: ${charData.parentContact}</p>` : ''}
+
+                <div style="margin: 20px 0;">
+                    <h3 style="color: var(--accent-purple); font-size: 1rem; margin-bottom: 12px;"><i class='bx bx-bar-chart-alt-2'></i> Historial Académico</h3>
+                    <div style="display: grid; gap: 10px;">
+                        ${periodsHTML}
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Estrato</div>
+                        <div style="font-weight: 700; color: white;">${charData.stratum || '—'}</div>
+                    </div>
+                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Internet</div>
+                        <div style="font-weight: 700; color: white;">${charData.internet || '—'}</div>
+                    </div>
+                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Dispositivo</div>
+                        <div style="font-weight: 700; color: white;">${charData.device || '—'}</div>
+                    </div>
+                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Interés</div>
+                        <div style="font-weight: 700; color: white;">${charData.interest || '—'}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+function closeStudentProfile() {
+    const modal = document.getElementById('student-profile-modal');
+    if (modal) { modal.classList.remove('active'); setTimeout(() => modal.remove(), 300); }
+}
+
+function exportDashboardCSV() {
+    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    let csv = 'Nombre,Correo,Grado,Nota Examen,Aciertos,Nota Auditoria,Estrato,Internet,Dispositivo,Interes\n';
+
+    Object.keys(accounts).forEach(email => {
+        if (accounts[email].isAdmin) return;
+        const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
+        const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
+        const pData = academicData.periodos?.[dashboardPeriod] || {};
+        const exam = pData.examen;
+        const audit = pData.auditoria;
+
+        csv += `"${accounts[email].name}","${email}","${charData.grade || ''}",${exam ? exam.nota : ''},${exam ? exam.correctas + '/' + exam.total : ''},${audit ? audit.nota : ''},"${charData.stratum || ''}","${charData.internet || ''}","${charData.device || ''}","${charData.interest || ''}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `CONECTATE_${dashboardPeriod}_${ACADEMIC_CONFIG.year}.csv`;
+    link.click();
+}
+
+function initDashboardCharts(stats, gradeAverages) {
     const commonOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -1178,63 +1556,80 @@ function initDashboardCharts(stats) {
         }
     };
 
-    // 1. Gráfica de Grados
-    new Chart(document.getElementById('chart-grades'), {
-        type: 'bar',
-        data: {
-            labels: Object.keys(stats.grades),
-            datasets: [{
-                label: 'Estudiantes por Grado',
-                data: Object.values(stats.grades),
-                backgroundColor: 'rgba(139, 92, 246, 0.6)',
-                borderColor: '#8b5cf6',
-                borderWidth: 1
-            }]
-        },
-        options: commonOptions
-    });
+    // 1. Estudiantes por Grado
+    const chartGrades = document.getElementById('chart-grades');
+    if (chartGrades) {
+        new Chart(chartGrades, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(stats.grades),
+                datasets: [{
+                    label: 'Estudiantes por Grado',
+                    data: Object.values(stats.grades),
+                    backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                    borderColor: '#8b5cf6',
+                    borderWidth: 1
+                }]
+            },
+            options: commonOptions
+        });
+    }
 
-    // 2. Gráfica de Estrato
-    new Chart(document.getElementById('chart-stratum'), {
-        type: 'pie',
-        data: {
-            labels: Object.keys(stats.stratum).map(s => `Estrato ${s}`),
-            datasets: [{
-                data: Object.values(stats.stratum),
-                backgroundColor: [
-                    '#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'
-                ]
-            }]
-        },
-        options: { ...commonOptions, scales: null }
-    });
+    // 2. Promedio de notas por grado
+    const chartScores = document.getElementById('chart-scores');
+    if (chartScores && gradeAverages && Object.keys(gradeAverages).length > 0) {
+        new Chart(chartScores, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(gradeAverages),
+                datasets: [{
+                    label: `Promedio Examen ${ACADEMIC_CONFIG.periods[dashboardPeriod].label}`,
+                    data: Object.values(gradeAverages).map(Number),
+                    backgroundColor: Object.values(gradeAverages).map(v => parseFloat(v) >= 3.0 ? 'rgba(16, 185, 129, 0.6)' : 'rgba(236, 72, 153, 0.6)'),
+                    borderColor: Object.values(gradeAverages).map(v => parseFloat(v) >= 3.0 ? '#10b981' : '#ec4899'),
+                    borderWidth: 1
+                }]
+            },
+            options: { ...commonOptions, scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, max: 5, min: 0 } } }
+        });
+    } else if (chartScores) {
+        chartScores.parentElement.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; opacity: 0.4;"><p>Sin datos de exámenes aún</p></div>';
+    }
 
-    // 3. Gráfica de Internet
-    new Chart(document.getElementById('chart-internet'), {
-        type: 'doughnut',
-        data: {
-            labels: Object.keys(stats.internet),
-            datasets: [{
-                data: Object.values(stats.internet),
-                backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b']
-            }]
-        },
-        options: { ...commonOptions, scales: null }
-    });
+    // Characterization charts (if on that tab)
+    initCharacterizationCharts(stats);
+}
 
-    // 4. Gráfica de Intereses
-    new Chart(document.getElementById('chart-interest'), {
-        type: 'polarArea',
-        data: {
-            labels: Object.keys(stats.interests),
-            datasets: [{
-                data: Object.values(stats.interests),
-                backgroundColor: 'rgba(6, 182, 212, 0.5)',
-                borderColor: '#06b6d4'
-            }]
-        },
-        options: { ...commonOptions, scales: null }
-    });
+function initCharacterizationCharts(stats) {
+    const commonPie = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#e2e8f0', font: { family: 'Outfit' } } } }
+    };
+
+    const chartStratum = document.getElementById('chart-stratum');
+    if (chartStratum) {
+        new Chart(chartStratum, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(stats.stratum).map(s => `Estrato ${s}`),
+                datasets: [{ data: Object.values(stats.stratum), backgroundColor: ['#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'] }]
+            },
+            options: commonPie
+        });
+    }
+
+    const chartInternet = document.getElementById('chart-internet');
+    if (chartInternet) {
+        new Chart(chartInternet, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(stats.internet),
+                datasets: [{ data: Object.values(stats.internet), backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'] }]
+            },
+            options: commonPie
+        });
+    }
 }
 
 function filterStudentTable() {

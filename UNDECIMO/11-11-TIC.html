@@ -10,92 +10,9 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.1">
+    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.0">
     <!-- PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-    <style>
-        .dropzone {
-            border: 2px dashed rgba(34, 211, 238, 0.4);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            background: rgba(255,255,255,0.02);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            margin: 20px 0;
-        }
-        .dropzone:hover, .dropzone.dragover {
-            background: rgba(34, 211, 238, 0.05);
-            border-color: #22d3ee;
-            transform: scale(1.01);
-        }
-        .dropzone i { font-size: 3.5rem; color: #22d3ee; margin-bottom: 15px; }
-        
-        .analysis-overlay {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: rgba(0,0,0,0.3);
-            margin-top: 20px;
-        }
-        
-        .result-card {
-            display: none;
-            margin-top: 30px;
-            animation: slideUp 0.5s ease-out forwards;
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .score-badge {
-            font-size: 3rem;
-            font-weight: 800;
-            font-family: var(--font-heading);
-            color: #22d3ee;
-            text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
-        }
-
-        .wa-btn {
-            background: #25d366;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 12px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-            margin-top: 20px;
-        }
-        .wa-btn:hover {
-            background: #128c7e;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        .student-input {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 12px;
-            color: white;
-            margin-bottom: 15px;
-            outline: none;
-            transition: border-color 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        .student-input:focus {
-            border-color: #22d3ee;
-        }
-    </style>
 </head>
 <body class="theme-coder">
     <div id="preloader">
@@ -179,79 +96,16 @@
         </footer>
     </div>
 
-    <script src="../NOVENO/CORE/notebook-core.js?v=1.0"></script>
+    <script src="../CORE/audit-core.js?v=1.0"></script>
     <script>
-        const dropzone = document.getElementById('dropzone');
-        const fileInput = document.getElementById('file-input');
-        const statusText = document.getElementById('status-text');
-        const analysisOverlay = document.getElementById('analysis-overlay');
-        const resultCard = document.getElementById('result-card');
-        const studentNameInput = document.getElementById('student-name');
-
-        const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
-        const PROFESSOR_WA = "573206324740";
-
-        // PDF.js worker
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-
-        dropzone.addEventListener('click', () => fileInput.click());
-        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
-        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-        dropzone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropzone.classList.remove('dragover');
-            handleFile(e.dataTransfer.files[0]);
-        });
-
-        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
-
-        async function handleFile(file) {
-            if (!file || file.type !== 'application/pdf') {
-                alert('Por favor sube un archivo PDF válido.');
-                return;
-            }
-
-            const studentName = studentNameInput.value.trim();
-            if (!studentName) {
-                alert('Por favor ingresa tu nombre completo primero.');
-                studentNameInput.focus();
-                return;
-            }
-
-            dropzone.style.display = 'none';
-            analysisOverlay.style.display = 'block';
-
-            try {
-                const text = await extractTextFromPdf(file);
-                await auditWithAI(text, studentName);
-            } catch (err) {
-                console.error(err);
-                alert('Error al procesar el libro. Inténtalo de nuevo.');
-                dropzone.style.display = 'block';
-                analysisOverlay.style.display = 'none';
-            }
-        }
-
-        async function extractTextFromPdf(file) {
-            statusText.innerText = 'Extrayendo contenido del libro...';
-            const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-            let fullText = '';
-            
-            // Analizamos máximo las primeras 10 páginas para no saturar el prompt
-            const pagesToRead = Math.min(pdf.numPages, 10);
-            for (let i = 1; i <= pagesToRead; i++) {
-                const page = await pdf.getPage(i);
-                const textContent = await page.getTextContent();
-                fullText += textContent.items.map(item => item.str).join(' ') + '\n';
-            }
-            return fullText;
-        }
-
-        async function auditWithAI(bookText, studentName) {
-            statusText.innerText = 'El Auditor IA está calificando la obra...';
-            
-            const systemInstruction = `Eres el Auditor de Calidad MILC de la I.E. Sor María Juliana. Tu misión es evaluar proyectos finales de Grado Undécimo (libros co-redactados con IA).
+        initAudit({
+            gradeLevel: '11',
+            periodId: 'P1',
+            projectType: 'Libro PDF',
+            maxPages: 10,
+            professorWA: '573206324740',
+            apiUrl: 'https://gemini-proxy.alvaro-cardenas-orozco.workers.dev',
+            systemPrompt: `Eres el Auditor de Calidad MILC de la I.E. Sor María Juliana. Tu misión es evaluar proyectos finales de Grado Undécimo (libros co-redactados con IA).
             Evalúa:
             1. COHERENCIA: ¿Tiene hilo conductor o son retazos de IA?
             2. PACTO DEL CENTAURO: ¿Se nota que el alumno editó el texto y quitó muletillas de robot?
@@ -263,45 +117,8 @@
               "feedback": "[Resumen cercano y motivador]",
               "justificacion": "[Explicación técnica detallada de la nota]",
               "mejoras": "[Tres puntos clave]"
-            }`;
-
-            const payload = {
-                system_instruction: { parts: [{ text: systemInstruction }] },
-                contents: [{ role: 'user', parts: [{ text: `Nombre del Estudiante: ${studentName}\nContenido del Libro:\n${bookText.substring(0, 5000)}` }] }]
-            };
-
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) throw new Error('AI Error');
-            const data = await response.json();
-            const result = JSON.parse(data.candidates[0].content.parts[0].text.replace(/```json|```/g, ''));
-
-            displayResults(result, studentName);
-        }
-
-        function displayResults(res, name) {
-            analysisOverlay.style.display = 'none';
-            resultCard.style.display = 'block';
-
-            document.getElementById('display-score').innerText = res.nota.toFixed(1);
-            document.getElementById('display-feedback').innerText = res.feedback;
-            document.getElementById('display-justification').innerText = res.justificacion;
-            document.getElementById('display-improvements').innerText = res.mejoras;
-
-            if (res.nota < 3.0) document.getElementById('display-score').style.color = '#ec4899';
-            else if (res.nota < 4.0) document.getElementById('display-score').style.color = '#fbbf24';
-            else document.getElementById('display-score').style.color = '#10b981';
-
-            const waBtn = document.getElementById('send-wa-btn');
-            waBtn.onclick = () => {
-                const msg = encodeURIComponent(`*REPORTE DE AUDITORÍA TIC - 11°*\n*Estudiante:* ${name}\n*Nota:* ${res.nota.toFixed(1)}/5.0\n\n*Feedback:* ${res.feedback}\n\n*Justificación:* ${res.justificacion}\n\n*Mejoras:* ${res.mejoras}`);
-                window.open(`https://wa.me/${PROFESSOR_WA}?text=${msg}`, '_blank');
-            };
-        }
+            }`
+        });
     </script>
 </body>
 </html>

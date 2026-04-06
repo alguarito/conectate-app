@@ -10,7 +10,7 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./CORE/exam-core.css?v=1.1">
+    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.0">
 </head>
 <body class="theme-coder">
     <div id="preloader">
@@ -96,7 +96,7 @@
         </footer>
     </div>
 
-    <script src="./CORE/exam-core.js?v=1.1"></script>
+    <script src="../CORE/exam-core.js?v=2.0"></script>
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyM3M0SO-aTJX9FSO2wRs9ZXnK6Kymu7M8kLMM8BkueZ-150pF-w-sAoMyGP3BANybkTw/exec';
 
@@ -153,7 +153,7 @@
             }
         ];
 
-        initExam(questionsDB, GOOGLE_SCRIPT_URL);
+        initExam(questionsDB, GOOGLE_SCRIPT_URL, { gradeLevel: '11', periodId: 'P1' });
     </script>
 </body>
 </html>

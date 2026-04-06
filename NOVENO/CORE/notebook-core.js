@@ -75,6 +75,21 @@ function translatePage(langCode) {
         googleCombo.value = langCode;
         googleCombo.dispatchEvent(new Event('change'));
     } else {
-        console.warn("Google Translate no ha cargado completamente.");
+        // Fallback: intentar cargar Google Translate si no existe
+        const gtDiv = document.getElementById('google_translate_element');
+        if (gtDiv) {
+            console.warn("Google Translate aún no ha cargado. Reintentando...");
+            setTimeout(() => translatePage(langCode), 1000);
+        }
     }
+}
+
+// 5. Inicialización de Google Translate (callback global)
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,pt,fr',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    }, 'google_translate_element');
 }

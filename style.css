@@ -1128,3 +1128,169 @@ body { top: 0px !important; }
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
+
+
+/* =========================================
+   GAMIFICATION UI SUBSYSTEM
+========================================= */
+
+/* XP Profile Widget (Home Sidebar / Profile) */
+.xp-widget {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+}
+.xp-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.xp-level-badge {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+    color: white;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
+}
+.xp-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+.xp-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+.xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22d3ee, #8b5cf6);
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+}
+.xp-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+.xp-count {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* Notebook Completion Button */
+.gami-finish-wrapper {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+#btn-complete-session {
+    padding: 16px 36px;
+    font-size: 1.1rem;
+    font-family: var(--font-heading);
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+#btn-complete-session.btn-active {
+    background: linear-gradient(135deg, #a855f7, #3b82f6);
+    color: white;
+    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3), inset 0 2px 5px rgba(255,255,255,0.2);
+}
+#btn-complete-session.btn-active:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(168, 85, 247, 0.5), inset 0 2px 5px rgba(255,255,255,0.3);
+}
+#btn-complete-session.btn-completed {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-secondary);
+    border: 1px solid var(--glass-border);
+    cursor: default;
+}
+
+/* Toast Notifications */
+#gamification-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+.gami-toast {
+    background: var(--bg-color);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.gami-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+.toast-icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.05);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.toast-msg {
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Level Up Overlay (fallback) */
+.level-up-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(13, 14, 21, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    animation: levelIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.level-up-overlay h1 { font-size: 3rem; color: #fbbf24; text-shadow: 0 0 20px rgba(251,191,36,0.5); margin-bottom: 20px;}
+.level-up-overlay p { font-size: 2rem; color: #a855f7; font-weight: bold; }
+@keyframes levelIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}

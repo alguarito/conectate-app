@@ -316,6 +316,53 @@ body.theme-aurora .mobile-nav {
     border-top: 1px solid rgba(14, 165, 233, 0.1);
 }
 
+/* Tema Papel E-Ink (Lectura Antifatiga) */
+body.theme-eink {
+    --bg-color: #fdfaf6;
+    --text-primary: #4a3f35;
+    --text-secondary: #7a6e60;
+    --accent-blue: #9d7b53;
+    --accent-purple: #bd634e;
+    --accent-cyan: #d68c45;
+    --accent-pink: #c97a7e;
+    --glass-bg: rgba(245, 240, 230, 0.8);
+    --glass-border: rgba(210, 195, 180, 0.7);
+    --glass-shadow: 0 4px 10px 0 rgba(100, 80, 60, 0.05);
+    background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed;
+}
+body.theme-eink h1, body.theme-eink h2, body.theme-eink h3, body.theme-eink .nav-title {
+    color: #2c241c;
+    text-shadow: none;
+    font-weight: 700;
+}
+body.theme-eink .glass-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.02);
+    backdrop-filter: blur(10px);
+}
+body.theme-eink .nav-btn.active, 
+body.theme-eink .m-btn.active {
+    color: var(--accent-purple);
+    background: rgba(189, 99, 78, 0.1);
+    text-shadow: none;
+    border-radius: 8px;
+}
+body.theme-eink .search-box input {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--glass-border);
+}
+body.theme-eink .mobile-nav {
+    background: #fdfaf6 !important;
+    border-top: 1px solid var(--glass-border);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.03);
+}
+body.theme-eink .top-bar {
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(253, 250, 246, 0.85);
+}
+
 /* ============================================================
    RESPONSIVE STRATEGY (PC, Tablet, Mobile)
    ============================================================ */

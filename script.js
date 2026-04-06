@@ -447,8 +447,8 @@ document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
     });
 });
 
-const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora'];
-const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet'];
+const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
+const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
 let currentThemeIndex = 0;
 
 if(themeToggleBtn) {

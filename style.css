@@ -22,7 +22,7 @@
     box-sizing: border-box;
 }
 
-body {
+body:not(.notebook-body) {
     background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: var(--font-body);
@@ -33,6 +33,13 @@ body {
     overflow: hidden;
     position: relative;
     transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Regla base de Body para el resto (por seguridad) */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Background Orbs (Animated) */

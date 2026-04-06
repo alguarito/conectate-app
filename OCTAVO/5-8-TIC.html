@@ -248,6 +248,11 @@
             </div>
         </section>
 
+        </section>
+
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <!-- Sección de Descargas (Final del Cuaderno) -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Archivos Base Descargables</h2>
@@ -262,6 +267,9 @@
             </div>
         </section>
 
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                 <strong>CONECTATE | Módulo "Moral y Ciencia: Pedestal de la Sabiduría"</strong><br>
@@ -272,6 +280,54 @@
 
     <!-- Lógica de Interfaz -->
     <script>
+        // Datos de Flashcards (Enfoque: Lógica de Poder)
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es un Algoritmo?", 
+                answer: "Es una serie de pasos lógicos y finitos para resolver un problema. Como una receta de cocina perfecta.",
+                icon: "bx-list-ol"
+            },
+            { 
+                question: "¿Por qué el código es 'poder'?", 
+                answer: "Porque quien escribe el código decide las reglas del sistema: qué se muestra, qué se oculta y qué es 'verdad' dentro de la App.",
+                icon: "bx-key"
+            },
+            { 
+                question: "¿Qué significa 'Compilar'?", 
+                answer: "Traducir tu código (humano) al lenguaje nativo de la máquina (binario 0 y 1) para que el Arduino pueda obedecer.",
+                icon: "bx-refresh"
+            }
+        ];
+
+        // Datos del Cuestionario Final (PROGRAMACIÓN Y ÉTICA)
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es la definición más exacta de un Algoritmo?",
+                options: ["Un programa de televisión", "Una serie de pasos ordenados para cumplir un objetivo", "Un cable conectado al computador"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué decimos que los algoritmos pueden tener 'sesgos' (prejuicios)?",
+                options: ["Porque las máquinas tienen sentimientos", "Porque heredan los errores e injusticias de las personas que los programaron", "Los algoritmos nunca se equivocan"],
+                correct: 1
+            },
+            {
+                question: "¿Qué es el Software Libre?",
+                options: ["Programas que son gratis pero traen virus", "Programas cuyo código puede ser leído, estudiado y mejorado por cualquiera", "Programas que no tienen dueño"],
+                correct: 1
+            },
+            {
+                question: "Hábito Saludable: ¿Qué debemos hacer cuando una App nos recomienda contenido obsesivamente?",
+                options: ["Creerle todo lo que dice", "Cuestionar por qué el algoritmo nos muestra ese contenido y no otro", "Seguir viéndolo todo el día"],
+                correct: 1
+            },
+            {
+                question: "¿Qué sucede si olvidas poner un punto y coma (;) en el código de Arduino?",
+                options: ["El Arduino explota", "El programa no compila porque hay un error de sintaxis", "Nada, el computador lo arregla solo"],
+                correct: 1
+            }
+        ];
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
@@ -309,8 +365,8 @@
     </script>
     
     <!-- Tutor Virtual IA Inyectado -->
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

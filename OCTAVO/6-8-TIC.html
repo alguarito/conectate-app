@@ -240,6 +240,11 @@
             </div>
         </section>
 
+        </section>
+
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
         <!-- Sección de Descargas (Final del Cuaderno) -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Material de Apoyo Descargable</h2>
@@ -254,6 +259,9 @@
             </div>
         </section>
 
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                 <strong>CONECTATE | Módulo de Ciudadanía Digital Infoesférica</strong><br>
@@ -264,6 +272,54 @@
 
     <!-- Integración Automática de Tema y Lógica -->
     <script>
+        // Datos de Flashcards (Enfoque: Botones e IoT)
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es una Entrada Digital?", 
+                answer: "Es una señal que solo tiene dos estados posibles: encendido (1) o apagado (0). No hay puntos medios.",
+                icon: "bx-toggle-right"
+            },
+            { 
+                question: "¿Cómo funciona un pulsador?", 
+                answer: "Es un componente mecánico que cierra el circuito solo mientras lo presionas. Al soltarlo, el flujo se corta.",
+                icon: "bx-radio-circle-marked"
+            },
+            { 
+                question: "¿Qué es el IoT (Internet de las Cosas)?", 
+                answer: "Es conectar objetos cotidianos (bombillos, neveras, juguetes) a internet para controlarlos y recolectar datos.",
+                icon: "bx-wifi"
+            }
+        ];
+
+        // Datos del Cuestionario Final (ENTRADAS Y PRIVACIDAD)
+        window.QUIZ_DATA = [
+            {
+                question: "En electrónica digital, un estado 'ALTO' o HIGH equivale a:",
+                options: ["Un valor de 0 voltios", "Un valor de 5 voltios (o 1 lógico)", "Cualquier valor entre 0 y 5"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el riesgo principal del Internet de las Cosas (IoT)?",
+                options: ["Que los aparatos se dañen más rápido", "Que cada objeto conectado recolecte datos de nuestra vida privada sin darnos cuenta", "Que el recibo de luz suba demasiado"],
+                correct: 1
+            },
+            {
+                question: "¿Para qué sirve una resistencia de 'Pull-up' o 'Pull-down'?",
+                options: ["Para que el botón brille", "Para asegurar que el Arduino lea un 0 o un 1 claro y no haya ruido eléctrico", "Para aumentar el voltaje del botón"],
+                correct: 1
+            },
+            {
+                question: "Hábito Ninja: ¿Qué es lo más seguro al usar dispositivos móviles?",
+                options: ["Dejar la ubicación GPS prendida siempre", "Apagar el GPS y el Bluetooth cuando no los estás usando", "Aceptar todos los permisos que pida una App nueva"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué no debemos conectar periféricos (USB) desconocidos a nuestra PC?",
+                options: ["Porque pueden estar sucios", "Porque pueden ejecutar comandos automáticos (scripts de entrada) maliciosos", "Porque gastan mucha batería"],
+                correct: 1
+            }
+        ];
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
@@ -301,8 +357,8 @@
     </script>
 
     <!-- Chatbot del Profesor Álvaro -->
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 
     <!-- Google Translate Script -->
     <script type="text/javascript">

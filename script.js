@@ -447,11 +447,29 @@ document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
     });
 });
 
+const themes = ['default', 'light-mode', 'theme-cyber'];
+const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal'];
+let currentThemeIndex = 0;
+
 if(themeToggleBtn) {
     themeToggleBtn.onclick = () => {
-        document.body.classList.toggle('light-mode');
-        themeToggleBtn.querySelector('i').classList.toggle('bx-moon');
-        themeToggleBtn.querySelector('i').classList.toggle('bx-sun');
+        // Remove current theme class
+        const currentClass = themes[currentThemeIndex];
+        if (currentClass !== 'default') {
+            document.body.classList.remove(currentClass);
+        }
+
+        // Increment index
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+
+        // Add new theme class
+        const nextClass = themes[currentThemeIndex];
+        if (nextClass !== 'default') {
+            document.body.classList.add(nextClass);
+        }
+
+        // Update icon
+        themeToggleBtn.innerHTML = `<i class='bx ${themeIcons[currentThemeIndex]}'></i>`;
     };
 }
 

@@ -149,7 +149,9 @@
                     <i class='bx bx-search'></i>
                     <input type="text" placeholder="Buscar temas, guías o herramientas...">
                 </div>
-                <div class="header-actions">
+                <div class="header-actions" style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Google Translate Widget -->
+                    <div id="google_translate_element"></div>
                     <button class="icon-btn glass-panel" id="home-btn" title="Volver al Inicio">
                         <i class='bx bx-home-alt'></i>
                     </button>
@@ -200,6 +202,14 @@
         <button class="m-btn" data-content="herramientas"><i class='bx bx-wrench'></i><span>Herramientas</span></button>
         <button class="m-btn" data-content="interes"><i class='bx bx-bulb'></i><span>Recursos</span></button>
     </nav>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script src="script.js?v=1.9"></script>
     <script src="chat-tesla.js?v=1.9"></script>

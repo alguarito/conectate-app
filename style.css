@@ -1022,3 +1022,9 @@ body.theme-eink .top-bar {
     overflow-y: auto;
 }
 
+
+/* Google Translate Overrides */
+.goog-te-banner-frame.skiptranslate { display: none !important; }
+body { top: 0px !important; }
+.goog-te-combo { padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.2); outline: none; font-family: var(--font-body); }
+

@@ -82,8 +82,7 @@ window.addEventListener('load', function() {
     html.light-mode .msg.bot pre { background: #e2e8f0; }
     
     @media (max-width: 480px) {
-        #tesla-chat-box { width: calc(100vw - 40px); bottom: 100px; right: 20px; height: 60vh; }
-        #tesla-widget { bottom: 20px; right: 20px; }
+        #tesla-chat-box { width: 92vw; right: 0; }
     }
     `;
     document.head.appendChild(style);

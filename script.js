@@ -449,27 +449,39 @@ document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
 
 const themes = ['default', 'light-mode', 'theme-cyber', 'theme-aurora', 'theme-eink'];
 const themeIcons = ['bx-moon', 'bx-sun', 'bx-terminal', 'bx-planet', 'bx-book-reader'];
-let currentThemeIndex = 0;
+
+let currentThemeIndex = parseInt(localStorage.getItem('conectate_themeIndex')) || 0;
+
+function applyTheme(index) {
+    // Remove all old classes
+    themes.forEach(t => {
+        if (t !== 'default') {
+            document.body.classList.remove(t);
+            document.documentElement.classList.remove(t);
+        }
+    });
+
+    // Add new class
+    const nextClass = themes[index];
+    if (nextClass !== 'default') {
+        document.body.classList.add(nextClass);
+        document.documentElement.classList.add(nextClass);
+    }
+    
+    // Update iconic if btn exists
+    if(themeToggleBtn) {
+        themeToggleBtn.innerHTML = `<i class='bx ${themeIcons[index]}'></i>`;
+    }
+}
+
+// Initial application on load
+applyTheme(currentThemeIndex);
 
 if(themeToggleBtn) {
     themeToggleBtn.onclick = () => {
-        // Remove current theme class
-        const currentClass = themes[currentThemeIndex];
-        if (currentClass !== 'default') {
-            document.body.classList.remove(currentClass);
-        }
-
-        // Increment index
         currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-
-        // Add new theme class
-        const nextClass = themes[currentThemeIndex];
-        if (nextClass !== 'default') {
-            document.body.classList.add(nextClass);
-        }
-
-        // Update icon
-        themeToggleBtn.innerHTML = `<i class='bx ${themeIcons[currentThemeIndex]}'></i>`;
+        applyTheme(currentThemeIndex);
+        localStorage.setItem('conectate_themeIndex', currentThemeIndex);
     };
 }
 

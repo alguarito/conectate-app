@@ -51,7 +51,7 @@ const sectionData = {
         ]
     },
     octavo: {
-        theme: 'theme-maker', icon: '<i class="bx bx-book-open"></i>', title: 'Grado Octavo', subtitle: 'Robótica y Entornos Virtuales (Tutor: Agente Maker)',
+        theme: 'theme-maker', icon: '<i class="bx bx-book-open"></i>', title: 'Grado Octavo', subtitle: 'Electrónica, Robótica y Pensamiento Maker — Del Circuito al Prototipo',
         isSessions: true,
         sessions: [
             { id: 1, title: 'Bases de la Electrónica', file: './OCTAVO/1-8-TIC.html?v=new-layout', desc: 'Introducción a la corriente, voltaje y resistencias. Explorando el flujo energético de tus primeros circuitos.' },
@@ -68,7 +68,7 @@ const sectionData = {
         ]
     },
     noveno: {
-        theme: 'theme-uiux', icon: '<i class="bx bx-laptop"></i>', title: 'Grado Noveno', subtitle: 'Introducción al Diseño Web (Tutor: Agente UI/UX)',
+        theme: 'theme-uiux', icon: '<i class="bx bx-laptop"></i>', title: 'Grado Noveno', subtitle: 'Ética Digital, Historia de la Tecnología y Pensamiento Crítico',
         isSessions: true,
         sessions: [
             { id: 1, title: 'Sesión 1: El Despertar del Inforg', file: './NOVENO/1-9-TIC.html?v=1.3', desc: '¿Eres usuario o producto? Una introducción a la biopolítica y la ética de la información en el siglo XXI.' },
@@ -85,7 +85,7 @@ const sectionData = {
         ]
     },
     decimo: {
-        theme: 'theme-coder', icon: '<i class="bx bx-code-block"></i>', title: 'Grado Décimo', subtitle: 'Programación Textual y Frontend (Tutores: Coder y UI/UX)',
+        theme: 'theme-coder', icon: '<i class="bx bx-code-block"></i>', title: 'Grado Décimo', subtitle: 'Ofimática Inteligente — Investigación, IA y Producción Documental',
         isSessions: true,
         sessions: [
             { id: 1, title: 'Sesión 1: El Detective de Datos', file: './DECIMO/1-10-TIC.html?v=1.1', desc: 'Búsqueda Veraz en la Era de la IA: Cómo encontrar información real y evitar alucinaciones digitales.' },
@@ -101,7 +101,7 @@ const sectionData = {
         ]
     },
     undecimo: {
-        theme: 'theme-coder', icon: '<i class="bx bx-code-alt"></i>', title: 'Grado Undécimo', subtitle: 'Ofimática Cognitiva e Inteligencia Artificial (Tutor: Agente Coder)',
+        theme: 'theme-coder', icon: '<i class="bx bx-code-alt"></i>', title: 'Grado Undécimo', subtitle: 'IA Aplicada — Co-creación Editorial y Autoría en la Era del Centauro',
         isSessions: true,
         sessions: [
             { id: 1, title: 'Sesión 1: El Fin del Autor', file: './UNDECIMO/1-11-TIC.html?v=1.0', desc: 'Inteligencia Artificial y Robots: Una reflexión sobre la soberanía intelectual y el nuevo rol del humano en la Infoesfera.' },

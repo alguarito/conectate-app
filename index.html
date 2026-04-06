@@ -145,9 +145,10 @@
 
         <main class="content-area">
             <header class="top-bar">
-                <div class="search-box glass-panel">
+                <div class="search-box glass-panel" style="position: relative;">
                     <i class='bx bx-search'></i>
-                    <input type="text" placeholder="Buscar temas, guías o herramientas...">
+                    <input type="text" id="global-search-input" placeholder="Buscar temas, guías o herramientas..." autocomplete="off">
+                    <div id="global-search-dropdown" class="glass-dropdown" style="display: none;"></div>
                 </div>
                 <div class="header-actions" style="display: flex; align-items: center; gap: 10px;">
                     <!-- Google Translate Hidden Widget & Custom UI -->

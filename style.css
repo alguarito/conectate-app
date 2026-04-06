@@ -1028,3 +1028,103 @@ body.theme-eink .top-bar {
 body { top: 0px !important; }
 .goog-te-combo { padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.2); outline: none; font-family: var(--font-body); }
 
+
+
+/* GLOBAL SEARCH DROPDOWN UI */
+.glass-dropdown {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 0;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    background: rgba(10, 15, 30, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.15) inset;
+    z-index: 1000;
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: dropdownFadeIn 0.3s forwards ease-out;
+}
+
+@keyframes dropdownFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.glass-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.glass-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.search-result-item {
+    padding: 12px 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    margin-bottom: 5px;
+    text-decoration: none;
+    display: flex;
+}
+.search-result-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(168, 85, 247, 0.3);
+    transform: translateX(5px);
+}
+.search-result-icon {
+    font-size: 1.8rem;
+    color: var(--accent-purple);
+    background: rgba(168, 85, 247, 0.1);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+.search-result-content {
+    display: flex;
+    flex-direction: column;
+}
+.search-result-content h4 {
+    margin: 0 0 4px 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: var(--font-heading);
+}
+.search-result-content p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.3;
+}
+.search-result-badge {
+    font-size: 0.60rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    display: inline-block;
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    align-self: flex-start;
+}
+.search-empty-state {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}

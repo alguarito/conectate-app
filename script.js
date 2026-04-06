@@ -1749,3 +1749,104 @@ window.translatePage = function(langCode) {
         setTimeout(() => translatePage(langCode), 500);
     }
 };
+
+
+// --- BUSCADOR GLOBAL INTELIGENTE ---
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("global-search-input");
+    const dropdown = document.getElementById("global-search-dropdown");
+
+    if(!searchInput || !dropdown) return;
+
+    // Abrir o cerrar dependiendo de si hay texto
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (query.length < 2) {
+            dropdown.style.display = "none";
+            return;
+        }
+
+        const results = searchInCurriculum(query);
+        renderSearchResults(results, query);
+    });
+
+    // Cerrar si hace click afuera
+    document.addEventListener("click", (e) => {
+        if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.style.display = "none";
+        }
+    });
+    
+    // Abrir de nuevo si hace click en el input y tiene texto
+    searchInput.addEventListener("focus", () => {
+        if (searchInput.value.trim().length >= 2) {
+            dropdown.style.display = "block";
+        }
+    });
+
+    function searchInCurriculum(query) {
+        let matches = [];
+        
+        // Iterar en sectionData
+        Object.keys(sectionData).forEach(gradeKey => {
+            const gradeData = sectionData[gradeKey];
+            if (gradeData.isSessions && gradeData.sessions) {
+                gradeData.sessions.forEach(session => {
+                    const titleMatch = session.title.toLowerCase().includes(query);
+                    const descMatch = session.desc.toLowerCase().includes(query);
+                    
+                    if (titleMatch || descMatch) {
+                        matches.push({
+                            gradeId: gradeKey,
+                            gradeTitle: gradeData.title,
+                            icon: gradeData.icon,
+                            session: session
+                        });
+                    }
+                });
+            }
+        });
+        
+        return matches;
+    }
+
+    function renderSearchResults(results, query) {
+        dropdown.style.display = "block";
+        dropdown.innerHTML = "";
+        
+        if (results.length === 0) {
+            dropdown.innerHTML = `<div class="search-empty-state"><i class="bx bx-ghost" style="font-size: 2rem; display:block; margin-bottom: 10px;"></i>No encontré resultados para "<strong>${query}</strong>"</div>`;
+            return;
+        }
+
+        results.forEach(result => {
+            const el = document.createElement("a");
+            el.className = "search-result-item";
+            
+            // Re-escritura dinamica para solucionar rutas (script evalúa a index)
+            // session.file ej: "./NOVENO/1-9-TIC.html"
+            el.href = result.session.file.replace("./", ""); 
+            
+            el.innerHTML = `
+                <div class="search-result-icon">
+                    ${result.icon}
+                </div>
+                <div class="search-result-content">
+                    <span class="search-result-badge">${result.gradeTitle}</span>
+                    <h4>${highlightText(result.session.title, query)}</h4>
+                    <p>${highlightText(result.session.desc, query)}</p>
+                </div>
+            `;
+            dropdown.appendChild(el);
+        });
+    }
+
+    function highlightText(text, highlight) {
+        if (!highlight.trim()) {
+            return text;
+        }
+        const regex = new RegExp(`(${highlight})`, "gi");
+        return text.replace(regex, "<span style=\"color: #a855f7; font-weight: bold; background: rgba(168,85,247,0.2); border-radius: 4px; padding: 0 2px;\">$1</span>");
+    }
+});

@@ -4,154 +4,249 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 1-9-TIC</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- BoxIcons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./CORE/notebook-core.css?v=1.1">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #22d3ee; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #22d3ee, #818cf8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        /* Flashcards / Concept Cards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(34, 211, 238, 0.5); background: rgba(34, 211, 238, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        .info-box { background: rgba(34, 211, 238, 0.1); border-left: 4px solid #22d3ee; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #22d3ee; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        /* Light Mode Overrides */
+        html.light-mode { background-color: #f0f4f8; }
+        body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
+        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .iframe-container { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); }
+        body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2 { color: #1e293b; }
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
+            .hero h1 { font-size: 1.4rem !important; }
+            .grid-2 { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: #22d3ee; font-family: var(--font-heading); font-weight: 600;">Cargando Nivel 9...</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Cargando Nivel 9...</p>
     </div>
 
     <div class="notebook-container glass-panel">
+        
+        <!-- Controles Superiores -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
                 <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+            
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
                 <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button></div>
+            </button>
         </div>
 
         <header class="hero">
-            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <i class='bx bx-dna'></i>
             <h1>Sesión 1: El Despertar del Inforg</h1>
-            <p>¿De quién es tu ADN? Bienvenido al Nivel 9. Ya no eres un simple estudiante; eres un organismo conectado a la información.</p>
+            <p>Bienvenido al Nivel 9. Ya no eres un simple estudiante; eres un <strong>Inforg</strong> (Organismo de Información) conectado a la Infoesfera. Descubre si eres el dueño de tus datos o el producto de alguien más.</p>
         </header>
 
         <!-- Video Introductorio -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bx-video'></i> Video de la Sesión</h2>
-            <div style="width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; border-color: rgba(34, 211, 238, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px;"><i class='bx bx-video' style="color: #22d3ee;"></i> Video de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); aspect-ratio: 16/9;">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/pVNK_LhdG8s?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
         </section>
 
-        <!-- Contexto -->
+        <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-user-voice'></i> 1. ¿Eres Usuario o Producto?</h2>
-            <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Bienvenido al Nivel 9</div>
-                <p class="section-text" style="margin: 0;">En este curso no solo aprenderemos a usar herramientas, sino a cuestionar quién controla la tecnología. Tu misión será investigar si la tecnología nos libera o nos controla (Biopolítica).</p>
-            </div>
-        </section>
-
-        <!-- Manifiesto Hacker -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-shield-quarter'></i> 2. El Manifiesto Hacker (Pacto de Aula)</h2>
-            <p class="section-text">Para investigar con libertad, adoptamos la Ética Hacker y la Ética de la Liberación. Haz clic en cada pilar para conocer el compromiso:</p>
+            <h2><i class='bx bx-shield-quarter'></i> 1. El Manifiesto Hacker (Pacto de Aula)</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para investigar con libertad, en este grado adoptaremos la "Ética Hacker": no para destruir cajas fuertes, sino para **abrir el conocimiento**. Haz clic para ver nuestro compromiso:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Acceso Abierto <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">El conocimiento debe ser libre. Respeto y cito a los autores originales (No al plagio).</div>
+                    <h3>Acceso Libre <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">El conocimiento debe ser gratuito. Compartimos lo que aprendemos y respetamos el código abierto.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Pasión Crítica <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">No trago entero. Cuestiono la información y busco la verdad detrás de las pantallas.</div>
+                    <div class="concept-desc">No "tragamos entero". Cuestionamos la veracidad de lo que aparece en pantalla y buscamos la fuente original.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Cuidado Mutuo <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Cuido mi identidad biológica (ADN) y digital (Datos), y respeto la privacidad de mis compañeros.</div>
+                    <h3>Ética del Cuidado <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Protegemos nuestra identidad (ADN) y nuestros datos. No usamos la tecnología para dañar la dignidad de otros.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Gen Ciudadano <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Mi libertad termina donde empieza la dignidad del otro. Escucho antes de refutar.</div>
+                    <h3>Autonomía Digital <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Buscamos ser dueños de nuestras herramientas, no esclavos de las notificaciones.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Ciencia vs Tecnología -->
+        <!-- Sección 2 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-analyse'></i> 3. Análisis: Ciencia vs. Tecnología</h2>
-            <p class="section-text">A menudo las confundimos, pero tienen propósitos distintos:</p>
-            <div class="grid-2">
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; text-align: center;">
-                    <i class='bx bx-test-tube' style="font-size: 3rem; color: #22d3ee;"></i>
-                    <h3>CIENCIA</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Busca la <strong>VERDAD</strong>. (Saber Qué). Ejemplo: Biología.</p>
-                </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; text-align: center;">
-                    <i class='bx bx-wrench' style="font-size: 3rem; color: #a855f7;"></i>
-                    <h3>TECNOLOGÍA</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Busca la <strong>UTILIDAD</strong>. (Saber Hacer). Ejemplo: Microscopio.</p>
-                </div>
-            </div>
-            <div class="info-box" style="margin-top: 20px; border-left-color: #f59e0b;">
-                <div class="info-box-title" style="color: #fbbf24;"><i class='bx bx-history'></i> Dato Crítico (Dussel)</div>
-                <p style="font-style: italic; color: var(--text-secondary);">"La historia oficial dice que la ciencia nació en Europa. Falso. Los Mayas usaban el cero antes que los europeos. La tecnología es patrimonio de toda la humanidad."</p>
+            <h2><i class='bx bx-user-voice'></i> 2. ¿Usuario o Producto? (Biopolítica)</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Cuando una aplicación es "gratuita", el precio eres tú: tu atención, tus miedos y tus deseos convertidos en datos para algoritmos publicitarios.</p>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> Dato Crítico</div>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">La **Biopolítica** es el control que ejercen los sistemas tecnológicos sobre la vida misma. Un *Inforg* consciente sabe que sus datos son su alma digital y los defiende.</p>
             </div>
         </section>
 
-        <!-- Ética de la Información -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-brain'></i> 4. Laboratorio de Ética: El Dilema Copy-Paste</h2>
-            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                <h4 style="color: #ec4899; margin-top: 0;">Situación:</h4>
-                <p style="font-size: 0.95rem;">Copias un ensayo perfecto de Internet, le pones tu nombre y nadie se da cuenta. ¿Qué implicaciones tiene?</p>
-            </div>
-            <div class="grid-2">
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Dimensión de Verdad <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Al mentir sobre la autoría, contaminas la Infoesfera con información falsa.</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3>Dimensión de Justicia <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Ignoras el esfuerzo del autor original. ¿Cómo te sentirías si alguien se hace famoso con tu creación?</div>
-                </div>
-            </div>
-        </section>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
 
-        <!-- Recursos (Drive) -->
+        <!-- Recursos -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center;"><i class='bx bxs-download'></i> Material de Apoyo</h2>
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #22d3ee;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="1-9-TIC.pdf" download class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
+                <a href="1-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía Metodológica
                 </a>
-                <a id="drive-link" href="https://docs.google.com/presentation/d/1zXqmFzxak5V-BHFXeJlCj6G9HuYnx7-L/edit?usp=drive_link&ouid=116409407682825630590&rtpof=true&sd=true"  class="pulse-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
+                <a href="https://docs.google.com/presentation/d/1zXqmFzxak5V-BHFXeJlCj6G9HuYnx7-L/edit?usp=drive_link" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
                     <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
                 </a>
             </div>
         </section>
 
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Ética y Biopolítica</strong> (v1.2)<br>
-                Recurso Creado Asistido por Inteligencia Artificial "Agente UI/UX".
+                <strong>CONECTATE | Módulo "Hacking y Biopolítica"</strong><br>
+                Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <script src="./CORE/notebook-core.js?v=1.0"></script>
+    <!-- Lógica de Datos -->
+    <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es un Inforg?", 
+                answer: "Un Organismo de Información. Somos seres humanos cuyo entorno y decisiones están mediados por flujos constantes de datos.",
+                icon: "bx-dna"
+            },
+            { 
+                question: "¿Qué es la Biopolítica?", 
+                answer: "Es el uso de la tecnología y el poder para gestionar, controlar y perfilar la vida de las personas.",
+                icon: "bx-shield"
+            },
+            { 
+                question: "¿Qué dice la Ética Hacker?", 
+                answer: "Que el acceso al conocimiento debe ser libre y circular para el beneficio de toda la humanidad, no de unos pocos.",
+                icon: "bx-code-alt"
+            }
+        ];
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
+        window.QUIZ_DATA = [
+            {
+                question: "En la economía de la atención, si una app es 'gratis', ¿cuál es el producto?",
+                options: ["El software", "La publicidad", "Tus datos y tu atención"],
+                correct: 2
+            },
+            {
+                question: "Un pilar de nuestro Manifiesto Hacker es:",
+                options: ["Robar contraseñas", "No tragar entero (Pasión Crítica)", "Hackear el Wi-Fi del vecino"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la diferencia entre Ciencia y Tecnología?",
+                options: ["La Ciencia busca la Verdad, la Tecnología la Utilidad", "Son lo mismo", "La Ciencia es de los ricos y la Tecnología de los pobres"],
+                correct: 0
+            },
+            {
+                question: "¿Qué significa tener 'Soberanía de Datos'?",
+                options: ["Pagar por tener fibra óptica", "Tener el control real sobre quién usa tu información digital", "Usar muchas redes sociales"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué el 'ADN' es el tema central de este año?",
+                options: ["Porque vamos a estudiar biología", "Porque el ADN es la fuente de información biológica que la tecnología intenta digitalizar", "Porque nos gusta la genética"],
+                correct: 1
+            }
+        ];
+
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    icon.classList.replace('bx-sun', 'bx-moon');
+                }
+            });
+        }
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500); 
+            }
+        });
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                if(icon) icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                if(icon) icon.className = 'bx bx-minus';
+            }
         }
     </script>
+    
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

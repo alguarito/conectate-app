@@ -154,21 +154,21 @@
 
         <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-diamond'></i> 1. La Tabla Periódica del Conflicto</h2>
-            <p class="section-text">Un dispositivo inteligente promedio contiene más de 60 elementos químicos de la tabla periódica. Algunos de ellos son demasiado escasos, valiosos y peligrosamente destructivos a la hora de extraerlos de la tierra.</p>
+            <h2><i class='bx bx-diamond'></i> 1. El Costo Humano: Minerales de Sangre</h2>
+            <p class="section-text">Para que un smartphone vibre o procese datos, necesita minerales que no se encuentran en cualquier lugar. Su extracción es el motor de conflictos armados y extrema pobreza en el Sur Global.</p>
             
             <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3><span style="color: #ef4444"><i class='bx bxs-hot'></i> El Coltán</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc"><strong>(Tantalio):</strong> El 80% de sus reservas globales están ubicadas en el conflicto de la República Democrática del Congo (África). Sin él, no se podrían guardar cargas de energía en micropiezas. Se le conoce mundialmente como el <em>Mineral de Sangre</em>.</div>
+                    <div class="concept-desc"><strong>Crisis en el Congo:</strong> El 80% del coltán está en el Congo (África). Su control genera guerras civiles y explotación infantil extrema. Los niños descienden a túneles inestables para extraer el mineral que permite a tu celular ser tan delgado.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3><span style="color: #38bdf8"><i class='bx bx-battery'></i> El Litio</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc"><strong>(El Oro Blanco):</strong> Es el corazón electroquímico de TODAS las baterías modernas recargables. Se extrae de los delicados salares secos en Chile, Bolivia y Argentina secando millones y millones de litros de agua dulce.</div>
+                    <div class="concept-desc"><strong>El Desierto Sediento:</strong> Extraído de Chile, Bolivia y Argentina. Seca los suministros de agua de las comunidades indígenas para procesar las baterías "verdes". ¿Es realmente ecológica una batería que mata de sed a un pueblo?</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #f59e0b"><i class='bx bx-coin-stack'></i> Oro y Cobre</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Su increíble conductividad eléctrica libre de oxidación es inigualable. Pero la forma en que se realiza la minería a cielo abierto destruye hectáreas inmensas de selvas y bosques, arrojando además el tóxico mercurio a los ríos.</div>
+                    <h3><span style="color: #f59e0b"><i class='bx bx-coin-stack'></i> Tierras Raras</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Elementos como el Neodimio permiten los imanes de tus audífonos. Su refinamiento en China produce lagos de lodo tóxico y radioactivo, destruyendo la salud de miles de familias rurales cerca de las plantas.</div>
                 </div>
             </div>
         </section>
@@ -280,50 +280,50 @@
 
     <!-- Lógica de Interfaz -->
     <script>
-        // Datos de Flashcards (Enfoque: Lógica de Poder)
+        // Datos de Flashcards (Enfoque: Ética Material)
         window.FLASH_DATA = [
             { 
-                question: "¿Qué es un Algoritmo?", 
-                answer: "Es una serie de pasos lógicos y finitos para resolver un problema. Como una receta de cocina perfecta.",
-                icon: "bx-list-ol"
+                question: "¿Qué es la Obsolescencia Programada?", 
+                answer: "Es la decisión deliberada de las empresas de fabricar productos con una vida útil corta para forzar al usuario a comprar modelos nuevos constantemente.",
+                icon: "bx-time-five"
             },
             { 
-                question: "¿Por qué el código es 'poder'?", 
-                answer: "Porque quien escribe el código decide las reglas del sistema: qué se muestra, qué se oculta y qué es 'verdad' dentro de la App.",
-                icon: "bx-key"
+                question: "¿Por qué el Coltán es un 'Mineral de Sangre'?", 
+                answer: "Porque su extracción financia guerras en el Congo y depende de la explotación laboral (incluyendo niños) en condiciones inhumanas.",
+                icon: "bx-hot"
             },
             { 
-                question: "¿Qué significa 'Compilar'?", 
-                answer: "Traducir tu código (humano) al lenguaje nativo de la máquina (binario 0 y 1) para que el Arduino pueda obedecer.",
-                icon: "bx-refresh"
+                question: "¿Qué significa RAEE?", 
+                answer: "Residuos de Aparatos Eléctricos y Electrónicos. Son desechos tóxicos (plomo, mercurio) que suelen terminar en basureros ilegales en África.",
+                icon: "bx-recycle"
             }
         ];
 
-        // Datos del Cuestionario Final (PROGRAMACIÓN Y ÉTICA)
+        // Datos del Cuestionario Final (OBSOLESCENCIA Y COSTO HUMANO)
         window.QUIZ_DATA = [
             {
-                question: "¿Cuál es la definición más exacta de un Algoritmo?",
-                options: ["Un programa de televisión", "Una serie de pasos ordenados para cumplir un objetivo", "Un cable conectado al computador"],
+                question: "¿Cuál es el costo oculto de un smartphone barato de 1 millón de pesos?",
+                options: ["Solo el costo de la publicidad", "La explotación humana y ambiental en las minas de Coltán y Litio", "El envío por barco"],
                 correct: 1
             },
             {
-                question: "¿Por qué decimos que los algoritmos pueden tener 'sesgos' (prejuicios)?",
-                options: ["Porque las máquinas tienen sentimientos", "Porque heredan los errores e injusticias de las personas que los programaron", "Los algoritmos nunca se equivocan"],
+                question: "¿Qué es el derecho a la reparación?",
+                options: ["Que el gobierno te regale un celular nuevo", "Que las empresas deban diseñar aparatos fáciles de abrir y arreglar, sin pegamentos ni tornillos especiales", "Poder devolver el celular a la tienda"],
                 correct: 1
             },
             {
-                question: "¿Qué es el Software Libre?",
-                options: ["Programas que son gratis pero traen virus", "Programas cuyo código puede ser leído, estudiado y mejorado por cualquiera", "Programas que no tienen dueño"],
+                question: "En la economía circular, ¿qué debería ser lo último que hagamos?",
+                options: ["Reparar el aparato", "Reciclar los materiales", "Tirar el aparato a la basura común"],
                 correct: 1
             },
             {
-                question: "Hábito Saludable: ¿Qué debemos hacer cuando una App nos recomienda contenido obsesivamente?",
-                options: ["Creerle todo lo que dice", "Cuestionar por qué el algoritmo nos muestra ese contenido y no otro", "Seguir viéndolo todo el día"],
-                correct: 1
+                question: "¿Por qué la obsolescencia programada es un problema ético?",
+                options: ["Porque genera basura electrónica tóxica masiva y agota recursos que causan guerras", "Porque hace que los celulares sean más bonitos", "Porque nos obliga a ahorrar dinero"],
+                correct: 0
             },
             {
-                question: "¿Qué sucede si olvidas poner un punto y coma (;) en el código de Arduino?",
-                options: ["El Arduino explota", "El programa no compila porque hay un error de sintaxis", "Nada, el computador lo arregla solo"],
+                question: "¿Cuál es el componente que más litio consume en un dispositivo?",
+                options: ["La pantalla táctil", "La batería recargable", "El procesador central"],
                 correct: 1
             }
         ];

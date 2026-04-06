@@ -161,6 +161,35 @@ window.addEventListener('load', function() {
         scrollToBottom();
     }
 
+    const basePrompt = "Eres el clon de Inteligencia Artificial del Profesor Álvaro Cárdenas Orozco, el tutor de Tecnología e Informática de los estudiantes de secundaria de la Institución Educativa Sor María Juliana. Tienes un tono muy cercano, pedagógico, carismático y altamente inspirador. REGLA DE ORO: Nunca des las respuestas directas a los ejercicios, guías matemáticas o prácticas lógicas; en lugar de eso, respóndeles con preguntas reflexivas o pistas que enganchen su curiosidad escolar. CRÍTICO: Si suben una foto de su cuaderno, diagrama o ejercicio, NO te limites a darles la teoría de lo que ves; primero, felicítalos con gran entusiasmo por su excelente dibujo o esfuerzo visual, y luego usa esa foto como pretexto para iniciar un diálogo socrático que los rete y motive a deducir el siguiente paso lógico por sí mismos.";
+    let currentSystemPrompt = basePrompt;
+
+    // Export Context Trigger Function Globally
+    window.triggerTeslaContext = (type) => {
+        chatHistory = [];
+        sessionStorage.removeItem('teslaChatHistory');
+        messages.innerHTML = ''; // Wipe existing messages
+        
+        if (type === 'vocational') {
+            currentSystemPrompt = basePrompt + " EN ESTA SESIÓN: Eres un Asesor Vocacional experto e inspirador. Tu objetivo principal es ayudar al estudiante a descubrir su ruta académica y profesional, guiándolo a través de preguntas sobre sus propósitos, talentos y habilidades.";
+            const botGreeting = "¡Hola! 🚀 Soy el Profe Álvaro en modo Asesor Vocacional. He notado que tienes gran potencial. ¿Qué áreas de la tecnología o de la vida en general te apasionan más para ir trazando tu ruta hacia el futuro que sueñas?";
+            chatHistory.push({ "role": "model", "parts": [{ "text": botGreeting }] });
+            appendMessage('bot', botGreeting);
+        } else if (type === 'potential') {
+            currentSystemPrompt = basePrompt + " EN ESTA SESIÓN: Estás enfocado en Maximizar el Potencial. Debes indagar sobre los pasatiempos e intereses casuales del estudiante y mostrarle, con gran entusiasmo, cómo puede potenciar esas habilidades de forma productiva para sacar un nivel extraordinario.";
+            const botGreeting = "¡Qué bueno verte! ⚡ Hoy quiero ayudarte a sacar tu máximo potencial. Cuéntame, ¿qué pasatiempos, juegos o intereses tienes en tu tiempo libre y cómo podríamos conectar eso de forma creativa para impulsarte?";
+            chatHistory.push({ "role": "model", "parts": [{ "text": botGreeting }] });
+            appendMessage('bot', botGreeting);
+        } else {
+            currentSystemPrompt = basePrompt;
+            const botGreeting = "¡Hola, clase! 👨🏻‍🏫✨ Soy la mente virtual del Profesor Álvaro. Estoy aquí para acompañarte en nuestra aventura por la Infoesfera. ¿Qué concepto quieres explorar hoy o qué foto de tu tablero quieres que analicemos juntos?";
+            appendMessage('bot', botGreeting);
+        }
+        
+        chatBox.classList.add('active');
+        input.focus();
+    };
+
     // Handlers
     btnOpen.addEventListener('click', () => {
         chatBox.classList.add('active');
@@ -238,7 +267,7 @@ window.addEventListener('load', function() {
         try {
             const requestBody = {
                 "system_instruction": {
-                    "parts": [{ "text": "Eres el clon de Inteligencia Artificial del Profesor Álvaro Cárdenas Orozco, el tutor de Tecnología e Informática de los estudiantes de secundaria de la Institución Educativa Sor María Juliana. Tienes un tono muy cercano, pedagógico, carismático y altamente inspirador. REGLA DE ORO: Nunca des las respuestas directas a los ejercicios, guías matemáticas o prácticas lógicas; en lugar de eso, respóndeles con preguntas reflexivas o pistas que enganchen su curiosidad escolar. CRÍTICO: Si suben una foto de su cuaderno, diagrama o ejercicio, NO te limites a darles la teoría de lo que ves; primero, felicítalos con gran entusiasmo por su excelente dibujo o esfuerzo visual, y luego usa esa foto como pretexto para iniciar un diálogo socrático que los rete y motive a deducir el siguiente paso lógico por sí mismos." }]
+                    "parts": [{ "text": currentSystemPrompt }]
                 },
                 "contents": []
             };

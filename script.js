@@ -46,8 +46,8 @@ const sectionData = {
         theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
         features: [ 
             { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
-            { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.' },
-            { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!' } 
+            { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.', action: 'openTeslaVocational' },
+            { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!', action: 'openTeslaPotential' } 
         ]
     },
     octavo: {
@@ -558,6 +558,22 @@ document.addEventListener('click', (e) => {
     const modal = document.getElementById('profile-modal');
     if (e.target === modal) closeProfile();
 });
+
+function openTeslaVocational() {
+    if (window.triggerTeslaContext) {
+        window.triggerTeslaContext('vocational');
+    } else {
+        alert("El Agente Tesla aún se está conectando, intenta en un segundo...");
+    }
+}
+
+function openTeslaPotential() {
+    if (window.triggerTeslaContext) {
+        window.triggerTeslaContext('potential');
+    } else {
+        alert("El Agente Tesla aún se está conectando, intenta en un segundo...");
+    }
+}
 
 // Init Load en HOME
 navigateTo('home');

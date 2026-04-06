@@ -1824,13 +1824,24 @@ window.onload = () => {
 
 // Funcionalidad Traducción Custom UI
 window.translatePage = function(langCode) {
+    if (langCode === 'es') {
+        // Volver a español: borrar cookie y recargar
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
+        location.reload();
+        return;
+    }
+
+    // Intentar vía el widget de Google Translate primero
     const select = document.querySelector('.goog-te-combo');
     if (select) {
         select.value = langCode;
         select.dispatchEvent(new Event('change'));
     } else {
-        // Retry si el iframe de google no ha cargado aún
-        setTimeout(() => translatePage(langCode), 500);
+        // Fallback: usar cookie de Google Translate + recarga
+        document.cookie = 'googtrans=/es/' + langCode + '; path=/;';
+        document.cookie = 'googtrans=/es/' + langCode + '; path=/; domain=.' + location.hostname;
+        location.reload();
     }
 };
 

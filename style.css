@@ -16,13 +16,14 @@
     --font-body: 'Inter', sans-serif;
 }
 
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body:not(.notebook-body) {
+body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: var(--font-body);
@@ -49,6 +50,7 @@ body {
     height: 100%;
     z-index: 0;
     overflow: hidden;
+    pointer-events: none; /* Asegurar que no bloquea el toque */
 }
 
 .orb {
@@ -440,15 +442,22 @@ body.theme-eink .top-bar {
 
 /* 2. MOBILE (Bottom Nav / App Feel) - Menos de 480px */
 @media (max-width: 480px) {
-    body { overflow-y: auto; align-items: flex-start; }
+    body { 
+        height: auto !important; 
+        min-height: 100vh !important;
+        overflow-y: auto !important; 
+        align-items: flex-start;
+        display: block !important; 
+        -webkit-overflow-scrolling: touch;
+    }
     
     .app-container { 
         width: 100vw; 
-        height: auto; 
+        height: auto !important; 
         min-height: 100vh; 
         border-radius: 0; 
-        flex-direction: column; 
-        overflow: visible;
+        flex-direction: column !important; 
+        overflow: visible !important;
         background: none;
         backdrop-filter: none;
         box-shadow: none;
@@ -457,9 +466,21 @@ body.theme-eink .top-bar {
 
     .sidebar { display: none; } /* Ocultar Sidebar en celulares */
 
+    /* OPTIMIZACIÓN CRÍTICA: Desactivar efectos pesados que bloquean el scroll en móviles */
+    .glass-panel, .glass-card, .feature-card, .news-card, .session-card, .auth-card, .modal-content {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(13, 14, 21, 0.98) !important; /* Casi opaco para evitar lag de repintado */
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: none !important; /* Sombras también consumen GPU en scroll */
+    }
+
     .content-area { 
         padding: 16px; 
-        padding-bottom: 100px; /* Espacio para el Bottom Nav */
+        padding-bottom: 120px; /* Margen extra para el Bottom Nav */
+        overflow: visible !important;
+        height: auto !important;
+        flex: none !important;
     }
 
     .top-bar { 
@@ -934,9 +955,15 @@ body.theme-eink .top-bar {
     align-items: center;
     z-index: 99999;
     padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    pointer-events: none; /* Seguridad: No interceptar toques por defecto */
 }
 
-.auth-overlay.active { display: flex; }
+.auth-overlay.active { 
+    display: flex; 
+    pointer-events: auto; /* Activar solo cuando sea visible */
+}
 
 .auth-card {
     max-width: 450px;

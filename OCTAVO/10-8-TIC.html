@@ -29,7 +29,7 @@
         /* Typography & Layout */
         .hero { text-align: center; margin-bottom: 50px; }
         .hero i { font-size: 5rem; color: #10b981; margin-bottom: 16px; }
-        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #10b981, #6ee7b7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
         .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
         
         .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
@@ -37,12 +37,10 @@
         .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
         
         /* Grid Layouts */
-        
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
-        /* Concept Cards */
+        
+        /* Flashcards */
         .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
         .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
         .concept-card:hover { border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05); transform: translateY(-3px);}
@@ -52,12 +50,7 @@
         
         /* Info Boxes */
         .info-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
-        .info-box-title { font-weight: 700; color: #6ee7b7; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
-
-        /* Signature Box */
-        .signature-box { background: rgba(255,255,255,0.9); border-radius: 8px; padding: 10px 20px; margin-top: 20px; display: inline-block;}
-        .signature-box input { background: transparent; border: none; border-bottom: 2px solid #10b981; font-family: 'Outfit', cursive; font-size: 1.5rem; color: #0f172a; width: 300px; padding: 5px; text-align: center; line-height: 1;}
-        .signature-box input:focus { outline: none; border-bottom-color: #059669;}
+        .info-box-title { font-weight: 700; color: #34d399; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
 
         /* Light Mode Overrides */
         html.light-mode { background-color: #f0f4f8; }
@@ -70,51 +63,13 @@
         body.light-mode #btn-volver, body.light-mode #btn-home, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.light-mode #btn-volver, body.light-mode #btn-home:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
 
-        /* Cyber-Neon Theme Overrides */
-        html.theme-cyber { background-color: #030507; }
-        body.theme-cyber { background: radial-gradient(circle at 10% 20%, #001f0a, #000000 80%) fixed; color: #00ffcc; }
-        body.theme-cyber .concept-card, body.theme-cyber .interactive-section, body.theme-cyber .iframe-container, body.theme-cyber .deep-reading { background: rgba(0, 20, 10, 0.4); border-color: rgba(0, 255, 0, 0.3); box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05); }
-        body.theme-cyber .concept-card h3, body.theme-cyber h1, body.theme-cyber h2, body.theme-cyber h4 { color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); }
-        body.theme-cyber .concept-desc, body.theme-cyber .section-text, body.theme-cyber p, body.theme-cyber ol, body.theme-cyber ul { color: #00aa88 !important; }
-        body.theme-cyber #btn-volver, body.theme-cyber #btn-home, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
-
-        /* Aurora Theme Overrides */
-        html.theme-aurora { background-color: #061121; }
-        body.theme-aurora { background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) fixed; color: #e2f1f8; }
-        body.theme-aurora .concept-card, body.theme-aurora .interactive-section, body.theme-aurora .iframe-container, body.theme-aurora .deep-reading { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(25px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15); }
-        body.theme-aurora .concept-card h3, body.theme-aurora h1, body.theme-aurora h2, body.theme-aurora h4 { color: #0ea5e9; text-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
-        body.theme-aurora .concept-desc, body.theme-aurora .section-text, body.theme-aurora p, body.theme-aurora ol, body.theme-aurora ul { color: #87aebf !important; }
-        body.theme-aurora #btn-volver, body.theme-aurora #btn-home, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
-
-        /* E-Ink Theme Overrides */
-        html.theme-eink { background-color: #fdfaf6; }
-        body.theme-eink { background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed; color: #4a3f35; }
-        body.theme-eink .concept-card, body.theme-eink .interactive-section, body.theme-eink .iframe-container, body.theme-eink .deep-reading { background: rgba(245, 240, 230, 0.8); backdrop-filter: blur(10px); border-color: rgba(210, 195, 180, 0.7); box-shadow: 2px 2px 8px rgba(0,0,0,0.02); }
-        body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.theme-eink h4 { color: #2c241c; text-shadow: none; font-weight: 700; }
-        body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p, body.theme-eink ol, body.theme-eink ul { color: #7a6e60 !important; }
-        body.theme-eink #btn-volver, body.theme-eink #btn-home, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
-
         @media (max-width: 480px) {
             body { padding: 8px !important; }
             .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
-            .hero { margin-bottom: 30px !important; }
             .hero h1 { font-size: 1.4rem !important; }
-            .hero i { font-size: 2.2rem !important; }
-            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
-            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
-            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
-            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
-            .concept-card { padding: 12px !important; border-radius: 10px !important; }
-            .concept-card h3 { font-size: 0.85rem !important; }
-            .concept-card h3 i { font-size: 1rem !important; }
-            .concept-desc { font-size: 0.8rem !important; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
-            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
-            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
-            #btn-volver, #btn-home { font-size: 0.75rem !important; padding: 6px 10px !important; }
-            iframe, .iframe-container { border-radius: 8px !important; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
         }
-</style>
+    </style>
 </head>
 <body>
     <!-- Preloader -->
@@ -136,174 +91,143 @@
                 </a>
             </div>
             
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div style="position: relative; display: inline-block;">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">
+                        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>
+                        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>
+                        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>
+                    </select>
+                    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
         <header class="hero">
-            <i class='bx bxs-award'></i>
-            <h1>Guía 10: El Festival de la Verdad</h1>
-            <p>Hoy el salón se transforma en una sala de cine. No proyectaremos ficción, proyectaremos tus investigaciones. Cerremos este periodo decidiendo el tipo de ciudadano que el planeta necesita.</p>
+            <i class='bx bxs-quote-alt-left'></i>
+            <h1>Guía 10: La Argumentación del Saber</h1>
+            <p>Saber algo es importante, pero saber defenderlo con argumentos sólidos es lo que define a un verdadero investigador. Hoy conectaremos todos los puntos de este viaje.</p>
         </header>
 
         <!-- Video Introductorio YouTube -->
         <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(16, 185, 129, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #10b981;"></i> Repaso de la Sesión Final</h2>
+            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #10b981;"></i> Repaso de la Sesión</h2>
             <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); aspect-ratio: 16/9;">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aWq6m7SXrr0?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/K8_YatS_7oE?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
         </section>
 
         <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-glasses'></i> 1. Protocolo del Ágora (La Ética del Espectador)</h2>
-            <p class="section-text">Ver y juzgar el trabajo de tus compañeros requiere inmenso respeto y empatía. En esta sala de Sustentación Audiovisual exijo el cumplimiento de 4 reglas sagradas:</p>
+            <h2><i class='bx bx-book-content'></i> 1. El Triángulo de la Verdad</h2>
+            <p class="section-text">Para que tu sustentación final sea irrefutable, tus argumentos deben tener tres partes esenciales. Si falta una, tu idea se caerá.</p>
             
-            <div class="grid-4">
+            <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #6ee7b7"><i class='bx bx-volume-mute'></i> Silencio Activo</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Cero comentarios, risas sueltas ni murmullos mientras el video del artista está proyectándose. La concentración sónica es vital.</div>
+                    <h3><span style="color: #3b82f6"><i class='bx bx-message-square-error'></i> 1. Afirmación</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Es tu idea principal o tesis. Debe ser clara y directa. <em>Ej: "La obsolescencia programada es una violación a la ética ambiental".</em></div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #fca5a5"><i class='bx bx-mobile-vibration'></i> Cero Pantallas</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Los celulares del público deben guardar un sueño profundo. Tu atención total pertenece exclusivamente al creador que expone.</div>
+                    <h3><span style="color: #ef4444"><i class='bx bx-search'></i> 2. Evidencia</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Son los datos reales. Aquí usas lo que mediste: Watts, costos de energía, o datos de la IA sobre minería de Coltán. Sin evidencia, es solo una opinión.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #93c5fd"><i class='bx bx-chat'></i> Crítica Noble</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Toda crítica inicia aplaudiendo un logro positivo de forma sincera, y luego propone un método de mejora. Jamás se destruye por placer.</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #fcd34d"><i class='bx bx-brain'></i> Apertura</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Vas a descubrir realidades de aparatos distintos al tuyo. Analiza sus minerales y sus consumos de energía comparativamente.</div>
+                    <h3><span style="color: #10b981"><i class='bx bx-brain'></i> 3. Razonamiento</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Es el puente que explica <strong>por qué</strong> tu evidencia apoya tu afirmación. Es donde demuestras tu pensamiento crítico.</div>
                 </div>
             </div>
         </section>
 
         <!-- Sección 2 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-candles'></i> 2. Rúbrica de Coevaluación</h2>
-            <p class="section-text">Hoy actúas como jurado de este festival. El profesor te entregará la Rúbrica de Evaluación impresa en clase para que califiques la sustentación de otro equipo. Estos serán los criterios físicos, éticos y audiovisuales a observar:</p>
+            <h2><i class='bx bx-link'></i> 2. Conectando las 9 Guías</h2>
+            <p class="section-text">En tu informe final, debes ser capaz de explicar cómo se relaciona el hardware de un celular (Guía 3) con el consumo vampiro (Guía 2) y la producción audiovisual (Guía 9).</p>
             
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; overflow-x: auto;">
-                <table style="width: 100%; min-width: 600px; border-collapse: collapse; text-align: left; color: var(--text-secondary);">
-                    <thead>
-                        <tr style="border-bottom: 2px solid rgba(16, 185, 129, 0.5); color: white;">
-                            <th style="padding: 12px; font-family: var(--font-heading);">Criterio de Evaluación</th>
-                            <th style="padding: 12px; text-align: center;">Bajo (1-2)</th>
-                            <th style="padding: 12px; text-align: center;">Básico (3)</th>
-                            <th style="padding: 12px; text-align: center;">Alto (4)</th>
-                            <th style="padding: 12px; text-align: center; color: #6ee7b7;">Sup. (5)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 16px;"><strong>1. Gancho y Retención:</strong> ¿Hizo una apertura que atrapó los primeros 3 segundos?</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 16px;"><strong>2. Calidad Técnica:</strong> ¿El audio es inmaculado y hay iluminación frontal directa?</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 16px;"><strong>3. Rigor del Dato:</strong> ¿Expuso cálculos reales de consumo de Watts e IA?</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 16px;"><strong>4. Ética y Filosofía:</strong> ¿Defendió una tesis crítica sobre la minería y la vida?</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">-</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> El Hilo Conductor</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Nada en este curso fue al azar. La electrónica (hardware) genera un consumo (energía) que tiene un origen material (minería) y un impacto social (ética). Tu video es la herramienta para comunicar ese ciclo al mundo.</p>
             </div>
         </section>
 
-        <!-- Sección 3 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-rocket'></i> 3. La Evolución Evolutiva del Inforg</h2>
-            <p class="section-text">Hagamos un balance. Cuando iniciaste el Periodo I, eras solo un número en el ciclo de consumo. Mírate ahora. Tu mente ha sido hackeada para despertar:</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 700px; margin: 0 auto; position: relative;">
-                <!-- Flujo Visual -->
-                <div style="background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #ef4444; margin-left: 0%;">
-                    <h3 style="color: #fca5a5; margin: 0 0 5px 0; display: flex; align-items: center; gap: 8px;"><i class='bx bx-sleepy'></i> 1. Consumidor (Pasivo)</h3>
-                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;"><em>"Uso el celular sin saber cómo funciona el hardware ni de qué minas está fabricado."</em></p>
-                </div>
-                <div style="display: flex; justify-content: flex-start; margin-left: 10%;"><i class='bx bx-down-arrow-alt' style="font-size: 2rem; color: rgba(255,255,255,0.2);"></i></div>
-                
-                <div style="background: rgba(234, 179, 8, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #eab308; margin-left: 10%;">
-                    <h3 style="color: #fde047; margin: 0 0 5px 0; display: flex; align-items: center; gap: 8px;"><i class='bx bx-search-alt'></i> 2. Auditor (Crítico)</h3>
-                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;"><em>"Desarmo mis equipos, mido los Watts, denuncio el Coltán y no le creo a ciegas a la IA."</em></p>
-                </div>
-                <div style="display: flex; justify-content: flex-start; margin-left: 20%;"><i class='bx bx-down-arrow-alt' style="font-size: 2rem; color: rgba(255,255,255,0.2);"></i></div>
-                
-                <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #10b981; margin-left: 20%;">
-                    <h3 style="color: #6ee7b7; margin: 0 0 5px 0; display: flex; align-items: center; gap: 8px;"><i class='bx bx-camera-movie'></i> 3. Creador (Ético)</h3>
-                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;"><em>"Transmito contenido verídico a mi sociedad para evitar la obsolescencia y cuidar la Tierra."</em></p>
-                </div>
-            </div>
-        </section>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
 
-        <!-- Sección 4 -->
-        <section class="interactive-section glass-panel" style="text-align: center;">
-            <h2 style="justify-content: center;"><i class='bx bxs-institution'></i> 4. El Manifiesto del Inforg (Cápsula del Tiempo)</h2>
-            <p class="section-text" style="max-width: 700px; margin: 0 auto 24px auto;">Creamos la tecnología para mejorar nuestra vida, pero si al hacerlo destruimos un bosque o secamos el agua de Bolivia, <strong>estamos fallando</strong>. Cerraremos el curso firmando nuestro contrato de preservación de la vida.</p>
-            
-            <div style="background: rgba(16, 185, 129, 0.05); padding: 40px; border-radius: 16px; border: 1px dashed rgba(16, 185, 129, 0.5); max-width: 700px; margin: 0 auto; text-align: left;">
-                <h3 style="color: #6ee7b7; font-family: var(--font-heading); margin-top: 0; text-align: center; font-size: 1.5rem; letter-spacing: 2px;">MI PERFIL JURAMENTO</h3>
-                <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 20px;">Yo, ciudadano digital de la I.E. Sor María Juliana, reconozco que la tecnología es un inmenso poder, y ese poder demanda responsabilidad moral. Por ello, a partir de hoy me comprometo ante mí mismo a:</p>
-                <ol style="color: white; line-height: 1.8; margin-bottom: 30px; font-weight: 500;">
-                    <li style="margin-bottom: 10px;">Arrancar de raíz todos los cargadores y cables no utilizados para destruir el malvado consumo Vampiro.</li>
-                    <li style="margin-bottom: 10px;">Reparar mis equipos en lugar de desecharlos prematuramente solo para estar "a la moda".</li>
-                    <li style="margin-bottom: 10px;">No usar mi perfil en redes sociales solo como un centro de vanidad, sino también como un altavoz para defender el ecosistema planetario.</li>
-                </ol>
-                <div style="text-align: center;">
-                    <div class="signature-box">
-                        <input type="text" placeholder="Escribe tu Firma Aquí">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección de Descargas (Final del Cuaderno) -->
+        <!-- Descargas -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Archivos de Evaluación</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 24px;">Descarga la guía metodológica y la rúbrica oficial exigida para calificar hoy a tus colegas:</p>
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Guía de Argumentación</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="10-8-TIC.pdf" download style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444; font-size: 1.4rem;"></i> Descargar Guía y Rúbrica (PDF)
+                <a href="10-8-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
                 </a>
-                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing"  style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                    <i class='bx bxs-slideshow' style="color: #3b82f6; font-size: 1.4rem;"></i> Ver Diapositivas (Drive)
+                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
                 </a>
             </div>
         </section>
+
+        <!-- Cuestionario -->
+        <div id="quiz-container"></div>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
-            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                <strong>CONECTATE | Módulo de Evaluación y Socialización (Fin del Periodo I)</strong><br>
-                Institución Educativa Sor María Juliana - 2026<br>
-                <span style="color: var(--accent-cyan); font-weight: 600;">"Moral y Ciencia: Pedestal de la Sabiduría"</span>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Argumentación Científica</strong><br>
+                Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <!-- Integración Automática de Tema y Lógica -->
+    <!-- Lógica de Datos -->
     <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es una Afirmación?", 
+                answer: "Es la idea central que quieres defender. Debe ser una oración clara, no una pregunta.",
+                icon: "bx-message-square-detail"
+            },
+            { 
+                question: "¿Qué cuenta como Evidencia?", 
+                answer: "Datos numéricos, observaciones de campo, fotos, capturas de pantalla o citas de expertos.",
+                icon: "bx-spreadsheet"
+            },
+            { 
+                question: "¿Para qué sirve el Conector?", 
+                answer: "Palabras como 'Por lo tanto', 'Debido a' o 'Sin embargo' que unen tus ideas con lógica.",
+                icon: "bx-link"
+            }
+        ];
+
+        window.QUIZ_DATA = [
+            {
+                question: "Si digo 'Los datos tienen un costo ambiental', ¿qué parte del argumento es?",
+                options: ["Evidencia", "Afirmación", "Razonamiento"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál de estas opciones sería una Evidencia sólida para un argumento sobre energía?",
+                options: ["'A mi me parece que gasta mucho'", "'El medidor marcó 2.5 kWh durante la prueba'", "'Mi mamá dice que apague la luz'"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué es importante el Razonamiento en un informe?",
+                options: ["Para que el informe sea más largo", "Para explicar cómo la evidencia prueba que tu afirmación es cierta", "Para confundir al profesor"],
+                correct: 1
+            },
+            {
+                question: "Hábito del Investigador: ¿Qué hacer si mis datos (evidencia) contradicen mi idea inicial?",
+                options: ["Cambiar los datos para que coincidan", "Aceptar la nueva realidad y ajustar mi afirmación basándome en la verdad", "Borrar esa parte del informe"],
+                correct: 1
+            },
+            {
+                question: "En este curso, ¿cuál ha sido el objetivo principal de aprender a argumentar?",
+                options: ["Ganar todas las peleas en redes sociales", "Sustentar con rigor científico el impacto de la tecnología en nuestra vida", "Aprender español"],
+                correct: 1
+            }
+        ];
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
@@ -340,16 +264,8 @@
         }
     </script>
     
-    <!-- Tutor Virtual IA Inyectado -->
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
-
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
-        }
-    </script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

@@ -37,11 +37,9 @@
         .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
         
         /* Grid Layouts */
-        
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
+        
         /* Flashcards */
         .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
         .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
@@ -54,10 +52,6 @@
         .info-box { background: rgba(249, 115, 22, 0.1); border-left: 4px solid #f97316; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
         .info-box-title { font-weight: 700; color: #fdba74; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
 
-        /* Draft Boxes */
-        .draft-box { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; transition: all 0.3s ease;}
-        .draft-box:focus-within { background: rgba(255,255,255,0.05); border-color: #f97316;}
-
         /* Light Mode Overrides */
         html.light-mode { background-color: #f0f4f8; }
         body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
@@ -69,51 +63,13 @@
         body.light-mode #btn-volver, body.light-mode #btn-home, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.light-mode #btn-volver, body.light-mode #btn-home:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
 
-        /* Cyber-Neon Theme Overrides */
-        html.theme-cyber { background-color: #030507; }
-        body.theme-cyber { background: radial-gradient(circle at 10% 20%, #001f0a, #000000 80%) fixed; color: #00ffcc; }
-        body.theme-cyber .concept-card, body.theme-cyber .interactive-section, body.theme-cyber .iframe-container, body.theme-cyber .deep-reading { background: rgba(0, 20, 10, 0.4); border-color: rgba(0, 255, 0, 0.3); box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05); }
-        body.theme-cyber .concept-card h3, body.theme-cyber h1, body.theme-cyber h2, body.theme-cyber h4 { color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); }
-        body.theme-cyber .concept-desc, body.theme-cyber .section-text, body.theme-cyber p, body.theme-cyber ol, body.theme-cyber ul { color: #00aa88 !important; }
-        body.theme-cyber #btn-volver, body.theme-cyber #btn-home, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
-
-        /* Aurora Theme Overrides */
-        html.theme-aurora { background-color: #061121; }
-        body.theme-aurora { background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) fixed; color: #e2f1f8; }
-        body.theme-aurora .concept-card, body.theme-aurora .interactive-section, body.theme-aurora .iframe-container, body.theme-aurora .deep-reading { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(25px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15); }
-        body.theme-aurora .concept-card h3, body.theme-aurora h1, body.theme-aurora h2, body.theme-aurora h4 { color: #0ea5e9; text-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
-        body.theme-aurora .concept-desc, body.theme-aurora .section-text, body.theme-aurora p, body.theme-aurora ol, body.theme-aurora ul { color: #87aebf !important; }
-        body.theme-aurora #btn-volver, body.theme-aurora #btn-home, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
-
-        /* E-Ink Theme Overrides */
-        html.theme-eink { background-color: #fdfaf6; }
-        body.theme-eink { background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed; color: #4a3f35; }
-        body.theme-eink .concept-card, body.theme-eink .interactive-section, body.theme-eink .iframe-container, body.theme-eink .deep-reading { background: rgba(245, 240, 230, 0.8); backdrop-filter: blur(10px); border-color: rgba(210, 195, 180, 0.7); box-shadow: 2px 2px 8px rgba(0,0,0,0.02); }
-        body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.theme-eink h4 { color: #2c241c; text-shadow: none; font-weight: 700; }
-        body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p, body.theme-eink ol, body.theme-eink ul { color: #7a6e60 !important; }
-        body.theme-eink #btn-volver, body.theme-eink #btn-home, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
-
         @media (max-width: 480px) {
             body { padding: 8px !important; }
             .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
-            .hero { margin-bottom: 30px !important; }
             .hero h1 { font-size: 1.4rem !important; }
-            .hero i { font-size: 2.2rem !important; }
-            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
-            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
-            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
-            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
-            .concept-card { padding: 12px !important; border-radius: 10px !important; }
-            .concept-card h3 { font-size: 0.85rem !important; }
-            .concept-card h3 i { font-size: 1rem !important; }
-            .concept-desc { font-size: 0.8rem !important; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
-            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
-            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
-            #btn-volver, #btn-home { font-size: 0.75rem !important; padding: 6px 10px !important; }
-            iframe, .iframe-container { border-radius: 8px !important; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
         }
-</style>
+    </style>
 </head>
 <body>
     <!-- Preloader -->
@@ -135,162 +91,153 @@
                 </a>
             </div>
             
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div style="position: relative; display: inline-block;">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">
+                        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>
+                        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>
+                        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>
+                    </select>
+                    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
         <header class="hero">
-            <i class='bx bxs-video-recording'></i>
-            <h1>Guía 8: Storytelling Científico</h1>
-            <p>Aprenderemos el arte de contar historias para convertir los fríos datos científicos en un guion audiovisual capaz de despertar la conciencia ambiental de todo internet.</p>
+            <i class='bx bx-pulse'></i>
+            <h1>Guía 8: PWM y la Intensidad Digital</h1>
+            <p>¿Cómo logra el Arduino que un LED brille a media intensidad si solo sabe enviar 0V o 5V? Bienvenido al mundo de la Modulación por Ancho de Pulso (PWM).</p>
         </header>
 
         <!-- Video Introductorio YouTube -->
         <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(249, 115, 22, 0.3);">
             <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #f97316;"></i> Repaso de la Sesión</h2>
             <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); aspect-ratio: 16/9;">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7padQVEFL8g?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/xorOD2RdPcM?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
         </section>
 
         <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-book-open'></i> 1. La Receta de la Atención</h2>
-            <p class="section-text">El cerebro humano está programado biológicamente para prestar atención a las historias. Un buen video viral no necesita bailes tontos, necesita una Estructura Emocional:</p>
+            <h2><i class='bx bx-trending-up'></i> 1. El Truco de la Velocidad</h2>
+            <p class="section-text">El PWM no envía voltajes intermedios. Lo que hace es <strong>encender y apagar</strong> la energía tan rápido (miles de veces por segundo) que nuestros ojos y los motores no perciben el parpadeo, sino una intensidad constante.</p>
             
-            <div class="grid-4">
+            <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #ef4444"><i class='bx bxs-bolt'></i> 1. El Gancho</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc"><strong>(Los primeros 3 segundos):</strong> Si no sorprendes aquí, el usuario se va. Se logra con una pregunta escandalosa, un grito o un dato visual impactante en primer plano.</div>
+                    <h3><span style="color: #ef4444"><i class='bx bx-timer'></i> Duty Cycle</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc"><strong>Ciclo de Trabajo:</strong> Es el porcentaje de tiempo que la señal está en ALTO (ON) frente al tiempo que está en BAJO (OFF). Un 50% de Duty Cycle significa que la luz está prendida la mitad del tiempo.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #f59e0b"><i class='bx bx-bomb'></i> 2. El Conflicto</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc"><strong>(El Problema):</strong> ¿Qué es lo malo, injusto o asqueroso de la situación? Aquí entra la Ética: el daño a la mina de Coltán o los ríos llenos de basura venenosa y mercurio.</div>
+                    <h3><span style="color: #3b82f6"><i class='bx bx-code-alt'></i> analogWrite()</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Es el comando de Arduino para enviar señales PWM. Usa valores entre <strong>0 y 255</strong>. El valor 127 daría un brillo aproximado del 50%.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #3b82f6"><i class='bx bx-line-chart'></i> 3. El Clímax</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc"><strong>(El Dato Duro):</strong> El momento de revelar tu investigación. La prueba irrefutable de que lo que dices es verdad (Los cálculos de Watts y el costo de energía).</div>
-                </div>
-                <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #10b981"><i class='bx bx-bell-ring'></i> 4. El CTA</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc"><strong>(Llamado a la Acción):</strong> ¿Qué quieres que haga exactamente quien ve el video? Ej: <em>"Apaga tu PC ahora", "Comparte esto", "No compres ese celular"</em>.</div>
+                    <h3><span style="color: #10b981"><i class='bx bxs-plug'></i> Pines PWM</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">No todos los pines sirven. En el Arduino Uno, son los que tienen el símbolo de la tilde <strong>(~)</strong>: 3, 5, 6, 9, 10 y 11.</div>
                 </div>
             </div>
         </section>
 
         <!-- Sección 2 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-chart'></i> 2. El Valle de la Muerte</h2>
-            <p class="section-text">En la *Economía de la Atención*, la línea verde es la victoria y la línea roja es el temido "Scroll" inmediato que entierra a tu video.</p>
+            <h2><i class='bx bx-health'></i> 2. PWM y tu Salud Visual</h2>
+            <p class="section-text">Casi todas las pantallas (celulares, laptops, TVs) usan PWM para controlar su brillo. Cuando bajas mucho el brillo, la pantalla parpadea con pausas más largas, lo cual puede causar fatiga.</p>
             
-            <div class="info-box" style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px;">
-                    <div class="info-box-title"><i class='bx bx-bar-chart-alt-2'></i> La Curva de Retención</div>
-                    <ul style="color: var(--text-secondary); line-height: 1.8; margin-top: 10px; padding-left: 20px;">
-                        <li><strong>0 a 3 seg:</strong> Es de vida o muerte. Si empiezas diciendo <em>"Hola, mi nombre es Juan y vengo a presentar mi trabajo..."</em> el 80% te abandonará.</li>
-                        <li><strong>Retención Viva:</strong> Quienes usan Storytelling mantienen al público inyectándole tensión, revelando el problema poco a poco hasta el Clímax.</li>
-                    </ul>
-                </div>
-                <div style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; text-align: center;">
-                    <i class='bx bx-trending-down' style="color: #ef4444; font-size: 3rem;"></i>
-                    <p style="color: white; margin-top: 10px; font-weight: 600;">Regla Cero:</p>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Nunca, nunca te presentes aburridamente al iniciar un video corto.</p>
-                </div>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-comment-error'></i> El Efecto Stroboscópico</div>
+                <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">Si sientes dolor de cabeza tras usar mucho el celular en la oscuridad con brillo bajo, podrías ser sensible al PWM de tu pantalla. <strong>Hábito Saludable:</strong> Evita usar el brillo al mínimo en entornos oscuros; es mejor tener una luz ambiental suave encendida.</p>
             </div>
         </section>
 
         <!-- Sección 3 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-edit-alt'></i> 3. El Guion de tu Video Final</h2>
-            <p class="section-text">Saca los apuntes de tu interrogatorio de IA (Guía 7). Un video de 60 segundos equivale a hablar tan solo 120 palabras. Hazlo corto, magnético y agresivo visualmente.</p>
+        <section class="interactive-section glass-panel" style="text-align: center;">
+            <h2 style="justify-content: center;"><i class='bx bx-bot'></i> 3. Misión con el Profesor Álvaro</h2>
+            <p class="section-text">Abre el chat de la esquina inferior y envíale este comando técnico para investigar más sobre la salud de tus ojos:</p>
             
-            <div class="grid-2">
-                <div class="draft-box">
-                    <h3 style="color: #ef4444; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bxs-bolt'></i> Parte 1: El Gancho (0 - 5 Seg)</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Pregunta provocadora o dato brutal sobre tu dispositivo sin anestesia.</p>
-                    <textarea placeholder="Ej: ¡Estás perdiendo $50.000 pesos mensuales sin saberlo por culpa de este cable!..." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
-                </div>
-                
-                <div class="draft-box">
-                    <h3 style="color: #f59e0b; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bx-bomb'></i> Parte 2: El Problema (5 - 25 Seg)</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Muestra el aparato y habla de la injusticia social o la minería extrema (Dussel).</p>
-                    <textarea placeholder="Ej: Ese celular tan bonito que tienes requirió de Coltán sangriento..." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
-                </div>
-
-                <div class="draft-box">
-                    <h3 style="color: #3b82f6; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bx-line-chart'></i> Parte 3: Clímax (25 - 45 Seg)</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">El dato duro: kWh, consumo y costos validados por la IA (Matemáticas).</p>
-                    <textarea placeholder="Ej: Según nuestras mediciones gasta 250 kWh al año..." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
-                </div>
-
-                <div class="draft-box">
-                    <h3 style="color: #10b981; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;"><i class='bx bx-bell-ring'></i> Parte 4: Llamado CTA (45 - 60 Seg)</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">El cierre moral. ¿Qué acción concreta exiges del espectador de inmediato?</p>
-                    <textarea placeholder="Ej: Desconecta el mando ahora mismo y únete a la rebelión digital." style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 10px; font-family: inherit; resize: none;"></textarea>
-                </div>
+            <div style="background: rgba(0,0,0,0.4); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #f97316; font-family: monospace; color: #fdba74; font-size: 1.1rem; text-align: left; margin: 20px auto; max-width: 700px; line-height: 1.6;">
+                "Profesor Álvaro, actúa como un experto en optometría digital. Explícame qué es el 'PWM Flickering' en los celulares y dame 3 consejos para evitar la fatiga visual al estudiar con computadores."
             </div>
         </section>
 
-        <!-- Sección 4 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-camera-movie'></i> 4. El Storyboard (Guion Gráfico)</h2>
-            <p class="section-text">Un video viral no es un podcast; debes mostrar imágenes contundentes. Si en tu cuaderno no puedes dibujar, visualiza espacialmente qué objetos pondrás frente a tu cámara:</p>
-            
-            <div class="grid-4" style="margin-top: 20px;">
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
-                    <i class='bx bx-images' style="font-size: 3rem; color: var(--accent-purple);"></i>
-                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 1 (Gancho)</p>
-                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Primerísimo plano a tu rostro y al aparato electrónico.</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
-                    <i class='bx bx-world' style="font-size: 3rem; color: var(--accent-blue);"></i>
-                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 2 (Problema)</p>
-                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Voz en off. Fotos de minas destruidas o basura tóxica.</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
-                    <i class='bx bx-calculator' style="font-size: 3rem; color: var(--accent-pink);"></i>
-                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 3 (Clímax)</p>
-                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Números de Watts ($) volando a tu alrededor en stickers.</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; padding: 20px;">
-                    <i class='bx bx-walk' style="font-size: 3rem; color: var(--accent-cyan);"></i>
-                    <p style="color: white; font-weight: 600; margin-top: 10px;">Escena 4 (Cierre)</p>
-                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Desconectas el aparato contundentemente frente a la lente.</p>
-                </div>
-            </div>
-            
-            <p style="color: var(--accent-cyan); text-align: center; margin-top: 30px; font-weight: 600; font-family: var(--font-body); border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 20px;">
-                ¡Asegúrate de llevar tu Guion físico o celular con este texto preparado para grabar en la próxima sesión práctica!
-            </p>
-        </section>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
 
-        <!-- Sección de Descargas (Final del Cuaderno) -->
+        <!-- Descargas -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Recursos de Producción</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 24px;">Descarga la guía metodológica y visual en físico para escribir tu Storyboard:</p>
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="8-8-TIC.pdf" download style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444; font-size: 1.4rem;"></i> Descargar Guía (PDF)
+                <a href="8-8-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
                 </a>
-                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing"  style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                    <i class='bx bxs-slideshow' style="color: #3b82f6; font-size: 1.4rem;"></i> Ver Diapositivas (Drive)
+                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
                 </a>
             </div>
         </section>
+
+        <!-- Cuestionario -->
+        <div id="quiz-container"></div>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
-            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                <strong>CONECTATE | Módulo "Comunicación y Storytelling"</strong><br>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Electrónica y Salud</strong><br>
                 Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <!-- Integración Automática de Tema y Lógica -->
+    <!-- Lógica de Datos -->
     <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué significa PWM?", 
+                answer: "Pulse Width Modulation (Modulación por Ancho de Pulso). Controla la cantidad de energía simulando voltajes intermedios.",
+                icon: "bx-pulse"
+            },
+            { 
+                question: "¿Rango de analogWrite?", 
+                answer: "Va de 0 (0% energía) a 255 (100% energía). Es un valor de 8 bits.",
+                icon: "bx-dialpad"
+            },
+            { 
+                question: "¿Qué es el Duty Cycle?", 
+                answer: "Es el tiempo que la señal permanece en 'encendido' dentro de un periodo. Determina la intensidad final.",
+                icon: "bx-time"
+            }
+        ];
+
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál de estos pines de Arduino NO soporta PWM?",
+                options: ["Pin 3", "Pin 7", "Pin 9"],
+                correct: 1
+            },
+            {
+                question: "Si quiero que un LED brille a la mitad de su potencia, ¿qué valor de analogWrite debo usar?",
+                options: ["127", "50", "255"],
+                correct: 0
+            },
+            {
+                question: "¿Cómo afecta el PWM a las pantallas de los celulares?",
+                options: ["Causa que la imagen sea más nítida", "Controla el brillo mediante ráfagas rápidas de luz (flicker)", "Mejora la velocidad del internet"],
+                correct: 1
+            },
+            {
+                question: "Hábito Saludable: ¿Qué se recomienda para evitar la fatiga visual por PWM?",
+                options: ["Bajar el brillo al mínimo en la oscuridad", "Mantener una luz ambiental encendida y evitar el brillo mínimo constante", "Pegar la cara más a la pantalla"],
+                correct: 1
+            },
+            {
+                question: "¿Por qué el ojo humano no ve el parpadeo del PWM?",
+                options: ["Porque el ojo humano es perfecto", "Por la persistencia retiniana; el parpadeo es más rápido que nuestra percepción", "Porque la luz no se apaga realmente"],
+                correct: 1
+            }
+        ];
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
@@ -327,16 +274,8 @@
         }
     </script>
     
-    <!-- Tutor Virtual IA Inyectado -->
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
-
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
-        }
-    </script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

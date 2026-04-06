@@ -28,8 +28,8 @@
         
         /* Typography & Layout */
         .hero { text-align: center; margin-bottom: 50px; }
-        .hero i { font-size: 5rem; color: #06b6d4; margin-bottom: 16px; }
-        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #06b6d4, #67e8f9); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero i { font-size: 5rem; color: #eab308; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #eab308, #fcd34d); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
         .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
         
         .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
@@ -37,27 +37,19 @@
         .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
         
         /* Grid Layouts */
-        
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-        /* Concept Cards */
+        
+        /* Flashcards */
         .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
         .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
-        .concept-card:hover { border-color: rgba(6, 182, 212, 0.5); background: rgba(6, 182, 212, 0.05); transform: translateY(-3px);}
+        .concept-card:hover { border-color: rgba(234, 179, 8, 0.5); background: rgba(234, 179, 8, 0.05); transform: translateY(-3px);}
         .concept-card:hover::before { opacity: 1; }
         .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
         .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
         
         /* Info Boxes */
-        .info-box { background: rgba(6, 182, 212, 0.1); border-left: 4px solid #06b6d4; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
-        .info-box-title { font-weight: 700; color: #67e8f9; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
-
-        /* Timeline / Steps */
-        .step-container { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
-        .step-number { background: rgba(6, 182, 212, 0.2); color: #22d3ee; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; border: 1px solid rgba(6, 182, 212, 0.4);}
-        .step-content h4 { color: white; margin: 0 0 8px 0; font-size: 1.1rem; }
-        .step-content p { color: var(--text-secondary); margin: 0; line-height: 1.6; font-size: 0.95rem; }
+        .info-box { background: rgba(234, 179, 8, 0.1); border-left: 4px solid #eab308; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #fcd34d; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
 
         /* Light Mode Overrides */
         html.light-mode { background-color: #f0f4f8; }
@@ -70,51 +62,13 @@
         body.light-mode #btn-volver, body.light-mode #btn-home, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.light-mode #btn-volver, body.light-mode #btn-home:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
 
-        /* Cyber-Neon Theme Overrides */
-        html.theme-cyber { background-color: #030507; }
-        body.theme-cyber { background: radial-gradient(circle at 10% 20%, #001f0a, #000000 80%) fixed; color: #00ffcc; }
-        body.theme-cyber .concept-card, body.theme-cyber .interactive-section, body.theme-cyber .iframe-container, body.theme-cyber .deep-reading { background: rgba(0, 20, 10, 0.4); border-color: rgba(0, 255, 0, 0.3); box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05); }
-        body.theme-cyber .concept-card h3, body.theme-cyber h1, body.theme-cyber h2, body.theme-cyber h4 { color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); }
-        body.theme-cyber .concept-desc, body.theme-cyber .section-text, body.theme-cyber p, body.theme-cyber ol, body.theme-cyber ul { color: #00aa88 !important; }
-        body.theme-cyber #btn-volver, body.theme-cyber #btn-home, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
-
-        /* Aurora Theme Overrides */
-        html.theme-aurora { background-color: #061121; }
-        body.theme-aurora { background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) fixed; color: #e2f1f8; }
-        body.theme-aurora .concept-card, body.theme-aurora .interactive-section, body.theme-aurora .iframe-container, body.theme-aurora .deep-reading { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(25px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15); }
-        body.theme-aurora .concept-card h3, body.theme-aurora h1, body.theme-aurora h2, body.theme-aurora h4 { color: #0ea5e9; text-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
-        body.theme-aurora .concept-desc, body.theme-aurora .section-text, body.theme-aurora p, body.theme-aurora ol, body.theme-aurora ul { color: #87aebf !important; }
-        body.theme-aurora #btn-volver, body.theme-aurora #btn-home, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
-
-        /* E-Ink Theme Overrides */
-        html.theme-eink { background-color: #fdfaf6; }
-        body.theme-eink { background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed; color: #4a3f35; }
-        body.theme-eink .concept-card, body.theme-eink .interactive-section, body.theme-eink .iframe-container, body.theme-eink .deep-reading { background: rgba(245, 240, 230, 0.8); backdrop-filter: blur(10px); border-color: rgba(210, 195, 180, 0.7); box-shadow: 2px 2px 8px rgba(0,0,0,0.02); }
-        body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.theme-eink h4 { color: #2c241c; text-shadow: none; font-weight: 700; }
-        body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p, body.theme-eink ol, body.theme-eink ul { color: #7a6e60 !important; }
-        body.theme-eink #btn-volver, body.theme-eink #btn-home, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
-
         @media (max-width: 480px) {
             body { padding: 8px !important; }
             .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
-            .hero { margin-bottom: 30px !important; }
             .hero h1 { font-size: 1.4rem !important; }
-            .hero i { font-size: 2.2rem !important; }
-            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
-            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
-            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
-            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
-            .concept-card { padding: 12px !important; border-radius: 10px !important; }
-            .concept-card h3 { font-size: 0.85rem !important; }
-            .concept-card h3 i { font-size: 1rem !important; }
-            .concept-desc { font-size: 0.8rem !important; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
-            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
-            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
-            #btn-volver, #btn-home { font-size: 0.75rem !important; padding: 6px 10px !important; }
-            iframe, .iframe-container { border-radius: 8px !important; }
+            .grid-3 { grid-template-columns: 1fr !important; }
         }
-</style>
+    </style>
 </head>
 <body>
     <!-- Preloader -->
@@ -136,149 +90,147 @@
                 </a>
             </div>
             
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div style="position: relative; display: inline-block;">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">
+                        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>
+                        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>
+                        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>
+                    </select>
+                    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
         <header class="hero">
             <i class='bx bx-camera-movie'></i>
-            <h1>Guía 9: Luces, Cámara y Ética</h1>
-            <p>Convertiremos tu guion en una pieza cinematográfica. Aprenderemos cómo la edición de video puede empoderar la verdad, o manipular cruelmente la realidad a través de la desinformación.</p>
+            <h1>Guía 9: Las 3 Reglas de Oro del Cine Móvil</h1>
+            <p>La tecnología es el pincel, pero tú eres el artista. Aprende los secretos para que tu video científico sea profesional usando solo tu celular.</p>
         </header>
 
         <!-- Video Introductorio YouTube -->
-        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(6, 182, 212, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #06b6d4;"></i> Repaso de la Sesión</h2>
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(234, 179, 8, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #eab308;"></i> Repaso de la Sesión</h2>
             <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); aspect-ratio: 16/9;">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/qPqi6seuzjQ?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
             </div>
-            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
         </section>
 
         <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bxs-video-plus'></i> 1. Las 3 Reglas de Oro del Cine Móvil</h2>
-            <p class="section-text">Para que la gente no abandone tu video inmediatamente, no requieres la cámara más cara del mundo, sino controlar el entorno físico.</p>
+            <h2><i class='bx bxs-video'></i> 1. El Trono de la Calidad</h2>
+            <p class="section-text">No necesitas una cámara de 10 millones de pesos. Sigue estas 3 reglas y tu mensaje llegará con fuerza a todo el mundo.</p>
             
             <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #ef4444"><i class='bx bxs-microphone'></i> El Audio es el Rey</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">El cerebro perdona una imagen borrosa, pero <strong>odia</strong> el mal sonido. Si hay eco excesivo o viento, la gente se irá en 2 segundos. Usa audífonos de manos libres y graba en silencio.</div>
+                    <h3><span style="color: #ef4444"><i class='bx bx-microphone'></i> 1. Audio es Rey</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">El cerebro perdona un video borroso, pero nunca perdona un audio malo. Si hay viento o ruido, la gente se irá en 2 segundos. <strong>Consejo:</strong> Acércate al micrófono o usa manos libres.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #eab308"><i class='bx bxs-sun'></i> La Luz en la Cara</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Las cámaras de celular necesitan mucha luz ambiental. Párate mirando de frente a una ventana. Si la ventana queda a tu espalda, te verás como una sombra gigante por el efecto <em>Contraluz</em>.</div>
+                    <h3><span style="color: #f59e0b"><i class='bx bx-sun'></i> 2. Luz de Frente</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">La cámara de un celular necesita mucha luz. Párate siempre <strong>de frente</strong> a una ventana. Si la ventana queda a tu espalda, te verás como una sombra (Contraluz).</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
-                    <h3><span style="color: #3b82f6"><i class='bx bx-mobile'></i> Formato Vertical</span> <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Para la red actual (Shorts/Reels) la cámara de tu teléfono se graba en posición vertical <strong>(9:16)</strong> para ocupar el 100% de la pantalla del espectador y evitar franjas negras muertas.</div>
+                    <h3><span style="color: #3b82f6"><i class='bx bx-mobile-vibration'></i> 3. Formato Vertical</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Como grabamos para TikTok/Reels/Shorts, el celular debe ir de pie <strong>(9:16)</strong>. Grabar en horizontal dejará franjas negras feas en estas plataformas.</div>
                 </div>
             </div>
         </section>
 
         <!-- Sección 2 -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-border-inner'></i> 2. La Regla de los Tercios</h2>
-            <p class="section-text">Los cineastas nunca ponen a su objetivo exactamente en el centro geométrico de la cámara. Usamos la <em>Regla de los Tercios</em> para distribuir psicológicamente el peso de la imagen.</p>
+            <h2><i class='bx bx-edit'></i> 2. El Poder del Corte</h2>
+            <p class="section-text">La edición es donde ocurre la magia. Corta los silencios al inicio y al final de tus clips para que el video tenga ritmo y energía.</p>
             
-            <div class="grid-2">
-                <div style="background: rgba(255,255,255,0.02); border: 2px dashed rgba(6, 182, 212, 0.4); border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; height: 250px; position: relative; margin-bottom: 20px;">
-                    <!-- Lineas Horizontales -->
-                    <div style="position: absolute; top: 33.33%; left: 0; width: 100%; height: 1px; background: rgba(255,255,255,0.2);"></div>
-                    <div style="position: absolute; top: 66.66%; left: 0; width: 100%; height: 1px; background: rgba(255,255,255,0.2);"></div>
-                    <!-- Lineas Verticales -->
-                    <div style="position: absolute; left: 33.33%; top: 0; width: 1px; height: 100%; background: rgba(255,255,255,0.2);"></div>
-                    <div style="position: absolute; left: 66.66%; top: 0; width: 1px; height: 100%; background: rgba(255,255,255,0.2);"></div>
-                    
-                    <!-- Puntos Fuertes -->
-                    <div style="position: absolute; top: 33.33%; left: 33.33%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 10px red;"></div>
-                    <div style="position: absolute; top: 33.33%; left: 66.66%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 10px red;"></div>
-                </div>
-                
-                <div>
-                    <div class="info-box-title" style="color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 12px;"><i class='bx bx-crosshair'></i> Los Puntos Fuertes</div>
-                    <p style="color: var(--text-secondary); line-height: 1.6;">El ojo viaja instintivamente a las intersecciones rojas. Cuando te grabes a ti mismo hablando, asegúrate de alinear tus ojos con la <strong>línea superior</strong>.</p>
-                    <p style="color: var(--text-secondary); line-height: 1.6;">No dejes un enorme espacio negro y aburrido por encima de tu cabeza (A ese error de principiantes se le conoce como dejar demasiado <em>"Aire"</em>).</p>
-                    <div style="background: rgba(34, 211, 238, 0.1); padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 3px solid #22d3ee;">
-                        <span style="font-weight: bold; color: white;">El truco del B-Roll:</span> Inserta pequeños recortes de 3 segundos de lo que estás mencionando, para que <em>no sea solo tu cara hablando 1 minuto</em>.
-                    </div>
-                </div>
+            <div class="info-box">
+                <div class="info-box-title"><i class='bx bx-check-double'></i> Checklist de Grabación</div>
+                <ul style="color: var(--text-secondary); line-height: 1.8; margin: 0; padding-left: 20px;">
+                    <li>Limpia el lente de tu cámara antes de empezar (muy importante).</li>
+                    <li>Activa el "Modo Avión" para que no interrumpan tus tomas con llamadas.</li>
+                    <li>Graba segmentos cortos; es más fácil editarlos después.</li>
+                </ul>
             </div>
         </section>
 
-        <!-- Sección 3 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-run'></i> 3. Hackathon de Grabación</h2>
-            <p class="section-text">¡45 minutos! Convierte tu colegio o tu habitación en un estudio. Todo el set audiovisual moderno se divide en estas tres grandes etapas:</p>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
-                <div class="step-container">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Fase 1: Pre-Producción (Location Scouting)</h4>
-                        <p>Busca un rincón sin mucho ruido, detecta por dónde entra la luz solar y designa a tu compañero como "Trípode Humano" (pegando los codos a las costillas para que la cámara no tiemble).</p>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Fase 2: Producción (El Rodaje en Segmentos)</h4>
-                        <p>No grabes el minuto completo de un tirón. Grábalo en 4 clips (Gancho - Problema - Clímax - Cierre). Si te equivocas, pausa y repite solo esa pequeña frase puntual.</p>
-                    </div>
-                </div>
-                <div class="step-container" style="margin-bottom: 0;">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Fase 3: Post-Producción (Edición CapCut)</h4>
-                        <p>Une los fragmentos en InShot o Capcut. <strong>Corta el inicio y el final</strong> muerto de cada grabación. ¡Importante! Agrega subtítulos automáticos geniales, ya que el 70% de la gente arranca el video en silencio.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
 
-        <!-- Sección 4 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bxs-mask'></i> 4. Laboratorio Ético: La Edición Quebrada</h2>
-            <p class="section-text">Editar un video en digital te dota del peligroso poder de manipular la realidad, la música y las palabras de alguien para engañar masivamente (Generación de Deepfakes).</p>
-            
-            <div class="grid-2">
-                <div style="background: rgba(168, 85, 247, 0.1); padding: 24px; border-radius: 12px; border-left: 4px solid #a855f7;">
-                    <h3 style="color: #d8b4fe; font-family: var(--font-heading); margin-bottom: 12px;"><i class='bx bx-music'></i> Situación A (Derechos de Autor)</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">Tomas la canción Top 1 de reggaetón del momento y la pegas de fondo en tu video para hacerlo viral. ¿Resultado? El software bloqueador de TikTok silenciará tu video por violación directa del Copyright. Descarga música y sonido etiquetado como "Royalty Free".</p>
-                </div>
-                <div style="background: rgba(239, 68, 68, 0.05); padding: 24px; border-radius: 12px; border-left: 4px solid #ef4444;">
-                    <h3 style="color: #ef4444; font-family: var(--font-heading); margin-bottom: 12px;"><i class='bx bx-cut'></i> Situación B (Deepfake Sensacionalista)</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">Entrevistas a un director y te dice: <em>"Yo <strong>NO</strong> odio el medio ambiente"</em>. Durante tu edición lo recortas para omitir el no y dejar <em>"Yo odio el medio ambiente"</em> para conseguir visualizaciones y drama. Destruyes reputaciones deliberadamente jugando a ser Dios de la Infoesfera.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección de Descargas (Final del Cuaderno) -->
+        <!-- Descargas -->
         <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Archivos Base Descargables</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 24px;">Descarga la guía metodológica y la rúbrica para el día final de la Premier:</p>
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Recursos de Producción</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="9-8-TIC.pdf" download style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444; font-size: 1.4rem;"></i> Descargar Guía (PDF)
+                <a href="9-8-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
                 </a>
-                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing"  style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                    <i class='bx bxs-slideshow' style="color: #3b82f6; font-size: 1.4rem;"></i> Ver Diapositivas (Drive)
+                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
                 </a>
             </div>
         </section>
+
+        <!-- Cuestionario -->
+        <div id="quiz-container"></div>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
-            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                <strong>CONECTATE | Módulo "Producción Audiovisual"</strong><br>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Cine Móvil</strong><br>
                 Institución Educativa Sor María Juliana - 2026
             </p>
         </footer>
     </div>
 
-    <!-- Integración Automática de Tema y Lógica -->
+    <!-- Lógica de Datos -->
     <script>
+        window.FLASH_DATA = [
+            { 
+                question: "¿Cuál es la Regla #1?", 
+                answer: "El Audio es el Rey. Un audio malo ahuyenta al espectador aunque la imagen sea perfecta.",
+                icon: "bx-volume-full"
+            },
+            { 
+                question: "¿Dónde debe estar la ventana?", 
+                answer: "Frente a ti (iluminando tu cara). Nunca a tu espalda o crearás un contraluz oscuro.",
+                icon: "bx-window-alt"
+            },
+            { 
+                question: "¿Formato para Shorts/TikTok?", 
+                answer: "Vertical (9:16). Aprovecha toda la pantalla del celular del usuario.",
+                icon: "bx-mobile"
+            }
+        ];
+
+        window.QUIZ_DATA = [
+            {
+                question: "¿Por qué se dice que 'el audio es el rey'?",
+                options: ["Porque la gente prefiere escuchar que ver", "Porque el cerebro perdona fallos de video pero no de audio", "Porque los micrófonos son caros"],
+                correct: 1
+            },
+            {
+                question: "Si grabas de espaldas a una ventana, el resultado será:",
+                options: ["Una iluminación perfecta", "Un contraluz donde quedarás como una sombra negra", "Un video en formato panorámico"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la relación de aspecto correcta para Reels y TikTok?",
+                options: ["16:9 (Horizontal)", "1:1 (Cuadrado)", "9:16 (Vertical)"],
+                correct: 2
+            },
+            {
+                question: "Antes de grabar, ¿qué acción física es VITAL para la nitidez?",
+                options: ["Lavar el celular con agua", "Limpiar el lente de la cámara con un paño suave", "Subir el volumen al máximo"],
+                correct: 1
+            },
+            {
+                question: "¿Para qué sirve el 'Modo Avión' al grabar?",
+                options: ["Para que el celular vuele más alto", "Para evitar que llamadas o mensajes interrumpan la toma", "Para ahorrar datos de internet"],
+                correct: 1
+            }
+        ];
+
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if(themeBtn) {
             themeBtn.addEventListener('click', () => {
@@ -315,16 +267,8 @@
         }
     </script>
     
-    <!-- Tutor Virtual IA Inyectado -->
-    <script src="../gamification.js?v=2.1"></script>
-    <script src="../chat-tesla.js"></script>
-
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
-        }
-    </script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

@@ -3,136 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoría Proyecto Final | Grado Octavo</title>
+    <title>Cuaderno Interactivo | 11-8-TIC</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.0">
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.3">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #f87171; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #f87171, #fca5a5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        
+        /* Oratory Simulator Styles */
+        .simulator-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .simulator-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); text-align: center; transition: all 0.3s ease; }
+        .simulator-card:hover { border-color: #f87171; transform: translateY(-5px); }
+        .simulator-icon { font-size: 3rem; color: #f87171; margin-bottom: 15px; }
+        
+        .timer-display { font-size: 3rem; font-weight: 800; font-family: monospace; color: #ec4899; margin: 20px 0; }
+        .challenge-box { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; border-left: 4px solid #f87171; text-align: left; margin: 15px 0; font-style: italic; }
+
+        .btn-action { background: #f87171; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .btn-action:hover { background: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; }
+            .hero h1 { font-size: 1.4rem !important; }
+            .simulator-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <div id="preloader">
-        <div class="loader-spinner" style="border-left-color: #f87171;"></div>
-        <p style="color: #fca5a5; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Iniciando Laboratorio de Auditoría...</p>
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Iniciando Laboratorio de Oratoria...</p>
     </div>
 
     <div class="notebook-container glass-panel">
+        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
                 <a id="btn-volver" href="../index.html?section=octavo" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
-                    <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
+                    <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Guías
                 </a>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;"><div style="display: none;" id="google_translate_element"></div><div style="position: relative; display: inline-block;">    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 8px; padding: 10px 30px 10px 15px; font-family: var(--font-body); font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); appearance: none; -webkit-appearance: none; outline: none; transition: all 0.3s ease;">        <option value="es" style="background: #1e293b; color: white;">🇪🇸 Español</option>        <option value="en" style="background: #1e293b; color: white;">🇺🇸 English</option>        <option value="guc" style="background: #1e293b; color: white;">☀️ Wayuunaiki</option>        <option value="pt" style="background: #1e293b; color: white;">🇧🇷 Português</option>
-        <option value="fr" style="background: #1e293b; color: white;">🇫🇷 Français</option>    </select>    <i class="bx bx-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;"></i></div><button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-                <i class='bx bx-moon'></i>
-            </button></div>
+            <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button>
         </div>
 
         <header class="hero">
-            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <span class="badge" style="background: rgba(248, 113, 113, 0.2); color: #f87171; margin-bottom: 10px;">Proyecto Final de 8°</span>
-            <h1 style="background: linear-gradient(to right, #f87171, #fca5a5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Auditoría IA: Proyecto de Feria</h1>
-            <p>Sube tu informe de proyecto (PDF) del prototipo de robótica o electrónica. Nuestra IA evaluará la documentación técnica, la creatividad y la coherencia de tu trabajo.</p>
+            <i class='bx bxs-megaphone'></i>
+            <h1>Guía 11: El Discurso y la Sustentación Final</h1>
+            <p>La tecnología necesita voz. Hoy aprenderemos a sustentar nuestro informe final con impacto, oratoria y responsabilidad ambiental.</p>
         </header>
 
+        <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
-            <h2 style="color: #f87171;"><i class='bx bx-upload'></i> 1. Carga del Informe</h2>
-            <p class="section-text">Asegúrate de que tu nombre y grupo estén en la portada del informe antes de subirlo. El documento debe incluir: descripción del proyecto, componentes utilizados, diagrama de circuito y reflexión ética.</p>
+            <h2><i class='bx bx-user-voice'></i> 1. El Arte de Hablar</h2>
+            <p class="section-text">Tu sustentación debe resumir 11 guías de investigación. El discurso final debe centrarse en 3 pilares: **Claridad**, **Evidencia** y **Pasión Ética**.</p>
             
-            <input type="text" id="student-name" placeholder="Escribe tu nombre completo aquí..." class="student-input">
+            <div class="simulator-grid">
+                <!-- Nivel 1 -->
+                <div class="simulator-card">
+                    <div class="simulator-icon"><i class='bx bx-wink-smile'></i></div>
+                    <h3>El Espejo Virtual</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Recuerda: Manos abiertas, espalda recta y mirada a los ojos. No leas la diapositiva, ¡cuéntanos tu historia!</p>
+                </div>
 
-            <div id="dropzone" class="dropzone" style="border-color: rgba(248,113,113,0.4);">
-                <i class='bx bxs-file-pdf' style="color: #f87171;"></i>
-                <h3>Suelta tu Informe PDF aquí</h3>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">O haz clic para seleccionar el archivo (Máx. 10MB)</p>
+                <!-- Nivel 2 -->
+                <div class="simulator-card">
+                    <div class="simulator-icon"><i class='bx bx-brain'></i></div>
+                    <h3>Reto del Prof. Álvaro</h3>
+                    <div class="challenge-box" id="challenge-text">Haz clic para recibir una pregunta difícil del jurado...</div>
+                    <button class="btn-action" onclick="generateChallenge()">Nuevo Reto</button>
+                </div>
+
+                <!-- Nivel 3 -->
+                <div class="simulator-card">
+                    <div class="simulator-icon"><i class='bx bx-stopwatch'></i></div>
+                    <h3>Elevator Pitch</h3>
+                    <div class="timer-display" id="timer">60s</div>
+                    <button class="btn-action" id="timer-btn" onclick="toggleTimer()">Iniciar Minuto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-recycle'></i> 2. El Final es el Principio (RAEE)</h2>
+            <p class="section-text">¿Qué pasará con los componentes de tu proyecto cuando termine el año? No son basura, son **Residuos de Aparatos Eléctricos y Electrónicos (RAEE)**.</p>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0;">
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);"><strong>Regla de Oro:</strong> Nunca tires un Arduino, sensor o cable a la basura común. El plomo y el litio contaminarán el agua. Busca siempre los puntos de recolección de RAEE en tu ciudad.</p>
+            </div>
+        </section>
+
+        <!-- Nueva sección: Auditoría Final Integrada -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-cloud-upload'></i> 3. Carga de Informe Final</h2>
+            <p class="section-text">Sube tu informe final en PDF. Nuestra IA auditará tu escritura y la solidez de tu investigación ética.</p>
+            <div id="dropzone" class="dropzone" style="border: 2px dashed #f87171; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; text-align: center; cursor: pointer;">
+                <i class='bx bxs-file-pdf' style="font-size: 3rem; color: #f87171;"></i>
+                <p>Suelta tu PDF aquí o haz clic para subir</p>
                 <input type="file" id="file-input" accept="application/pdf" style="display: none;">
             </div>
-
-            <div id="analysis-overlay" class="analysis-overlay">
-                <div class="loader-spinner" style="margin: 0 auto 20px auto; border-left-color: #f87171;"></div>
-                <h3 id="status-text" style="color: #f87171;">Leyendo el informe del proyecto...</h3>
-                <p style="color: var(--text-secondary); font-size: 0.85rem;">Nuestra IA está verificando la documentación técnica y la coherencia.</p>
-            </div>
         </section>
 
-        <!-- Resultados -->
-        <section id="result-card" class="result-card interactive-section glass-panel" style="border-color: #10b981;">
-            <div style="text-align: center; margin-bottom: 25px;">
-                <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">AUDITORÍA COMPLETADA</span>
-                <div class="score-badge" id="display-score">5.0</div>
-                <h2 style="margin: 0;">Resultado de la Evaluación</h2>
-            </div>
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
 
-            <div class="grid-2">
-                <div class="info-box" style="border-left-color: #f87171;">
-                    <div class="info-box-title"><i class='bx bx-comment-detail'></i> Feedback del Auditor</div>
-                    <p id="display-feedback" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
-                </div>
-                <div class="info-box" style="border-left-color: #22d3ee;">
-                    <div class="info-box-title"><i class='bx bx-check-shield'></i> Justificación Técnica</div>
-                    <p id="display-justification" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
-                </div>
-            </div>
-
-            <div class="info-box" style="margin-top: 20px; border-left-color: #f59e0b;">
-                <div class="info-box-title"><i class='bx bx-bulb'></i> Oportunidades de Mejora</div>
-                <p id="display-improvements" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <button id="send-wa-btn" class="wa-btn">
-                    <i class='bx bxl-whatsapp'></i> Enviar Reporte al Profe Álvaro
-                </button>
-            </div>
-        </section>
+        <!-- Cuestionario -->
+        <div id="quiz-container"></div>
 
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                <strong>CONECTATE | Módulo de Auditoría de Proyectos Maker</strong><br>
-                Validado bajo el Estándar de Innovación - I.E. Sor María Juliana.
+                <strong>CONECTATE | Módulo de Sustentación Final</strong><br>
+                ¡Felicidades por completar el ciclo, Inforg!
             </p>
         </footer>
     </div>
 
-    <script src="../CORE/audit-core.js?v=1.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="../CORE/audit-core.js?v=2.3"></script>
     <script>
+        // Lógica del Temporizador
+        let timeLeft = 60;
+        let timerId = null;
+        function toggleTimer() {
+            const btn = document.getElementById('timer-btn');
+            if (timerId) {
+                clearInterval(timerId);
+                timerId = null;
+                btn.innerText = "Reiniciar";
+                timeLeft = 60;
+                document.getElementById('timer').innerText = "60s";
+            } else {
+                btn.innerText = "Detener";
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('timer').innerText = timeLeft + "s";
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        alert("¡Tiempo cumplido! ¿Lograste convencer al jurado?");
+                        btn.innerText = "Reiniciar";
+                    }
+                }, 1000);
+            }
+        }
+
+        // Retos de Oratoria
+        const challenges = [
+            "¿Qué harías si tu video falla al proyectarse en el festival?",
+            "Explica en 15 segundos qué es el Coltán a un niño de 5 años.",
+            "Tuviste 5 minutos de tiempo muerto por cables sueltos. ¿Cómo remontas el interés?",
+            "El jurado dice que tu proyecto es muy caro. Defiende el costo basado en la vida humana.",
+            "¿Cómo se relaciona tu proyecto con el derecho a la reparación?"
+        ];
+        function generateChallenge() {
+            const box = document.getElementById('challenge-text');
+            const random = challenges[Math.floor(Math.random() * challenges.length)];
+            box.innerText = '"' + random + '"';
+        }
+
+        // Datos del Cuestionario y Flashcards
+        window.FLASH_DATA = [
+            { question: "¿Qué es el RAEE?", answer: "Residuos de Aparatos Eléctricos y Electrónicos. No son basura, requieren reciclaje especial.", icon: "bx-recycle" },
+            { question: "¿Clave de la Oratoria?", answer: "No leer. El contacto visual y el dominio del tema con veracidad.", icon: "bx-bullseye" },
+            { question: "¿Elevator Pitch?", answer: "Resumen magnético de tu proyecto en menos de un minuto.", icon: "bx-timer" }
+        ];
+
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es el destino correcto de un Arduino dañado?",
+                options: ["Caneca de basura orgánica", "Punto de recolección de RAEE", "Enterrarlo en el jardín"],
+                correct: 1
+            },
+            {
+                question: "En una sustentación profesional, ¿qué rol juega el contacto visual?",
+                options: ["Demuestra nerviosismo", "Genera confianza y autoridad sobre el tema", "Es de mala educación"],
+                correct: 1
+            },
+            {
+                question: "Si el jurado te hace una pregunta que no sabes responder, lo mejor es:",
+                options: ["Inventar un dato rápido para salir del paso", "Reconocer que no tienes el dato exacto pero investigarlo después de la charla", "Quedarse en silencio total"],
+                correct: 1
+            }
+        ];
+
+        // Iniciar Auditoría (Mantenemos la funcionalidad anterior como complemento)
         initAudit({
             gradeLevel: '8',
-            periodId: 'P1',
-            projectType: 'Proyecto de Feria (Robótica/Electrónica)',
-            maxPages: 10,
             professorWA: '573206324740',
             apiUrl: 'https://gemini-proxy.alvaro-cardenas-orozco.workers.dev',
-            systemPrompt: `Eres el Auditor de Proyectos Maker de la I.E. Sor María Juliana. Tu misión es evaluar los informes de proyectos finales de Grado Octavo (Robótica, Electrónica y Entornos Virtuales).
-            
-            Evalúa:
-            1. DOCUMENTACIÓN TÉCNICA: ¿El informe incluye descripción clara del proyecto, listado de componentes (Arduino, sensores, actuadores), diagrama de circuito y código?
-            2. INNOVACIÓN Y CREATIVIDAD: ¿El proyecto resuelve un problema real? ¿Es original o solo copia un tutorial sin modificaciones?
-            3. REFLEXIÓN ÉTICA: ¿El estudiante reflexiona sobre el impacto social, ambiental o ético de su proyecto tecnológico?
-            4. COHERENCIA Y REDACCIÓN: ¿El informe tiene estructura lógica, buena ortografía y demuestra comprensión del tema?
-            
-            Responde ÚNICAMENTE en este formato JSON:
-            {
-              "nota": [Número de 1.0 a 5.0],
-              "feedback": "[Resumen cercano y motivador sobre el proyecto]",
-              "justificacion": "[Explicación técnica detallada de la nota]",
-              "mejoras": "[Tres puntos clave de mejora]"
-            }`
+            systemPrompt: `Eres el Auditor Maker de la I.E. Sor María Juliana. Evalúa la coherencia ética del informe final de Grado 8.`
         });
-    </script>
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: "es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
-        }
+        window.addEventListener('load', () => { setTimeout(() => document.getElementById('preloader').remove(), 500); });
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
 </body>
 </html>

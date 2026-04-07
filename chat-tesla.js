@@ -37,16 +37,16 @@ window.addEventListener('load', function () {
             <div id="tesla-header">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <img src="${logoPath}" style="width: 35px;">
-                    <h3>Agente Tesla</h3>
+                    <h3>Profe Alvarito (Digital)</h3>
                 </div>
                 <button id="tesla-close" style="background:none; border:none; color:white; cursor:pointer; font-size: 1.5rem;">&times;</button>
             </div>
             <div id="tesla-messages">
-                <div class="msg bot">¡Hola! Soy tu asistente IA. ¿En qué puedo ayudarte hoy?</div>
+                <div class="msg bot">¡Hola, Inforg Crítico! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico tenemos hoy para superar?</div>
             </div>
-            <div id="tesla-typing">Tesla está pensando...</div>
+            <div id="tesla-typing">El Profe Alvarito está pensando...</div>
             <div id="tesla-input-area">
-                <input type="text" id="tesla-input" placeholder="Pregunta algo..." autocomplete="off">
+                <input type="text" id="tesla-input" placeholder="Pregúntale algo al Profe Alvarito..." autocomplete="off">
                 <button id="tesla-send-btn">></button>
             </div>
         </div>

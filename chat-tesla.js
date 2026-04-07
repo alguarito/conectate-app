@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
                 <button id="tesla-close" style="background:none; border:none; color:white; cursor:pointer; font-size: 1.5rem;">&times;</button>
             </div>
             <div id="tesla-messages">
-                <div class="msg bot">¡Hola, Inforg Crítico! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico tenemos hoy para superar?</div>
+                <div class="msg bot">¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</div>
             </div>
             <div id="tesla-typing">El Profe Alvarito está pensando...</div>
             <div id="tesla-input-area">

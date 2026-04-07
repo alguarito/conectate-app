@@ -849,7 +849,8 @@ async function loadEduTechNews() {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
 
-    const CACHE_KEY = 'edutech_news_cache';
+    const CACHE_VERSION = 'v2'; 
+    const CACHE_KEY = `edutech_news_cache_${CACHE_VERSION}`;
     const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; 
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
     
@@ -877,9 +878,9 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Busca las 5 noticias más IMPACTANTES y REALES de hoy sobre IA aplicada a la educación, robótica escolar o soberanía tecnológica. Requerimientos: 1. El idioma de salida debe ser SIEMPRE ESPAÑOL. 2. Los resúmenes deben tener un enfoque pedagógico (¿por qué es importante para un estudiante?). 3. Devuelve JSON puro: array con 'title', 'summary', 'url' y 'source' (nombre real del portal). Sin markdown." }]
+                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Tu misión es buscar las 5 noticias más RELEVANTES y REALES de hoy (en tiempo real) sobre IA aplicada a la educación y robótica escolar. REGLAS CRÍTICAS: 1. El idioma de salida debe ser SIEMPRE ESPAÑOL (debes traducir los títulos y resúmenes si la fuente es extranjera). 2. Devuelve ÚNICAMENTE un array JSON válido sin texto adicional, ni markdown, ni explicaciones. 3. Los campos son: 'title', 'summary', 'url', 'source'. 4. Asegura que las URLs sean reales y funcionen." }]
                     },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el Pulso EduTech de hoy con las 5 noticias más relevantes para mi comunidad escolar." }] }]
+                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el Pulso EduTech de hoy en español." }] }]
                 })
             });
 
@@ -895,10 +896,16 @@ async function loadEduTechNews() {
 
             let newsJson = data.candidates[0].content.parts[0].text;
             
-            // Robust JSON extraction: busca el primer '[' y el último ']'
+            // Limpieza extrema de JSON
+            newsJson = newsJson.trim();
+            if (newsJson.includes('```')) {
+                newsJson = newsJson.split('```')[1];
+                if (newsJson.startsWith('json')) newsJson = newsJson.substring(4);
+                if (newsJson.endsWith('```')) newsJson = newsJson.substring(0, newsJson.length - 3);
+            }
+            
             const firstIndex = newsJson.indexOf('[');
             const lastIndex = newsJson.lastIndexOf(']');
-            
             if (firstIndex !== -1 && lastIndex !== -1) {
                 newsJson = newsJson.substring(firstIndex, lastIndex + 1);
             }

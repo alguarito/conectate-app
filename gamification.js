@@ -253,7 +253,7 @@ class GamificationManager {
 
     // --- HOME WIDGET INJECTION ---
     renderProfileBar() {
-        if (this.user?.isAdmin) return; // Doble verificación de seguridad
+        if (this.user?.isAdmin) return;
         const slot = document.getElementById("xp-profile-slot");
         if(!slot || !this.user) return;
 
@@ -261,27 +261,22 @@ class GamificationManager {
         const nextLvl = this.getNextLevelInfo();
         
         let progressPercent = 100;
-        let progressLabel = `${this.user.xp} / MAX XP`;
+        let progressLabel = `${this.user.xp} / ${nextLvl.threshold} XP`;
 
         if (currentLvl.id !== nextLvl.id) {
             const xpIntoLevel = this.user.xp - currentLvl.threshold;
             const levelSize = nextLvl.threshold - currentLvl.threshold;
             progressPercent = Math.min((xpIntoLevel / levelSize) * 100, 100);
-            progressLabel = `${this.user.xp} / ${nextLvl.threshold} XP`;
         }
         
         slot.innerHTML = `
-            <div class="xp-widget glass-panel">
+            <div class="xp-widget compact">
                 <div class="xp-header">
-                    <span class="xp-level-badge">${currentLvl.icon} Lvl ${currentLvl.id}</span>
+                    <span class="xp-level-badge">Lvl ${currentLvl.id}</span>
                     <span class="xp-title">${currentLvl.name}</span>
                 </div>
                 <div class="xp-bar-bg">
-                    <div class="xp-bar-fill" style="width: ${progressPercent}%;"></div>
-                </div>
-                <div class="xp-footer">
-                    <span>Progreso al siguiente nivel:</span>
-                    <span class="xp-count">${progressLabel}</span>
+                    <div class="xp-bar-fill" style="width: ${progressPercent}%;" title="${progressLabel}"></div>
                 </div>
             </div>
         `;

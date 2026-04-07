@@ -1114,16 +1114,17 @@ function updateUIForUser() {
     if (userDetails) {
         if (currentUser.isAdmin) {
             userDetails.innerHTML = `
-                <p class="name">${currentUser.name} <span class="admin-badge">Docente</span></p>
+                <p class="name" style="margin-bottom: 2px;">${currentUser.name} <span class="admin-badge">Docente</span></p>
                 <p class="role">
-                    <a href="#" onclick="renderAdminDashboard(); return false;" style="color: var(--accent-purple); text-decoration: none; font-weight: 700;"><i class='bx bxs-dashboard'></i> Dashboard</a> | 
-                    <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none;">Salir</a>
+                    <a href="#" onclick="renderAdminDashboard(); return false;" style="color: var(--accent-purple); text-decoration: none; font-size: 0.75rem; font-weight: 700;"><i class='bx bxs-dashboard'></i> Dashboard</a> | 
+                    <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a>
                 </p>
             `;
         } else {
             userDetails.innerHTML = `
-                <p class="name">${currentUser.name}</p>
-                <p class="role">Estudiante Inforg | <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none;">Salir</a></p>
+                <p class="name" style="margin-bottom: 2px;">${currentUser.name}</p>
+                <p class="role"><a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a></p>
+                <div id="xp-profile-slot"></div>
             `;
         }
     }

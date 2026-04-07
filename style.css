@@ -1565,3 +1565,29 @@ body { top: 0px !important; }
 .unlock-anim {
     animation: unlockBtn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+
+/* --- SILENCIADOR DE GOOGLE TRANSLATE (WIDGET CLEANUP) --- */
+.goog-te-banner-frame, 
+.goog-te-banner, 
+.goog-te-menu-value:hover, 
+.goog-te-gadget-icon,
+.goog-tooltip,
+.goog-tooltip:hover,
+#google_translate_element .goog-te-gadget-simple {
+    display: none !important;
+}
+
+.goog-text-highlighter {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body {
+    top: 0 !important;
+    position: static !important;
+}
+
+#google_translate_element {
+    height: 0 !important;
+    overflow: hidden !important;
+}

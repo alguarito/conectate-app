@@ -42,4 +42,40 @@ function googleTranslateElementInit() {
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
     }, 'google_translate_element');
+
+    // SILENCIADOR DE NOTIFICACIONES MOLESTAS
+    silenceGoogleTranslate();
+}
+
+/**
+ * Elimina elementos intrusivos de Google Translate (barra, tooltips, etc.)
+ */
+function silenceGoogleTranslate() {
+    // 1. Inyectar CSS adicional dinámicamente por si acaso
+    var style = document.createElement('style');
+    style.innerHTML = `
+        .goog-te-banner-frame { display: none !important; }
+        .goog-tooltip { display: none !important; }
+        .goog-tooltip:hover { display: none !important; }
+        .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+        body { top: 0 !important; }
+        #goog-gt-tt { display: none !important; visibility: hidden !important; }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Observer para limpiar el DOM de elementos inyectados
+    const observer = new MutationObserver(() => {
+        const toolbar = document.querySelector('.goog-te-banner-frame');
+        if (toolbar) toolbar.remove();
+        
+        const tooltip = document.querySelector('#goog-gt-tt');
+        if (tooltip) tooltip.remove();
+        
+        // Corregir desplazamiento forzado de body
+        if (document.body.style.top !== '0px') {
+            document.body.style.top = '0px';
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 }

@@ -877,9 +877,9 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres el News Curator de CONECTATE. Busca las 5 noticias más RELEVANTES de hoy sobre educación, IA y proyectos escolares. Devuelve un JSON puro: array de objetos con 'title', 'summary', 'url' y 'source'. Enlaces reales y verificados." }]
+                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Busca las 5 noticias más IMPACTANTES y REALES de hoy sobre IA aplicada a la educación, robótica escolar o soberanía tecnológica. Requerimientos: 1. El idioma de salida debe ser SIEMPRE ESPAÑOL. 2. Los resúmenes deben tener un enfoque pedagógico (¿por qué es importante para un estudiante?). 3. Devuelve JSON puro: array con 'title', 'summary', 'url' y 'source' (nombre real del portal). Sin markdown." }]
                     },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de las 5 noticias EduTech reales de hoy." }] }]
+                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el Pulso EduTech de hoy con las 5 noticias más relevantes para mi comunidad escolar." }] }]
                 })
             });
 

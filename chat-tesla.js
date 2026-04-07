@@ -1,7 +1,27 @@
-// chat-tesla.js actualizado con reporte de errores
-window.addEventListener('load', function () {
+// chat-tesla.js actualizado con reporte de errores y carga rápida
+window.triggerTeslaContext = null; // Pre-declaración global
+
+document.addEventListener('DOMContentLoaded', function () {
     (function () {
         const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
+
+        const systemPrompts = {
+            default: "Eres el Profe Alvarito, experto en Tecnología e Informática. Tu función es asesorar a los estudiantes en el desarrollo de sus guías y contenidos de la asignatura. Responde dudas técnicas y pedagógicas basándote en un enfoque crítico y constructivista. Tu tono es profesional, motivador y académico.",
+            vocational: "Eres el Profe Alvarito, mentor de orientación vocacional. Tu misión es brindar apoyo y guía empática para el desarrollo vocacional de los estudiantes de Cartago, Valle. Ayúdalos a descubrir sus pasiones y conéctalas con opciones locales reales como la Universidad del Valle (Sede Cartago), el SENA y otras instituciones del Norte del Valle. Tu tono es inspirador, crítico y pedagógico, siempre buscando que el estudiante tome decisiones informadas sobre su futuro.",
+            personal: "Eres el Profe Alvarito, mentor de desarrollo personal. Tu objetivo es ayudar al joven a reconocer sus habilidades únicas, talentos y áreas de mejora. Proporciona consejos prácticos, hábitos de éxito y fomenta la auto-reflexión crítica. Tu tono es de apoyo constante, sabiduría cercana y aliento para superar retos personales."
+        };
+
+        const welcomeMessages = {
+            default: "¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀",
+            vocational: "¡Hola! Soy tu mentor de Orientación Vocacional. Estoy aquí para ayudarte a descubrir tu camino profesional en Cartago y el Valle. ¿Hablamos de tus sueños y opciones para el futuro? 🎓",
+            personal: "¡Hola! Soy tu guía de Apoyo Personal. Vamos a trabajar en reconocer tus talentos y fortalecer tus habilidades. ¿En qué área te gustaría mejorar hoy? ✨",
+            potential: "¡Hola! Soy tu guía de Apoyo Personal (Potencial). Vamos a trabajar en reconocer tus talentos y fortalecer tus habilidades. ¿En qué área te gustaría mejorar hoy? ✨"
+        };
+        
+        // Alias para compatibilidad
+        systemPrompts.potential = systemPrompts.personal;
+
+        let currentContext = 'default';
 
         const getBaseImgPath = () => {
             const path = window.location.pathname;
@@ -42,7 +62,7 @@ window.addEventListener('load', function () {
                 <button id="tesla-close" style="background:none; border:none; color:white; cursor:pointer; font-size: 1.5rem;">&times;</button>
             </div>
             <div id="tesla-messages">
-                <div class="msg bot">¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</div>
+                <!-- Dinámico -->
             </div>
             <div id="tesla-typing">El Profe Alvarito está pensando...</div>
             <div id="tesla-input-area">
@@ -66,7 +86,29 @@ window.addEventListener('load', function () {
         const btnSend = document.getElementById('tesla-send-btn');
         const typingIndicator = document.getElementById('tesla-typing');
 
-        btnOpen.onclick = () => { chatBox.classList.add('active'); input.focus(); };
+        window.triggerTeslaContext = (context) => {
+            if (!systemPrompts[context]) context = 'default';
+            currentContext = context;
+            
+            // Limpiar historial visual para enfoque puro
+            messages.innerHTML = '';
+            
+            // Mensaje de bienvenida contextual
+            appendMessage('bot', welcomeMessages[context]);
+            
+            // Abrir chat
+            chatBox.classList.add('active');
+            input.focus();
+        };
+
+        btnOpen.onclick = () => { 
+            // Si se abre manualmente y está vacío, usar default
+            if (messages.children.length === 0) {
+                window.triggerTeslaContext('default');
+            }
+            chatBox.classList.add('active'); 
+            input.focus(); 
+        };
         btnClose.onclick = () => chatBox.classList.remove('active');
 
         async function sendMessage() {
@@ -77,10 +119,20 @@ window.addEventListener('load', function () {
             typingIndicator.style.display = 'block';
 
             try {
+                // Preparamos el prompt con el contexto actual si es la primera interacción o para reforzar
+                const contextInstruction = systemPrompts[currentContext];
+                const payload = {
+                    contents: [{
+                        parts: [{
+                            text: `[INSTRUCCIÓN DE SISTEMA: ${contextInstruction}] Estudiante dice: ${text}`
+                        }]
+                    }]
+                };
+
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
+                    body: JSON.stringify(payload)
                 });
                 if (!response.ok) {
                     const errorText = await response.text();

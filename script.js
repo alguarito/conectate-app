@@ -73,8 +73,8 @@ const sectionData = {
         theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
         features: [ 
             { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
-            { icon: 'bx bx-rocket', title: 'Tu Ruta de Hoy', desc: 'Prepara tus guías, abre el simulador y mejora tu pensamiento computacional.', action: 'openTeslaVocational' },
-            { icon: 'bx bx-message-square-dots', title: 'Agente Tesla', desc: '¡Recuerda que tienes un asistente de IA siempre listo para ayudarte abajo a la derecha!', action: 'openTeslaPotential' } 
+            { icon: 'bx bx-rocket', title: 'Orientación vocacional', desc: 'Descubre tu camino profesional: Apoyo y guía para explorar opciones en Cartago y el Valle.', action: 'openTeslaVocational' },
+            { icon: 'bx bx-message-square-dots', title: 'Apoyo Personal', desc: 'Reconoce tus habilidades y talentos: Tips y recomendaciones para potenciar tu desarrollo personal.', action: 'openTeslaPotential' } 
         ]
     },
     octavo: {
@@ -626,7 +626,7 @@ function openTeslaVocational() {
 
 function openTeslaPotential() {
     if (window.triggerTeslaContext) {
-        window.triggerTeslaContext('potential');
+        window.triggerTeslaContext('personal');
     } else {
         alert("El Agente Tesla aún se está conectando, intenta en un segundo...");
     }

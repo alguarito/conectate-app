@@ -1007,13 +1007,15 @@ const ADMIN_PASS = 'mariana0';
 
 function seedAdmin() {
     let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    // Asegurar que el docente oficial siempre tenga cuenta
     if (!accounts[ADMIN_EMAIL]) {
         accounts[ADMIN_EMAIL] = {
-            name: "Álvaro Cárdenas (Docente)",
+            name: "Álvaro Cárdenas",
             email: ADMIN_EMAIL,
             pass: ADMIN_PASS,
             isAdmin: true,
-            registered: true
+            registered: true,
+            picture: "IMAGENES/ID_CONECTATE.png"
         };
         localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
     }
@@ -1081,30 +1083,43 @@ function checkUserStatus() {
     const appContainer = document.querySelector('.app-container');
     const teslaWidget = document.getElementById('tesla-widget');
 
-    // MODIFICACIÓN: Si no hay usuario, creamos un perfil de "Invitado" temporal
+    // 1. Si no hay sesión, mostrar el Muro de Acceso
     if (!currentUser) {
-        currentUser = {
-            name: "Invitado Inforg",
-            email: "invitado@conectate.local",
-            isAdmin: false,
-            registered: true, // Lo marcamos como registrado para evitar el flujo de caracterización obligatorio
-            picture: "IMAGENES/ID_CONECTATE.png"
-        };
-        localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+        authWall.classList.add('active');
+        appContainer.classList.remove('authenticated');
+        return;
     }
 
-    // Ocultar siempre el muro de acceso si no estamos en modo "estricto"
+    // 2. Si hay sesión, proceder
     authWall.classList.remove('active');
     appContainer.classList.add('authenticated');
     
-    // El Agente Tesla se muestra siempre por defecto ahora
     if (teslaWidget) teslaWidget.style.display = 'block';
     
+    // 3. Flujo de Caracterización (Solo estudiantes no registrados)
+    if (!currentUser.isAdmin && !currentUser.registered) {
+        renderCharacterizationFlow();
+        return;
+    }
+
     updateUIForUser();
     
-    // Respetar parámetro de URL o ir a home
     const targetSection = new URLSearchParams(window.location.search).get('section') || 'home';
     navigateTo(targetSection);
+}
+
+function continueAsGuest() {
+    currentUser = {
+        name: "Invitado Inforg",
+        email: "invitado@conectate.local",
+        isAdmin: false,
+        registered: true,
+        picture: "IMAGENES/ID_CONECTATE.png",
+        xp: 0,
+        level: 1
+    };
+    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+    checkUserStatus();
 }
 
 function updateUIForUser() {
@@ -1114,9 +1129,8 @@ function updateUIForUser() {
     if (userDetails) {
         if (currentUser.isAdmin) {
             userDetails.innerHTML = `
-                <p class="name" style="margin-bottom: 2px;">${currentUser.name} <span class="admin-badge">Docente</span></p>
+                <p class="name" style="margin-bottom: 2px;">${currentUser.name} <span class="admin-badge">Docente TIC</span></p>
                 <p class="role">
-                    <a href="#" onclick="renderAdminDashboard(); return false;" style="color: var(--accent-purple); text-decoration: none; font-size: 0.75rem; font-weight: 700;"><i class='bx bxs-dashboard'></i> Dashboard</a> | 
                     <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a>
                 </p>
             `;
@@ -1155,6 +1169,8 @@ function renderCharacterizationFlow() {
                 <div class="step-dot" data-step="2">2</div>
                 <div class="step-dot" data-step="3">3</div>
                 <div class="step-dot" data-step="4">4</div>
+                <div class="step-dot" data-step="5">5</div>
+            </div>
             </div>
 
             <div class="glass-panel" style="padding: 30px; border-radius: 24px;">
@@ -1255,6 +1271,23 @@ function renderCharacterizationFlow() {
                         </div>
                     </div>
 
+                    <!-- Paso 5: Personalización Final -->
+                    <div class="form-step" data-step="5">
+                        <h3>Tu Identidad Inforg</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;">Personaliza cómo te verán tus tutores y compañeros.</p>
+                        <div class="form-group">
+                            <label>URL de tu Foto Personal (Opcional)</label>
+                            <input type="url" id="f-picture" placeholder="https://ejemplo.com/mifoto.jpg">
+                            <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.7;">Puedes usar un enlace de Google Drive, Imgur o tu RRSS.</p>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px; text-align: center;">
+                             <div class="choice-card selected" style="max-width: 150px; margin: 0 auto;" onclick="selectChoice(this, 'f-picture', 'IMAGENES/ID_CONECTATE.png')">
+                                <img src="IMAGENES/ID_CONECTATE.png" style="width: 50px; border-radius: 50%; border: 2px solid var(--accent-cyan);">
+                                <span style="font-size: 0.7rem;">Usar Avatar Por Defecto</span>
+                             </div>
+                        </div>
+                    </div>
+
                     <div class="btn-group">
                         <button type="button" class="btn-secondary" id="btn-back" style="display: none;">Atrás</button>
                         <button type="button" class="btn-primary" id="btn-next">Siguiente</button>
@@ -1269,12 +1302,14 @@ function renderCharacterizationFlow() {
     const btnBack = document.getElementById('btn-back');
 
     btnNext.onclick = () => {
-        if (currentStep < 4) {
-            // Validar campos del paso actual
-            const currentFields = document.querySelector(`.form-step[data-step="${currentStep}"]`).querySelectorAll('input[required], select[required]');
-            let valid = true;
-            currentFields.forEach(f => { if(!f.value) valid = false; });
-            if(!valid) return alert("Por favor completa todos los campos del paso.");
+        if (currentStep < 5) {
+            // Validar campos del paso actual (excepto el 5 que es opcional)
+            if (currentStep < 5) {
+                const currentFields = document.querySelector(`.form-step[data-step="${currentStep}"]`).querySelectorAll('input[required], select[required]');
+                let valid = true;
+                currentFields.forEach(f => { if(!f.value) valid = false; });
+                if(!valid) return alert("Por favor completa todos los campos del paso.");
+            }
 
             currentStep++;
             updateStepUI();
@@ -1302,7 +1337,7 @@ function renderCharacterizationFlow() {
         });
 
         btnBack.style.display = currentStep > 1 ? 'block' : 'none';
-        btnNext.textContent = currentStep === 4 ? 'Finalizar Registro' : 'Siguiente';
+        btnNext.textContent = currentStep === 5 ? '¡COMENZAR AVENTURA!' : 'Siguiente';
     }
 }
 
@@ -1324,6 +1359,7 @@ function finishRegistration() {
         device: document.getElementById('f-device').value,
         interest: document.getElementById('f-interest').value,
         skill: document.getElementById('f-skill').value,
+        picture: document.getElementById('f-picture').value || "IMAGENES/ID_CONECTATE.png",
         timestamp: new Date().toISOString()
     };
 
@@ -1332,8 +1368,19 @@ function finishRegistration() {
     // Guardar persistencia
     localStorage.setItem(`data_${currentUser.email}`, JSON.stringify(formData));
     localStorage.setItem(`reg_${currentUser.email}`, 'true');
+    
+    // Actualizar usuario actual
     currentUser.registered = true;
+    currentUser.picture = formData.picture;
     localStorage.setItem('conectate_user', JSON.stringify(currentUser));
+    
+    // Actualizar en la base de datos local de cuentas
+    let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
+    if (accounts[currentUser.email]) {
+        accounts[currentUser.email].registered = true;
+        accounts[currentUser.email].picture = formData.picture;
+        localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
+    }
 
     alert("¡Registro completado! Bienvenido oficialmente al ecosistema CONECTATE.");
     checkUserStatus();

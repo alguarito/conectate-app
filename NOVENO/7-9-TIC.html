@@ -4,102 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 7-9-TIC</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
 </head>
 <body class="theme-uiux">
+    <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
         <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Codificando la Vida...</p>
     </div>
 
     <div class="notebook-container glass-panel">
-        
+        <!-- Navegación Superior -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
-                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
+            
             <div style="display: flex; align-items: center; gap: 10px;">
                 <div style="display: none;" id="google_translate_element"></div>
                 <div class="translate-wrapper">
                     <select id="custom-translate-select" onchange="translatePage(this.value)">
-                        <option value="es" class="translate-option">🇪🇸 Español</option>
-                        <option value="en" class="translate-option">🇺🇸 English</option>
-                        <option value="pt" class="translate-option">🇧🇷 Português</option>
-                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button>
+                <button id="notebook-theme-toggle" class="nav-btn-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
-        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <i class='bx bx-pulse'></i>
+        <!-- Encabezado -->
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; margin-bottom: 10px;">Guía de Aprendizaje N° 7</span>
             <h1>Sesión 7: Biopolítica y Biotecnología</h1>
-            <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
+            <p>¡Hola, Inforg! Hoy entenderemos que tu cuerpo y tu ADN se han convertido en el nuevo territorio de la codificación y el control digital. 🧬</p>
         </header>
 
-        <!-- Video en Producción (Placeholder Premium) -->
+        <!-- Video o Placeholder -->
         <div class="video-cine-container">
             <div class="placeholder-premium">
                 <i class='bx bx-movie-play'></i>
                 <h4>Cine Pedagógico en Producción</h4>
-                <p>El Profe Alvarito está preparando un material audiovisual increíble para esta sesión. ¡Sigue explorando!</p>
+                <p>El Profe Alvarito está preparando un material audiovisual increíble sobre la digitalización de la vida. ¡Sigue explorando!</p>
             </div>
         </div>
 
-        <!-- Sección 1 -->
+        <!-- Sección 1: El Control -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx- dna'></i> 1. Biopolítica: El Control de la Vida</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">El Inforg no solo es datos digitales; es un ser biológico cuyos procesos están siendo digitalizados para el control y el mercado.</p>
+            <h2><i class='bx bx-pulse'></i> 1. Biopolítica: El Control de la Vida</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">El Inforg no solo es bits; es un ser biológico cuyos procesos están siendo monitorizados por algoritmos:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Control Biométrico <i class='bx bx-scan'></i></h3>
-                    <div class="concept-desc">Tu rostro (FaceID), huella e iris se han vuelto tu contraseña. Si se roban estos datos, no los puedes cambiar. Es vigilancia masiva de tu identidad física.</div>
+                    <div class="concept-desc">Tu rostro, huella e iris son ahora tu contraseña digital. A diferencia de un PIN, si roban tus datos biométricos, no puedes "cambiar" tu cara.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Patentes Biológicas <i class='bx bx-certification'></i></h3>
-                    <div class="concept-desc">Empresas que son "dueñas" de semillas transgénicas o secuencias de genes humanos. ¿Puede la vida ser propiedad privada? El debate ético total.</div>
+                    <div class="concept-desc">Empresas poderosas que reclaman ser "dueñas" de semillas o secuencias de genes. ¿Puede la vida misma tener dueño?</div>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 2 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-microscope'></i> 2. La era CRISPR</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">"Tijeras moleculares" que permiten editar el ADN de cualquier organismo. Prometen curar enfermedades, pero abren la puerta a la **Eugenesia** (selección de personas a la carta).</p>
-            <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Dilema del Inforg</div>
-                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">¿Quién decidirá qué genes son "buenos" y cuáles "malos"? Si la edición genética es costosa, ¿crearemos una sociedad dividida entre humanos "editados" y humanos "naturales"?</p>
+        <!-- Sección 2: Edición Genética -->
+        <section class="interactive-section glass-panel" style="border-color: #ec4899;">
+            <h2><i class='bx bx-dna'></i> 2. La Era del CRISPR</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Imaginalas como "tijeras moleculares" que pueden editar el código fuente de la vida para curar enfermedades o, peligrosamente, seleccionar humanos "a la carta".</p>
+            <div style="background: rgba(236, 72, 153, 0.1); padding: 25px; border-radius: 20px; border: 1px solid rgba(236, 72, 153, 0.2); margin-top: 20px;">
+                <h4 style="color: #ec4899; margin-bottom: 10px;"><i class='bx bx-error-alt'></i> Dilema Ético del Inforg</h4>
+                <p style="font-style: italic; color: var(--text-primary); line-height: 1.6; margin: 0;">
+                    "Si la edición genética solo es accesible para los más ricos, ¿crearemos una sociedad dividida entre humanos 'editados' (superiores) y humanos 'naturales'? ¿Quién decide qué genes son deseables?"
+                </p>
             </div>
         </section>
 
         <!-- Flashcards -->
         <div id="flashcards-container"></div>
 
-        <!-- Recursos -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(16, 185, 129, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #10b981;"></i> Material de Apoyo</h2>
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(236, 72, 153, 0.3);">
+            <h2><i class='bx bxs-download' style="color: #ec4899;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="7-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía Biopolítica Noveno
+                <a href="7-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía Biopolítica (PDF)
                 </a>
             </div>
         </section>
 
-        <!-- Quiz -->
-        <div id="quiz-container"></div>
-
+        <!-- Pie de Página -->
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo "Cuerpo y Algoritmo"</strong><br>
@@ -108,98 +118,64 @@
         </footer>
     </div>
 
-    <!-- Lógica de Datos -->
+    <!-- Datos de Gamificación -->
     <script>
         window.FLASH_DATA = [
             { 
                 question: "¿Qué es Biopolítica?", 
-                answer: "Es el uso del poder tecnológico y político para gestionar y controlar la vida biológica de las personas.",
+                answer: "El uso del poder tecnológico para gestionar y controlar los procesos biológicos de las poblaciones humanas.",
                 icon: "bx-dna"
             },
             { 
                 question: "¿Huella Genética?", 
-                answer: "Es la información de tu ADN convertida en datos digitales. Permite predecir enfermedades o identificar ascendencia.",
+                answer: "La información extraída de tu ADN convertida en datos digitales para identificar, predecir o perfilar personas.",
                 icon: "bx-fingerprint"
             },
             { 
                 question: "¿Peligro Biométrico?", 
-                answer: "A diferencia de una contraseña, si roban tus datos biométricos (rostro, iris), no puedes cambiarlos. Tu cuerpo es hackeable.",
+                answer: "A diferencia de una clave, si roban tus datos biométricos (rostro, iris), no puedes resetearlos. Son únicos e irreemplazables.",
                 icon: "bx-scan"
             },
             { 
-                question: "¿Soberanía Genómica?", 
-                answer: "El derecho a ser el único dueño de tu información biológica y decidir quién puede acceder a tu ADN digitalizado.",
-                icon: "bx-shield-quarter"
+                question: "¿Eugenesia Moderna?", 
+                answer: "La selección biotecnológica de rasgos físicos o mentales considerados 'superiores', excluyendo la diversidad humana.",
+                icon: "bx-shield-x"
             }
         ];
 
         window.QUIZ_DATA = [
             {
-                question: "La técnica CRISPR permite:",
-                options: ["Hacer videollamadas", "Editar secuencias de ADN de forma precisa", "Limpiar el disco duro"],
+                question: "La técnica CRISPR se define principalmente como:",
+                options: ["Un nuevo lenguaje de programación", "Tijeras moleculares para editar secuencias de ADN", "Un antivirus biológico"],
                 correct: 1
             },
             {
-                question: "¿Qué es la Eugenesia moderna?",
-                options: ["El estudio de la higiene", "La selección y mejora genética 'a la carta' de seres humanos", "Una red social"],
+                question: "¿Cuál es el principal riesgo de la biometría masiva?",
+                options: ["Que gasta mucha luz", "El robo de identidad física permanente e irrecuperable", "Que las cámaras son feas"],
                 correct: 1
             },
             {
-                question: "En la Biopolítica de Foucault, el poder se ejerce sobre:",
-                options: ["El dinero de la gente", "La vida y los procesos biológicos de la población", "Los límites de los países"],
+                question: "En la biopolítica, el poder se ejerce sobre:",
+                options: ["Los edificios", "La vida y los cuerpos de la población", "La velocidad de internet"],
                 correct: 1
             },
             {
                 question: "¿Por qué las patentes biológicas son un problema ético?",
-                options: ["Porque son muy caras", "Porque permiten que una empresa sea dueña de la vida o de genes universales", "Porque no funcionan"],
+                options: ["Porque son gratuitas", "Porque privatizan la vida o genes que pertenecen a la humanidad", "Porque no se pueden imprimir"],
                 correct: 1
             },
             {
-                question: "Un Inforg consciente protege su biometría porque:",
-                options: ["Es su identidad física única e irreemplazable convertida en datos", "Quiere ser anónimo", "Es una moda digital"],
+                question: "Un Inforg consciente protege sus datos biológicos porque:",
+                options: ["Es su identidad más íntima y física convertida en código", "Quiere parecer misterioso", "Es una instrucción del gobierno"],
                 correct: 0
             }
         ];
-
-        const themeBtn = document.getElementById('notebook-theme-toggle');
-        if(themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                document.documentElement.classList.toggle('light-mode');
-                const icon = themeBtn.querySelector('i');
-                if (document.body.classList.contains('light-mode')) {
-                    icon.classList.replace('bx-moon', 'bx-sun');
-                } else {
-                    icon.classList.replace('bx-sun', 'bx-moon');
-                }
-            });
-        }
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                setTimeout(() => preloader.remove(), 500); 
-            }
-        });
-        function toggleDesc(element) {
-            const desc = element.querySelector('.concept-desc');
-            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
-            if (desc.style.display === 'block') {
-                desc.style.display = 'none';
-                if(icon) icon.className = 'bx bx-plus';
-            } else {
-                desc.style.display = 'block';
-                if(icon) icon.className = 'bx bx-minus';
-            }
-        }
     </script>
-    
+
+    <!-- Scripts Nucleares -->
     <script src="./CORE/notebook-core.js?v=4.0"></script>
     <script src="../gamification.js?v=4.0"></script>
     <script src="../chat-tesla.js?v=4.0"></script>
-
-    <!-- Motor de Traducción Global -->
     <script src="../translate-engine.js?v=4.0"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>

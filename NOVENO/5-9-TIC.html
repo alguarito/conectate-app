@@ -4,107 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 5-9-TIC</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
 </head>
 <body class="theme-uiux">
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Formateando...</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Formateando Misión 05...</p>
     </div>
 
     <div class="notebook-container glass-panel">
-        
+        <!-- Navegación Superior -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
-                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
+            
             <div style="display: flex; align-items: center; gap: 10px;">
                 <div style="display: none;" id="google_translate_element"></div>
                 <div class="translate-wrapper">
                     <select id="custom-translate-select" onchange="translatePage(this.value)">
-                        <option value="es" class="translate-option">🇪🇸 Español</option>
-                        <option value="en" class="translate-option">🇺🇸 English</option>
-                        <option value="pt" class="translate-option">🇧🇷 Português</option>
-                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button>
+                <button id="notebook-theme-toggle" class="nav-btn-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
-        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <i class='bx bx-layout'></i>
+        <!-- Encabezado -->
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; margin-bottom: 10px;">Guía de Aprendizaje N° 5</span>
             <h1>Sesión 5: Ingeniería del Documento</h1>
-            <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
+            <p>¡Hola, Inforg! Hoy vamos a aprender que escribir no es solo soltar palabras, es diseñar una estructura de información profesional bajo estándares globales. 📄</p>
         </header>
 
-        <!-- Video en Producción (Placeholder Premium) -->
+        <!-- Video o Placeholder -->
         <div class="video-cine-container">
             <div class="placeholder-premium">
                 <i class='bx bx-movie-play'></i>
                 <h4>Cine Pedagógico en Producción</h4>
-                <p>El Profe Alvarito está preparando un material audiovisual increíble para esta sesión. ¡Sigue explorando!</p>
+                <p>El Profe Alvarito está preparando una clase maestra sobre normalización documental y APA 7. ¡Sigue explorando!</p>
             </div>
         </div>
 
-        <!-- Sección 1 -->
+        <!-- Sección 1: Estructura -->
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-layer'></i> 1. El Esqueleto Profesional</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Todo trabajo académico debe seguir este orden lógico para ser considerado serio y con rigor técnico:</p>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Todo informe técnico o investigación seria debe seguir este orden lógico para garantizar claridad y rigor:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Portada <i class='bx bx-id-card'></i></h3>
-                    <div class="concept-desc">Incluye Título, Autor, Institución, Curso, Docente y Fecha. Es la puerta de entrada a tu investigación.</div>
+                    <div class="concept-desc">La puerta de entrada. Incluye: Título, Autor, Institución, Curso, Docente y Fecha.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Introducción <i class='bx bx-directions'></i></h3>
-                    <div class="concept-desc">Explica en general de qué trata el tema y por qué es importante lo que vas a decir.</div>
+                    <div class="concept-desc">El mapa del lector. Explica qué vas a investigar y por qué es relevante tu trabajo.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Desarrollo <i class='bx bx-align-left'></i></h3>
-                    <div class="concept-desc">Es el cuerpo del trabajo. Aquí planteas tus argumentos, datos y análisis profundos.</div>
+                    <div class="concept-desc">El núcleo del saber. Aquí presentas tus argumentos, datos, evidencias y reflexiones.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Conclusiones <i class='bx bx-check-double'></i></h3>
-                    <div class="concept-desc">Resumen de lo aprendido y cierre ético de la investigación.</div>
+                    <div class="concept-desc">El cierre ético. Resumes lo más importante que descubriste y planteas nuevos retos.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 2 -->
+        <!-- Sección 2: Estándar APA 7 -->
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-wrench'></i> 2. Configuración Técnica (APA 7)</h2>
             <div class="info-box">
                 <div class="info-box-title"><i class='bx bx-check-shield'></i> El Estándar Global</div>
-                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">Las normas APA 7 no son para molestar; son para que cualquier científico del mundo pueda leer tu trabajo sin distracciones. El margen siempre es de <strong>2.54 cm</strong> por los cuatro lados.</p>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">Las normas APA 7 permiten que cualquier científico del mundo pueda leer tu trabajo sin distracciones visuales. Aquí los ajustes clave:</p>
             </div>
             <div class="grid-3" style="text-align: center;">
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <i class='bx bx-font' style='font-size: 2rem; color: #22d3ee; margin-bottom: 10px; display: block;'></i>
-                    <h4 style="margin: 0;">Fuentes</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Arial 11 o Times New Roman 12</p>
+                <div class="concept-card" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);">
+                    <i class='bx bx-font' style='font-size: 2.5rem; color: #22d3ee; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0; color: white;">Fuentes</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">Arial 11 o Times New Roman 12.</p>
                 </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <i class='bx bx-align-left' style='font-size: 2rem; color: #a855f7; margin-bottom: 10px; display: block;'></i>
-                    <h4 style="margin: 0;">Alineación</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">A la izquierda (sin justificar)</p>
+                <div class="concept-card" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);">
+                    <i class='bx bx-align-left' style='font-size: 2.5rem; color: #a855f7; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0; color: white;">Alineación</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">A la izquierda (sin justificar texto).</p>
                 </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-                    <i class='bx bx-move-vertical' style='font-size: 2rem; color: #ec4899; margin-bottom: 10px; display: block;'></i>
-                    <h4 style="margin: 0;">Interlineado</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Doble espacio (2.0)</p>
+                <div class="concept-card" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);">
+                    <i class='bx bx-move-vertical' style='font-size: 2.5rem; color: #ec4899; margin-bottom: 10px; display: block;'></i>
+                    <h4 style="margin: 0; color: white;">Interlineado</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">Doble espacio (2.0) obligatorio.</p>
                 </div>
             </div>
         </section>
@@ -112,19 +118,20 @@
         <!-- Flashcards -->
         <div id="flashcards-container"></div>
 
-        <!-- Recursos -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #22d3ee;"></i> Material de Apoyo</h2>
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(236, 72, 153, 0.3);">
+            <h2><i class='bx bxs-download' style="color: #ec4899;"></i> Plantilla Oficial</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="5-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Plantilla APA Noveno
+                <a href="5-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Plantilla APA (PDF)
                 </a>
             </div>
         </section>
 
-        <!-- Quiz -->
-        <div id="quiz-container"></div>
-
+        <!-- Pie de Página -->
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo "Ingeniería de Documentos"</strong><br>
@@ -133,62 +140,64 @@
         </footer>
     </div>
 
-    <!-- Lógica de Datos -->
+    <!-- Datos de Gamificación -->
     <script>
         window.FLASH_DATA = [
             { 
                 question: "¿Margen APA 7?", 
-                answer: "2.54 centímetros (1 pulgada) por los cuatro costados de la hoja.",
+                answer: "Exactamente 2.54 centímetros (1 pulgada) por los cuatro costados del papel.",
                 icon: "bx-ruler"
             },
             { 
-                question: "¿Alineación del texto?", 
-                answer: "En APA 7 el texto debe ir alineado a la IZQUIERDA. No se debe justificar.",
+                question: "¿Alineación?", 
+                answer: "En APA 7 el texto debe ir alineado a la izquierda. No se debe justificar.",
                 icon: "bx-align-left"
             },
             { 
                 question: "¿Qué es la Referencia?", 
-                answer: "Es la lista final de todas las fuentes que usamos. Permite a otros verificar nuestra información.",
+                answer: "La lista final de todas las fuentes citadas. Otorga validez científica y evita el plagio.",
                 icon: "bx-list-ul"
+            },
+            { 
+                question: "¿Interlineado?", 
+                answer: "Se debe usar doble espacio (2.0) en todo el documento para facilitar la lectura y corrección.",
+                icon: "bx-move-vertical"
             }
         ];
 
         window.QUIZ_DATA = [
             {
-                question: "¿Cuál es el interlineado oficial en APA 7?",
+                question: "¿Cuál es el interlineado oficial en las normas APA 7?",
                 options: ["Sencillo (1.0)", "Doble (2.0)", "1.5"],
                 correct: 1
             },
             {
-                question: "¿Qué parte del trabajo explica de qué trata el tema y por qué es importante?",
+                question: "¿Qué parte del trabajo define el mapa de lo que el lector va a encontrar?",
                 options: ["La Portada", "La Introducción", "Los Anexos"],
                 correct: 1
             },
             {
-                question: "En APA 7, ¿cómo debe ser la alineación del texto?",
+                question: "En APA 7, ¿cómo debe ser la alineación por defecto del texto?",
                 options: ["Justificada", "Centrada", "A la izquierda"],
                 correct: 2
             },
             {
-                question: "¿Qué tipografía es válida en APA 7?",
-                options: ["Comic Sans 12", "Arial 11 o Times New Roman 12", "Cualquier fuente bonita"],
+                question: "¿Qué combinación de fuente y tamaño es válida en APA 7?",
+                options: ["Comic Sans 10", "Arial 11 o Times New Roman 12", "Cualquier fuente sans-serif"],
                 correct: 1
             },
             {
-                question: "¿Por qué es importante seguir una ingeniería documental?",
-                options: ["Para que el profesor no nos regañe", "Para dar orden, profesionalismo y validez científica al conocimiento diseñado", "Para gastar más papel"],
+                question: "¿Por qué es vital seguir una ingeniería documental?",
+                options: ["Para gastar más tinta", "Para dar orden, profesionalismo y validez científica al saber diseñado", "Es un capricho del docente"],
                 correct: 1
             }
         ];
-
-        // Datos inyectados por el sistema de gamificación
     </script>
-    
+
+    <!-- Scripts Nucleares -->
     <script src="./CORE/notebook-core.js?v=4.0"></script>
     <script src="../gamification.js?v=4.0"></script>
     <script src="../chat-tesla.js?v=4.0"></script>
-
-    <!-- Motor de Traducción Global -->
     <script src="../translate-engine.js?v=4.0"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>

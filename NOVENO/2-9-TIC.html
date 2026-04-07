@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 2-9-TIC</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
 </head>
 <body class="theme-uiux">
     <!-- Preloader -->
@@ -18,14 +20,13 @@
     </div>
 
     <div class="notebook-container glass-panel">
-        
-        <!-- Controles Superiores -->
+        <!-- Navegación Superior -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
-                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
@@ -34,71 +35,74 @@
                 <div style="display: none;" id="google_translate_element"></div>
                 <div class="translate-wrapper">
                     <select id="custom-translate-select" onchange="translatePage(this.value)">
-                        <option value="es" class="translate-option">🇪🇸 Español</option>
-                        <option value="en" class="translate-option">🇺🇸 English</option>
-                        <option value="pt" class="translate-option">🇧🇷 Português</option>
-                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button>
+                <button id="notebook-theme-toggle" class="nav-btn-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
-        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <i class='bx bx-trip'></i>
+        <!-- Encabezado -->
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; margin-bottom: 10px;">Guía de Aprendizaje N° 2</span>
             <h1>Sesión 2: El Triángulo del Saber</h1>
-            <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
+            <p>¡Hola, Inforg! Hoy vamos a desmontar la historia tradicional de la técnica. ¿Quién inventó qué y a quién beneficia realmente? 📐</p>
         </header>
 
-        <!-- Video Introductorio en Formato Cine -->
+        <!-- Video de la Sesión -->
         <div class="video-cine-container">
             <div class="iframe-wrapper">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/iZeOi7JZOR8?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
             </div>
         </div>
 
-        <!-- Sección 1 -->
+        <!-- Sección 1: El Filtro Crítico -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-pyramid'></i> 1. Las Tres Dimensiones</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para analizar cualquier invento o sistema, lo pasamos por el filtro del Triángulo de la Colonialidad (Quijano/Dussel):</p>
+            <h2><i class='bx bx-pyramid'></i> 1. El Triángulo de la Colonialidad</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para analizar cualquier invento, usamos el filtro del Triángulo del Saber (Quijano/Dussel):</p>
             <div class="grid-3">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>El Saber <i class='bx bx-brain'></i></h3>
-                    <div class="concept-desc">No solo es ciencia "blanca". Son los conocimientos ancestrales, populares y técnicos. ¿Qué ciencia usó este invento?</div>
+                    <div class="concept-desc">No es solo ciencia europea. Son los conocimientos ancestrales, populares y técnicos. ¿Qué saberes hay detrás de este objeto?</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>El Poder <i class='bx bx-shield-quarter'></i></h3>
-                    <div class="concept-desc">¿A quién beneficia? La tecnología siempre responde a intereses. ¿Quién controla la patente de este objeto?</div>
+                    <div class="concept-desc">¿A quién beneficia? La tecnología responde a intereses económicos y de control. ¿Quién es dueño de la patente?</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>El Ser <i class='bx bx-user-voice'></i></h3>
-                    <div class="concept-desc">¿Cómo nos transforma? Cambia nuestra forma de sentir, pensar y relacionarnos con el bosque o la ciudad.</div>
+                    <div class="concept-desc">¿Cómo nos transforma? Cambia cómo nos sentimos, cómo nos vemos y cómo nos relacionamos con los demás.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 2 -->
+        <!-- Sección 2: La Metodología -->
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-search-alt'></i> 2. La Autopsia Tecnológica</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Analizamos objetos no por su marca, sino por su "alma". Seguiremos estos pasos en clase:</p>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Analizamos objetos no por su marca, sino por su "alma digital" siguiendo estas 4 dimensiones:</p>
             <div class="grid-2">
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                <div class="concept-card" style="border-left: 4px solid #3b82f6; background: rgba(0,0,0,0.2);">
                     <h3 style="color: white; margin-top: 0;"><i class='bx bx-shape-square'></i> Morfológico</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿Qué forma tiene y por qué? Estudiamos su ergonomía y los materiales que lo componen.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿Qué forma tiene y por qué? Estudiamos los materiales y la ergonomía (comodidad para el cuerpo).</p>
                 </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; border-left: 4px solid #ef4444;">
+                <div class="concept-card" style="border-left: 4px solid #ef4444; background: rgba(0,0,0,0.2);">
                     <h3 style="color: white; margin-top: 0;"><i class='bx bx-cog'></i> Funcional</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿Qué problema resuelve? ¿Qué partes internas hacen que funcione?</p>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿Qué problema resuelve? Analizamos las partes internas que hacen que cumpla su misión.</p>
                 </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; border-left: 4px solid #eab308;">
+                <div class="concept-card" style="border-left: 4px solid #eab308; background: rgba(0,0,0,0.2);">
                     <h3 style="color: white; margin-top: 0;"><i class='bx bx-history'></i> Histórico</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿En qué época nació? ¿Quién lo inventó y qué necesidades sociales satisfacía?</p>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿En qué época nació? ¿Quién lo inventó y qué necesidades sociales satisfacía en ese momento?</p>
                 </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; border-left: 4px solid #10b981;">
+                <div class="concept-card" style="border-left: 4px solid #10b981; background: rgba(0,0,0,0.2);">
                     <h3 style="color: white; margin-top: 0;"><i class='bx bx-leaf'></i> Ético</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿Qué impacto tiene en la vida? Evaluamos sus consecuencias sociales y ambientales.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">¿Qué impacto tiene en la vida? Evaluamos sus consecuencias ambientales y sociales.</p>
                 </div>
             </div>
         </section>
@@ -106,22 +110,23 @@
         <!-- Flashcards -->
         <div id="flashcards-container"></div>
 
-        <!-- Recursos -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #a855f7;"></i> Material de Apoyo</h2>
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(236, 72, 153, 0.3);">
+            <h2><i class='bx bxs-download' style="color: #ec4899;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="2-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía
+                <a href="2-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
                 </a>
-                <a href="https://drive.google.com/file/d/1XCdNW7MJC1EzLDBnmCixMlN5W_YErNSM/view?usp=drive_link" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Diapositivas
+                <a href="https://drive.google.com/file/d/1XCdNW7MJC1EzLDBnmCixMlN5W_YErNSM/view?usp=drive_link" target="_blank" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
                 </a>
             </div>
         </section>
 
-        <!-- Quiz -->
-        <div id="quiz-container"></div>
-
+        <!-- Pie de Página -->
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo "Desmontando la Historia"</strong><br>
@@ -130,35 +135,40 @@
         </footer>
     </div>
 
-    <!-- Lógica de Datos -->
+    <!-- Datos de Gamificación -->
     <script>
         window.FLASH_DATA = [
             { 
                 question: "¿Qué es el Saber?", 
-                answer: "Toda forma de conocimiento (teórico o práctico) que permite transformar la realidad. No es exclusivo de las universidades.",
+                answer: "Toda forma de conocimiento que permite transformar la realidad. Incluye saberes técnicos, ancestrales y populares.",
                 icon: "bx-brain"
             },
             { 
                 question: "¿Qué es el Poder?", 
-                answer: "La capacidad de decidir quién usa la tecnología y a quién beneficia. Muchas veces es invisible pero controla el diseño.",
-                icon: "bx-shield-quarter"
+                answer: "La capacidad de definir quién usa la tecnología y a quién beneficia. Responde a intereses políticos y económicos.",
+                icon: "bx-shield"
             },
             { 
                 question: "¿Qué es el Ser?", 
-                answer: "Nuestra identidad humana. La tecnología nos 'moldea' el ser al cambiar cómo nos comunicamos y sentimos.",
+                answer: "Nuestra identidad humana. La tecnología nos moldea al cambiar nuestra forma de sentir, pensar y relacionarnos.",
                 icon: "bx-user"
+            },
+            { 
+                question: "¿Autopsia Tecnológica?", 
+                answer: "Método de análisis profundo que mira la forma, función, historia e impacto ético de un objeto para entender su impacto social.",
+                icon: "bx-dna"
             }
         ];
 
         window.QUIZ_DATA = [
             {
-                question: "En la Autopsia Tecnológica, ¿cuál análisis mira la 'época' del invento?",
+                question: "En la Autopsia Tecnológica, ¿cuál análisis estudia la 'época' del invento?",
                 options: ["Morfológico", "Funcional", "Histórico"],
                 correct: 2
             },
             {
                 question: "¿Por qué decimos que la tecnología NO es neutra?",
-                options: ["Porque siempre tiene color", "Porque responde a intereses de Poder", "Porque funciona con electricidad"],
+                options: ["Porque tiene muchos colores", "Porque siempre responde a intereses de Poder", "Porque usa mucha batería"],
                 correct: 1
             },
             {
@@ -172,19 +182,17 @@
                 correct: 1
             },
             {
-                question: "Según el Triángulo del Saber, la ciencia de un microscopio es el Saber, el hospital que lo compra es el Poder y:",
-                options: ["El médico es el Ser", "La cura de la enfermedad es el Ser", "Cómo el diagnóstico cambia la vida del paciente es el Ser"],
-                correct: 2
+                question: "Según el Triángulo del Saber, el hospital que compra un microscopio representa el:",
+                options: ["Saber", "Poder", "Ser"],
+                correct: 1
             }
         ];
-
     </script>
-    
+
+    <!-- Scripts Nucleares -->
     <script src="./CORE/notebook-core.js?v=4.0"></script>
     <script src="../gamification.js?v=4.0"></script>
     <script src="../chat-tesla.js?v=4.0"></script>
-
-    <!-- Motor de Traducción Global -->
     <script src="../translate-engine.js?v=4.0"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>

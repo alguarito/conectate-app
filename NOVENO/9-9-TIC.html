@@ -4,92 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 9-9-TIC</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
 </head>
 <body class="theme-uiux">
+    <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
         <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Generando Realidades...</p>
     </div>
 
     <div class="notebook-container glass-panel">
-        
+        <!-- Navegación Superior -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
-                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
+            
             <div style="display: flex; align-items: center; gap: 10px;">
                 <div style="display: none;" id="google_translate_element"></div>
                 <div class="translate-wrapper">
                     <select id="custom-translate-select" onchange="translatePage(this.value)">
-                        <option value="es" class="translate-option">🇪🇸 Español</option>
-                        <option value="en" class="translate-option">🇺🇸 English</option>
-                        <option value="pt" class="translate-option">🇧🇷 Português</option>
-                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button>
+                <button id="notebook-theme-toggle" class="nav-btn-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
-        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <i class='bx bx-brain'></i>
+        <!-- Encabezado -->
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; margin-bottom: 10px;">Guía de Aprendizaje N° 9</span>
             <h1>Sesión 9: IA Generativa</h1>
-            <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
+            <p>¡Hola, Inforg! Hoy vamos a explorar el cerebro estadístico de las máquinas. ¿Cómo logran "crear" texto e imágenes y cuáles son sus límites éticos? 🤖</p>
         </header>
 
-        <!-- Video en Producción (Placeholder Premium) -->
+        <!-- Video o Placeholder -->
         <div class="video-cine-container">
             <div class="placeholder-premium">
                 <i class='bx bx-movie-play'></i>
                 <h4>Cine Pedagógico en Producción</h4>
-                <p>El Profe Alvarito está preparando un material audiovisual increíble para esta sesión. ¡Sigue explorando!</p>
+                <p>El Profe Alvarito está preparando un material audiovisual increíble sobre el funcionamiento de los LLMs y el arte del Prompting. ¡Sigue explorando!</p>
             </div>
         </div>
 
-        <!-- Sección 1 -->
+        <!-- Sección 1: El Cerebro Estadístico -->
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-network-chart'></i> 1. El Cerebro Estadístico (LLM)</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Modelos como ChatGPT o Gemini no "saben" ni "sienten". Son máquinas de probabilidad que predicen la siguiente palabra más probable basándose en miles de millones de textos.</p>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Modelos como ChatGPT o Gemini no "saben" la verdad. Son máquinas probabilísticas que predicen la siguiente palabra basándose en patrones:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Redes Neuronales <i class='bx bx-shuffle'></i></h3>
-                    <div class="concept-desc">Sistemas matemáticos que imitan neuronas para detectar patrones en el lenguaje humano. No piensan, procesan.</div>
+                    <div class="concept-desc">Sistemas matemáticos que imitan neuronas para detectar patrones en el lenguaje. No piensan, procesan billones de datos.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Alucinaciones <i class='bx bx-error-circle'></i></h3>
-                    <div class="concept-desc">Cuando la IA inventa datos que parecen reales pero son falsos. Ocurre porque prioriza que la frase "suene bien" sobre la verdad real.</div>
+                    <div class="concept-desc">Cuando la IA inventa datos falsos pero los presenta con total seguridad. Ocurre porque prioriza que la frase "suene bien" sobre la verdad.</div>
                 </div>
             </div>
             <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Crítica al Progreso</div>
-                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">Las IAs se entrenan con obras de artistas y escritores (muchos latinoamericanos) sin permiso. Debemos cuestionar de quién es la autoría en esta nueva Infoesfera.</p>
+                <div class="info-box-title"><i class='bx bx-info-circle'></i> Autoría en Peligro</div>
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">Las IAs se entrenan con obras de artistas y escritores sin permiso ni pago. Como Inforg Crítico, debemos preguntarnos de quién es realmente la obra generada.</p>
             </div>
         </section>
 
-        <!-- Sección 2 -->
+        <!-- Sección 2: Prompt Engineering -->
         <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-terminal'></i> 2. El Código C.R.I.F.</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para que la máquina te dé respuestas brillantes y no genéricas, debes usar la estructura de los profesionales del **Prompt Engineering**:</p>
+            <h2><i class='bx bx-terminal'></i> 2. El Método C.R.I.F.</h2>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para que la máquina te dé respuestas brillantes y no genéricas, usa esta estructura profesional de comandos (Prompts):</p>
             <div class="grid-2">
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border-left: 4px solid #22d3ee;">
-                    <h4 style="margin: 0;">Contexto y Rol</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Explica quién debe ser la IA. "Eres un biólogo experto en genética analizando la ética...".</p>
+                <div class="concept-card" style="border-left: 4px solid #22d3ee; background: rgba(34, 211, 238, 0.05);">
+                    <h4 style="margin: 0; color: white;">C = Contexto y Rol</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">"Eres un experto en ciberseguridad..." Define quién es la IA antes de pedirle algo.</p>
                 </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border-left: 4px solid #f472b6;">
-                    <h4 style="margin: 0;">Instrucción y Formato</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Qué debe hacer y cómo entregarlo. "Escribe un resumen de 3 párrafos en formato de tabla...".</p>
+                <div class="concept-card" style="border-left: 4px solid #ec4899; background: rgba(236, 72, 153, 0.05);">
+                    <h4 style="margin: 0; color: white;">R = Restricciones</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">"No uses tecnicismos, usa tono cercano..." Pon límites a la respuesta.</p>
+                </div>
+                <div class="concept-card" style="border-left: 4px solid #a855f7; background: rgba(168, 85, 247, 0.05);">
+                    <h4 style="margin: 0; color: white;">I = Instrucción Primaria</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">"Resume el siguiente texto en 5 puntos..." Sé claro con la tarea principal.</p>
+                </div>
+                <div class="concept-card" style="border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.05);">
+                    <h4 style="margin: 0; color: white;">F = Formato de Salida</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px;">"Entrega el resultado en una tabla Markdown..." Define cómo quieres ver el dato.</p>
                 </div>
             </div>
         </section>
@@ -97,19 +112,20 @@
         <!-- Flashcards -->
         <div id="flashcards-container"></div>
 
-        <!-- Recursos -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(168, 85, 247, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #a855f7;"></i> Material de Apoyo</h2>
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(236, 72, 153, 0.3);">
+            <h2><i class='bx bxs-download' style="color: #ec4899;"></i> Material de Apoyo</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="9-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía IA Generativa
+                <a href="9-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía IA Generativa (PDF)
                 </a>
             </div>
         </section>
 
-        <!-- Quiz -->
-        <div id="quiz-container"></div>
-
+        <!-- Pie de Página -->
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo "Inteligencia Generativa"</strong><br>
@@ -118,27 +134,27 @@
         </footer>
     </div>
 
-    <!-- Lógica de Datos -->
+    <!-- Datos de Gamificación -->
     <script>
         window.FLASH_DATA = [
             { 
                 question: "¿Qué es un LLM?", 
-                answer: "Gran Modelo de Lenguaje. Una IA entrenada para procesar y generar texto humano basado en probabilidad estadística.",
+                answer: "Gran Modelo de Lenguaje. Una IA entrenada para procesar y generar texto humano basándose en probabilidad estadística.",
                 icon: "bx-message-square-detail"
             },
             { 
                 question: "¿Qué es un Prompt?", 
-                answer: "Es la instrucción o pregunta que le das a una IA para obtener un resultado. Un buen prompt genera mejores respuestas.",
+                answer: "Es la instrucción, pregunta o comando que le das a una IA para obtener un resultado específico.",
                 icon: "bx-terminal"
             },
             { 
                 question: "¿Qué es un Deepfake?", 
-                answer: "Imagen, video o audio creado con IA que imita a una persona real de forma hiperrealista, planteando riesgos de desinformación.",
+                answer: "Imagen, video o audio creado con IA que imita la apariencia o voz de una persona real con alta precisión.",
                 icon: "bx-hide"
             },
             { 
                 question: "¿Alucinación de IA?", 
-                answer: "Cuando una IA genera información falsa pero gramaticalmente correcta y creíble. Siempre se debe verificar con fuentes reales.",
+                answer: "Ocurre cuando la IA genera información falsa inventada pero que parece gramaticalmente correcta y creíble.",
                 icon: "bx-error-alt"
             }
         ];
@@ -146,77 +162,37 @@
         window.QUIZ_DATA = [
             {
                 question: "¿Cómo 'aprende' lenguaje una IA generativa?",
-                options: ["Leyendo un diccionario", "Analizando estadísticamente miles de millones de textos humanos", "Tiene conciencia propia"],
+                options: ["Leyendo un diccionario físico.", "Analizando billones de patrones en textos escritos por humanos.", "Tiene sentimientos propios."],
                 correct: 1
             },
             {
                 question: "Una 'Alucinación' en la IA ocurre cuando:",
-                options: ["Se apaga la pantalla", "La IA inventa datos falsos pero los dice con seguridad", "La IA no quiere responder"],
+                options: ["Se acaba la batería.", "La IA inventa datos falsos con total seguridad.", "La IA no responde."],
                 correct: 1
             },
             {
-                question: "¿Qué significa la 'C' en el comando C.R.I.F.?",
-                options: ["Código", "Contexto", "Computadora"],
+                question: "¿Qué significa la 'C' en el método de prompting C.R.I.F.?",
+                options: ["Código.", "Contexto (definir el Rol).", "Computadora."],
                 correct: 1
             },
             {
                 question: "¿Cuál es el riesgo ético principal de los Deepfakes?",
-                options: ["Que ocupan mucho espacio en el celular", "La suplantación de identidad y la creación de noticias falsas creíbles", "Que son muy coloridos"],
+                options: ["Ocupan mucho espacio en el disco duro.", "Suplantación de identidad y desinformación masiva.", "Hacen que las fotos se vean mejor."],
                 correct: 1
             },
             {
-                question: "¿Cuál es el valor humano que la IA no puede reemplazar?",
-                options: ["La velocidad de escritura", "La intención ética, la empatía y el juicio crítico profundo", "La memoria de datos"],
+                question: "¿Qué valor humano es IRREEMPLAZABLE por la IA?",
+                options: ["La velocidad de cálculo.", "La intención ética, la empatía y el juicio crítico real.", "La memoria de datos."],
                 correct: 1
             }
         ];
-
-        const themeBtn = document.getElementById('notebook-theme-toggle');
-        if(themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                document.documentElement.classList.toggle('light-mode');
-                const icon = themeBtn.querySelector('i');
-                if (document.body.classList.contains('light-mode')) {
-                    icon.classList.replace('bx-moon', 'bx-sun');
-                } else {
-                    icon.classList.replace('bx-sun', 'bx-moon');
-                }
-            });
-        }
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                setTimeout(() => preloader.remove(), 500); 
-            }
-        });
-        function toggleDesc(element) {
-            const desc = element.querySelector('.concept-desc');
-            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
-            if (desc.style.display === 'block') {
-                desc.style.display = 'none';
-                if(icon) icon.className = 'bx bx-plus';
-            } else {
-                desc.style.display = 'block';
-                if(icon) icon.className = 'bx bx-minus';
-            }
-        }
-    
     </script>
-    
-    
-    <script src="./CORE/notebook-core.js?v=4.0"></script>
-    
-    <script src="../gamification.js?v=4.0"></script>
-    
-    <script src="../chat-tesla.js?v=4.0"></script>
 
-    <!-- Motor de Traducción Global -->
-    
+    <!-- Scripts Nucleares -->
+    <script src="./CORE/notebook-core.js?v=4.0"></script>
+    <script src="../gamification.js?v=4.0"></script>
+    <script src="../chat-tesla.js?v=4.0"></script>
     <script src="../translate-engine.js?v=4.0"></script>
-    
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

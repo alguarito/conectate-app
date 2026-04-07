@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | [SESION]-9-TIC</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
+</head>
+<body class="theme-uiux">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Sincronizando Módulo...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        <!-- Navegación Superior -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div style="display: flex; gap: 10px;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
+                    <i class='bx bx-home-alt'></i>
+                </a>
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect">
+                    <i class='bx bx-list-ul'></i> Volver a Guías
+                </a>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div class="translate-wrapper">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)">
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <button id="notebook-theme-toggle" class="nav-btn-circle">
+                    <i class='bx bx-moon'></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Encabezado -->
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge">Guía de Aprendizaje N° [ID]</span>
+            <h1>[TITULO DE LA SESIÓN]</h1>
+            <p>[SUBTITULO O FRASE DEL PROFE ALVARITO]</p>
+        </header>
+
+        <!-- Video o Placeholder -->
+        <div class="video-cine-container">
+            <div class="placeholder-premium">
+                <i class='bx bx-movie-play'></i>
+                <h4>Material Audiovisual</h4>
+                <p>El Profe Alvarito está preparando esta sesión. ¡Sigue explorando!</p>
+            </div>
+        </div>
+
+        <!-- Sección 1 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-brain'></i> 1. [TITULO SECCION 1]</h2>
+            <p class="section-text">[TEXTO INTRODUCTORIO]</p>
+            <div class="grid-2">
+                <!-- Concept Cards -->
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>[TITULO CONCEPTO] <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">[DESCRIPCION]</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3>[TITULO CONCEPTO] <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">[DESCRIPCION]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
+
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center;">
+            <h2><i class='bx bxs-download'></i> Guía Oficial</h2>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <a href="[SESION]-9-TIC.pdf" download class="glass-btn">
+                    <i class='bx bxs-file-pdf'></i> Descargar Guía (PDF)
+                </a>
+            </div>
+        </section>
+
+        <!-- Pie de Página -->
+        <footer>
+            <p>
+                <strong>CONECTATE | Módulo de Grado Noveno</strong><br>
+                Institución Educativa Sor María Juliana - 2026
+            </p>
+        </footer>
+    </div>
+
+    <!-- Datos -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "Q1", answer: "A1", icon: "bx-info-circle" },
+            { question: "Q2", answer: "A2", icon: "bx-info-circle" },
+            { question: "Q3", answer: "A3", icon: "bx-info-circle" },
+            { question: "Q4", answer: "A4", icon: "bx-info-circle" }
+        ];
+
+        window.QUIZ_DATA = [
+            { question: "P1", options: ["O1", "O2", "O3"], correct: 0 },
+            { question: "P2", options: ["O1", "O2", "O3"], correct: 1 },
+            { question: "P3", options: ["O1", "O2", "O3"], correct: 2 },
+            { question: "P4", options: ["O1", "O2", "O3"], correct: 0 },
+            { question: "P5", options: ["O1", "O2", "O3"], correct: 1 }
+        ];
+    </script>
+
+    <!-- Scripts Nucleares -->
+    <script src="./CORE/notebook-core.js?v=4.0"></script>
+    <script src="../gamification.js?v=4.0"></script>
+    <script src="../chat-tesla.js?v=4.0"></script>
+    <script src="../translate-engine.js?v=4.0"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

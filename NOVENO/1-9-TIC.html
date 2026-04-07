@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 1-9-TIC</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
@@ -14,18 +16,17 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
-        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Cargando Nivel 9...</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Sincronizando Misión 01...</p>
     </div>
 
     <div class="notebook-container glass-panel">
-        
-        <!-- Controles Superiores -->
+        <!-- Navegación Superior -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
-                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
@@ -34,26 +35,28 @@
                 <div style="display: none;" id="google_translate_element"></div>
                 <div class="translate-wrapper">
                     <select id="custom-translate-select" onchange="translatePage(this.value)">
-                        <option value="es" class="translate-option">🇪🇸 Español</option>
-                        <option value="en" class="translate-option">🇺🇸 English</option>
-                        <option value="pt" class="translate-option">🇧🇷 Português</option>
-                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button>
+                <button id="notebook-theme-toggle" class="nav-btn-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
-        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+        <!-- Encabezado -->
+        <header class="hero">
             <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <i class='bx bx-dna' style="font-size: 3rem; color: #ec4899; margin-top: 10px;"></i>
+            <span class="badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; margin-bottom: 10px;">Guía de Aprendizaje N° 1</span>
             <h1>Sesión 1: El Despertar del Inforg</h1>
-            <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
+            <p>¡Hola, Inforg! Soy el Profe Alvarito. Hoy entenderemos que no eres un simple "usuario", eres un organismo de información en un mundo que intenta perfilarte. 🚀</p>
         </header>
 
-        <!-- Video Introductorio en Formato Cine -->
+        <!-- Video de la Sesión -->
         <div class="video-cine-container">
             <div class="iframe-wrapper">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/pVNK_LhdG8s?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
@@ -63,11 +66,11 @@
         <!-- Sección 1 -->
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-shield-quarter'></i> 1. El Manifiesto Hacker (Pacto de Aula)</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para investigar con libertad, en este grado adoptaremos la "Ética Hacker": no para destruir cajas fuertes, sino para **abrir el conocimiento**. Haz clic para ver nuestro compromiso:</p>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Para investigar con libertad, en este grado adoptaremos la "Ética Hacker": abrir el conocimiento para el bien común. Estos son nuestros pilares:</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Acceso Libre <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">El conocimiento debe ser gratuito. Compartimos lo que aprendemos y respetamos el código abierto.</div>
+                    <div class="concept-desc">El conocimiento debe circular. Compartimos lo que aprendemos y respetamos el código abierto.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Pasión Crítica <i class='bx bx-plus'></i></h3>
@@ -75,44 +78,49 @@
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Ética del Cuidado <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Protegemos nuestra identidad (ADN) y nuestros datos. No usamos la tecnología para dañar la dignidad de otros.</div>
+                    <div class="concept-desc">Protegemos nuestra dignidad y la de otros. Tus datos son tu alma digital, ¡defiéndelos!</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Autonomía Digital <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Buscamos ser dueños de nuestras herramientas, no esclavos de las notificaciones.</div>
+                    <div class="concept-desc">Eres el dueño de tus herramientas, no el esclavo de las notificaciones algorítmicas.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 2 -->
-        <section class="interactive-section glass-panel">
-            <h2><i class='bx bx-user-voice'></i> 2. ¿Usuario o Producto? (Biopolítica)</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Cuando una aplicación es "gratuita", el precio eres tú: tu atención, tus miedos y tus deseos convertidos en datos para algoritmos publicitarios.</p>
-            <div class="info-box">
-                <div class="info-box-title"><i class='bx bx-info-circle'></i> Dato Crítico</div>
-                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);">La **Biopolítica** es el control que ejercen los sistemas tecnológicos sobre la vida misma. Un *Inforg* consciente sabe que sus datos son su alma digital y los defiende.</p>
+        <!-- Sección 2: El Laboratorio Crítico -->
+        <section class="interactive-section glass-panel" style="border-color: #ec4899;">
+            <h2><i class='bx bx-dna'></i> 2. Laboratorio Crítico: ¿Usuario o Producto?</h2>
+            <div style="background: rgba(236, 72, 153, 0.1); padding: 25px; border-radius: 20px; border: 1px solid rgba(236, 72, 153, 0.2); margin-bottom: 25px;">
+                <p style="font-style: italic; color: var(--text-primary); line-height: 1.6; margin: 0;">
+                    "En la economía de la atención, si no pagas por el producto, el producto eres TÚ. Tus miedos, deseos y clics son la moneda de cambio de las grandes corporaciones."
+                </p>
+            </div>
+            <div class="concept-card" style="border-left: 4px solid #ec4899; background: rgba(0,0,0,0.2);">
+                <h3 style="margin-bottom: 10px; color: white;">La Biopolítica</h3>
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">Es el control que ejercen los sistemas técnicos sobre la vida misma para gestionar cómo sentimos, qué compramos y cómo pensamos.</p>
             </div>
         </section>
 
         <!-- Flashcards -->
         <div id="flashcards-container"></div>
 
-        <!-- Recursos -->
-        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(34, 211, 238, 0.3);">
-            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #22d3ee;"></i> Material de Apoyo</h2>
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(236, 72, 153, 0.3);">
+            <h2><i class='bx bxs-download' style="color: #ec4899;"></i> Guía Metodológica</h2>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="1-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Guía Metodológica
+                <a href="1-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
                 </a>
-                <a href="https://docs.google.com/presentation/d/1zXqmFzxak5V-BHFXeJlCj6G9HuYnx7-L/edit?usp=drive_link" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                <a href="https://docs.google.com/presentation/d/1zXqmFzxak5V-BHFXeJlCj6G9HuYnx7-L/edit?usp=drive_link" target="_blank" class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
                     <i class='bx bxs-slideshow' style="color: #3b82f6;"></i> Ver Diapositivas
                 </a>
             </div>
         </section>
 
-        <!-- Quiz -->
-        <div id="quiz-container"></div>
-
+        <!-- Pie de Página -->
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo "Hacking y Biopolítica"</strong><br>
@@ -121,7 +129,7 @@
         </footer>
     </div>
 
-    <!-- Lógica de Datos -->
+    <!-- Datos de Gamificación -->
     <script>
         window.FLASH_DATA = [
             { 
@@ -138,6 +146,11 @@
                 question: "¿Qué dice la Ética Hacker?", 
                 answer: "Que el acceso al conocimiento debe ser libre y circular para el beneficio de toda la humanidad, no de unos pocos.",
                 icon: "bx-code-alt"
+            },
+            { 
+                question: "¿Soberanía de Datos?", 
+                answer: "Es el derecho y la capacidad de tener el control real sobre quién usa tu información digital y para qué.",
+                icon: "bx-lock-alt"
             }
         ];
 
@@ -149,33 +162,31 @@
             },
             {
                 question: "Un pilar de nuestro Manifiesto Hacker es:",
-                options: ["Robar contraseñas", "No tragar entero (Pasión Crítica)", "Hackear el Wi-Fi del vecino"],
+                options: ["Robar contraseñas", "No tragar entero (Pasión Crítica)", "Hackear el Wi-Fi"],
                 correct: 1
             },
             {
                 question: "¿Cuál es la diferencia entre Ciencia y Tecnología?",
-                options: ["La Ciencia busca la Verdad, la Tecnología la Utilidad", "Son lo mismo", "La Ciencia es de los ricos y la Tecnología de los pobres"],
+                options: ["La Ciencia busca la Verdad, la Tecnología la Utilidad", "Son lo mismo", "No tienen diferencia"],
                 correct: 0
             },
             {
                 question: "¿Qué significa tener 'Soberanía de Datos'?",
-                options: ["Pagar por tener fibra óptica", "Tener el control real sobre quién usa tu información digital", "Usar muchas redes sociales"],
+                options: ["Pagar por internet", "Tener el control sobre quién usa tu información digital", "Usar muchas redes"],
                 correct: 1
             },
             {
-                question: "¿Por qué el 'ADN' es el tema central de este año?",
-                options: ["Porque vamos a estudiar biología", "Porque el ADN es la fuente de información biológica que la tecnología intenta digitalizar", "Porque nos gusta la genética"],
+                question: "¿Por qué el 'ADN' es el icono de este grado?",
+                options: ["Por la clase de biología", "Porque el ADN es la fuente de información que la tecnología busca digitalizar", "Porque queda bonito"],
                 correct: 1
             }
         ];
-
     </script>
-    
+
+    <!-- Scripts Nucleares -->
     <script src="./CORE/notebook-core.js?v=4.0"></script>
     <script src="../gamification.js?v=4.0"></script>
     <script src="../chat-tesla.js?v=4.0"></script>
-
-    <!-- Motor de Traducción Global -->
     <script src="../translate-engine.js?v=4.0"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>

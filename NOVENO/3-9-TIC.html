@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaderno Interactivo | 3-9-TIC</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
     <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
+    <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
 </head>
 <body class="theme-uiux">
     <!-- Preloader -->
@@ -18,84 +20,88 @@
     </div>
 
     <div class="notebook-container glass-panel">
-        
+        <!-- Navegación Superior -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div style="display: flex; gap: 10px;">
-                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                <a id="btn-home" href="../index.html?section=home" class="nav-btn-circle" title="Volver al Inicio">
                     <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
                 </a>
-                <a id="btn-volver" href="../index.html?section=noveno" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                <a id="btn-volver" href="../index.html?section=noveno" class="nav-btn-rect" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
                     <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
                 </a>
             </div>
+            
             <div style="display: flex; align-items: center; gap: 10px;">
                 <div style="display: none;" id="google_translate_element"></div>
                 <div class="translate-wrapper">
                     <select id="custom-translate-select" onchange="translatePage(this.value)">
-                        <option value="es" class="translate-option">🇪🇸 Español</option>
-                        <option value="en" class="translate-option">🇺🇸 English</option>
-                        <option value="pt" class="translate-option">🇧🇷 Português</option>
-                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="fr">🇫🇷 Français</option>
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
-                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
-            </button>
+                <button id="notebook-theme-toggle" class="nav-btn-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
         </div>
 
-        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
-            <i class='bx bx-history'></i>
+        <!-- Encabezado -->
+        <header class="hero">
+            <img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
+            <span class="badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; margin-bottom: 10px;">Guía de Aprendizaje N° 3</span>
             <h1>Sesión 3: Arqueología del Saber</h1>
-            <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
+            <p>¡Hola, Inforg! Hoy vamos a excavar en las capas del tiempo para entender que la tecnología es un patrimonio global, no un invento exclusivo de unos pocos. 🏺</p>
         </header>
 
-        <!-- Video en Producción (Placeholder Premium) -->
+        <!-- Video o Placeholder -->
         <div class="video-cine-container">
             <div class="placeholder-premium">
                 <i class='bx bx-movie-play'></i>
                 <h4>Cine Pedagógico en Producción</h4>
-                <p>El Profe Alvarito está preparando un material audiovisual increíble para esta sesión. ¡Sigue explorando!</p>
+                <p>El Profe Alvarito está preparando un material audiovisual increíble sobre la historia oculta de la técnica. ¡Sigue explorando!</p>
             </div>
         </div>
 
         <!-- Sección 1: Timeline -->
         <section class="interactive-section glass-panel">
             <h2><i class='bx bx-time-five'></i> 1. Línea del Tiempo Decolonial</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">La tecnología es patrimonio de toda la humanidad. Mientras unos dormían, otros ya creaban el mundo:</p>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">La técnica nace con la humanidad. Mientras unas culturas dormían, otras ya estaban creando el futuro:</p>
             
             <div class="timeline-container">
                 <div class="timeline-item">
                     <h4 style="color: #6ee7b7; margin: 0;">Prehistoria: Bio-Hacks del Cerebro</h4>
-                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">La técnica nace como supervivencia: fuego, piedra y lenguaje. Son las primeras extensiones del cuerpo humano.</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">La técnica nace como supervivencia: fuego, piedra y lenguaje. Son las primeras "extensiones" de nuestro cuerpo para dominar el entorno.</p>
                 </div>
                 <div class="timeline-item">
                     <h4 style="color: #93c5fd; margin: 0;">Edad Antigua: El Sur Global</h4>
-                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">Mayas, Egipcios y Chinos creaban el cero, el papel y la metalurgia avanzada. La ciencia ya circulaba por todo el planeta.</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">Mayas, Egipcios y Chinos creaban el cero, el papel y la metalurgia avanzada. El saber técnico circulaba por todo el planeta antes de la conquista.</p>
                 </div>
                 <div class="timeline-item">
                     <h4 style="color: #fca5a5; margin: 0;">Revolución Industrial: El Vapor</h4>
-                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">La máquina sustituye la fuerza muscular. Nace el concepto de producción en masa y la contaminación masiva.</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">La máquina sustituye la fuerza muscular. Nace la producción en masa y, con ella, los grandes desafíos ambientales que enfrentamos hoy.</p>
                 </div>
                 <div class="timeline-item">
                     <h4 style="color: #c084fc; margin: 0;">Era Digital: La IA y los Bits</h4>
-                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">Entramos en la era de los Inforgs. La tecnología ya no solo mueve objetos, ahora gestiona nuestra mente y datos.</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">La era de los Inforgs. La tecnología ya no solo mueve objetos pesados, ahora gestiona nuestra mente, nuestros datos y nuestro ADN.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 2: Debate -->
-        <section class="interactive-section glass-panel">
+        <!-- Sección 2: Debate Crítico -->
+        <section class="interactive-section glass-panel" style="border-color: #ec4899;">
             <h2><i class='bx bx-analyse'></i> 2. ¿El Progreso es Siempre Bueno?</h2>
-            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">A menudo nos dicen que "lo nuevo es mejor", pero un experto en técnica cuestiona los costos reales de cada avance:</p>
+            <p class="section-text" style="color: var(--text-secondary); line-height: 1.8;">Como Inforg Crítico, debemos cuestionar la idea de que "lo más nuevo es siempre mejor":</p>
             <div class="grid-2">
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Mito del Progreso Lineal <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">La idea falsa de que siempre vamos hacia mejor. A veces perdemos autonomía y saberes ancestrales al adoptar tecnologías cerradas.</div>
+                    <div class="concept-desc">La idea falsa de que siempre vamos "hacia mejor". A veces perdemos autonomía y saberes ancestrales al adoptar tecnologías cerradas y desechables.</div>
                 </div>
                 <div class="concept-card" onclick="toggleDesc(this)">
                     <h3>Obsolescencia vs. Eternidad <i class='bx bx-plus'></i></h3>
-                    <div class="concept-desc">Las pirámides siguen ahí; tu celular de hace 3 años es basura. ¿Es esto verdadero progreso técnico?</div>
+                    <div class="concept-desc">Las pirámides han durado milenios; tu celular actual será basura en 3 años. ¿Es esto verdadero progreso técnico o solo consumo?</div>
                 </div>
             </div>
         </section>
@@ -106,6 +112,17 @@
         <!-- Quiz -->
         <div id="quiz-container"></div>
 
+        <!-- Material de Apoyo -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(236, 72, 153, 0.3);">
+            <h2><i class='bx bxs-download' style="color: #ec4899;"></i> Material de Apoyo</h2>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="3-9-TIC.pdf" download class="glass-btn" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444;"></i> Descargar Guía (PDF)
+                </a>
+            </div>
+        </section>
+
+        <!-- Pie de Página -->
         <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
                 <strong>CONECTATE | Módulo "Arqueología del Saber"</strong><br>
@@ -114,6 +131,7 @@
         </footer>
     </div>
 
+    <!-- Datos de Gamificación -->
     <script>
         window.FLASH_DATA = [
             { 
@@ -130,13 +148,18 @@
                 question: "¿Progreso Decolonial?", 
                 answer: "Reconocer que grandes inventos (médicos, astronómicos y técnicos) nacieron en culturas no-europeas hace milenios.",
                 icon: "bx-world"
+            },
+            { 
+                question: "¿Obsolescencia Programada?", 
+                answer: "Diseñar productos para que fallen o queden obsoletos en poco tiempo, obligando al usuario a comprar uno nuevo.",
+                icon: "bx-trash"
             }
         ];
 
         window.QUIZ_DATA = [
             {
-                question: "¿Cuál fue el impacto social de la Revolución Industrial?",
-                options: ["El nacimiento del Wi-Fi", "La sustitución de la fuerza humana por máquinas de vapor", "El fin de la historia"],
+                question: "¿Cuál fue el principal impacto de la Revolución Industrial?",
+                options: ["El nacimiento del Wi-Fi", "La sustitución de la fuerza física por máquinas de vapor", "El fin de la historia"],
                 correct: 1
             },
             {
@@ -146,7 +169,7 @@
             },
             {
                 question: "¿Por qué se cuestiona el 'Mito del Progreso Lineal'?",
-                options: ["Porque la tecnología es muy cara", "Porque no siempre 'nuevo' significa mejor para el ser humano o el planeta", "Porque el tiempo no es lineal"],
+                options: ["Porque la tecnología es cara", "Porque no siempre 'lo nuevo' es mejor para el humano o el planeta", "Porque el tiempo es circular"],
                 correct: 1
             },
             {
@@ -155,19 +178,17 @@
                 correct: 1
             },
             {
-                question: "¿Cuál es el objetivo final de estudiar la Arqueología del Saber?",
-                options: ["Saber fechas históricas de memoria", "Entender que somos herederos de saberes globales para crear un futuro ético", "Ser historiadores"],
+                question: "¿Cuál es el objetivo de estudiar la Arqueología del Saber?",
+                options: ["Memorizar fechas", "Entender que somos herederos de saberes globales para crear un futuro ético", "Ser historiadores"],
                 correct: 1
             }
         ];
-
     </script>
-    
+
+    <!-- Scripts Nucleares -->
     <script src="./CORE/notebook-core.js?v=4.0"></script>
     <script src="../gamification.js?v=4.0"></script>
     <script src="../chat-tesla.js?v=4.0"></script>
-
-    <!-- Motor de Traducción Global -->
     <script src="../translate-engine.js?v=4.0"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>

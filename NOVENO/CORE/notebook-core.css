@@ -179,6 +179,40 @@ body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.t
 body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p { color: #7a6e60 !important; }
 body.theme-eink #btn-volver, body.theme-eink #btn-home, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
 
+/* Timeline Component */
+.timeline-container {
+    position: relative;
+    padding-left: 30px;
+    margin: 20px 0;
+    border-left: 2px dashed rgba(255, 255, 255, 0.1);
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 25px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-cyan);
+    border: 3px solid #0d0e15;
+}
+.timeline-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(34, 211, 238, 0.3);
+}
+
 /* Responsiveness */
 @media (max-width: 480px) {
     body { padding: 8px !important; }

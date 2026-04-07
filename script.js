@@ -849,7 +849,7 @@ async function loadEduTechNews() {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
 
-    const CACHE_VERSION = 'v3'; 
+    const CACHE_VERSION = 'v4'; 
     const CACHE_KEY = `edutech_news_cache_${CACHE_VERSION}`;
     const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; 
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
@@ -878,29 +878,37 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Busca las 5 noticias más RELEVANTES y REALES de hoy sobre educación, IA y proyectos escolares. REGLAS: 1. SIEMPRE EN ESPAÑOL. 2. Devuelve ÚNICAMENTE un array JSON válido sin markdown ni texto extra. 3. Los campos son: 'title', 'summary', 'url', 'source'." }]
+                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Genera un array JSON con 5 noticias reales sobre IA y educación. Estructura: [{'title','summary','url','source'}]." }]
                     },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Pulso EduTech de hoy en español." }] }]
+                    "contents": [{ "role": "user", "parts": [{ "text": "Noticias hoy en español." }] }],
+                    "generationConfig": {
+                        "response_mime_type": "application/json"
+                    }
                 })
             });
 
+            if (response.status === 429) {
+                throw new Error("QUOTA_EXCEEDED");
+            }
+
             if (!response.ok) {
-                const errorData = await response.text();
-                throw new Error(`News API Error: ${response.status} - ${errorData}`);
+                throw new Error("FETCH_FAILED");
             }
 
             const data = await response.json();
             if (!data.candidates || !data.candidates[0].content.parts[0].text) {
-                throw new Error("Formato de respuesta de IA inválido");
+                throw new Error("INVALID_FORMAT");
             }
 
-            let newsJson = data.candidates[0].content.parts[0].text;
+            let newsJson = data.candidates[0].content.parts[0].text.trim();
             
-            // Extracción robusta por Regex (Busca el primer array)
-            const match = newsJson.match(/\[[\s\S]*\]/);
-            if (!match) throw new Error("No se detectó un formato JSON válido");
-            
-            const news = JSON.parse(match[0]);
+            // Si el modo JSON nativo falla por algún motivo del proxy, intentamos limpiar
+            if (newsJson.includes('```')) {
+                const match = newsJson.match(/\[[\s\S]*\]/);
+                if (match) newsJson = match[0];
+            }
+
+            const news = JSON.parse(newsJson);
 
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                 timestamp: Date.now(),
@@ -909,8 +917,12 @@ async function loadEduTechNews() {
 
             renderNewsFlashcards(news);
         } catch (error) {
-            console.error("Error cargando noticias:", error);
+            console.error("Detalle técnico del error:", error);
             
+            let statusMsg = "Formato inválido";
+            if (error.message === "QUOTA_EXCEEDED") statusMsg = "Créditos de IA agotados";
+            if (error.message === "FETCH_FAILED" || error.message.includes('fetch')) statusMsg = "Sin conexión";
+
             // FALLBACK: Si no hay internet o la API falla, carga noticias estáticas de emergencia
             const fallbackNews = [
                 {
@@ -931,7 +943,15 @@ async function loadEduTechNews() {
                 renderNewsFlashcards(fallbackNews);
             }
             
-            showToast(`Interferencia: ${error.message.includes('fetch') ? 'Sin conexión' : 'Formato inválido'}`, 'error');
+            showToast(`Interferencia: ${statusMsg}`, 'error');
+
+            const newsContainer = document.getElementById('news-container');
+            if (newsContainer && !cachedData) {
+                const errorBanner = document.createElement('div');
+                errorBanner.style.cssText = "grid-column: 1/-1; text-align: center; padding: 20px; opacity: 0.6; font-size: 0.85rem;";
+                errorBanner.innerHTML = `<i class='bx bx-wifi-off'></i> Modo Offline Activo: ${statusMsg}`;
+                newsContainer.prepend(errorBanner);
+            }
         }
     }
 }

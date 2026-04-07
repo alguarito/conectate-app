@@ -107,8 +107,8 @@ const sectionData = {
             { id: 7, title: 'Sesión 7: Biopolítica y Biotecnología', file: './NOVENO/7-9-TIC.html?v=1.0', desc: '¿Hechos de datos? Reflexiones éticas sobre CRISPR, patentes biológicas y el control de los cuerpos.' },
             { id: 8, title: 'Sesión 8: Algoritmos y Sesgos', file: './NOVENO/8-9-TIC.html?v=1.0', desc: 'Justicia algorítmica: ¿Son neutrales las máquinas? Descubriendo los prejuicios ocultos en el código.' },
             { id: 9, title: 'Sesión 9: IA Generativa', file: './NOVENO/9-9-TIC.html?v=1.0', desc: 'Crear en la era de los LLM: ¿Aliado o amenaza para la creatividad humana?' },
-            { id: 10, title: 'Sesión 10: Humanismo Digital', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Hacia una tecnología al servicio de la vida: El manifiesto por un futuro digital ético y soberano.' },
-            { id: 11, title: 'Sesión 11: Prueba de Desempeño', file: './NOVENO/11-9-TIC.html?v=1.0', desc: 'Examen Global de Periodo: Demuestra tu transformación de consumidor a Inforg Crítico.' }
+            { id: 10, title: 'Sesión 10: El Gran Informe Final', file: './NOVENO/10-9-TIC.html?v=1.0', desc: 'Arquitectura del conocimiento aprendido. Es el momento de unir todos los hilos —ética, biopolítica e IA— en un documento sólido.' },
+            { id: 11, title: 'Sesión 11: Discurso Propio', file: './NOVENO/11-9-TIC.html?v=1.0', desc: 'El poder de tu voz en la Infoesfera. Aprende a sustentar tus ideas con coherencia, pasión y rigor ético ante tu comunidad.' }
         ]
     },
     decimo: {
@@ -1026,25 +1026,30 @@ function checkUserStatus() {
     const appContainer = document.querySelector('.app-container');
     const teslaWidget = document.getElementById('tesla-widget');
 
+    // MODIFICACIÓN: Si no hay usuario, creamos un perfil de "Invitado" temporal
     if (!currentUser) {
-        authWall.classList.add('active');
-        appContainer.classList.remove('authenticated');
-        if (teslaWidget) teslaWidget.style.display = 'none';
-    } else {
-        authWall.classList.remove('active');
-        if (!currentUser.registered) {
-            renderCharacterizationFlow();
-            if (teslaWidget) teslaWidget.style.display = 'none';
-        } else {
-            appContainer.classList.add('authenticated');
-            if (teslaWidget) teslaWidget.style.display = 'block';
-            updateUIForUser();
-            
-            // Respect URL parameter instead of hardcoding 'home'
-            const targetSection = new URLSearchParams(window.location.search).get('section') || 'home';
-            navigateTo(targetSection);
-        }
+        currentUser = {
+            name: "Invitado Inforg",
+            email: "invitado@conectate.local",
+            isAdmin: false,
+            registered: true, // Lo marcamos como registrado para evitar el flujo de caracterización obligatorio
+            picture: "IMAGENES/ID_CONECTATE.png"
+        };
+        localStorage.setItem('conectate_user', JSON.stringify(currentUser));
     }
+
+    // Ocultar siempre el muro de acceso si no estamos en modo "estricto"
+    authWall.classList.remove('active');
+    appContainer.classList.add('authenticated');
+    
+    // El Agente Tesla se muestra siempre por defecto ahora
+    if (teslaWidget) teslaWidget.style.display = 'block';
+    
+    updateUIForUser();
+    
+    // Respetar parámetro de URL o ir a home
+    const targetSection = new URLSearchParams(window.location.search).get('section') || 'home';
+    navigateTo(targetSection);
 }
 
 function updateUIForUser() {

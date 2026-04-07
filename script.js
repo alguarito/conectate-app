@@ -883,10 +883,26 @@ async function loadEduTechNews() {
                 })
             });
 
-            if (!response.ok) throw new Error("News API Error");
+            if (!response.ok) {
+                const errorData = await response.text();
+                throw new Error(`News API Error: ${response.status} - ${errorData}`);
+            }
+
             const data = await response.json();
+            if (!data.candidates || !data.candidates[0].content.parts[0].text) {
+                throw new Error("Formato de respuesta de IA inválido");
+            }
+
             let newsJson = data.candidates[0].content.parts[0].text;
-            newsJson = newsJson.replace(/```json/g, '').replace(/```/g, '').trim();
+            
+            // Robust JSON extraction: busca el primer '[' y el último ']'
+            const firstIndex = newsJson.indexOf('[');
+            const lastIndex = newsJson.lastIndexOf(']');
+            
+            if (firstIndex !== -1 && lastIndex !== -1) {
+                newsJson = newsJson.substring(firstIndex, lastIndex + 1);
+            }
+
             const news = JSON.parse(newsJson);
 
             localStorage.setItem(CACHE_KEY, JSON.stringify({
@@ -897,9 +913,28 @@ async function loadEduTechNews() {
             renderNewsFlashcards(news);
         } catch (error) {
             console.error("Error cargando noticias:", error);
+            
+            // FALLBACK: Si no hay internet o la API falla, carga noticias estáticas de emergencia
+            const fallbackNews = [
+                {
+                    title: "CONECTATE Offline: Estabilidad del Satélite",
+                    summary: "Estamos experimentando interferencias solares. El sistema ha activado el modo de contingencia local para asegurar tu aprendizaje.",
+                    url: "https://alvarocardenasorozco.com",
+                    source: "Sistema Core"
+                },
+                {
+                    title: "IA en el Aula: El Futuro es Hoy",
+                    summary: "¿Cómo la inteligencia artificial está reconfigurando la forma en que aprendemos y creamos proyectos escolares? Explora el poder del Inforg.",
+                    url: "https://alvarocardenasorozco.com",
+                    source: "EduTech"
+                }
+            ];
+
             if (!cachedData) {
-                newsContainer.innerHTML = `<div class="news-error"><p>Error al conectar con el satélite de noticias.</p></div>`;
+                renderNewsFlashcards(fallbackNews);
             }
+            
+            showToast(`Interferencia: ${error.message.includes('fetch') ? 'Sin conexión' : 'Formato inválido'}`, 'error');
         }
     }
 }
@@ -2080,4 +2115,44 @@ function filterSessionTable() {
     } else {
         avgEl.innerText = '—';
     }
+}
+
+// --- UTILIDADES GLOBALES (UI) ---
+function showToast(message, type = 'info') {
+    let toast = document.getElementById('conectate-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'conectate-toast';
+        document.body.appendChild(toast);
+    }
+    
+    toast.style.cssText = `
+        position: fixed; bottom: 85px; right: 20px; 
+        padding: 12px 24px; border-radius: 12px; 
+        background: rgba(13, 14, 21, 0.95); backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1); color: white;
+        z-index: 100000; font-family: var(--font-body); font-size: 0.9rem;
+        display: flex; align-items: center; gap: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transform: translateY(20px); opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    `;
+    
+    const icon = type === 'error' ? 'bx-error-circle' : 'bx-info-circle';
+    const color = type === 'error' ? '#ef4444' : 'var(--accent-cyan)';
+    
+    toast.innerHTML = `<i class='bx ${icon}' style="color: ${color}; font-size: 1.2rem;"></i> ${message}`;
+    toast.style.borderColor = color + '44';
+    
+    // Show
+    requestAnimationFrame(() => {
+        toast.style.transform = 'translateY(0)';
+        toast.style.opacity = '1';
+    });
+    
+    // Hide after 3s
+    setTimeout(() => {
+        toast.style.transform = 'translateY(20px)';
+        toast.style.opacity = '0';
+    }, 3000);
 }

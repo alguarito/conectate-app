@@ -850,10 +850,9 @@ async function loadEduTechNews() {
     if (!newsContainer) return;
 
     const CACHE_KEY = 'edutech_news_cache';
-    const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; // 12 horas
+    const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; 
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
     
-    // 1. Intentar cargar desde caché inmediatamente
     const cachedData = localStorage.getItem(CACHE_KEY);
     let cacheValid = false;
 
@@ -861,21 +860,16 @@ async function loadEduTechNews() {
         try {
             const cache = JSON.parse(cachedData);
             const timePassed = Date.now() - cache.timestamp;
-            
-            renderNewsCards(cache.data); // Renderizamos lo que tengamos
+            renderNewsFlashcards(cache.data); 
             
             if (timePassed < CACHE_EXPIRATION) {
                 cacheValid = true;
-                console.log("Noticias cargadas desde caché (válidas)");
-            } else {
-                console.log("Caché expirado, actualizando en segundo plano...");
             }
         } catch (e) {
             console.error("Error leyendo caché:", e);
         }
     }
 
-    // 2. Si no hay caché o ha expirado, consultamos a la IA
     if (!cacheValid) {
         try {
             const response = await fetch(API_URL, {
@@ -883,66 +877,95 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres un analista de tendencias tecnológicas. Tu misión es generar una lista de las 5 noticias más IMPACTANTES y REALES de los últimos días sobre Inteligencia Artificial aplicada a la educación o innovaciones EdTech. Devuelve ÚNICAMENTE un array JSON válido con objetos que tengan: 'title' (titular corto), 'summary' (resumen corto) y 'url' (URL REAL de la noticia original en un portal confiable como Wired, TechCrunch, El País, BBC News o portales educativos serios). NO inventes URLs ni generes enlaces rotos. No saludes, no uses markdown, solo el JSON puro." }]
+                        "parts": [{ "text": "Eres el News Curator de CONECTATE. Busca las 5 noticias más RELEVANTES de hoy sobre educación, IA y proyectos escolares. Devuelve un JSON puro: array de objetos con 'title', 'summary', 'url' y 'source'. Enlaces reales y verificados." }]
                     },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de las 5 noticias EduTech reales más importantes de hoy con sus enlaces directos." }] }]
+                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el pulso de las 5 noticias EduTech reales de hoy." }] }]
                 })
             });
 
             if (!response.ok) throw new Error("News API Error");
             const data = await response.json();
             let newsJson = data.candidates[0].content.parts[0].text;
-            
             newsJson = newsJson.replace(/```json/g, '').replace(/```/g, '').trim();
             const news = JSON.parse(newsJson);
 
-            // Guardar en caché
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                 timestamp: Date.now(),
                 data: news
             }));
 
-            // Actualizar UI con nuevas noticias
-            renderNewsCards(news);
-            console.log("Noticias actualizadas desde IA");
-
+            renderNewsFlashcards(news);
         } catch (error) {
             console.error("Error cargando noticias:", error);
             if (!cachedData) {
-                newsContainer.innerHTML = `
-                    <div class="news-error">
-                        <p>Las bobinas de noticias tienen interferencia. <button onclick="loadEduTechNews()" style="background: var(--accent-cyan); color: white; border/none; padding: 5px 10px; border-radius: 5px; cursor/pointer; margin-top: 10px;">Reintentar</button></p>
-                    </div>
-                `;
+                newsContainer.innerHTML = `<div class="news-error"><p>Error al conectar con el satélite de noticias.</p></div>`;
             }
         }
     }
 }
 
-function renderNewsCards(news) {
+function renderNewsFlashcards(news) {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
     
+    // Obtener lista de noticias leídas
+    const readLinks = JSON.parse(localStorage.getItem('edutech_read_links')) || [];
+    
     newsContainer.innerHTML = news.map((item, index) => {
-        // Fallback si no hay URL (aunque la pedimos)
-        const newsUrl = item.url || `https://www.google.com/search?q=${encodeURIComponent(item.title + ' educación tecnología')}`;
+        const isRead = readLinks.includes(item.url);
+        const readClass = isRead ? 'is-read' : '';
         
         return `
-        <a href="${newsUrl}" target="_blank" rel="noopener" class="news-card glass-panel fade-in" style="animation-delay: ${index * 0.1}s">
-            <div class="news-content">
+        <div class="news-card glass-panel fade-in ${readClass}" style="animation-delay: ${index * 0.1}s">
+            <div class="news-content" onclick="handleNewsClick('${item.url}')">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <h4>${item.title}</h4>
                     <i class='bx bx-link-external' style="color: var(--accent-cyan); font-size: 1.1rem; opacity: 0.6;"></i>
                 </div>
                 <p>${item.summary}</p>
-                <div class="news-footer">
-                    <span>LEER NOTICIA COMPLETA</span>
-                    <i class='bx bx-right-arrow-alt'></i>
-                </div>
             </div>
-        </a>
+            <div class="news-footer">
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--accent-cyan); font-size: 0.75rem; font-weight: 700;">
+                    <i class='bx bx-globe'></i> ${item.source || 'Portal TIC'}
+                </div>
+                <button class="news-action-btn" onclick="copyNewsLink('${item.url}', this)" title="Copiar enlace">
+                    <i class='bx bx-share-alt'></i>
+                </button>
+            </div>
+        </div>
     `;
     }).join('');
+}
+
+function handleNewsClick(url) {
+    // 1. Marcar como leída automáticamente
+    const readLinks = JSON.parse(localStorage.getItem('edutech_read_links')) || [];
+    if (!readLinks.includes(url)) {
+        readLinks.push(url);
+        localStorage.setItem('edutech_read_links', JSON.stringify(readLinks));
+    }
+    
+    // 2. Abrir noticia
+    window.open(url, '_blank', 'noopener');
+    
+    // 3. Refrescar UI (si se vuelve atrás)
+    const cachedData = localStorage.getItem('edutech_news_cache');
+    if (cachedData) renderNewsFlashcards(JSON.parse(cachedData).data);
+}
+
+function copyNewsLink(url, btn) {
+    navigator.clipboard.writeText(url).then(() => {
+        const icon = btn.querySelector('i');
+        const oldClass = icon.className;
+        
+        icon.className = 'bx bx-check';
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+            icon.className = oldClass;
+            btn.classList.remove('copied');
+        }, 2000);
+    });
 }
 // --- SISTEMA DE AUTENTICACIÓN Y CARACTERIZACIÓN (CONECTATE CORE) ---
 // --- SISTEMA DE AUTENTICACIÓN LOCAL (CONECTATE CORE) ---

@@ -1289,11 +1289,11 @@ body { top: 0px !important; }
 
 /* XP Profile Widget (Home Sidebar / Profile) */
 .xp-widget {
-    margin-top: 15px;
-    padding: 15px;
+    margin-top: 5px;
+    padding: 10px 12px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .xp-header {
     display: flex;

@@ -849,7 +849,7 @@ async function loadEduTechNews() {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
 
-    const CACHE_VERSION = 'v2'; 
+    const CACHE_VERSION = 'v3'; 
     const CACHE_KEY = `edutech_news_cache_${CACHE_VERSION}`;
     const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; 
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
@@ -878,9 +878,9 @@ async function loadEduTechNews() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "system_instruction": {
-                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Tu misión es buscar las 5 noticias más RELEVANTES y REALES de hoy (en tiempo real) sobre IA aplicada a la educación y robótica escolar. REGLAS CRÍTICAS: 1. El idioma de salida debe ser SIEMPRE ESPAÑOL (debes traducir los títulos y resúmenes si la fuente es extranjera). 2. Devuelve ÚNICAMENTE un array JSON válido sin texto adicional, ni markdown, ni explicaciones. 3. Los campos son: 'title', 'summary', 'url', 'source'. 4. Asegura que las URLs sean reales y funcionen." }]
+                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Busca las 5 noticias más RELEVANTES y REALES de hoy sobre educación, IA y proyectos escolares. REGLAS: 1. SIEMPRE EN ESPAÑOL. 2. Devuelve ÚNICAMENTE un array JSON válido sin markdown ni texto extra. 3. Los campos son: 'title', 'summary', 'url', 'source'." }]
                     },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Dame el Pulso EduTech de hoy en español." }] }]
+                    "contents": [{ "role": "user", "parts": [{ "text": "Pulso EduTech de hoy en español." }] }]
                 })
             });
 
@@ -896,21 +896,11 @@ async function loadEduTechNews() {
 
             let newsJson = data.candidates[0].content.parts[0].text;
             
-            // Limpieza extrema de JSON
-            newsJson = newsJson.trim();
-            if (newsJson.includes('```')) {
-                newsJson = newsJson.split('```')[1];
-                if (newsJson.startsWith('json')) newsJson = newsJson.substring(4);
-                if (newsJson.endsWith('```')) newsJson = newsJson.substring(0, newsJson.length - 3);
-            }
+            // Extracción robusta por Regex (Busca el primer array)
+            const match = newsJson.match(/\[[\s\S]*\]/);
+            if (!match) throw new Error("No se detectó un formato JSON válido");
             
-            const firstIndex = newsJson.indexOf('[');
-            const lastIndex = newsJson.lastIndexOf(']');
-            if (firstIndex !== -1 && lastIndex !== -1) {
-                newsJson = newsJson.substring(firstIndex, lastIndex + 1);
-            }
-
-            const news = JSON.parse(newsJson);
+            const news = JSON.parse(match[0]);
 
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                 timestamp: Date.now(),

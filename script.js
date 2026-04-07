@@ -1128,15 +1128,18 @@ function updateUIForUser() {
     
     if (userDetails) {
         if (currentUser.isAdmin) {
+            // Limpiar nombre: Quitar "(Docente)" si existe
+            const cleanName = currentUser.name.replace('(Docente)', '').trim();
             userDetails.innerHTML = `
-                <p class="name" style="margin-bottom: 2px;">${currentUser.name} <span class="admin-badge">Docente TIC</span></p>
+                <p class="name">${cleanName}</p>
+                <span class="admin-badge">Docente TIC</span>
                 <p class="role">
                     <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a>
                 </p>
             `;
         } else {
             userDetails.innerHTML = `
-                <p class="name" style="margin-bottom: 2px;">${currentUser.name}</p>
+                <p class="name">${currentUser.name}</p>
                 <p class="role"><a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a></p>
                 <div id="xp-profile-slot"></div>
             `;

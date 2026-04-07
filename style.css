@@ -178,22 +178,23 @@ body {
 .user-info:hover { background: rgba(255,255,255,0.05); }
 
 .user-avatar { 
-    width: 42px; 
-    height: 42px; 
+    width: 56px; 
+    height: 56px; 
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid var(--accent-purple);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 }
 
 .user-details .name { 
-    font-weight: 700; 
-    font-size: 0.85rem; 
+    font-weight: 800; 
+    font-size: 0.95rem; 
     line-height: 1.2;
     color: white;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    margin-bottom: 4px;
+    display: block;
 }
 
 .user-details .role { 
@@ -210,6 +211,21 @@ body {
 
 .user-details .role a:hover {
     color: white !important;
+}
+
+.admin-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+    color: white !important;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
 }
 
 /* Main Content Area */

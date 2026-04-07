@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="./CORE/notebook-core.css?v=4.0">
 </head>
-<body class="notebook-body">
+<body class="theme-uiux">
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader-spinner"></div>
@@ -44,7 +44,7 @@
             </button>
         </div>
 
-        <header class="hero">
+        <header class="hero"><img src="../IMAGENES/LOGO 1.png" alt="Logo Institucional" class="hero-logo">
             <i class='bx bx-history'></i>
             <h1>Sesión 3: Arqueología del Saber</h1>
             <p>¡Hola, Inforg! Soy el Profe Alvarito en versión digital. ¿Qué desafío tecnológico vamos a investigar o crear hoy? Recuerda: ¡siempre puedes ser mejor si te lo propones! 🚀</p>
@@ -161,38 +161,6 @@
             }
         ];
 
-        const themeBtn = document.getElementById('notebook-theme-toggle');
-        if(themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                document.documentElement.classList.toggle('light-mode');
-                const icon = themeBtn.querySelector('i');
-                if (document.body.classList.contains('light-mode')) {
-                    icon.classList.replace('bx-moon', 'bx-sun');
-                } else {
-                    icon.classList.replace('bx-sun', 'bx-moon');
-                }
-            });
-        }
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                setTimeout(() => preloader.remove(), 500); 
-            }
-        });
-        function toggleDesc(element) {
-            const desc = element.querySelector('.concept-desc');
-            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
-            if (desc.style.display === 'block') {
-                desc.style.display = 'none';
-                if(icon) icon.className = 'bx bx-plus';
-            } else {
-                desc.style.display = 'block';
-                if(icon) icon.className = 'bx bx-minus';
-            }
-        }
     </script>
     
     <script src="./CORE/notebook-core.js?v=4.0"></script>

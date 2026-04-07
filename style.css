@@ -9,7 +9,8 @@
     --accent-cyan: #06b6d4;
     
     --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg-mobile: rgba(13, 14, 21, 0.98);
+    --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     
     --font-heading: 'Outfit', sans-serif;
@@ -261,6 +262,21 @@ body {
 .icon-btn {
     width: 44px; height: 44px; border-radius: 50%; border: none; color: var(--text-primary); display: flex;
     align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease;
+    position: relative; /* Contexto para el punto de notificación */
+}
+
+/* Notificación de Actualización (Campanita) */
+#update-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-purple);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-purple);
+    border: 2px solid var(--bg-color);
+    z-index: 10;
 }
 .icon-btn:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
 
@@ -308,15 +324,17 @@ body {
 /* Light Theme toggle support */
 body.light-mode {
     --bg-color: #f3f4f6;
-    --text-primary: #1f2937;
+    --text-primary: #111827;
     --text-secondary: #4b5563;
     --glass-bg: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(255, 255, 255, 0.8);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --glass-bg-mobile: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
 }
-body.light-mode .glass-panel { background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.6); }
-body.light-mode .nav-btn:hover { background: rgba(0,0,0,0.05); }
+body.light-mode .glass-panel { background: var(--glass-bg); border: 1px solid var(--glass-border); }
+body.light-mode .nav-btn:hover { background: rgba(0,0,0,0.03); }
 body.light-mode .search-box input { color: var(--text-primary); }
+body.light-mode .sidebar { background: rgba(255, 255, 255, 0.6); }
 
 /* Tema Cyber-Neon */
 body.theme-cyber {
@@ -327,8 +345,9 @@ body.theme-cyber {
     --accent-purple: #ff00ff;
     --accent-cyan: #00ff00;
     --accent-pink: #ff0055;
-    --glass-bg: rgba(0, 20, 10, 0.4);
-    --glass-border: rgba(0, 255, 0, 0.3);
+    --glass-bg: rgba(0, 40, 20, 0.4);
+    --glass-bg-mobile: rgba(5, 10, 5, 0.98);
+    --glass-border: rgba(0, 255, 0, 0.4);
     background: radial-gradient(circle at 10% 20%, #001f0a, #000000 80%) fixed;
 }
 body.theme-cyber .nav-btn.active, 
@@ -356,9 +375,10 @@ body.theme-aurora {
     --accent-purple: #8b5cf6;
     --accent-cyan: #06b6d4;
     --accent-pink: #d946ef;
-    --glass-bg: rgba(10, 30, 60, 0.4);
-    --glass-border: rgba(14, 165, 233, 0.2);
-    --glass-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15);
+    --glass-bg: rgba(15, 35, 70, 0.5);
+    --glass-bg-mobile: rgba(6, 17, 33, 0.98);
+    --glass-border: rgba(14, 165, 233, 0.3);
+    --glass-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.2);
     background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) fixed;
 }
 body.theme-aurora .glass-panel {
@@ -381,14 +401,15 @@ body.theme-aurora .mobile-nav {
 /* Tema Papel E-Ink (Lectura Antifatiga) */
 body.theme-eink {
     --bg-color: #fdfaf6;
-    --text-primary: #4a3f35;
+    --text-primary: #2c241c;
     --text-secondary: #7a6e60;
     --accent-blue: #9d7b53;
     --accent-purple: #bd634e;
     --accent-cyan: #d68c45;
     --accent-pink: #c97a7e;
-    --glass-bg: rgba(245, 240, 230, 0.8);
-    --glass-border: rgba(210, 195, 180, 0.7);
+    --glass-bg: rgba(245, 240, 230, 0.85);
+    --glass-bg-mobile: #fdfaf6;
+    --glass-border: rgba(100, 80, 60, 0.2);
     --glass-shadow: 0 4px 10px 0 rgba(100, 80, 60, 0.05);
     background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed;
 }
@@ -470,8 +491,8 @@ body.theme-eink .top-bar {
     .glass-panel, .glass-card, .feature-card, .news-card, .session-card, .auth-card, .modal-content {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        background: rgba(13, 14, 21, 0.98) !important; /* Casi opaco para evitar lag de repintado */
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background: var(--glass-bg-mobile) !important; 
+        border: 1px solid var(--glass-border) !important;
         box-shadow: none !important; /* Sombras también consumen GPU en scroll */
     }
 

@@ -1,5 +1,15 @@
-// Database of Content by Sections
 const APP_VERSION = '2.0';
+const ADMIN_EMAIL = "alvaro.cardenas.orozco@gmail.com";
+const ADMIN_PASS = "mariana0";
+
+// --- PERFIL DE CURADOR ESTÁTICO (Ecosistema Abierto) ---
+const currentUser = {
+    name: "Álvaro Cárdenas",
+    email: ADMIN_EMAIL,
+    isAdmin: true,
+    picture: "IMAGENES/ID_CONECTATE.png"
+};
+
 console.log('CONECTATE App Version:', APP_VERSION);
 
 // --- CONFIGURACIÓN ACADÉMICA POR PERIODOS ---
@@ -849,109 +859,70 @@ async function loadEduTechNews() {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
 
-    const CACHE_VERSION = 'v4'; 
+    const CACHE_VERSION = 'v5'; 
     const CACHE_KEY = `edutech_news_cache_${CACHE_VERSION}`;
-    const CACHE_EXPIRATION = 12 * 60 * 60 * 1000; 
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
     
-    const cachedData = localStorage.getItem(CACHE_KEY);
-    let cacheValid = false;
-
-    if (cachedData) {
-        try {
-            const cache = JSON.parse(cachedData);
-            const timePassed = Date.now() - cache.timestamp;
-            renderNewsFlashcards(cache.data); 
-            
-            if (timePassed < CACHE_EXPIRATION) {
-                cacheValid = true;
-            }
-        } catch (e) {
-            console.error("Error leyendo caché:", e);
+    // FALLBACK: Noticias permanentes para modo offline o error de cuota
+    const fallbackNews = [
+        {
+            title: "CONECTATE Offline: Estabilidad del Sistema",
+            summary: "El sistema ha activado el modo de contingencia local. Sigue explorando los recursos y notebooks sin interrupciones.",
+            url: "https://alvarocardenasorozco.com",
+            source: "Núcleo CONECTATE"
+        },
+        {
+            title: "IA en Educación: El Futuro es Crítico",
+            summary: "¿Cómo la IA reconfigura nuestro aprendizaje? Mantente al día con los notebooks de Octavo a Undécimo.",
+            url: "https://alvarocardenasorozco.com",
+            source: "EduTech News"
         }
+    ];
+
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            renderNewsFlashcards(parsed.data);
+            // Si el caché tiene menos de 12 horas, no intentamos fetch nuevo para ahorrar créditos
+            if (Date.now() - parsed.timestamp < 12 * 60 * 60 * 1000) return;
+        } catch(e) {}
     }
 
-    if (!cacheValid) {
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "system_instruction": {
-                        "parts": [{ "text": "Eres el News Curator experto de CONECTATE. Genera un array JSON con 5 noticias reales sobre IA y educación. Estructura: [{'title','summary','url','source'}]." }]
-                    },
-                    "contents": [{ "role": "user", "parts": [{ "text": "Noticias hoy en español." }] }],
-                    "generationConfig": {
-                        "response_mime_type": "application/json"
-                    }
-                })
-            });
-
-            if (response.status === 429) {
-                throw new Error("QUOTA_EXCEEDED");
-            }
-
-            if (!response.ok) {
-                throw new Error("FETCH_FAILED");
-            }
-
-            const data = await response.json();
-            if (!data.candidates || !data.candidates[0].content.parts[0].text) {
-                throw new Error("INVALID_FORMAT");
-            }
-
-            let newsJson = data.candidates[0].content.parts[0].text.trim();
-            
-            // Si el modo JSON nativo falla por algún motivo del proxy, intentamos limpiar
-            if (newsJson.includes('```')) {
-                const match = newsJson.match(/\[[\s\S]*\]/);
-                if (match) newsJson = match[0];
-            }
-
-            const news = JSON.parse(newsJson);
-
-            localStorage.setItem(CACHE_KEY, JSON.stringify({
-                timestamp: Date.now(),
-                data: news
-            }));
-
-            renderNewsFlashcards(news);
-        } catch (error) {
-            console.error("Detalle técnico del error:", error);
-            
-            let statusMsg = "Formato inválido";
-            if (error.message === "QUOTA_EXCEEDED") statusMsg = "Créditos de IA agotados";
-            if (error.message === "FETCH_FAILED" || error.message.includes('fetch')) statusMsg = "Sin conexión";
-
-            // FALLBACK: Si no hay internet o la API falla, carga noticias estáticas de emergencia
-            const fallbackNews = [
-                {
-                    title: "CONECTATE Offline: Estabilidad del Satélite",
-                    summary: "Estamos experimentando interferencias solares. El sistema ha activado el modo de contingencia local para asegurar tu aprendizaje.",
-                    url: "https://alvarocardenasorozco.com",
-                    source: "Sistema Core"
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "system_instruction": {
+                    "parts": [{ "text": "Eres el News Curator de CONECTATE. Genera JSON array con 5 noticias reales de IA y educación: [{'title','summary','url','source'}]." }]
                 },
-                {
-                    title: "IA en el Aula: El Futuro es Hoy",
-                    summary: "¿Cómo la inteligencia artificial está reconfigurando la forma en que aprendemos y creamos proyectos escolares? Explora el poder del Inforg.",
-                    url: "https://alvarocardenasorozco.com",
-                    source: "EduTech"
-                }
-            ];
+                "contents": [{ "role": "user", "parts": [{ "text": "Noticias hoy." }] }],
+                "generationConfig": { "response_mime_type": "application/json" }
+            })
+        });
 
-            if (!cachedData) {
-                renderNewsFlashcards(fallbackNews);
-            }
-            
-            showToast(`Interferencia: ${statusMsg}`, 'error');
+        if (response.status === 429) throw new Error("QUOTA_EXCEEDED");
+        if (!response.ok) throw new Error("NETWORK_ERROR");
 
-            const newsContainer = document.getElementById('news-container');
-            if (newsContainer && !cachedData) {
-                const errorBanner = document.createElement('div');
-                errorBanner.style.cssText = "grid-column: 1/-1; text-align: center; padding: 20px; opacity: 0.6; font-size: 0.85rem;";
-                errorBanner.innerHTML = `<i class='bx bx-wifi-off'></i> Modo Offline Activo: ${statusMsg}`;
-                newsContainer.prepend(errorBanner);
-            }
+        const data = await response.json();
+        let newsText = data.candidates[0].content.parts[0].text.trim();
+        if (newsText.includes('```')) {
+            const match = newsText.match(/\[[\s\S]*\]/);
+            newsText = match ? match[0] : newsText;
+        }
+
+        const news = JSON.parse(newsText);
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: news }));
+        renderNewsFlashcards(news);
+
+    } catch (error) {
+        console.warn("Modo Resiliencia Activo:", error.message);
+        if (!newsContainer.innerHTML || newsContainer.innerHTML.includes('loading-wave')) {
+            renderNewsFlashcards(fallbackNews);
+        }
+        if (error.message === "QUOTA_EXCEEDED") {
+            showToast("IA en mantenimiento (Créditos agotados). Modo Offline activo.", "info");
         }
     }
 }
@@ -1019,14 +990,79 @@ function copyNewsLink(url, btn) {
         }, 2000);
     });
 }
-// --- SISTEMA DE IDENTIDAD (SIMPLIFICADO / ABIERTO) ---
-let currentUser = {
-    name: "Álvaro Cárdenas",
-    email: "alvaro.cardenas.orozco@gmail.com",
-    isAdmin: true,
-    registered: true,
-    picture: "IMAGENES/ID_CONECTATE.png"
-};
+
+// --- NAVEGACIÓN Y CARGA DE NOTICIAS ---
+function navigateTo(sectionId) {
+    const mainViewer = document.getElementById('agent-content');
+    if (!mainViewer) return;
+
+    // Actualizar botones activos
+    document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.content === sectionId);
+    });
+
+    const data = sectionData[sectionId];
+    if (data) {
+        document.body.className = data.theme;
+        
+        let contentHtml = `
+            <div class="agent-viewer ${data.theme}">
+                <div class="agent-header">
+                    <div class="agent-icon-large glass-panel">${data.icon}</div>
+                    <div class="agent-header-text">
+                        <h2>${data.title}</h2>
+                        <p>${data.subtitle}</p>
+                    </div>
+                </div>
+
+                ${sectionId === 'home' ? `
+                    <div class="stats-container">
+                        ${data.features.map(f => `
+                            <div class="stat-card glass-panel" onclick="${f.action ? f.action + '()' : f.url ? "window.open('"+f.url+"')" : ''}">
+                                <div class="stat-icon"><i class='${f.icon}'></i></div>
+                                <h4>${f.title}</h4>
+                                <p>${f.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="edutech-news-container" class="news-section">
+                        <div class="news-header-flex">
+                            <h3 class="section-title"><i class='bx bxs-zap'></i> Pulso EduTech</h3>
+                        </div>
+                        <div id="news-container" class="news-grid">
+                            <div class="loading-wave"><div class="wave"></div><div class="wave"></div><div class="wave"></div><span>Sintonizando la red de aprendizaje...</span></div>
+                        </div>
+                    </div>
+                ` : ''}
+
+                ${data.isSessions ? `
+                    <div class="dashboard-grid">
+                        ${data.sessions.map(s => `
+                            <div class="feature-card glass-panel" onclick="openNotebook('${s.file}', '${s.title}', ${s.id}, '${sectionId}')">
+                                <div class="badge-new">${sectionId.toUpperCase()}</div>
+                                <h3>${s.title}</h3>
+                                <p>${s.desc}</p>
+                                <div class="card-footer">
+                                    <span>Bitácora Sesión ${s.id}</span>
+                                    <i class='bx bx-right-arrow-alt'></i>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+        mainViewer.innerHTML = contentHtml;
+        
+        if (sectionId === 'home') {
+            loadEduTechNews();
+        }
+    }
+}
+
+function openNotebook(file, title, id, grade) {
+    window.location.href = file;
+}
 
 function updateUIForUser() {
     const userDetails = document.getElementById('static-profile-details');
@@ -1049,809 +1085,52 @@ function updateUIForUser() {
     }
 }
 
-function renderCharacterizationFlow() {
-    const mainViewer = document.getElementById('agent-content');
-    document.querySelector('.app-container').classList.add('authenticated'); // Mostrar app pero bloqueada en el form
+
+// --- ASISTENTE DE REDACCIÓN IA (GE-MINI) ---
+async function refineProjectText() {
+    const descArea = document.getElementById('p-desc');
+    const status = document.getElementById('refine-status');
+    const text = descArea.value.trim();
     
-    let currentStep = 1;
+    if (text.length < 10) {
+        alert('Escribe un poco más antes de usar la Varita Mágica para que el Profe pueda ayudarte.');
+        return;
+    }
 
-    mainViewer.innerHTML = `
-        <div class="agent-viewer theme-academico" style="max-width: 600px; margin: 0 auto;">
-            <div class="agent-header">
-                <div class="agent-icon-large glass-panel"><i class='bx bx-user-pin'></i></div>
-                <div class="agent-header-text">
-                    <h2>Caracterización Inforg</h2>
-                    <p>Hola ${currentUser.name}, activa tu perfil de investigador.</p>
-                </div>
-            </div>
+    if (status) status.style.display = 'block';
+    
+    const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
+    
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "system_instruction": {
+                    "parts": [{ "text": "Eres el Asistente Digital del Profesor Álvaro. Tu tarea es corregir la ortografía y mejorar la redacción de los proyectos TIC de los estudiantes. IMPORTANTE: Mantén el texto corto (máx 150 caracteres), formal pero inspirador, y siempre en SEGUNDA PERSONA o voz activa del proyecto. Solo devuelve el texto corregido, sin explicaciones ni saludos." }]
+                },
+                "contents": [{ "role": "user", "parts": [{ "text": "Mejora este texto para mi proyecto: " + text }] }]
+            })
+        });
 
-            <div class="step-progress">
-                <div class="step-dot active" data-step="1">1</div>
-                <div class="step-dot" data-step="2">2</div>
-                <div class="step-dot" data-step="3">3</div>
-                <div class="step-dot" data-step="4">4</div>
-                <div class="step-dot" data-step="5">5</div>
-            </div>
-            </div>
-
-            <div class="glass-panel" style="padding: 30px; border-radius: 24px;">
-                <form id="char-form">
-                    <!-- Paso 1: Básicos -->
-                    <div class="form-step active" data-step="1">
-                        <h3>Perfil Institucional</h3>
-                        <div class="form-group">
-                            <label>Grado y Grupo</label>
-                            <select id="f-grade" required>
-                                <option value="">Selecciona tu grupo...</option>
-                                <optgroup label="Octavo">
-                                    <option>8-1</option><option>8-2</option><option>8-3</option>
-                                </optgroup>
-                                <optgroup label="Noveno">
-                                    <option>9-1</option><option>9-2</option><option>9-3</option>
-                                </optgroup>
-                                <optgroup label="Décimo">
-                                    <option>10-1</option>
-                                </optgroup>
-                                <optgroup label="Once">
-                                    <option>11-1</option><option>11-2</option><option>11-3</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Edad</label>
-                            <input type="number" id="f-age" min="10" max="20" required>
-                        </div>
-                        <div class="form-group">
-                            <label>WhatsApp del Acudiente</label>
-                            <input type="tel" id="f-parent" placeholder="Ej: 310..." required>
-                        </div>
-                    </div>
-
-                    <!-- Paso 2: Sociodemográfico -->
-                    <div class="form-step" data-step="2">
-                        <h3>Estudio Sociodemográfico</h3>
-                        <div class="form-group">
-                            <label>Estrato Socioeconómico</label>
-                            <select id="f-stratum" required>
-                                <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>¿En qué sector vives?</label>
-                            <div class="choice-grid">
-                                <div class="choice-card" onclick="selectChoice(this, 'f-zone', 'Urbana')"><i class='bx bx-buildings'></i>Urbana</div>
-                                <div class="choice-card" onclick="selectChoice(this, 'f-zone', 'Rural')"><i class='bx bx-landscape'></i>Rural</div>
-                            </div>
-                            <input type="hidden" id="f-zone" required>
-                        </div>
-                    </div>
-
-                    <!-- Paso 3: Acceso a Medios -->
-                    <div class="form-step" data-step="3">
-                        <h3>Acceso a Medios TIC</h3>
-                        <div class="form-group">
-                            <label>¿Cómo te conectas a internet?</label>
-                            <select id="f-internet" required>
-                                <option>Fibra / WiFi Hogar</option>
-                                <option>Datos Móviles</option>
-                                <option>Solo en el Colegio</option>
-                                <option>No tengo acceso</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Dispositivo principal para tareas</label>
-                            <select id="f-device" required>
-                                <option>Celular</option>
-                                <option>Laptop / PC</option>
-                                <option>Tablet</option>
-                                <option>Ninguno</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Paso 4: Caracterización Semillero -->
-                    <div class="form-step" data-step="4">
-                        <h3>Intereses en el Semillero</h3>
-                        <div class="form-group">
-                            <label>¿Qué área te apasiona más?</label>
-                            <select id="f-interest" required>
-                                <option>Robótica y Electrónica</option>
-                                <option>Inteligencia Artificial</option>
-                                <option>Diseño Web / UX</option>
-                                <option>Programación de Videojuegos</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Nivel previo en tecnología</label>
-                            <select id="f-skill" required>
-                                <option>Explorador (Nada)</option>
-                                <option>Iniciado (Poco)</option>
-                                <option>Maker (Intermedio)</option>
-                                <option>Coder (Avanzado)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Paso 5: Personalización Final -->
-                    <div class="form-step" data-step="5">
-                        <h3>Tu Identidad Inforg</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;">Personaliza cómo te verán tus tutores y compañeros.</p>
-                        <div class="form-group">
-                            <label>URL de tu Foto Personal (Opcional)</label>
-                            <input type="url" id="f-picture" placeholder="https://ejemplo.com/mifoto.jpg">
-                            <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.7;">Puedes usar un enlace de Google Drive, Imgur o tu RRSS.</p>
-                        </div>
-                        <div class="form-group" style="margin-top: 20px; text-align: center;">
-                             <div class="choice-card selected" style="max-width: 150px; margin: 0 auto;" onclick="selectChoice(this, 'f-picture', 'IMAGENES/ID_CONECTATE.png')">
-                                <img src="IMAGENES/ID_CONECTATE.png" style="width: 50px; border-radius: 50%; border: 2px solid var(--accent-cyan);">
-                                <span style="font-size: 0.7rem;">Usar Avatar Por Defecto</span>
-                             </div>
-                        </div>
-                    </div>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn-secondary" id="btn-back" style="display: none;">Atrás</button>
-                        <button type="button" class="btn-primary" id="btn-next">Siguiente</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    `;
-
-    const form = document.getElementById('char-form');
-    const btnNext = document.getElementById('btn-next');
-    const btnBack = document.getElementById('btn-back');
-
-    btnNext.onclick = () => {
-        if (currentStep < 5) {
-            // Validar campos del paso actual (excepto el 5 que es opcional)
-            if (currentStep < 5) {
-                const currentFields = document.querySelector(`.form-step[data-step="${currentStep}"]`).querySelectorAll('input[required], select[required]');
-                let valid = true;
-                currentFields.forEach(f => { if(!f.value) valid = false; });
-                if(!valid) return alert("Por favor completa todos los campos del paso.");
-            }
-
-            currentStep++;
-            updateStepUI();
-        } else {
-            finishRegistration();
-        }
-    };
-
-    btnBack.onclick = () => {
-        if (currentStep > 1) {
-            currentStep--;
-            updateStepUI();
-        }
-    };
-
-    function updateStepUI() {
-        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-        document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+        if (!response.ok) throw new Error("Connection Error");
+        const data = await response.json();
+        const refined = data.candidates[0].content.parts[0].text.trim();
         
-        document.querySelectorAll('.step-dot').forEach(d => {
-            const step = parseInt(d.dataset.step);
-            d.classList.remove('active', 'completed');
-            if (step === currentStep) d.classList.add('active');
-            if (step < currentStep) d.classList.add('completed');
-        });
-
-        btnBack.style.display = currentStep > 1 ? 'block' : 'none';
-        btnNext.textContent = currentStep === 5 ? '¡COMENZAR AVENTURA!' : 'Siguiente';
-    }
-}
-
-function selectChoice(el, hiddenId, value) {
-    const parent = el.parentElement;
-    parent.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    document.getElementById(hiddenId).value = value;
-}
-
-function finishRegistration() {
-    const formData = {
-        grade: document.getElementById('f-grade').value,
-        age: document.getElementById('f-age').value,
-        parentContact: document.getElementById('f-parent').value,
-        stratum: document.getElementById('f-stratum').value,
-        zone: document.getElementById('f-zone').value,
-        internet: document.getElementById('f-internet').value,
-        device: document.getElementById('f-device').value,
-        interest: document.getElementById('f-interest').value,
-        skill: document.getElementById('f-skill').value,
-        picture: document.getElementById('f-picture').value || "IMAGENES/ID_CONECTATE.png",
-        timestamp: new Date().toISOString()
-    };
-
-    console.log("Registrando datos del estudiante:", formData);
-    
-    // Guardar persistencia
-    localStorage.setItem(`data_${currentUser.email}`, JSON.stringify(formData));
-    localStorage.setItem(`reg_${currentUser.email}`, 'true');
-    
-    // Actualizar usuario actual
-    currentUser.registered = true;
-    currentUser.picture = formData.picture;
-    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
-    
-    // Actualizar en la base de datos local de cuentas
-    let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-    if (accounts[currentUser.email]) {
-        accounts[currentUser.email].registered = true;
-        accounts[currentUser.email].picture = formData.picture;
-        localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
-    }
-
-    alert("¡Registro completado! Bienvenido oficialmente al ecosistema CONECTATE.");
-    checkUserStatus();
-}
-
-// --- FUNCIONES DEL DASHBOARD ADMINISTRATIVO EVOLUCIONADO ---
-let dashboardPeriod = ACADEMIC_CONFIG.currentPeriod;
-let dashboardTab = 'examenes';
-
-function renderAdminDashboard(periodOverride, tabOverride) {
-    if (periodOverride) dashboardPeriod = periodOverride;
-    if (tabOverride) dashboardTab = tabOverride;
-
-    const mainViewer = document.getElementById('agent-content');
-    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-    
-    // Recolectar TODOS los datos (caracterización + académico)
-    const allStudents = [];
-    Object.keys(accounts).forEach(email => {
-        if (accounts[email].isAdmin) return;
-        const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
-        const gamiData = JSON.parse(localStorage.getItem(`gami_${email}`)) || { xp: 0, level: 1, completed_sessions: [] };
-        const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
+        descArea.value = refined;
+        if (status) {
+            status.innerHTML = "<i class='bx bx-check-circle'></i> ¡Redacción optimizada!";
+            setTimeout(() => { status.style.display = 'none'; status.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Optimizando tu texto..."; }, 3000);
+        }
         
-        if (charData.grade) {
-            allStudents.push({
-                email,
-                name: accounts[email].name || 'Sin nombre',
-                grade: charData.grade || 'N/A',
-                stratum: charData.stratum,
-                internet: charData.internet,
-                interest: charData.interest,
-                device: charData.device,
-                zone: charData.zone,
-                parentContact: charData.parentContact,
-                timestamp: charData.timestamp,
-                academic: academicData,
-                gamification: gamiData
-            });
+    } catch (error) {
+        console.error(error);
+        if (status) {
+            status.innerHTML = "<i class='bx bx-error-circle' style='color: #ef4444;'></i> Error al conectar con el Profe Álvaro.";
+            setTimeout(() => { status.style.display = 'none'; }, 3000);
         }
-    });
-
-    // Estadísticas para el periodo seleccionado
-    const periodData = allStudents.map(s => {
-        const p = s.academic.periodos?.[dashboardPeriod] || {};
-        return { ...s, examen: p.examen || null, auditoria: p.auditoria || null };
-    });
-
-    const withExam = periodData.filter(s => s.examen);
-    const withAudit = periodData.filter(s => s.auditoria);
-    const avgExam = withExam.length ? (withExam.reduce((a, b) => a + b.examen.nota, 0) / withExam.length).toFixed(1) : '—';
-    const approved = withExam.filter(s => s.examen.nota >= 3.0).length;
-    const approvalRate = withExam.length ? Math.round((approved / withExam.length) * 100) : 0;
-    const pending = allStudents.length - withExam.length;
-
-    // Stats de caracterización
-    const stats = { grades: {}, stratum: {}, internet: {}, interests: {}, levels: {} };
-    allStudents.forEach(d => {
-        stats.grades[d.grade] = (stats.grades[d.grade] || 0) + 1;
-        if (d.stratum) stats.stratum[d.stratum] = (stats.stratum[d.stratum] || 0) + 1;
-        if (d.internet) stats.internet[d.internet] = (stats.internet[d.internet] || 0) + 1;
-        if (d.interest) stats.interests[d.interest] = (stats.interests[d.interest] || 0) + 1;
-        
-        // Stats de Niveles
-        const xpValue = d.gamification ? d.gamification.xp : 0;
-        const lvlInfo = (window.GamificationManager && typeof window.GamificationManager.getLevelInfo === "function") 
-            ? window.GamificationManager.getLevelInfo(xpValue) 
-            : { name: "N/A" };
-        stats.levels[lvlInfo.name] = (stats.levels[lvlInfo.name] || 0) + 1;
-    });
-
-    // Distribución de notas para gráfico
-    const gradeScores = {};
-    withExam.forEach(s => {
-        if (!gradeScores[s.grade]) gradeScores[s.grade] = [];
-        gradeScores[s.grade].push(s.examen.nota);
-    });
-    const gradeAverages = {};
-    Object.entries(gradeScores).forEach(([g, scores]) => {
-        gradeAverages[g] = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
-    });
-
-    // Period tabs HTML
-    const periodTabsHTML = Object.entries(ACADEMIC_CONFIG.periods).map(([pId, pCfg]) => {
-        const isActive = pId === dashboardPeriod;
-        return `<button onclick="renderAdminDashboard('${pId}')" 
-                    style="padding: 10px 20px; border: none; border-radius: 10px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.3s;
-                    ${isActive ? 'background: linear-gradient(135deg, #a855f7, #22d3ee); color: white; box-shadow: 0 4px 15px rgba(168,85,247,0.3);' : 'background: rgba(255,255,255,0.05); color: var(--text-secondary);'}">
-                    ${pCfg.label}
-                </button>`;
-    }).join('');
-
-    // Content tabs HTML
-    const contentTabs = [
-        { id: 'examenes', label: 'Exámenes', icon: 'bx-task' },
-        { id: 'auditorias', label: 'Auditorías', icon: 'bx-check-shield' },
-        { id: 'sesiones', label: 'Analítica Sesiones', icon: 'bx-line-chart' },
-        { id: 'caracterizacion', label: 'Caracterización', icon: 'bx-user-pin' }
-    ];
-    const contentTabsHTML = contentTabs.map(t => {
-        const isActive = t.id === dashboardTab;
-        return `<button onclick="renderAdminDashboard(null, '${t.id}')" 
-                    style="padding: 8px 16px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px;
-                    ${isActive ? 'background: rgba(168,85,247,0.2); color: #a855f7; border: 1px solid rgba(168,85,247,0.3);' : 'background: rgba(255,255,255,0.03); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.05);'}">
-                    <i class='bx ${t.icon}'></i> ${t.label}
-                </button>`;
-    }).join('');
-
-    // Tab content
-    let tabContent = '';
-    if (dashboardTab === 'examenes') {
-        tabContent = renderExamenesTab(periodData, stats);
-    } else if (dashboardTab === 'auditorias') {
-        tabContent = renderAuditoriasTab(withAudit);
-    } else if (dashboardTab === 'sesiones') {
-        tabContent = renderSesionesTab(allStudents);
-    } else {
-        tabContent = renderCaracterizacionTab(allStudents, stats);
-    }
-
-    mainViewer.innerHTML = `
-        <div class="agent-viewer theme-academico">
-            <div class="agent-header">
-                <div class="agent-icon-large glass-panel"><i class='bx bxs-dashboard'></i></div>
-                <div class="agent-header-text">
-                    <h2>Panel de Analítica Académica</h2>
-                    <p>Registro integrado de evaluaciones y caracterización — ${ACADEMIC_CONFIG.year}</p>
-                </div>
-            </div>
-
-            <!-- Selector de Periodo -->
-            <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
-                ${periodTabsHTML}
-            </div>
-
-            <!-- KPIs -->
-            <div class="stats-container">
-                <div class="stat-card glass-panel">
-                    <h4>Total Registrados</h4>
-                    <div class="stat-value">${allStudents.length}</div>
-                </div>
-                <div class="stat-card glass-panel">
-                    <h4>Promedio Periodo</h4>
-                    <div class="stat-value" style="color: ${avgExam !== '—' && parseFloat(avgExam) >= 3.0 ? '#10b981' : '#fbbf24'};">${avgExam}</div>
-                </div>
-                <div class="stat-card glass-panel">
-                    <h4>Tasa Aprobación</h4>
-                    <div class="stat-value" style="color: ${approvalRate >= 60 ? '#10b981' : '#ec4899'};">${approvalRate}%</div>
-                </div>
-                <div class="stat-card glass-panel">
-                    <h4>Pendientes</h4>
-                    <div class="stat-value" style="color: #f59e0b;">${pending}</div>
-                </div>
-            </div>
-
-            <!-- Gráficos -->
-            <div class="charts-grid">
-                <div class="chart-card glass-panel"><canvas id="chart-grades"></canvas></div>
-                <div class="chart-card glass-panel"><canvas id="chart-scores"></canvas></div>
-            </div>
-
-            <!-- Content Tabs -->
-            <div style="display: flex; gap: 8px; margin: 30px 0 20px; flex-wrap: wrap;">
-                ${contentTabsHTML}
-                <button onclick="exportDashboardCSV()" style="margin-left: auto; padding: 8px 16px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; gap: 6px;">
-                    <i class='bx bx-download'></i> Exportar CSV
-                </button>
-            </div>
-
-            ${tabContent}
-        </div>
-    `;
-
-    // Gráficas
-    initDashboardCharts(stats, gradeAverages);
-}
-
-function renderExamenesTab(periodData, stats) {
-    const allGrades = Object.keys(stats.grades).sort();
-    return `
-        <div class="search-filter-bar">
-            <input type="text" id="student-search" placeholder="Buscar por nombre..." oninput="filterStudentTable()">
-            <select id="grade-filter" onchange="filterStudentTable()">
-                <option value="">Todos los grados</option>
-                ${allGrades.map(g => `<option value="${g}">${g}</option>`).join('')}
-            </select>
-        </div>
-        <div class="data-table-container">
-            <table class="data-table">
-                <thead>
-                    <tr><th>Nombre</th><th>Grado</th><th>Nota</th><th>Aciertos</th><th>Créditos</th><th>Estado</th><th>Acción</th></tr>
-                </thead>
-                <tbody id="student-table-body">
-                         ${periodData.map(d => {
-                        const nota = d.examen ? d.examen.nota.toFixed(1) : '—';
-                        const aciertos = d.examen ? `${d.examen.correctas}/${d.examen.total}` : '—';
-                        let statusHTML = '<span style="color: #f59e0b;">⏳ Pendiente</span>';
-                        if (d.examen) {
-                            statusHTML = d.examen.nota >= 3.0 
-                                ? '<span style="color: #10b981;">✅ Aprobado</span>' 
-                                : '<span style="color: #ec4899;">❌ Reprobado</span>';
-                        }
-                        const notaColor = !d.examen ? 'var(--text-secondary)' : d.examen.nota >= 4.0 ? '#10b981' : d.examen.nota >= 3.0 ? '#fbbf24' : '#ec4899';
-                        return `
-                            <tr class="student-row" data-grade="${d.grade}" data-search="${d.name.toLowerCase()}">
-                                <td style="color: white; font-weight: 600;">${d.name}</td>
-                                <td><span class="admin-badge">${d.grade}</span></td>
-                                <td style="color: ${notaColor}; font-weight: 700; font-size: 1.1rem;">${nota}</td>
-                                <td>${aciertos}</td>
-                                <td style="color: #fbbf24; font-weight: 600;">${d.gamification.xp} XP</td>
-                                <td>${statusHTML}</td>
-                                <td><button onclick="showStudentProfile('${d.email}')" style="background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class='bx bx-user'></i> Ver</button></td>
-                            </tr>`;
-                    }).join('')}
-                </tbody>
-            </table>
-        </div>
-    `;
-}
-
-function renderAuditoriasTab(withAudit) {
-    if (withAudit.length === 0) {
-        return `<div style="text-align: center; padding: 60px 20px; opacity: 0.6;">
-            <i class='bx bx-search-alt' style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
-            <p>No hay auditorías registradas en este periodo aún.</p>
-        </div>`;
-    }
-    return `
-        <div class="data-table-container">
-            ${withAudit.map(d => {
-                const a = d.auditoria;
-                const notaColor = a.nota >= 4.0 ? '#10b981' : a.nota >= 3.0 ? '#fbbf24' : '#ec4899';
-                return `
-                <div class="glass-panel" style="padding: 25px; border-radius: 16px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.06);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
-                        <div>
-                            <h4 style="margin: 0; color: white;">${d.name}</h4>
-                            <span class="admin-badge">${d.grade}</span>
-                        </div>
-                        <div style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: ${notaColor};">${a.nota.toFixed(1)}</div>
-                    </div>
-                    <div style="background: rgba(168,85,247,0.05); padding: 15px; border-radius: 10px; border-left: 3px solid #a855f7; margin-bottom: 10px;">
-                        <strong style="color: #a855f7; font-size: 0.8rem;">FEEDBACK</strong>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 5px 0 0;">${a.feedback}</p>
-                    </div>
-                    <div style="background: rgba(34,211,238,0.05); padding: 15px; border-radius: 10px; border-left: 3px solid #22d3ee; margin-bottom: 10px;">
-                        <strong style="color: #22d3ee; font-size: 0.8rem;">JUSTIFICACIÓN</strong>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 5px 0 0;">${a.justificacion}</p>
-                    </div>
-                    <div style="background: rgba(245,158,11,0.05); padding: 15px; border-radius: 10px; border-left: 3px solid #f59e0b;">
-                        <strong style="color: #f59e0b; font-size: 0.8rem;">MEJORAS</strong>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 5px 0 0;">${a.mejoras}</p>
-                    </div>
-                </div>`;
-            }).join('')}
-        </div>
-    `;
-}
-
-function renderCaracterizacionTab(allStudents, stats) {
-    const allGrades = Object.keys(stats.grades).sort();
-    return `
-        <div class="charts-grid" style="margin-bottom: 30px;">
-            <div class="chart-card glass-panel" style="height: 250px;"><canvas id="chart-stratum"></canvas></div>
-            <div class="chart-card glass-panel" style="height: 250px;"><canvas id="chart-internet"></canvas></div>
-            <div class="chart-card glass-panel" style="height: 250px;"><canvas id="chart-levels"></canvas></div>
-        </div>
-        <div class="search-filter-bar">
-            <input type="text" id="student-search" placeholder="Buscar por nombre o correo..." oninput="filterStudentTable()">
-            <select id="grade-filter" onchange="filterStudentTable()">
-                <option value="">Todos los grados</option>
-                ${allGrades.map(g => `<option value="${g}">${g}</option>`).join('')}
-            </select>
-        </div>
-        <div class="data-table-container">
-            <table class="data-table">
-                <thead>
-                    <tr><th>Nombre</th><th>Grado</th><th>Correo</th><th>Créditos</th><th>Estrato</th><th>Acción</th></tr>
-                </thead>
-                <tbody id="student-table-body">
-                    ${allStudents.map(d => `
-                        <tr class="student-row" data-grade="${d.grade}" data-search="${d.name.toLowerCase()} ${d.email.toLowerCase()}">
-                            <td style="color: white; font-weight: 600;">${d.name}</td>
-                            <td><span class="admin-badge">${d.grade}</span></td>
-                            <td>${d.email}</td>
-                            <td style="color: #fbbf24; font-weight: 600;">${d.gamification.xp} XP</td>
-                            <td>${d.stratum || '—'}</td>
-                            <td><button onclick="showStudentProfile('${d.email}')" style="background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class='bx bx-user'></i> Ver</button></td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        </div>
-    `;
-    // Nota: los charts de caracterización se inicializan por separado
-    setTimeout(() => initCharacterizationCharts(stats), 100);
-}
-
-function showStudentProfile(email) {
-    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-    const account = accounts[email] || {};
-    const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
-    const gamiData = JSON.parse(localStorage.getItem(`gami_${email}`)) || { xp: 0, level: 1, completed_sessions: [] };
-    const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
-
-    let periodsHTML = '';
-    Object.entries(ACADEMIC_CONFIG.periods).forEach(([pId, pCfg]) => {
-        const pData = academicData.periodos?.[pId] || {};
-        const exam = pData.examen;
-        const audit = pData.auditoria;
-
-        let examInfo = '<span style="color: var(--text-secondary); opacity: 0.5;">Sin presentar</span>';
-        if (exam) {
-            const color = exam.nota >= 4.0 ? '#10b981' : exam.nota >= 3.0 ? '#fbbf24' : '#ec4899';
-            examInfo = `<span style="color: ${color}; font-weight: 700; font-size: 1.2rem;">${exam.nota.toFixed(1)}</span> <span style="color: var(--text-secondary); font-size: 0.8rem;">(${exam.correctas}/${exam.total})</span>`;
-        }
-
-        let auditInfo = '';
-        if (audit) {
-            const color = audit.nota >= 4.0 ? '#10b981' : audit.nota >= 3.0 ? '#fbbf24' : '#ec4899';
-            auditInfo = `<div style="margin-top: 8px;">Auditoría: <span style="color: ${color}; font-weight: 700;">${audit.nota.toFixed(1)}</span></div>`;
-        }
-
-        periodsHTML += `
-            <div style="padding: 15px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
-                <h4 style="margin: 0 0 8px; color: ${pId === dashboardPeriod ? '#a855f7' : 'var(--text-secondary)'};">${pCfg.label}</h4>
-                <div>Examen: ${examInfo}</div>
-                ${auditInfo}
-            </div>`;
-    });
-
-    const modalHtml = `
-        <div class="modal-overlay active" id="student-profile-modal" onclick="closeStudentProfile()">
-            <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 550px;">
-                <button class="modal-close" onclick="closeStudentProfile()"><i class='bx bx-x'></i></button>
-                <h2 style="color: white; margin-bottom: 5px;">${account.name || 'Estudiante'}</h2>
-                <p style="color: var(--accent-cyan); font-weight: 600; font-size: 0.9rem; margin-bottom: 5px;">${charData.grade || 'Sin grado'} | ${email}</p>
-                ${charData.parentContact ? `<p style="color: var(--text-secondary); font-size: 0.8rem;"><i class='bx bxl-whatsapp' style="color: #25d366;"></i> Acudiente: ${charData.parentContact}</p>` : ''}
-
-                <div style="margin: 20px 0;">
-                    <h3 style="color: var(--accent-purple); font-size: 1rem; margin-bottom: 12px;"><i class='bx bx-bar-chart-alt-2'></i> Historial Académico</h3>
-                    <div style="display: grid; gap: 10px;">
-                        ${periodsHTML}
-                    </div>
-                </div>
-
-                <div style="margin: 20px 0; padding: 15px; border-radius: 12px; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);">
-                    <h3 style="color: white; font-size: 0.9rem; margin-bottom: 8px;"><i class='bx bxs-zap' style="color: #fbbf24;"></i> Estatus de Gamificación</h3>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Nivel Actual</div>
-                            <div style="font-weight: 700; color: var(--accent-cyan);">${GamificationManager.getLevelInfo(gamiData.xp || 0).icon} ${GamificationManager.getLevelInfo(gamiData.xp || 0).name}</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Total XP</div>
-                            <div style="font-weight: 800; color: #fbbf24; font-size: 1.2rem;">${gamiData.xp || 0}</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-secondary);">
-                        Sesiones completadas: <span style="color: white; font-weight: 600;">${(gamiData.completed_sessions || []).length}</span>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
-                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Estrato</div>
-                        <div style="font-weight: 700; color: white;">${charData.stratum || '—'}</div>
-                    </div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
-                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Internet</div>
-                        <div style="font-weight: 700; color: white;">${charData.internet || '—'}</div>
-                    </div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
-                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Dispositivo</div>
-                        <div style="font-weight: 700; color: white;">${charData.device || '—'}</div>
-                    </div>
-                    <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; text-align: center;">
-                        <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Interés</div>
-                        <div style="font-weight: 700; color: white;">${charData.interest || '—'}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-}
-
-function closeStudentProfile() {
-    const modal = document.getElementById('student-profile-modal');
-    if (modal) { modal.classList.remove('active'); setTimeout(() => modal.remove(), 300); }
-}
-
-function exportDashboardCSV() {
-    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-    let csv = 'Nombre,Correo,Grado,Nota Examen,Aciertos,Nota Auditoria,Estrato,Internet,Dispositivo,Interes\n';
-
-    Object.keys(accounts).forEach(email => {
-        if (accounts[email].isAdmin) return;
-        const charData = JSON.parse(localStorage.getItem(`data_${email}`)) || {};
-        const academicData = JSON.parse(localStorage.getItem(`academic_${email}`)) || { periodos: {} };
-        const pData = academicData.periodos?.[dashboardPeriod] || {};
-        const exam = pData.examen;
-        const audit = pData.auditoria;
-
-        csv += `"${accounts[email].name}","${email}","${charData.grade || ''}",${exam ? exam.nota : ''},${exam ? exam.correctas + '/' + exam.total : ''},${audit ? audit.nota : ''},"${charData.stratum || ''}","${charData.internet || ''}","${charData.device || ''}","${charData.interest || ''}"\n`;
-    });
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `CONECTATE_${dashboardPeriod}_${ACADEMIC_CONFIG.year}.csv`;
-    link.click();
-}
-
-function initDashboardCharts(stats, gradeAverages) {
-    const commonOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#e2e8f0', font: { family: 'Outfit' } } } },
-        scales: {
-            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
-        }
-    };
-
-    // 1. Estudiantes por Grado
-    const chartGrades = document.getElementById('chart-grades');
-    if (chartGrades) {
-        new Chart(chartGrades, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(stats.grades),
-                datasets: [{
-                    label: 'Estudiantes por Grado',
-                    data: Object.values(stats.grades),
-                    backgroundColor: 'rgba(139, 92, 246, 0.6)',
-                    borderColor: '#8b5cf6',
-                    borderWidth: 1
-                }]
-            },
-            options: commonOptions
-        });
-    }
-
-    // 2. Promedio de notas por grado
-    const chartScores = document.getElementById('chart-scores');
-    if (chartScores && gradeAverages && Object.keys(gradeAverages).length > 0) {
-        new Chart(chartScores, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(gradeAverages),
-                datasets: [{
-                    label: `Promedio Examen ${ACADEMIC_CONFIG.periods[dashboardPeriod].label}`,
-                    data: Object.values(gradeAverages).map(Number),
-                    backgroundColor: Object.values(gradeAverages).map(v => parseFloat(v) >= 3.0 ? 'rgba(16, 185, 129, 0.6)' : 'rgba(236, 72, 153, 0.6)'),
-                    borderColor: Object.values(gradeAverages).map(v => parseFloat(v) >= 3.0 ? '#10b981' : '#ec4899'),
-                    borderWidth: 1
-                }]
-            },
-            options: { ...commonOptions, scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, max: 5, min: 0 } } }
-        });
-    } else if (chartScores) {
-        chartScores.parentElement.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; opacity: 0.4;"><p>Sin datos de exámenes aún</p></div>';
-    }
-
-    // Characterization charts (if on that tab)
-    initCharacterizationCharts(stats);
-}
-
-function initCharacterizationCharts(stats) {
-    const commonPie = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#e2e8f0', font: { family: 'Outfit' } } } }
-    };
-
-    const chartStratum = document.getElementById('chart-stratum');
-    if (chartStratum) {
-        new Chart(chartStratum, {
-            type: 'pie',
-            data: {
-                labels: Object.keys(stats.stratum).map(s => `Estrato ${s}`),
-                datasets: [{ data: Object.values(stats.stratum), backgroundColor: ['#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'] }]
-            },
-            options: commonPie
-        });
-    }
-
-    const chartInternet = document.getElementById('chart-internet');
-    if (chartInternet) {
-        new Chart(chartInternet, {
-            type: 'doughnut',
-            data: {
-                labels: Object.keys(stats.internet),
-                datasets: [{ data: Object.values(stats.internet), backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'] }]
-            },
-            options: commonPie
-        });
-    }
-
-    const chartLevels = document.getElementById('chart-levels');
-    if (chartLevels) {
-        new Chart(chartLevels, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(stats.levels),
-                datasets: [{
-                    label: 'Estudiantes por Nivel',
-                    data: Object.values(stats.levels),
-                    backgroundColor: 'rgba(34, 211, 238, 0.6)',
-                    borderColor: '#22d3ee',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                ...commonPie,
-                scales: {
-                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
-                }
-            }
-        });
     }
 }
-
-function filterStudentTable() {
-    const query = document.getElementById('student-search').value.toLowerCase();
-    const grade = document.getElementById('grade-filter').value;
-    const rows = document.querySelectorAll('.student-row');
-
-    rows.forEach(row => {
-        const matchesSearch = row.dataset.search.includes(query);
-        const matchesGrade = grade === "" || row.dataset.grade === grade;
-        row.style.display = (matchesSearch && matchesGrade) ? 'table-row' : 'none';
-    });
-}
-
-// Inicializar Auth al cargar
-// --- INICIALIZACIÓN DE LA APLICACIÓN (MODO ABIERTO) ---
-window.onload = async () => {
-    updateUIForUser();
-    
-    // Configurar navegación
-    const navButtons = document.querySelectorAll('.nav-btn, .m-btn');
-    navButtons.forEach(btn => {
-        btn.onclick = () => {
-            document.querySelectorAll('.nav-btn, .m-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            navigateTo(btn.dataset.content);
-        };
-    });
-
-    const homeBtn = document.getElementById('home-btn');
-    if (homeBtn) homeBtn.onclick = () => navigateTo('home');
-    
-    const logoHomeBtn = document.getElementById('logo-home-btn');
-    if (logoHomeBtn) logoHomeBtn.onclick = () => navigateTo('home');
-
-    // Inicializar buscador y noticias
-    if (typeof setupSearch === 'function') setupSearch();
-    loadEduTechNews();
-    
-    // NAVEGACIÓN DIRECTA AL HOME
-    navigateTo('home');
-    
-    console.log("CONECTATE: Ecosistema simplificado listo.");
-};
-
-// Funcionalidad Traducción delegada a translate-engine.js
-
 
 // --- BUSCADOR GLOBAL INTELIGENTE ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -1952,130 +1231,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return text.replace(regex, "<span style=\"color: #a855f7; font-weight: bold; background: rgba(168,85,247,0.2); border-radius: 4px; padding: 0 2px;\">$1</span>");
     }
 });
-
-function renderSesionesTab(allStudents) {
-    const currentPeriod = ACADEMIC_CONFIG.currentPeriod;
-    
-    // Extraer todos los resultados de sesiones de todos los estudiantes
-    const sessionResults = [];
-    allStudents.forEach(s => {
-        const talleres = s.academic.periodos?.[dashboardPeriod]?.talleres || {};
-        Object.entries(talleres).forEach(([id, data]) => {
-            sessionResults.push({
-                ...s,
-                sessionId: id,
-                sessionName: `Sesión ${id}`,
-                grade: parseFloat(data.grade),
-                xp: data.xp,
-                attempts: data.attempts,
-                timestamp: data.timestamp
-            });
-        });
-    });
-
-    // Filtros únicos para los selects
-    const groups = [...new Set(allStudents.map(s => s.group))].sort();
-    const grades = [...new Set(allStudents.map(s => s.grade))].sort();
-    const sessions = [...new Set(sessionResults.map(r => r.sessionId))].sort((a,b) => a-b);
-
-    return `
-        <div class="search-filter-bar" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
-            <div class="filter-group">
-                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Grado</label>
-                <select id="filter-ses-grade" onchange="filterSessionTable()" style="width:100%; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px;">
-                    <option value="">Todos</option>
-                    ${grades.map(g => `<option value="${g}">${g}</option>`).join('')}
-                </select>
-            </div>
-            <div class="filter-group">
-                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Grupo</label>
-                <select id="filter-ses-group" onchange="filterSessionTable()" style="width:100%; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px;">
-                    <option value="">Todos</option>
-                    ${groups.map(g => `<option value="${g}">${g}</option>`).join('')}
-                </select>
-            </div>
-            <div class="filter-group">
-                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Sesión</label>
-                <select id="filter-ses-id" onchange="filterSessionTable()" style="width:100%; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px;">
-                    <option value="">Todas</option>
-                    ${sessions.map(s => `<option value="${s}">Sesión ${s}</option>`).join('')}
-                </select>
-            </div>
-            <div class="filter-group">
-                <label style="display:block; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase;">Promedio Filtro</label>
-                <div id="filter-ses-avg" style="font-size: 1.2rem; font-weight: 800; color: #10b981;">—</div>
-            </div>
-        </div>
-
-        <div class="data-table-container">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Grupo</th>
-                        <th>Estudiante</th>
-                        <th>Sesión</th>
-                        <th>Intentos</th>
-                        <th>Nota</th>
-                        <th>XP</th>
-                    </tr>
-                </thead>
-                <tbody id="session-table-body">
-                    ${sessionResults.map(r => `
-                        <tr class="session-row" 
-                            data-grade="${r.grade_orig || r.grade}" 
-                            data-group="${r.group}" 
-                            data-session="${r.sessionId}" 
-                            data-nota="${r.grade}">
-                            <td><span class="admin-badge">${r.group}</span></td>
-                            <td style="color: white; font-weight: 600;">${r.name}</td>
-                            <td>Sesión ${r.sessionId}</td>
-                            <td>${r.attempts}</td>
-                            <td style="font-weight: 800; color: ${r.grade >= 4.0 ? '#10b981' : r.grade >= 3.0 ? '#fbbf24' : '#ec4899'}; font-size: 1.1rem;">
-                                ${r.grade.toFixed(1)}
-                            </td>
-                            <td style="color: #fbbf24; font-weight: 600;">+${r.xp} XP</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        </div>
-    `;
-}
-
-function filterSessionTable() {
-    const fGrade = document.getElementById('filter-ses-grade').value;
-    const fGroup = document.getElementById('filter-ses-group').value;
-    const fSession = document.getElementById('filter-ses-id').value;
-    
-    const rows = document.querySelectorAll('.session-row');
-    let totalNota = 0;
-    let visibleCount = 0;
-
-    rows.forEach(row => {
-        const matchesGrade = fGrade === "" || row.dataset.grade.startsWith(fGrade); // Simplificación si grade es string ej "8"
-        const matchesGroup = fGroup === "" || row.dataset.group === fGroup;
-        const matchesSession = fSession === "" || row.dataset.session === fSession;
-
-        if (matchesGrade && matchesGroup && matchesSession) {
-            row.style.display = 'table-row';
-            totalNota += parseFloat(row.dataset.nota);
-            visibleCount++;
-        } else {
-            row.style.display = 'none';
-        }
-    });
-
-    const avgEl = document.getElementById('filter-ses-avg');
-    if (visibleCount > 0) {
-        const avg = (totalNota / visibleCount).toFixed(2);
-        avgEl.innerText = avg;
-        avgEl.style.color = avg >= 3.0 ? '#10b981' : '#ec4899';
-    } else {
-        avgEl.innerText = '—';
-    }
-}
-
-// --- UTILIDADES GLOBALES (UI) ---
 function showToast(message, type = 'info') {
     let toast = document.getElementById('conectate-toast');
     if (!toast) {
@@ -2114,3 +1269,33 @@ function showToast(message, type = 'info') {
         toast.style.opacity = '0';
     }, 3000);
 }
+
+// --- PUNTO DE ENTRADA (Fase 1: Restaurado) ---
+window.onload = async () => {
+    console.log("CONECTATE: Iniciando ecosistema simplificado...");
+    
+    // 1. Cargar perfil del docente
+    if (typeof updateUIForUser === 'function') updateUIForUser();
+    
+    // 2. Configurar botones de navegación
+    const navButtons = document.querySelectorAll('.nav-btn, .m-btn');
+    navButtons.forEach(btn => {
+        btn.onclick = () => {
+            const section = btn.dataset.content;
+            if (section) navigateTo(section);
+        };
+    });
+
+    // 3. Botones extra de Home
+    const homeBtn = document.getElementById('home-btn');
+    if (homeBtn) homeBtn.onclick = () => navigateTo('home');
+    
+    const logoHomeBtn = document.getElementById('logo-home-btn');
+    if (logoHomeBtn) logoHomeBtn.onclick = () => navigateTo('home');
+
+    // 4. Ir al inicio por defecto
+    navigateTo('home');
+    
+    // 5. Cargar noticias (Fase 2 se encargará de la resiliencia)
+    if (typeof loadEduTechNews === 'function') loadEduTechNews();
+};

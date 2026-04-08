@@ -16,9 +16,9 @@
     <!-- BoxIcons para iconos -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=5.0">
+    <link rel="stylesheet" href="style.css?v=9.0">
     <!-- PWA Config -->
-    <link rel="manifest" href="manifest.json?v=5">
+    <link rel="manifest" href="manifest.json?v=9">
     <link rel="icon" type="image/png" href="IMAGENES/LOGO 1.png">
     <link rel="apple-touch-icon" href="IMAGENES/ID_CONECTATE.png">
     <meta name="msapplication-TileImage" content="IMAGENES/ID_CONECTATE.png">
@@ -118,28 +118,17 @@
             <div class="main-viewer" id="agent-content">
                 <!-- Content will be injected here by JS -->
             </div>
-
-            <!-- Selector de Grados para Móvil -->
-            <div id="mobile-grade-picker" class="glass-panel" style="display: none; padding: 20px;">
-                <h3 style="text-align: center; margin-bottom: 20px; font-family: var(--font-heading);">Selecciona tu Grado</h3>
-                <div class="dashboard-grid" style="grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                    <div class="feature-card glass-panel" onclick="navigateTo('octavo')"><span>Octavo</span></div>
-                    <div class="feature-card glass-panel" onclick="navigateTo('noveno')"><span>Noveno</span></div>
-                    <div class="feature-card glass-panel" onclick="navigateTo('decimo')"><span>Décimo</span></div>
-                    <div class="feature-card glass-panel" onclick="navigateTo('undecimo')"><span>Undécimo</span></div>
-                </div>
-            </div>
         </main>
     </div>
 
     <nav class="mobile-nav">
         <button class="m-btn active" data-content="home"><i class='bx bx-home-alt'></i><span>Inicio</span></button>
-        <button class="m-btn" data-content="grados-picker"><i class='bx bx-grid-alt'></i><span>Grados</span></button>
+        <button class="m-btn" data-content="grados"><i class='bx bx-grid-alt'></i><span>Grados</span></button>
         <button class="m-btn" data-content="herramientas"><i class='bx bx-wrench'></i><span>Herramientas</span></button>
         <button class="m-btn" data-content="interes"><i class='bx bx-bulb'></i><span>Recursos</span></button>
     </nav>
 
-    <script src="script.js?v=5.0"></script>
-    <script src="chat-tesla.js?v=5.0"></script>
+    <script src="script.js?v=9.0"></script>
+    <script src="chat-tesla.js?v=9.0"></script>
 </body>
 </html>

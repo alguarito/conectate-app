@@ -137,6 +137,15 @@ const sectionData = {
             { id: 10, title: 'Sesión 10: Prueba de Desempeño', file: './DECIMO/10-10-TIC.html?v=1.2', desc: 'Examen Global: Demuestra tu transformación de consumidor ciego a Auditor Crítico de IA e Ingeniería Documental.' }
         ]
     },
+    grados: {
+        theme: 'theme-etico', icon: '<i class="bx bx-grid-alt"></i>', title: 'Selecciona tu Grado', subtitle: 'Elige tu nivel para acceder a los contenidos interactivos',
+        features: [ 
+            { icon: 'bx bx-book-open', title: 'Grado Octavo', desc: 'Electrónica, Robótica y Maker.', action: "navigateTo('octavo')" }, 
+            { icon: 'bx bx-laptop', title: 'Grado Noveno', desc: 'Ética Digital y Pensamiento Crítico.', action: "navigateTo('noveno')" },
+            { icon: 'bx bx-code-block', title: 'Grado Décimo', desc: 'Ofimática Inteligente e IA.', action: "navigateTo('decimo')" },
+            { icon: 'bx bx-code-alt', title: 'Grado Undécimo', desc: 'Ingeniería Editorial y Proyectos TIC.', action: "navigateTo('undecimo')" }
+        ]
+    },
     undecimo: {
         theme: 'theme-coder', icon: '<i class="bx bx-code-alt"></i>', title: 'Grado Undécimo', subtitle: 'IA Aplicada — Co-creación Editorial y Autoría en la Era del Centauro',
         isSessions: true,
@@ -219,27 +228,11 @@ let secNavElement = null;
 
 // Core navigation function
 function navigateTo(sectionId) {
-    const isMobile = window.innerWidth <= 480;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     const picker = document.getElementById('mobile-grade-picker');
 
     // Deseleccionar todo
     document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => btn.classList.remove('active'));
-
-    // CASO ESPECIAL: Selector de Grados para Móvil
-    if (sectionId === 'grados-picker' && isMobile) {
-        if (picker) {
-            mainViewer.style.display = 'none';
-            picker.style.display = 'block';
-            document.querySelectorAll('[data-content="grados-picker"]').forEach(b => b.classList.add('active'));
-            return;
-        }
-    }
-
-    // Ocultar picker si existe y estamos cargando contenido real
-    if (picker) {
-        picker.style.display = 'none';
-        mainViewer.style.display = 'block';
-    }
 
     const data = sectionData[sectionId];
     if (!data) return;
@@ -329,7 +322,7 @@ function renderSectionInfo(sectionId) {
 }
 
 function renderSessionDetail(sessionData, gradeData, gradeId) {
-    const isMobile = window.innerWidth <= 480;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     mainViewer.style.display = 'block';
     mainViewer.innerHTML = `
         <div class="agent-viewer ${gradeData.theme}">
@@ -357,7 +350,7 @@ function renderSessionDetail(sessionData, gradeData, gradeId) {
 // --- VISTA DE PERIODOS ---
 function renderPeriodSelector(gradeId) {
     const gradeData = sectionData[gradeId];
-    const isMobile = window.innerWidth <= 480;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     
     // Limpiar sidebar secundario
     if (secNavElement) {
@@ -430,7 +423,7 @@ function renderPeriodSelector(gradeId) {
 
 function renderSubMenu(sectionId) {
     const gradeData = sectionData[sectionId];
-    const isMobile = window.innerWidth <= 480;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     if (secNavElement) secNavElement.remove();
 
     if (isMobile) {

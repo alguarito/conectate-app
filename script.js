@@ -1016,18 +1016,20 @@ function navigateTo(sectionId) {
                     </div>
                 </div>
 
-                ${sectionId === 'home' ? `
-                    <!-- DASHBOARD PRINCIPAL (HOME) -->
+                ${data.features ? `
+                    <!-- RENDERIZADO UNIVERSAL DE CARACTERÍSTICAS (HOME, HERRAMIENTAS, RECURSOS) -->
                     <div class="stats-container">
                         ${data.features.map(f => `
-                            <div class="stat-card" onclick="${f.action ? f.action + '()' : f.url ? "window.open('"+f.url+"')" : ''}">
+                            <div class="stat-card" onclick="${f.action ? f.action : f.url ? "window.open('"+f.url+"')" : ''}">
                                 <i class='${f.icon}'></i>
                                 <h4>${f.title}</h4>
                                 <p>${f.desc}</p>
                             </div>
                         `).join('')}
                     </div>
-                    
+                ` : ''}
+
+                ${sectionId === 'home' ? `
                     <div id="edutech-news-container" class="news-section">
                         <div class="news-header-flex">
                             <h3 class="section-title">
@@ -1056,6 +1058,23 @@ function navigateTo(sectionId) {
                                 <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
                                     <span style="font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan);">Bitácora Sesión ${s.id}</span>
                                     <i class='bx bx-right-arrow-alt' style="font-size: 1.5rem; color: var(--accent-cyan);"></i>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                ${data.isProjects ? `
+                    <!-- GALERÍA DE PROYECTOS TIC -->
+                    <div class="dashboard-grid">
+                        ${ticProjects.map(p => `
+                            <div class="feature-card glass-panel" onclick="window.open('${p.link}')">
+                                <div class="badge-new" style="background: var(--tag-${p.tag}-bg, #a855f7)">${p.tagLabel}</div>
+                                <h3 style="margin: 10px 0 15px; font-size: 1.3rem;">${p.title}</h3>
+                                <p style="margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">Estudiante: ${p.student}<br>${p.desc}</p>
+                                <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--accent-purple);">Ver Proyecto en Redes</span>
+                                    <i class='bx bx-link-external' style="font-size: 1.5rem; color: var(--accent-purple);"></i>
                                 </div>
                             </div>
                         `).join('')}

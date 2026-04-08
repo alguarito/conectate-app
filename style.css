@@ -103,6 +103,11 @@ body {
     flex-direction: column;
     padding: 24px;
     background: rgba(13, 14, 21, 0.4);
+    z-index: 1000;
+}
+
+.nav-btn i, .nav-btn span, .m-btn i, .m-btn span {
+    pointer-events: none;
 }
 
 .logo-container { 
@@ -360,7 +365,7 @@ body {
 
 .stat-card h4 {
     font-family: var(--font-heading);
-    color: white;
+    color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 700;
 }
@@ -417,6 +422,22 @@ body.light-mode {
     --glass-border: rgba(0, 0, 0, 0.1);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
 }
+
+body.light-mode .stat-card {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.04) !important;
+}
+
+body.light-mode .stat-card i {
+    background: rgba(0, 0, 0, 0.04) !important;
+    color: var(--accent-purple) !important;
+}
+
+body.light-mode .stat-card p {
+    color: #4b5563 !important;
+}
+
 body.light-mode .glass-panel { background: var(--glass-bg); border: 1px solid var(--glass-border); }
 body.light-mode .nav-btn:hover { background: rgba(0,0,0,0.03); }
 body.light-mode .search-box input { color: var(--text-primary); }

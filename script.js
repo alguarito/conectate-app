@@ -1005,46 +1005,57 @@ function navigateTo(sectionId) {
     if (data) {
         document.body.className = data.theme;
         
+        // 1. Cabecera Premium
         let contentHtml = `
             <div class="agent-viewer ${data.theme}">
-                <div class="agent-header">
-                    <div class="agent-icon-large glass-panel">${data.icon}</div>
+                <div class="agent-header" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 30px;">
+                    <div class="agent-icon-large glass-panel" style="box-shadow: 0 10px 30px rgba(0,0,0,0.2);">${data.icon}</div>
                     <div class="agent-header-text">
-                        <h2>${data.title}</h2>
-                        <p>${data.subtitle}</p>
+                        <h2 style="font-size: 2.8rem; letter-spacing: -1px;">${data.title}</h2>
+                        <p style="font-size: 1.1rem; opacity: 0.8; max-width: 600px;">${data.subtitle}</p>
                     </div>
                 </div>
 
                 ${sectionId === 'home' ? `
+                    <!-- DASHBOARD PRINCIPAL (HOME) -->
                     <div class="stats-container">
                         ${data.features.map(f => `
-                            <div class="stat-card glass-panel" onclick="${f.action ? f.action + '()' : f.url ? "window.open('"+f.url+"')" : ''}">
-                                <div class="stat-icon"><i class='${f.icon}'></i></div>
+                            <div class="stat-card" onclick="${f.action ? f.action + '()' : f.url ? "window.open('"+f.url+"')" : ''}">
+                                <i class='${f.icon}'></i>
                                 <h4>${f.title}</h4>
                                 <p>${f.desc}</p>
                             </div>
                         `).join('')}
                     </div>
+                    
                     <div id="edutech-news-container" class="news-section">
                         <div class="news-header-flex">
-                            <h3 class="section-title"><i class='bx bxs-zap'></i> Pulso EduTech</h3>
+                            <h3 class="section-title">
+                                <i class='bx bxs-zap'></i> 
+                                Pulso EduTech
+                            </h3>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">IA Scanner v2.0</span>
                         </div>
                         <div id="news-container" class="news-grid">
-                            <div class="loading-wave"><div class="wave"></div><div class="wave"></div><div class="wave"></div><span>Sintonizando la red de aprendizaje...</span></div>
+                            <div class="loading-wave">
+                                <div class="wave"></div><div class="wave"></div><div class="wave"></div>
+                                <span>Sintonizando la red de aprendizaje...</span>
+                            </div>
                         </div>
                     </div>
                 ` : ''}
 
                 ${data.isSessions ? `
+                    <!-- REJILLA DE SESIONES (BITÁCORAS) -->
                     <div class="dashboard-grid">
                         ${data.sessions.map(s => `
                             <div class="feature-card glass-panel" onclick="openNotebook('${s.file}', '${s.title}', ${s.id}, '${sectionId}')">
                                 <div class="badge-new">${sectionId.toUpperCase()}</div>
-                                <h3>${s.title}</h3>
-                                <p>${s.desc}</p>
-                                <div class="card-footer">
-                                    <span>Bitácora Sesión ${s.id}</span>
-                                    <i class='bx bx-right-arrow-alt'></i>
+                                <h3 style="margin: 10px 0 15px; font-size: 1.3rem;">${s.title}</h3>
+                                <p style="margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">${s.desc}</p>
+                                <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan);">Bitácora Sesión ${s.id}</span>
+                                    <i class='bx bx-right-arrow-alt' style="font-size: 1.5rem; color: var(--accent-cyan);"></i>
                                 </div>
                             </div>
                         `).join('')}

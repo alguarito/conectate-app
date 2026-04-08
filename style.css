@@ -178,12 +178,12 @@ body {
 .user-info:hover { background: rgba(255,255,255,0.05); }
 
 .user-avatar { 
-    width: 56px; 
-    height: 56px; 
+    width: 64px; 
+    height: 64px; 
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid var(--accent-purple);
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
     transition: transform 0.3s ease;
     flex-shrink: 0;
 }

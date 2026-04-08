@@ -1019,154 +1019,32 @@ function copyNewsLink(url, btn) {
         }, 2000);
     });
 }
-// --- SISTEMA DE AUTENTICACIÓN Y CARACTERIZACIÓN (CONECTATE CORE) ---
-// --- SISTEMA DE AUTENTICACIÓN LOCAL (CONECTATE CORE) ---
-let currentUser = JSON.parse(localStorage.getItem('conectate_user')) || null;
-const ADMIN_EMAIL = 'alvaro.cardenas.orozco@gmail.com';
-const ADMIN_PASS = 'mariana0';
-
-function seedAdmin() {
-    let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-    // Asegurar que el docente oficial siempre tenga cuenta
-    if (!accounts[ADMIN_EMAIL]) {
-        accounts[ADMIN_EMAIL] = {
-            name: "Álvaro Cárdenas",
-            email: ADMIN_EMAIL,
-            pass: ADMIN_PASS,
-            isAdmin: true,
-            registered: true,
-            picture: "IMAGENES/ID_CONECTATE.png"
-        };
-        localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
-    }
-}
-
-function toggleAuthMode(mode) {
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    if (mode === 'signup') {
-        loginForm.classList.remove('active');
-        signupForm.classList.add('active');
-    } else {
-        signupForm.classList.remove('active');
-        loginForm.classList.add('active');
-    }
-}
-
-function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value.trim();
-    const pass = document.getElementById('login-pass').value;
-    const accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-
-    const user = accounts[email];
-    if (user && user.pass === pass) {
-        currentUser = { ...user };
-        delete currentUser.pass; // Seguridad básica local
-        localStorage.setItem('conectate_user', JSON.stringify(currentUser));
-        checkUserStatus();
-    } else {
-        alert("Correo o contraseña incorrectos. Verifica tus datos.");
-    }
-}
-
-function handleSignup(e) {
-    e.preventDefault();
-    const name = document.getElementById('reg-name').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const pass = document.getElementById('reg-pass').value;
-    let accounts = JSON.parse(localStorage.getItem('conectate_accounts')) || {};
-
-    if (accounts[email]) return alert("Este correo ya está registrado. Intenta iniciar sesión.");
-
-    accounts[email] = {
-        name: name,
-        email: email,
-        pass: pass,
-        isAdmin: false,
-        registered: false
-    };
-
-    localStorage.setItem('conectate_accounts', JSON.stringify(accounts));
-    alert("¡Cuenta creada con éxito! Ahora inicia sesión.");
-    toggleAuthMode('login');
-}
-
-function logout() {
-    localStorage.removeItem('conectate_user');
-    currentUser = null;
-    window.location.reload();
-}
-
-function checkUserStatus() {
-    const authWall = document.getElementById('auth-wall');
-    const appContainer = document.querySelector('.app-container');
-    const teslaWidget = document.getElementById('tesla-widget');
-
-    // 1. Si no hay sesión, mostrar el Muro de Acceso
-    if (!currentUser) {
-        authWall.classList.add('active');
-        appContainer.classList.remove('authenticated');
-        return;
-    }
-
-    // 2. Si hay sesión, proceder
-    authWall.classList.remove('active');
-    appContainer.classList.add('authenticated');
-    
-    if (teslaWidget) teslaWidget.style.display = 'block';
-    
-    // 3. Flujo de Caracterización (Solo estudiantes no registrados)
-    if (!currentUser.isAdmin && !currentUser.registered) {
-        renderCharacterizationFlow();
-        return;
-    }
-
-    updateUIForUser();
-    
-    const targetSection = new URLSearchParams(window.location.search).get('section') || 'home';
-    navigateTo(targetSection);
-}
-
-function continueAsGuest() {
-    currentUser = {
-        name: "Invitado Inforg",
-        email: "invitado@conectate.local",
-        isAdmin: false,
-        registered: true,
-        picture: "IMAGENES/ID_CONECTATE.png",
-        xp: 0,
-        level: 1
-    };
-    localStorage.setItem('conectate_user', JSON.stringify(currentUser));
-    checkUserStatus();
-}
+// --- SISTEMA DE IDENTIDAD (SIMPLIFICADO / ABIERTO) ---
+let currentUser = {
+    name: "Álvaro Cárdenas",
+    email: "alvaro.cardenas.orozco@gmail.com",
+    isAdmin: true,
+    registered: true,
+    picture: "IMAGENES/ID_CONECTATE.png"
+};
 
 function updateUIForUser() {
-    const userDetails = document.querySelector('.user-details');
-    const userAvatar = document.querySelector('.user-avatar');
+    const userDetails = document.getElementById('static-profile-details');
+    const userAvatar = document.getElementById('curator-avatar');
     
     if (userDetails) {
-        if (currentUser.isAdmin) {
-            // Limpiar nombre: Quitar "(Docente)" si existe
-            const cleanName = currentUser.name.replace('(Docente)', '').trim();
-            userDetails.innerHTML = `
-                <p class="name">${cleanName}</p>
-                <span class="admin-badge">Docente TIC</span>
-                <p class="role">
-                    <a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a>
-                </p>
-            `;
-        } else {
-            userDetails.innerHTML = `
-                <p class="name">${currentUser.name}</p>
-                <p class="role"><a href="#" onclick="logout(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.75rem;"><i class='bx bx-log-out'></i> Salir</a></p>
-                <div id="xp-profile-slot"></div>
-            `;
-        }
+        userDetails.innerHTML = `
+            <p class="name" style="margin-bottom: 2px;">Álvaro Cárdenas</p>
+            <span class="admin-badge">Docente TIC</span>
+            <p class="role">
+                <a href="https://wa.me/573206324740" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.8rem; font-weight: 700;">
+                    <i class='bx bxl-whatsapp'></i> 3206324740
+                </a>
+            </p>
+        `;
     }
     
-    if (userAvatar && currentUser.picture && currentUser.picture !== "IMAGENES/ID_CONECTATE.png") {
+    if (userAvatar) {
         userAvatar.src = currentUser.picture;
     }
 }
@@ -1942,22 +1820,34 @@ function filterStudentTable() {
 }
 
 // Inicializar Auth al cargar
-window.onload = () => {
-    seedAdmin();
-    // Listeners para formularios...
+// --- INICIALIZACIÓN DE LA APLICACIÓN (MODO ABIERTO) ---
+window.onload = async () => {
+    updateUIForUser();
     
-    // Listeners para formularios
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
+    // Configurar navegación
+    const navButtons = document.querySelectorAll('.nav-btn, .m-btn');
+    navButtons.forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll('.nav-btn, .m-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            navigateTo(btn.dataset.content);
+        };
+    });
+
+    const homeBtn = document.getElementById('home-btn');
+    if (homeBtn) homeBtn.onclick = () => navigateTo('home');
     
-    if (loginForm) loginForm.onsubmit = handleLogin;
-    if (signupForm) signupForm.onsubmit = handleSignup;
+    const logoHomeBtn = document.getElementById('logo-home-btn');
+    if (logoHomeBtn) logoHomeBtn.onclick = () => navigateTo('home');
 
-    // Exponer globalmente el toggle
-    window.toggleAuthMode = toggleAuthMode;
-    window.logout = logout;
-
-    checkUserStatus();
+    // Inicializar buscador y noticias
+    if (typeof setupSearch === 'function') setupSearch();
+    loadEduTechNews();
+    
+    // NAVEGACIÓN DIRECTA AL HOME
+    navigateTo('home');
+    
+    console.log("CONECTATE: Ecosistema simplificado listo.");
 };
 
 // Funcionalidad Traducción delegada a translate-engine.js

@@ -16,7 +16,7 @@
     <!-- BoxIcons para iconos -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=4.0">
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json?v=5">
     <link rel="icon" type="image/png" href="IMAGENES/LOGO 1.png">
@@ -31,58 +31,6 @@
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
-    </div>
-
-    <!-- Muro de Acceso (Auth Wall) -->
-    <div id="auth-wall" class="auth-overlay">
-        <div class="auth-card glass-panel">
-            <div class="auth-header">
-                <img src="IMAGENES/LOGO 1.png" alt="Logo" class="auth-logo">
-                <h2>Bienvenido a CONECTATE</h2>
-                <p>Tu ecosistema de aprendizaje digital crítico.</p>
-            </div>
-            
-            <div class="auth-body">
-                <!-- Login Form -->
-                <form id="login-form" class="auth-form active">
-                    <div class="form-group">
-                        <label><i class='bx bx-envelope'></i> Correo Electrónico</label>
-                        <input type="email" id="login-email" placeholder="ejemplo@conectate.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class='bx bx-lock-alt'></i> Contraseña</label>
-                        <input type="password" id="login-pass" placeholder="Tu contraseña" required>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; padding: 15px;">INGRESAR A CONECTATE</button>
-                    <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-secondary);">¿Eres nuevo? <a href="#" onclick="toggleAuthMode('signup')" style="color: var(--accent-cyan); text-decoration: none; font-weight: 700;">Regístrate aquí</a></p>
-                </form>
-
-                <!-- Signup Form -->
-                <form id="signup-form" class="auth-form">
-                    <div class="form-group">
-                        <label><i class='bx bx-user'></i> Nombre Completo</label>
-                        <input type="text" id="reg-name" placeholder="Tu nombre real" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class='bx bx-envelope'></i> Correo Electrónico</label>
-                        <input type="email" id="reg-email" placeholder="ejemplo@conectate.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class='bx bx-lock-alt'></i> Contraseña de Acceso</label>
-                        <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" required minlength="6">
-                    </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; padding: 15px;">CREAR MI CUENTA INFORG</button>
-                    <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-secondary);">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode('login')" style="color: var(--accent-cyan); text-decoration: none; font-weight: 700;">Inicia sesión</a></p>
-                </form>
-
-                <p class="auth-footer">Ecosistema de aprendizaje crítico | I.E. Sor María Juliana</p>
-                <div style="text-align: center; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-                    <a href="#" onclick="continueAsGuest(); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; opacity: 0.8;">
-                        <i class='bx bx-walk'></i> Continuar como Invitado
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="app-container glass-panel">
@@ -140,10 +88,9 @@
             
             <div class="sidebar-footer">
                 <div class="user-info">
-                    <img src="IMAGENES/ID_CONECTATE.png" alt="Usuario" class="user-avatar">
-                    <div class="user-details">
-                        <!-- Injected by script.js -->
-                        <div id="xp-profile-slot"></div>
+                    <img src="IMAGENES/ID_CONECTATE.png" alt="Usuario" class="user-avatar" id="curator-avatar">
+                    <div class="user-details" id="static-profile-details">
+                        <!-- Perfil Estático de Autor -->
                     </div>
                 </div>
             </div>
@@ -157,17 +104,6 @@
                     <div id="global-search-dropdown" class="glass-dropdown" style="display: none;"></div>
                 </div>
                 <div class="header-actions">
-                    <!-- Google Translate Hidden Widget & Custom UI -->
-                    <div style="display: none;" id="google_translate_element"></div>
-                    <div class="translate-wrapper">
-                        <select id="custom-translate-select" onchange="translatePage(this.value)">
-                            <option value="es" class="translate-option">🇪🇸 Español</option>
-                            <option value="en" class="translate-option">🇺🇸 English</option>
-                            <option value="pt" class="translate-option">🇧🇷 Português</option>
-                            <option value="fr" class="translate-option">🇫🇷 Français</option>
-                        </select>
-                        <i class='bx bx-chevron-down'></i>
-                    </div>
                     <button class="icon-btn glass-panel" id="home-btn" title="Ir al Inicio">
                         <i class='bx bx-home-alt'></i>
                     </button>
@@ -175,9 +111,6 @@
                         <i class='bx bx-bell'></i>
                         <span id="update-dot" style="display: none;"></span>
                     </button>
-                    <style>
-                        @keyframes blink { 0% { transform: scale(0.8); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.6; } }
-                    </style>
                     <button class="icon-btn glass-panel" id="theme-toggle"><i class='bx bx-moon'></i></button>
                 </div>
             </header>
@@ -186,32 +119,19 @@
                 <!-- Content will be injected here by JS -->
             </div>
 
-            <!-- Selector de Grados para Móvil (Oculto por defecto) -->
-            <div id="mobile-grade-picker" class="glass-panel" style="display: none; padding: 20px; animation: fadeIn 0.3s ease;">
+            <!-- Selector de Grados para Móvil -->
+            <div id="mobile-grade-picker" class="glass-panel" style="display: none; padding: 20px;">
                 <h3 style="text-align: center; margin-bottom: 20px; font-family: var(--font-heading);">Selecciona tu Grado</h3>
                 <div class="dashboard-grid" style="grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                    <div class="feature-card glass-panel" onclick="navigateTo('octavo')" style="padding: 15px; text-align: center;">
-                        <i class='bx bx-book-open' style="font-size: 1.5rem; margin-bottom: 8px;"></i>
-                        <span style="display: block; font-size: 0.8rem; font-weight: bold;">Octavo</span>
-                    </div>
-                    <div class="feature-card glass-panel" onclick="navigateTo('noveno')" style="padding: 15px; text-align: center;">
-                        <i class='bx bx-laptop' style="font-size: 1.5rem; margin-bottom: 8px;"></i>
-                        <span style="display: block; font-size: 0.8rem; font-weight: bold;">Noveno</span>
-                    </div>
-                    <div class="feature-card glass-panel" onclick="navigateTo('decimo')" style="padding: 15px; text-align: center;">
-                        <i class='bx bx-code-block' style="font-size: 1.5rem; margin-bottom: 8px;"></i>
-                        <span style="display: block; font-size: 0.8rem; font-weight: bold;">Décimo</span>
-                    </div>
-                    <div class="feature-card glass-panel" onclick="navigateTo('undecimo')" style="padding: 15px; text-align: center;">
-                        <i class='bx bx-code-alt' style="font-size: 1.5rem; margin-bottom: 8px;"></i>
-                        <span style="display: block; font-size: 0.8rem; font-weight: bold;">Undécimo</span>
-                    </div>
+                    <div class="feature-card glass-panel" onclick="navigateTo('octavo')"><span>Octavo</span></div>
+                    <div class="feature-card glass-panel" onclick="navigateTo('noveno')"><span>Noveno</span></div>
+                    <div class="feature-card glass-panel" onclick="navigateTo('decimo')"><span>Décimo</span></div>
+                    <div class="feature-card glass-panel" onclick="navigateTo('undecimo')"><span>Undécimo</span></div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Interfaz Móvil (Solo visible por CSS) -->
     <nav class="mobile-nav">
         <button class="m-btn active" data-content="home"><i class='bx bx-home-alt'></i><span>Inicio</span></button>
         <button class="m-btn" data-content="grados-picker"><i class='bx bx-grid-alt'></i><span>Grados</span></button>
@@ -219,12 +139,7 @@
         <button class="m-btn" data-content="interes"><i class='bx bx-bulb'></i><span>Recursos</span></button>
     </nav>
 
-    <!-- Motor de Traducción Global -->
-    <script src="translate-engine.js?v=3.0"></script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-    <script src="script.js?v=3.0"></script>
-    <script src="gamification.js?v=3.0"></script>
-    <script src="chat-tesla.js?v=3.0"></script>
+    <script src="script.js?v=4.0"></script>
+    <script src="chat-tesla.js?v=4.0"></script>
 </body>
 </html>

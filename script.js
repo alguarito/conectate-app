@@ -618,11 +618,71 @@ function openTeslaPotential() {
 const urlParams = new URLSearchParams(window.location.search);
 const startSection = urlParams.get('section') || 'home';
 navigateTo(startSection);
+
+// --- SISTEMA GLOBAL DE ACCESIBILIDAD PARA MODALES ---
+let _lastFocusedElement = null; // Para restaurar el foco al cerrar
+
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    // Guardar el foco anterior para restaurarlo al cerrar
+    _lastFocusedElement = document.activeElement;
+
+    // Atributos ARIA
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('tabindex', '-1');
+
+    // Bloquear scroll del body
+    document.body.style.overflow = 'hidden';
+
+    // Activar con animación
+    setTimeout(() => modal.classList.add('active'), 10);
+
+    // Mover el foco al primer elemento interactivo dentro del modal
+    setTimeout(() => {
+        const focusable = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length) focusable[0].focus();
+    }, 50);
+}
+
+function closeModal(id, onClose) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+
+    // Restaurar el foco al elemento que abrió el modal
+    if (_lastFocusedElement) {
+        _lastFocusedElement.focus();
+        _lastFocusedElement = null;
+    }
+
+    setTimeout(() => {
+        modal.remove();
+        if (typeof onClose === 'function') onClose();
+    }, 300);
+}
+
+// Cerrar cualquier modal activo con Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    // Buscar el modal activo más reciente
+    const activeModal = document.querySelector('.modal-overlay.active');
+    if (activeModal && activeModal.id) {
+        closeModal(activeModal.id);
+    }
+});
+
 function openSocialModal() {
     const modalHtml = `
-        <div class="modal-overlay" id="social-modal" onclick="closeSocialModal()">
+        <div class="modal-overlay" id="social-modal" onclick="closeSocialModal()" role="dialog" aria-modal="true" aria-label="Semillero ConectaTE">
             <div class="modal-content" onclick="event.stopPropagation()">
-                <button class="modal-close" onclick="closeSocialModal()"><i class='bx bx-x'></i></button>
+                <button class="modal-close" onclick="closeSocialModal()" aria-label="Cerrar"><i class='bx bx-x'></i></button>
                 <img src="IMAGENES/LOGO CONECTATE.png" alt="Logo ConectaTE" class="profile-img-large" style="border-color: #1877f2; border-radius: 20px; padding: 10px;">
                 <h2 style="color: white; margin-bottom: 10px;">Semillero ConectaTE</h2>
                 <p style="color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 25px;">
@@ -630,26 +690,19 @@ function openSocialModal() {
                     proyectos de robótica y todas las actividades del semillero ConectaTE del Sor María Juliana.
                 </p>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <a href="https://www.facebook.com/conectate.2024" class="cv-button" style="background: linear-gradient(135deg, #1877f2, #0a52b5);">
+                    <a href="https://www.facebook.com/conectate.2024" target="_blank" rel="noopener" class="cv-button" style="background: linear-gradient(135deg, #1877f2, #0a52b5);">
                         <i class='bx bxl-facebook-circle'></i> SEGUIR EN FACEBOOK
                     </a>
                 </div>
             </div>
         </div>
     `;
-    
     document.body.insertAdjacentHTML('beforeend', modalHtml);
-    setTimeout(() => {
-        document.getElementById('social-modal').classList.add('active');
-    }, 10);
+    openModal('social-modal');
 }
 
 function closeSocialModal() {
-    const modal = document.getElementById('social-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-    }
+    closeModal('social-modal');
 }
 
 // --- SISTEMA DE GALERÍA DE PROYECTOS TIC ---
@@ -770,6 +823,7 @@ function openAddProjectModal() {
     `;
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+    openModal('project-form-modal'); // Accesibilidad automática
     
     document.getElementById('project-form').onsubmit = (e) => {
         e.preventDefault();
@@ -793,8 +847,7 @@ function openAddProjectModal() {
 }
 
 function closeProjectModal() {
-    const modal = document.getElementById('project-form-modal');
-    if (modal) modal.remove();
+    closeModal('project-form-modal');
 }
 
 // refineProjectText definida abajo (versión con null-checks)

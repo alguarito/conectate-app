@@ -940,7 +940,7 @@ async function loadEduTechNews() {
     const newsContainer = document.getElementById('news-container');
     if (!newsContainer) return;
 
-    const CACHE_VERSION = 'v5'; 
+    const CACHE_VERSION = 'v6'; 
     const CACHE_KEY = `edutech_news_cache_${CACHE_VERSION}`;
     const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
     
@@ -999,7 +999,7 @@ async function loadEduTechNews() {
 
     } catch (error) {
         console.warn("Modo Resiliencia Activo:", error.message);
-        if (!newsContainer.innerHTML || newsContainer.innerHTML.includes('loading-wave')) {
+        if (!newsContainer.innerHTML || newsContainer.innerHTML.includes('news-skeleton')) {
             renderNewsFlashcards(fallbackNews);
         }
         if (error.message === "QUOTA_EXCEEDED") {

@@ -25,6 +25,25 @@ document.addEventListener('DOMContentLoaded', function () {
         // Alias para compatibilidad
         systemPrompts.potential = systemPrompts.personal;
 
+        const fallbackResponses = {
+            default: [
+                "Mis sistemas cuánticos están recalibrándose ahora mismo. Mientras tanto, ¿por qué no repasas la última sesión de tu cuaderno interactivo?",
+                "Parece que hay interferencia en la red. Recuerda que la curiosidad es el motor del aprendizaje. ¡Intenta conectarte de nuevo en un rato!",
+                "Estoy procesando demasiados datos en este momento. Te invito a explorar los proyectos de tus compañeros en la Galería TIC."
+            ],
+            vocational: [
+                "Mi conexión con la base de datos vocacional está pausada. Piensa en esto: ¿qué actividad disfrutas tanto que se te pasa el tiempo sin darte cuenta?",
+                "Interferencia temporal. Mientras regreso en línea, investiga sobre los programas académicos del SENA o la Universidad del Valle aquí en Cartago.",
+                "Estoy en modo ahorro de energía. Recuerda que tu vocación no es solo un título, es cómo quieres impactar al mundo. ¡Hablamos pronto!"
+            ],
+            personal: [
+                "Estoy recargando mis bobinas emocionales. Aprovecha este momento para hacer una pausa, respirar profundo y reconocer un logro que hayas tenido hoy.",
+                "Conexión pausada. Un buen ejercicio para hoy: escribe en una hoja tres talentos que crees que tienes. ¡Te sorprenderás!",
+                "La red está lenta, pero tu potencial no. A veces, desconectarse un rato de las pantallas es el mejor desarrollo personal."
+            ]
+        };
+        fallbackResponses.potential = fallbackResponses.personal;
+
         let currentContext = 'default';
         let conversationHistory = []; // Historial multi-turno
         const MAX_HISTORY = 6; // Máximo de mensajes a recordar (reducido para ahorrar tokens/créditos)
@@ -177,7 +196,16 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (error) {
                 console.error("Error Agente Tesla Detallado:", error);
                 typingIndicator.style.display = 'none';
-                appendMessage('bot', "Lo siento, mis bobinas tienen interferencia. Intenta de nuevo o verifica tu conexión.");
+                
+                // MODO RESILIENCIA (OFFLINE FALLBACK)
+                // En lugar de dar error genérico, damos un consejo pre-programado basado en el contexto
+                const fallbackArray = fallbackResponses[currentContext] || fallbackResponses.default;
+                const randomFallback = fallbackArray[Math.floor(Math.random() * fallbackArray.length)];
+                
+                // Removemos el último mensaje del usuario del historial para no corromper el contexto futuro si la API se recupera
+                conversationHistory.pop();
+                
+                appendMessage('bot', `⚡ (Modo Offline) ${randomFallback}`);
             }
         }
 

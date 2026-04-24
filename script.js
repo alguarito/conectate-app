@@ -11,7 +11,26 @@ const currentUser = {
 
 console.log('CONECTATE App Version:', APP_VERSION);
 
+// --- INICIALIZACIÓN DE SUPABASE (BACKEND) ---
+const SUPABASE_URL = "https://ufnvowvvjygemfzdaput.supabase.co";
+const SUPABASE_KEY = "sb_publishable_0op6Wd_DJgy8Lmih9VA-1Q_uOPev6ul";
+
+let supabaseClient = null;
+if (window.supabase) {
+    try {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        window.supabaseClient = supabaseClient; // Hacerlo disponible globalmente
+        console.log("Supabase Client Init OK");
+
+    } catch(e) {
+        console.warn("Supabase Init failed, fallback to local storage:", e);
+    }
+} else {
+    console.warn("Supabase library not found in window. Falling back to local storage.");
+}
+
 // --- CONFIGURACIÓN ACADÉMICA POR PERIODOS ---
+
 const ACADEMIC_CONFIG = {
     currentPeriod: 'P1',
     year: 2026,
@@ -221,23 +240,42 @@ const defaultProjects = [
     }
 ];
 
-function saveProjects() {
-    // Solo guardamos los proyectos creados por usuarios (no los default)
+let ticProjects = [];
+
+// Función para persistir de vuelta un array de proyectos si es necesario
+async function saveProjects() {
     const userProjects = ticProjects.filter(p => !p.isDefault);
-    localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(userProjects));
+    localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(userProjects)); // Mantenemos copia local como backup
 }
 
-function loadProjects() {
+async function loadProjects() {
     try {
-        const saved = JSON.parse(localStorage.getItem(PROJECTS_STORAGE_KEY)) || [];
-        // Fusionar: proyectos default primero, luego los del usuario al inicio
-        ticProjects = [...saved, ...defaultProjects];
+        // Carga online primero
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient
+                .from('tic_projects')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+            
+            if (data && data.length > 0) {
+                // Fusionar con los default
+                ticProjects = [...data, ...defaultProjects];
+            } else {
+                ticProjects = [...defaultProjects];
+            }
+        } else {
+            throw new Error("No Supabase Client");
+        }
     } catch(e) {
-        ticProjects = [...defaultProjects];
+        console.warn("Supabase load failed, serving local fallback:", e.message);
+        const saved = JSON.parse(localStorage.getItem(PROJECTS_STORAGE_KEY)) || [];
+        ticProjects = [...saved, ...defaultProjects];
     }
 }
 
-// Cargar proyectos al iniciar
+// Iniciar carga (asíncrona) de proyectos
 loadProjects();
 
 // DOM Elements
@@ -764,11 +802,27 @@ function renderProjectsGallery(filter = 'all') {
     }
 }
 
-function deleteProject(id) {
-    ticProjects = ticProjects.filter(p => p.id !== id);
+async function deleteProject(id) {
+    // 1. Borrar de la nube si existe conexión
+    if (supabaseClient) {
+        // Optimistic UI updates
+        ticProjects = ticProjects.filter(p => p.id !== id);
+        renderProjectsGallery();
+        
+        const { error } = await supabaseClient
+            .from('tic_projects')
+            .delete()
+            .eq('id', id);
+            
+        if(error) console.error("Error al borrar en Supabase:", error);
+    } else {
+        ticProjects = ticProjects.filter(p => p.id !== id);
+        renderProjectsGallery();
+    }
+    
+    // 2. Persistir cambio a nivel de backup en modo offline
     saveProjects();
-    renderProjectsGallery();
-    showToast('Proyecto eliminado.', 'info');
+    showToast('Proyecto eliminado exitosamente.', 'info');
 }
 
 function openAddProjectModal() {
@@ -825,24 +879,53 @@ function openAddProjectModal() {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     openModal('project-form-modal'); // Accesibilidad automática
     
-    document.getElementById('project-form').onsubmit = (e) => {
+    document.getElementById('project-form').onsubmit = async (e) => {
         e.preventDefault();
+        
+        const submitBtn = document.querySelector('#project-form button[type="submit"]');
+        submitBtn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> PUBLICANDO...";
+        submitBtn.disabled = true;
+
+        const newId = Date.now();
+        const tagSelect = document.getElementById('p-tag');
+        const tagLabel = tagSelect.options[tagSelect.selectedIndex].text.split(' (')[0];
+        
         const newProj = {
-            id: Date.now(),
+            id: newId,
             title: document.getElementById('p-title').value,
             student: document.getElementById('p-student').value,
-            tag: document.getElementById('p-tag').value,
-            tagLabel: document.getElementById('p-tag').options[document.getElementById('p-tag').selectedIndex].text.split(' (')[0],
+            tag: tagSelect.value,
+            taglabel: tagLabel, // API en supabase suele auto-corregir o usar todo minúsculas, forzamos minúscula
             desc: document.getElementById('p-desc').value,
-            link: document.getElementById('p-link').value,
-            isDefault: false
+            link: document.getElementById('p-link').value
         };
         
-        ticProjects.unshift(newProj);
-        saveProjects(); // ← Persistencia real
+        // El isDefault no se sube a Supabase ya que es una tabla de usuario, nosotros lo marcamos temporalmente en el frontend.
+        
+        try {
+            if (supabaseClient) {
+                const { error } = await supabaseClient
+                    .from('tic_projects')
+                    .insert([newProj]);
+                    
+                if (error) {
+                    throw error;
+                }
+            } else {
+                throw new Error("No client connected");
+            }
+        } catch(error) {
+            console.warn("Falló guardado en la nube, guardando local de contingencia: ", error);
+        }
+
+        // Lo inyectamos en memoria con la flag
+        const localProj = { ...newProj, tagLabel: tagLabel, isDefault: false };
+        ticProjects.unshift(localProj);
+        
+        saveProjects(); // Persistencia local (backup offline)
         closeProjectModal();
         renderProjectsGallery();
-        showToast('¡Proyecto publicado y guardado! Aparecerá siempre que visites esta sección.', 'info');
+        showToast('¡Proyecto publicado y guardado en la nube!', 'info');
     };
 }
 

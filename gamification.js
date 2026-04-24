@@ -44,6 +44,11 @@ class GamificationManager {
             this.saveUser();
         }
 
+        // SYNC CON SUPABASE (NUBE) - Si es estudiante y tiene correo
+        if (this.user && this.user.email && (!this.user.isAdmin || this.user.isAdmin === "false")) {
+            this.syncFromCloud();
+        }
+
         // Priorizar el tema global persistido en el dashboard si existe
         const globalThemeIndex = parseInt(localStorage.getItem('conectate_themeIndex'));
         const initialTheme = !isNaN(globalThemeIndex) ? globalThemeIndex : (this.user ? this.user.themeIndex : 0);
@@ -108,7 +113,39 @@ class GamificationManager {
         }
     }
 
-    saveUser() {
+    async syncFromCloud() {
+        if (!window.supabaseClient) return;
+        try {
+            const { data, error } = await window.supabaseClient
+                .from('student_profiles')
+                .select('xp, level, completed_sessions')
+                .eq('email', this.user.email)
+                .single();
+                
+            if (error && error.code !== 'PGRST116') { // Ignorar si no existe aún
+                console.warn("Error fetching gamification from Supabase:", error);
+                return;
+            }
+            
+            if (data) {
+                // Hay nube! Descargamos el progreso más reciente
+                this.user.xp = data.xp || 0;
+                this.user.level = data.level || 1;
+                this.user.completed_sessions = data.completed_sessions || [];
+                // Se guarda local para offline, pero sin triggear un push innecesario
+                this.saveUser(false); 
+                
+                // Actualizar interfaz si corresponde
+                if (!this.user.isAdmin) {
+                    this.renderProfileBar();
+                }
+            }
+        } catch (e) {
+            console.error("Crash during cloud sync:", e);
+        }
+    }
+
+    async saveUser(syncToCloud = true) {
         if(this.user) {
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.user));
             // Persistencia universal por email para que el docente pueda leer los datos
@@ -119,6 +156,24 @@ class GamificationManager {
                     completed_sessions: this.user.completed_sessions
                 };
                 localStorage.setItem(`gami_${this.user.email}`, JSON.stringify(gamiData));
+                
+                // SYNC A LA NUBE
+                if (syncToCloud && window.supabaseClient && (!this.user.isAdmin || this.user.isAdmin === "false")) {
+                    try {
+                        const { error } = await window.supabaseClient
+                            .from('student_profiles')
+                            .upsert({ 
+                                email: this.user.email,
+                                xp: this.user.xp,
+                                level: this.user.level,
+                                completed_sessions: this.user.completed_sessions,
+                                updated_at: new Date()
+                            });
+                        if(error) console.warn("Falló guardado de perfil a la nube", error);
+                    } catch(e) {
+                        console.error("Crash en saveUser cloud sync", e);
+                    }
+                }
             }
         }
     }

@@ -44,8 +44,10 @@ class GamificationManager {
             this.saveUser();
         }
 
-        // Aplicar el tema actual del usuario inmediatamente
-        this.applyTheme(this.user ? this.user.themeIndex : 0);
+        // Priorizar el tema global persistido en el dashboard si existe
+        const globalThemeIndex = parseInt(localStorage.getItem('conectate_themeIndex'));
+        const initialTheme = !isNaN(globalThemeIndex) ? globalThemeIndex : (this.user ? this.user.themeIndex : 0);
+        this.applyTheme(initialTheme);
 
         // Crear contenedor global para notificaciones (Solo Estudiantes)
         if (!document.getElementById("gamification-toast-container") && !this.user?.isAdmin) {
@@ -228,6 +230,9 @@ class GamificationManager {
             document.documentElement.classList.add(nextClass);
         }
 
+        // Sincronizar con el dashboard principal (script.js)
+        localStorage.setItem('conectate_themeIndex', index);
+
         // Actualizar el botón si existe en el DOM
         const themeBtn = document.getElementById('notebook-theme-toggle');
         if (themeBtn) {
@@ -240,7 +245,10 @@ class GamificationManager {
             if (!themeBtn.dataset.themeBound) {
                 themeBtn.dataset.themeBound = "true";
                 themeBtn.addEventListener('click', () => {
-                    const nextIndex = ( (this.user ? this.user.themeIndex : 0) + 1) % this.THEMES.length;
+                    // Leer el índice más actual antes de rotar
+                    const currentIdx = parseInt(localStorage.getItem('conectate_themeIndex')) || 0;
+                    const nextIndex = (currentIdx + 1) % this.THEMES.length;
+                    
                     if (this.user) {
                         this.user.themeIndex = nextIndex;
                         this.saveUser();

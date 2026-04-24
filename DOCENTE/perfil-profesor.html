@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Profesor | PhD. Álvaro Cárdenas Orozco</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=4.0">
+</head>
+<body class="theme-academico">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Sincronizando Perfil...</p>
+    </div>
+
+    <div class="notebook-container glass-panel" style="max-width: 900px; margin: 40px auto; min-height: auto; padding: 30px; border-radius: 40px;">
+        <!-- Barra de Navegación Funcional -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding: 10px 0;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="../IMAGENES/LOGO 1.png" alt="Logo" style="width: 45px; height: 45px;">
+                <div style="text-align: left;">
+                    <h2 style="font-size: 1.1rem; margin: 0; color: white;">CONECTATE</h2>
+                    <span style="font-size: 0.75rem; opacity: 0.7; color: var(--accent-cyan);">Docente TIC</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <a href="../index.html?section=home" class="nav-btn-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; text-decoration: none; border: 1px solid rgba(255,255,255,0.1);" title="Inicio">
+                    <i class='bx bx-home-alt' style="font-size: 1.2rem;"></i>
+                </a>
+                
+                <div class="premium-select-wrapper" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0 10px; height: 40px;">
+                    <i class='bx bx-world' style="color: var(--accent-purple);"></i>
+                    <select id="custom-translate-select" onchange="translatePage(this.value)" style="background: transparent; border: none; color: white; font-weight: 700; outline: none; cursor: pointer;">
+                        <option value="es">ES</option>
+                        <option value="en">EN</option>
+                        <option value="pt">PT</option>
+                        <option value="fr">FR</option>
+                    </select>
+                </div>
+                
+                <button id="notebook-theme-toggle" style="width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); border-radius: 50%; color: white; cursor: pointer;">
+                    <i class='bx bx-moon' style="font-size: 1.2rem;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tarjeta Maestra del Docente -->
+        <header class="hero-card glass-panel" style="padding: 40px 20px; text-align: center; border-radius: 32px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(0, 0, 0, 0.2)); position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+            <div class="profile-img-container" style="position: relative; width: 170px; height: 170px; margin: 0 auto 20px;">
+                <img src="../IMAGENES/ID_CONECTATE.png" alt="PhD. Álvaro Cárdenas" style="width: 170px; height: 170px; border-radius: 50%; border: 4px solid var(--accent-purple); object-fit: cover; box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);">
+                <div style="position: absolute; bottom: 10px; right: 10px; width: 35px; height: 35px; background: #10b981; border: 3px solid #0d0e15; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; z-index: 2;" title="Activo">
+                    <i class='bx bxs-check-shield'></i>
+                </div>
+            </div>
+
+            <span class="badge" style="background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); padding: 8px 20px; border-radius: 30px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase;">PhD en Educación | Docente TIC</span>
+            
+            <h1 style="font-size: 2.3rem; margin: 15px 0 5px; font-family: var(--font-heading);">PhD. Álvaro Cárdenas Orozco</h1>
+            <p style="font-size: 1.1rem; opacity: 0.8; color: #fff; font-style: italic; margin-bottom: 25px;">"Aunque nada cambie, si yo cambio, todo cambia."</p>
+
+            <!-- Botones de Acción Inmediata -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px;">
+                <a href="https://canva.link/r3b2k31f9f7ham2" target="_blank" class="glass-btn-premium" style="--btn-color: #00c4cc;">
+                    <i class='bx bxl-canva'></i> VER HOJA DE VIDA
+                </a>
+                <a href="https://wa.me/573206324740" target="_blank" class="glass-btn-premium" style="--btn-color: #25d366;">
+                    <i class='bx bxl-whatsapp'></i> WHATSAPP
+                </a>
+                <a href="https://web.facebook.com/Profe.AlvaroCardenas2021/?_rdc=1&_rdr#" target="_blank" class="glass-btn-premium" style="--btn-color: #1877f2;">
+                    <i class='bx bxl-facebook'></i> COMUNIDAD
+                </a>
+            </div>
+        </header>
+
+        <style>
+            .glass-btn-premium {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 12px 24px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #fff;
+                text-decoration: none;
+                border-radius: 14px;
+                font-weight: 700;
+                font-size: 0.85rem;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+            .glass-btn-premium:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-3px);
+                border-color: var(--btn-color);
+                box-shadow: 0 8px 20px -5px var(--btn-color);
+            }
+        </style>
+
+
+        <!-- Resumen Profesional (Separado correctamente para evitar superposiciones) -->
+        <div class="professional-summary-area" style="margin-top: 2rem; padding: 25px; border-radius: 24px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div style="flex-shrink: 0; width: 60px; height: 60px; background: rgba(139, 92, 246, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                    <i class='bx bx-info-circle' style="font-size: 2rem; color: var(--accent-purple);"></i>
+                </div>
+                <p style="font-size: 1rem; line-height: 1.7; margin: 0; color: rgba(255,255,255,0.85);">
+                    Investigador en <strong>Pensamiento Crítico</strong>, líder del semillero <strong>ConectaTE</strong> y entusiasta de la astronomía asistida por IA (NASA-IASC). Comprometido con la innovación pedagógica en la región del Norte del Valle.
+                </p>
+            </div>
+        </div>
+
+        <!-- Botón para ver más (Notebook) -->
+        <div style="text-align: center; margin: 30px 0;">
+            <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-secondary); margin-bottom: 10px;">Sigue bajando para explorar el Cuaderno</p>
+            <i class='bx bx-chevron-down' style="font-size: 2rem; color: var(--accent-purple); animation: bounce 2s infinite;"></i>
+        </div>
+
+        <style>
+            @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        </style>
+
+        <!-- Secciones del Cuaderno (Dimensiones) -->
+        <div id="notebook-details">
+            <!-- Sección 1: El Saber -->
+            <section class="interactive-section glass-panel">
+                <h2><i class='bx bx-brain'></i> Trayectoria Académica</h2>
+                <div class="grid-2">
+                    <div class="concept-card" onclick="toggleDesc(this)">
+                        <h3>PhD. Educación <i class='bx bx-plus'></i></h3>
+                        <div class="concept-desc">Impacto de las TIC en el aprendizaje crítico.</div>
+                    </div>
+                    <div class="concept-card" onclick="toggleDesc(this)">
+                        <h3>Mg. Tecnologías <i class='bx bx-plus'></i></h3>
+                        <div class="concept-desc">Especialista en integración digital (UDES).</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección 2: El Hacer -->
+            <section class="interactive-section glass-panel">
+                <h2><i class='bx bx-wrench'></i> Experiencia y Liderazgo</h2>
+                <div class="grid-2">
+                    <div class="concept-card" onclick="toggleDesc(this)">
+                        <h3>Semillero ConectaTE <i class='bx bx-plus'></i></h3>
+                        <div class="concept-desc">Robótica e IA en la IE Sor María Juliana.</div>
+                    </div>
+                    <div class="concept-card" onclick="toggleDesc(this)">
+                        <h3>Investigador Nodo d-TIC <i class='bx bx-plus'></i></h3>
+                        <div class="concept-desc">Co-creación y gestión de conocimiento regional.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección 3: Hitos -->
+            <section class="interactive-section glass-panel">
+                <h2><i class='bx bxs-award'></i> Hitos Destacados</h2>
+                <div class="grid-2">
+                    <div class="concept-card" onclick="toggleDesc(this)" style="border-left: 4px solid #ef4444;">
+                        <h3>Misión NASA-IASC <i class='bx bx-plus'></i></h3>
+                        <div class="concept-desc">Detección de asteroides en colaboración científica.</div>
+                    </div>
+                    <div class="concept-card" onclick="toggleDesc(this)">
+                        <h3>Finalista Samsung SFT <i class='bx bx-plus'></i></h3>
+                        <div class="concept-desc">Tecnología para el impacto social.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
+
+        <!-- Quiz -->
+        <div id="quiz-container"></div>
+
+        <!-- Pie de Página Centrado -->
+        <footer style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px;">
+            <p style="opacity: 0.8; font-size: 0.9rem; line-height: 1.6;">
+                <strong style="color: var(--accent-cyan); letter-spacing: 1px;">CONECTATE | Ecosistema de Aprendizaje</strong><br>
+                PhD. Álvaro Cárdenas Orozco - Docente TIC<br>
+                Institución Educativa Sor María Juliana - 2026
+            </p>
+        </footer>
+    </div>
+
+    <!-- Datos de Gamificación -->
+    <script>
+        window.FLASH_DATA = [
+            { question: "¿Cuál es su máximo título?", answer: "Doctor en Educación (PhD).", icon: "bx-medal" },
+            { question: "¿A qué colectivo pertenece?", answer: "Colectivo ConciencIA.", icon: "bx-group" },
+            { question: "¿En qué concurso de Samsung fue finalista?", answer: "Solve for Tomorrow.", icon: "bx-rocket" },
+            { question: "¿Con qué agencia espacial ha colaborado?", answer: "NASA (IASC).", icon: "bx-planet" }
+        ];
+
+        window.QUIZ_DATA = [
+            { 
+                question: "¿Cuál es la filosofía del Profe Álvaro?", 
+                options: ["Estudiar para los exámenes", "Si yo cambio, todo cambia", "La tecnología es solo herramientas"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Qué lidera en la IE Sor María Juliana?", 
+                options: ["El equipo de fútbol", "El semillero ConectaTE", "La biblioteca"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Cuál de estos es un hito científico del profe?", 
+                options: ["Detección de asteroides", "Viaje a Marte", "Invención del internet"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Qué busca el semillero ConectaTE?", 
+                options: ["Aprender Office", "Fomentar la robótica y el pensamiento crítico", "Ver videos de YouTube"], 
+                correct: 1 
+            },
+            { 
+                question: "¿En qué área es experto el profe?", 
+                options: ["Tecnologías del Aprendizaje", "Gastronomía", "Deportes"], 
+                correct: 0 
+            }
+        ];
+    </script>
+
+    <!-- Scripts Nucleares -->
+    <script src="../NOVENO/CORE/notebook-core.js?v=4.0"></script>
+    <script src="../gamification.js?v=4.0"></script>
+    <script src="../chat-tesla.js?v=4.0"></script>
+    <script src="../translate-engine.js?v=4.0"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

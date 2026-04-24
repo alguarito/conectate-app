@@ -1,5 +1,9 @@
-// chat-tesla.js actualizado con reporte de errores y carga rápida
-window.triggerTeslaContext = null; // Pre-declaración global
+// chat-tesla.js — Con sistema de cola diferida para evitar race conditions
+window._teslaPendingContext = null; // Cola diferida
+window.triggerTeslaContext = function(context) {
+    // Si el chatbot aún no está listo, guardamos el contexto para ejecutarlo después
+    window._teslaPendingContext = context;
+};
 
 document.addEventListener('DOMContentLoaded', function () {
     (function () {
@@ -25,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const getBaseImgPath = () => {
             const path = window.location.pathname;
-            const depth = (path.includes('OCTAVO') || path.includes('NOVENO') || path.includes('DECIMO') || path.includes('UNDECIMO')) ? 1 : 0;
+            const depth = (path.includes('OCTAVO') || path.includes('NOVENO') || path.includes('DECIMO') || path.includes('UNDECIMO') || path.includes('DOCENTE')) ? 1 : 0;
             return '../'.repeat(depth) + 'IMAGENES/LOGO TESLA.png';
         };
 
@@ -86,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const btnSend = document.getElementById('tesla-send-btn');
         const typingIndicator = document.getElementById('tesla-typing');
 
+        // Sobreescribimos con la función real ahora que el chat está listo
         window.triggerTeslaContext = (context) => {
             if (!systemPrompts[context]) context = 'default';
             currentContext = context;
@@ -100,6 +105,13 @@ document.addEventListener('DOMContentLoaded', function () {
             chatBox.classList.add('active');
             input.focus();
         };
+
+        // Ejecutar contexto pendiente si el usuario hizo clic antes de que cargara el chat
+        if (window._teslaPendingContext) {
+            const pendingCtx = window._teslaPendingContext;
+            window._teslaPendingContext = null;
+            setTimeout(() => window.triggerTeslaContext(pendingCtx), 50);
+        }
 
         btnOpen.onclick = () => { 
             // Si se abre manualmente y está vacío, usar default
@@ -119,13 +131,15 @@ document.addEventListener('DOMContentLoaded', function () {
             typingIndicator.style.display = 'block';
 
             try {
-                // Preparamos el prompt con el contexto actual si es la primera interacción o para reforzar
+                // Usamos system_instruction correctamente para que el rol sea siempre respetado
                 const contextInstruction = systemPrompts[currentContext];
                 const payload = {
+                    system_instruction: {
+                        parts: [{ text: contextInstruction }]
+                    },
                     contents: [{
-                        parts: [{
-                            text: `[INSTRUCCIÓN DE SISTEMA: ${contextInstruction}] Estudiante dice: ${text}`
-                        }]
+                        role: "user",
+                        parts: [{ text: text }]
                     }]
                 };
 

@@ -1,6 +1,5 @@
 const APP_VERSION = '2.0';
 const ADMIN_EMAIL = "alvaro.cardenas.orozco@gmail.com";
-const ADMIN_PASS = "mariana0";
 
 // --- PERFIL DE CURADOR ESTÁTICO (Ecosistema Abierto) ---
 const currentUser = {
@@ -166,7 +165,7 @@ const sectionData = {
     interes: {
         theme: 'theme-academico', icon: '<i class="bx bx-bulb"></i>', title: 'Centro de Interés y Publicaciones', subtitle: 'Semilleros y Publicaciones Académicas',
         features: [ 
-            { icon: 'bx bxl-facebook-circle', title: 'Comunidad ConectaTE', desc: '¡Únete a nuestro Fan Page oficial! Proyectos, noticias y participación activa.', action: 'openSocialModal()' },
+            { icon: 'bx bxl-facebook-circle', title: 'Comunidad ConectaTE', desc: '¡Únete a nuestro Fan Page oficial! Proyectos, noticias y participación activa.', action: 'openSocialModal' },
             { icon: 'bx bx-book-open', title: 'CosmoTEC fascículo 1', desc: 'Explora la primera edición de nuestra revista digital de tecnología.', url: 'https://canva.link/l9hyanky8wmy4ms' }, 
             { icon: 'bx bx-book-reader', title: 'CosmoTEC fascículo 2', desc: 'Segunda entrega: Innovación y pensamiento crítico en la Infoesfera.', url: 'https://canva.link/1qbbzprtgo1sf90' }
         ]
@@ -277,7 +276,8 @@ function renderSectionInfo(sectionId) {
         data.features.forEach(f => {
             let actionAttr = '';
             if (f.action) {
-                actionAttr = `onclick="${f.action}()"`;
+                // Si ya tiene paréntesis, lo usamos tal cual; si no, añadimos ()
+                actionAttr = `onclick="${f.action}${f.action.includes('(') ? '' : '()'}"`;
             } else if (f.url) {
                 actionAttr = `onclick="window.location.href='${f.url}'"`;
             }
@@ -512,6 +512,13 @@ if(themeToggleBtn) {
         currentThemeIndex = (currentThemeIndex + 1) % themes.length;
         applyTheme(currentThemeIndex);
         localStorage.setItem('conectate_themeIndex', currentThemeIndex);
+        
+        // Sincronizar con el sistema de Gamificación
+        const user = JSON.parse(localStorage.getItem('conectate_user'));
+        if (user) {
+            user.themeIndex = currentThemeIndex;
+            localStorage.setItem('conectate_user', JSON.stringify(user));
+        }
     };
 }
 
@@ -561,56 +568,13 @@ if (updateBtn) {
     };
 }
 
-// Modal de Perfil Interactivo
+// Experiencia Inmersiva: Perfil del Docente (Notebook)
 function openProfile() {
-    const modalHtml = `
-        <div class="modal-overlay" id="profile-modal" onclick="if(event.target===this)closeProfile()">
-            <div class="modal-content glass-panel">
-                <button class="modal-close" onclick="closeProfile()"><i class='bx bx-x'></i></button>
-                <img src="IMAGENES/ID_CONECTATE.png" class="profile-img-large" alt="Profesor Álvaro">
-                <h2 style="font-family: var(--font-heading); font-size: clamp(1.2rem, 4vw, 1.8rem); margin-bottom: 5px; color: #fff;">PhD. Álvaro Cárdenas Orozco</h2>
-                <p style="color: var(--accent-cyan); font-weight: 600; font-size: 0.85rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Docente TIC | Investigador Crítico</p>
-                
-                <div style="text-align: left; background: rgba(255,255,255,0.03); padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;">
-                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary);">
-                        Doctor en Educación con énfasis en Tecnologías del Aprendizaje. Miembro del colectivo <strong>ConciencIA</strong>, dedicado a la democratización del saber tecnológico y la pedagogía crítica de la información.
-                    </p>
-                </div>
-                
-                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">
-                    <div style="text-align: center;">
-                        <i class='bx bx-brain' style="font-size: 1.5rem; color: var(--accent-purple);"></i>
-                        <p style="font-size: 0.7rem; opacity: 0.8;">Filosofía TIC</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <i class='bx bx-code-alt' style="font-size: 1.5rem; color: var(--accent-blue);"></i>
-                        <p style="font-size: 0.7rem; opacity: 0.8;">Desarrollo</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <i class='bx bx-globe' style="font-size: 1.5rem; color: var(--accent-cyan);"></i>
-                        <p style="font-size: 0.7rem; opacity: 0.8;">Soberanía</p>
-                    </div>
-                </div>
-
-                <a href="https://canva.link/r3b2k31f9f7ham2" target="_blank" rel="noopener" class="cv-button">
-                    <i class='bx bx-file'></i> VER HOJA DE VIDA
-                </a>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-    setTimeout(() => {
-        document.getElementById('profile-modal').classList.add('active');
-    }, 10);
+    window.location.href = './DOCENTE/perfil-profesor.html';
 }
 
 function closeProfile() {
-    const modal = document.getElementById('profile-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-    }
+    // Reducción de deuda técnica: Modal reemplazado por Cuaderno
 }
 
 // Cierre al hacer clic fuera del contenido
@@ -620,19 +584,11 @@ document.addEventListener('click', (e) => {
 });
 
 function openTeslaVocational() {
-    if (window.triggerTeslaContext) {
-        window.triggerTeslaContext('vocational');
-    } else {
-        alert("El Agente Tesla aún se está conectando, intenta en un segundo...");
-    }
+    window.triggerTeslaContext('vocational');
 }
 
 function openTeslaPotential() {
-    if (window.triggerTeslaContext) {
-        window.triggerTeslaContext('personal');
-    } else {
-        alert("El Agente Tesla aún se está conectando, intenta en un segundo...");
-    }
+    window.triggerTeslaContext('personal');
 }
 
 // Init Load con soporte para URL params
@@ -984,104 +940,6 @@ function copyNewsLink(url, btn) {
     });
 }
 
-// --- NAVEGACIÓN Y CARGA DE NOTICIAS ---
-function navigateTo(sectionId) {
-    const mainViewer = document.getElementById('agent-content');
-    if (!mainViewer) return;
-
-    // Actualizar botones activos
-    document.querySelectorAll('.nav-btn, .m-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.content === sectionId);
-    });
-
-    const data = sectionData[sectionId];
-    if (data) {
-        document.body.className = data.theme;
-        
-        // 1. Cabecera Premium
-        let contentHtml = `
-            <div class="agent-viewer ${data.theme}">
-                <div class="agent-header" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 30px;">
-                    <div class="agent-icon-large glass-panel" style="box-shadow: 0 10px 30px rgba(0,0,0,0.2);">${data.icon}</div>
-                    <div class="agent-header-text">
-                        <h2 style="font-size: 2.8rem; letter-spacing: -1px;">${data.title}</h2>
-                        <p style="font-size: 1.1rem; opacity: 0.8; max-width: 600px;">${data.subtitle}</p>
-                    </div>
-                </div>
-
-                ${data.features ? `
-                    <!-- RENDERIZADO UNIVERSAL DE CARACTERÍSTICAS (HOME, HERRAMIENTAS, RECURSOS) -->
-                    <div class="stats-container">
-                        ${data.features.map(f => `
-                            <div class="stat-card" onclick="${f.action ? f.action : f.url ? "window.open('"+f.url+"')" : ''}">
-                                <i class='${f.icon}'></i>
-                                <h4>${f.title}</h4>
-                                <p>${f.desc}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : ''}
-
-                ${sectionId === 'home' ? `
-                    <div id="edutech-news-container" class="news-section">
-                        <div class="news-header-flex">
-                            <h3 class="section-title">
-                                <i class='bx bxs-zap'></i> 
-                                Pulso EduTech
-                            </h3>
-                            <span style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">IA Scanner v2.0</span>
-                        </div>
-                        <div id="news-container" class="news-grid">
-                            <div class="loading-wave">
-                                <div class="wave"></div><div class="wave"></div><div class="wave"></div>
-                                <span>Sintonizando la red de aprendizaje...</span>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-
-                ${data.isSessions ? `
-                    <!-- REJILLA DE SESIONES (BITÁCORAS) -->
-                    <div class="dashboard-grid">
-                        ${data.sessions.map(s => `
-                            <div class="feature-card glass-panel" onclick="openNotebook('${s.file}', '${s.title}', ${s.id}, '${sectionId}')">
-                                <div class="badge-new">${sectionId.toUpperCase()}</div>
-                                <h3 style="margin: 10px 0 15px; font-size: 1.3rem;">${s.title}</h3>
-                                <p style="margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">${s.desc}</p>
-                                <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-                                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan);">Bitácora Sesión ${s.id}</span>
-                                    <i class='bx bx-right-arrow-alt' style="font-size: 1.5rem; color: var(--accent-cyan);"></i>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : ''}
-
-                ${data.isProjects ? `
-                    <!-- GALERÍA DE PROYECTOS TIC -->
-                    <div class="dashboard-grid">
-                        ${ticProjects.map(p => `
-                            <div class="feature-card glass-panel" onclick="window.open('${p.link}')">
-                                <div class="badge-new" style="background: var(--tag-${p.tag}-bg, #a855f7)">${p.tagLabel}</div>
-                                <h3 style="margin: 10px 0 15px; font-size: 1.3rem;">${p.title}</h3>
-                                <p style="margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">Estudiante: ${p.student}<br>${p.desc}</p>
-                                <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-                                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--accent-purple);">Ver Proyecto en Redes</span>
-                                    <i class='bx bx-link-external' style="font-size: 1.5rem; color: var(--accent-purple);"></i>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : ''}
-            </div>
-        `;
-        mainViewer.innerHTML = contentHtml;
-        
-        if (sectionId === 'home') {
-            loadEduTechNews();
-        }
-    }
-}
 
 function openNotebook(file, title, id, grade) {
     window.location.href = file;

@@ -761,47 +761,7 @@ function closeProjectModal() {
     if (modal) modal.remove();
 }
 
-// --- ASISTENTE DE REDACCIÓN IA (GE-MINI) ---
-async function refineProjectText() {
-    const descArea = document.getElementById('p-desc');
-    const status = document.getElementById('refine-status');
-    const text = descArea.value.trim();
-    
-    if (text.length < 10) {
-        alert('Escribe un poco más antes de usar la Varita Mágica para que el Profe pueda ayudarte.');
-        return;
-    }
-
-    status.style.display = 'block';
-    
-    const API_URL = "https://gemini-proxy.alvaro-cardenas-orozco.workers.dev";
-    
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "system_instruction": {
-                    "parts": [{ "text": "Eres el Asistente Digital del Profesor Álvaro. Tu tarea es corregir la ortografía y mejorar la redacción de los proyectos TIC de los estudiantes. IMPORTANTE: Mantén el texto corto (máx 150 caracteres), formal pero inspirador, y siempre en SEGUNDA PERSONA o voz activa del proyecto. Solo devuelve el texto corregido, sin explicaciones ni saludos." }]
-                },
-                "contents": [{ "role": "user", "parts": [{ "text": "Mejora este texto para mi proyecto: " + text }] }]
-            })
-        });
-
-        if (!response.ok) throw new Error("Connection Error");
-        const data = await response.json();
-        const refined = data.candidates[0].content.parts[0].text.trim();
-        
-        descArea.value = refined;
-        status.innerHTML = "<i class='bx bx-check-circle'></i> ¡Redacción optimizada!";
-        setTimeout(() => { status.style.display = 'none'; status.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Optimizando tu texto..."; }, 3000);
-        
-    } catch (error) {
-        console.error(error);
-        status.innerHTML = "<i class='bx bx-error-circle' style='color: #ef4444;'></i> Error al conectar con el Profe Álvaro.";
-        setTimeout(() => { status.style.display = 'none'; }, 3000);
-    }
-}
+// refineProjectText definida abajo (versión con null-checks)
 
 // --- SKILL: ESCÁNER DE NOTICIAS IA ---
 async function loadEduTechNews() {

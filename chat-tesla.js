@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
         systemPrompts.potential = systemPrompts.personal;
 
         let currentContext = 'default';
+        let conversationHistory = []; // Historial multi-turno
+        const MAX_HISTORY = 20; // Máximo de mensajes a recordar
 
         const getBaseImgPath = () => {
             const path = window.location.pathname;
@@ -90,18 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const btnSend = document.getElementById('tesla-send-btn');
         const typingIndicator = document.getElementById('tesla-typing');
 
-        // Sobreescribimos con la función real ahora que el chat está listo
         window.triggerTeslaContext = (context) => {
             if (!systemPrompts[context]) context = 'default';
             currentContext = context;
             
-            // Limpiar historial visual para enfoque puro
+            // Limpiar historial al cambiar de contexto
+            conversationHistory = [];
             messages.innerHTML = '';
             
-            // Mensaje de bienvenida contextual
             appendMessage('bot', welcomeMessages[context]);
-            
-            // Abrir chat
             chatBox.classList.add('active');
             input.focus();
         };
@@ -131,16 +130,25 @@ document.addEventListener('DOMContentLoaded', function () {
             typingIndicator.style.display = 'block';
 
             try {
-                // Usamos system_instruction correctamente para que el rol sea siempre respetado
+                // Usar system_instruction correctamente para que el rol sea siempre respetado
                 const contextInstruction = systemPrompts[currentContext];
+
+                // Agregar el mensaje del usuario al historial
+                conversationHistory.push({
+                    role: "user",
+                    parts: [{ text: text }]
+                });
+
+                // Limitar historial para no sobrepasar el contexto de la API
+                if (conversationHistory.length > MAX_HISTORY) {
+                    conversationHistory = conversationHistory.slice(-MAX_HISTORY);
+                }
+
                 const payload = {
                     system_instruction: {
                         parts: [{ text: contextInstruction }]
                     },
-                    contents: [{
-                        role: "user",
-                        parts: [{ text: text }]
-                    }]
+                    contents: conversationHistory
                 };
 
                 const response = await fetch(API_URL, {
@@ -157,6 +165,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     throw new Error("Respuesta de IA incompleta o inválida.");
                 }
                 const botReply = data.candidates[0].content.parts[0].text;
+
+                // Agregar respuesta del bot al historial
+                conversationHistory.push({
+                    role: "model",
+                    parts: [{ text: botReply }]
+                });
+
                 typingIndicator.style.display = 'none';
                 appendMessage('bot', botReply);
             } catch (error) {

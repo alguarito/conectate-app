@@ -1,12 +1,16 @@
-const CACHE_NAME = 'conectate-cache-v7-master'; // Force update for session videos fix
+const CACHE_NAME = 'conectate-cache-v8-master';
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './script.js',
   './chat-tesla.js',
+  './gamification.js',
+  './translate-engine.js',
+  './manifest.json',
   './IMAGENES/ID_CONECTATE.png'
 ];
+
 
 // Timestamp para forzar actualización byte-a-byte: 2026-03-27 06:12
 

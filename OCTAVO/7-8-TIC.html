@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 7-8-TIC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        html { background-color: #0d0e15; }
+        body { 
+            margin: 0; padding: 40px; min-height: 100vh; box-sizing: border-box;
+            background: linear-gradient(135deg, #0d0e15 0%, #1a1a2e 100%); 
+            background-attachment: fixed; background-repeat: no-repeat;
+            color: var(--text-primary); overflow-x: auto; overflow-y: auto;
+        }
+        .notebook-container { width: 100%; max-width: 950px; margin: 0 auto; padding: 40px; border-radius: 24px; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0e15; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--accent-pink); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Typography & Layout */
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero i { font-size: 5rem; color: #facc15; margin-bottom: 16px; }
+        .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 12px; font-weight: 800; background: linear-gradient(to right, #eab308, #fef08a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+        .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .interactive-section { margin-bottom: 30px; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .interactive-section h2 { font-family: var(--font-heading); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--accent-cyan); font-size: 1.8rem; }
+        .section-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 24px; }
+        
+        /* Grid Layouts */
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+        /* Flashcards */
+        .concept-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .concept-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent-blue); opacity: 0; transition: opacity 0.3s;}
+        .concept-card:hover { border-color: rgba(59, 130, 246, 0.5); background: rgba(59, 130, 246, 0.05); transform: translateY(-3px);}
+        .concept-card:hover::before { opacity: 1; }
+        .concept-card h3 { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: 0; color: white;}
+        .concept-desc { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); color: var(--text-secondary); line-height: 1.6;}
+        
+        /* Info Boxes */
+        .info-box { background: rgba(234, 179, 8, 0.1); border-left: 4px solid #eab308; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .info-box-title { font-weight: 700; color: #fef08a; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;}
+
+        /* Light Mode Overrides */
+        html.light-mode { background-color: #f0f4f8; }
+        body.light-mode { background: linear-gradient(135deg, #f0f4f8 0%, #cbd5e1 100%); color: #1e293b; }
+        body.light-mode .concept-card, body.light-mode .interactive-section, body.light-mode .iframe-container, body.light-mode .deep-reading { background: rgba(255, 255, 255, 0.7); border-color: rgba(0, 0, 0, 0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        body.light-mode .concept-card h3, body.light-mode h1, body.light-mode h2, body.light-mode h4 { color: #1e293b; }
+        body.light-mode .concept-card { border: 1px solid rgba(0,0,0,0.1); }
+        body.light-mode .info-box { background: rgba(255,255,255,0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        body.light-mode .concept-desc, body.light-mode .section-text, body.light-mode p, body.light-mode ol, body.light-mode ul { color: #475569 !important; }
+        body.light-mode #btn-volver, body.light-mode #btn-home, body.light-mode #notebook-theme-toggle { background: white !important; color: #1e293b !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        body.light-mode #btn-volver, body.light-mode #btn-home:hover, body.light-mode #notebook-theme-toggle:hover { background: #f8fafc !important; transform: translateY(-2px); }
+
+        /* Cyber-Neon Theme Overrides */
+        html.theme-cyber { background-color: #030507; }
+        body.theme-cyber { background: radial-gradient(circle at 10% 20%, #001f0a, #000000 80%) fixed; color: #00ffcc; }
+        body.theme-cyber .concept-card, body.theme-cyber .interactive-section, body.theme-cyber .iframe-container, body.theme-cyber .deep-reading { background: rgba(0, 20, 10, 0.4); border-color: rgba(0, 255, 0, 0.3); box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05); }
+        body.theme-cyber .concept-card h3, body.theme-cyber h1, body.theme-cyber h2, body.theme-cyber h4 { color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); }
+        body.theme-cyber .concept-desc, body.theme-cyber .section-text, body.theme-cyber p, body.theme-cyber ol, body.theme-cyber ul { color: #00aa88 !important; }
+        body.theme-cyber #btn-volver, body.theme-cyber #btn-home, body.theme-cyber #notebook-theme-toggle { background: #020502 !important; color: #00ff00 !important; border-color: rgba(0, 255, 0, 0.5) !important; }
+
+        /* Aurora Theme Overrides */
+        html.theme-aurora { background-color: #061121; }
+        body.theme-aurora { background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) fixed; color: #e2f1f8; }
+        body.theme-aurora .concept-card, body.theme-aurora .interactive-section, body.theme-aurora .iframe-container, body.theme-aurora .deep-reading { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(25px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 15px 35px 0 rgba(6, 182, 212, 0.15); }
+        body.theme-aurora .concept-card h3, body.theme-aurora h1, body.theme-aurora h2, body.theme-aurora h4 { color: #0ea5e9; text-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
+        body.theme-aurora .concept-desc, body.theme-aurora .section-text, body.theme-aurora p, body.theme-aurora ol, body.theme-aurora ul { color: #87aebf !important; }
+        body.theme-aurora #btn-volver, body.theme-aurora #btn-home, body.theme-aurora #notebook-theme-toggle { background: rgba(10, 20, 35, 0.95) !important; color: #0ea5e9 !important; border-color: rgba(14, 165, 233, 0.3) !important; }
+
+        /* E-Ink Theme Overrides */
+        html.theme-eink { background-color: #fdfaf6; }
+        body.theme-eink { background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4eee1 100%) fixed; color: #4a3f35; }
+        body.theme-eink .concept-card, body.theme-eink .interactive-section, body.theme-eink .iframe-container, body.theme-eink .deep-reading { background: rgba(245, 240, 230, 0.8); backdrop-filter: blur(10px); border-color: rgba(210, 195, 180, 0.7); box-shadow: 2px 2px 8px rgba(0,0,0,0.02); }
+        body.theme-eink .concept-card h3, body.theme-eink h1, body.theme-eink h2, body.theme-eink h4 { color: #2c241c; text-shadow: none; font-weight: 700; }
+        body.theme-eink .concept-desc, body.theme-eink .section-text, body.theme-eink p, body.theme-eink ol, body.theme-eink ul { color: #7a6e60 !important; }
+        body.theme-eink #btn-volver, body.theme-eink #btn-home, body.theme-eink #notebook-theme-toggle { background: #fdfaf6 !important; color: #bd634e !important; border-color: rgba(210, 195, 180, 0.7) !important; }
+
+        @media (max-width: 480px) {
+            body { padding: 8px !important; }
+            .notebook-container { padding: 15px 10px !important; border-radius: 12px !important; }
+            .hero { margin-bottom: 30px !important; }
+            .hero h1 { font-size: 1.4rem !important; }
+            .hero i { font-size: 2.2rem !important; }
+            .hero p { font-size: 0.8rem !important; line-height: 1.5 !important; }
+            .interactive-section { padding: 15px 10px !important; margin-bottom: 20px !important; border-radius: 12px !important; }
+            .interactive-section h2 { font-size: 1.1rem !important; gap: 8px !important; }
+            .section-text { font-size: 0.85rem !important; line-height: 1.6 !important; }
+            .concept-card { padding: 12px !important; border-radius: 10px !important; }
+            .concept-card h3 { font-size: 0.85rem !important; }
+            .concept-card h3 i { font-size: 1rem !important; }
+            .concept-desc { font-size: 0.8rem !important; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
+            .info-box { padding: 12px !important; margin: 15px 0 !important; font-size: 0.85rem !important; }
+            .pulse-btn { width: 100% !important; padding: 12px !important; font-size: 0.85rem !important; }
+            #btn-volver, #btn-home { font-size: 0.75rem !important; padding: 6px 10px !important; }
+            iframe, .iframe-container { border-radius: 8px !important; }
+        }
+</style>
+</head>
+<body class="notebook-body">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Cargando Cuaderno Activo...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        
+        <!-- Controles Superiores -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div style="display: flex; gap: 10px;">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;" title="Volver al Inicio">
+                    <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
+                </a>
+                <a id="btn-volver" href="../index.html?section=octavo" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                    <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Volver a Guías
+                </a>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div class="translate-wrapper">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)">
+                        <option value="es" class="translate-option">🇪🇸 Español</option>
+                        <option value="en" class="translate-option">🇺🇸 English</option>
+                        <option value="pt" class="translate-option">🇧🇷 Português</option>
+                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                    </select>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease;">
+                <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+            </button></div>
+        </div>
+
+        <header class="hero">
+            <i class='bx bxs-bot'></i>
+            <h1>Guía 7: Desmitificando la IA</h1>
+            <p>ChatGPT y Gemini no son personas, no "piensan" ni tienen sentimientos. Son poderosos modelos matemáticos de lenguaje (LLM). Aprenderemos a comandarlos con la técnica **C.R.I.F.**</p>
+        </header>
+
+        <!-- Video Introductorio YouTube -->
+        <section class="interactive-section glass-panel" style="text-align: center; padding-top: 30px; padding-bottom: 20px; border-color: rgba(234, 179, 8, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 24px; font-size: 1.5rem;"><i class='bx bx-video' style="color: #eab308;"></i> Repaso de la Sesión</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); aspect-ratio: 16/9;">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/WOu3OeeKob8?rel=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block; border: none;"></iframe>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 16px; font-size: 0.85rem;">Video alojado en YouTube para carga rápida.</p>
+        </section>
+
+        <!-- Sección 1 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-microchip'></i> 1. ¿Cómo "piensa" realmente la IA?</h2>
+            <p class="section-text">Modelos como el Profesor Álvaro, Gemini o ChatGPT no son humanos. No "piensan" ni tienen sentimientos. Son un Modelo de Lenguaje Grande (LLM).</p>
+            
+            <div class="grid-2">
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #3b82f6"><i class='bx bx-message-rounded-dots'></i> El Loro Estocástico</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">Ha leído casi todo el texto de internet. Cuando tú le preguntas algo, simplemente <strong>adivina matemáticamente</strong> cuál es la siguiente palabra que tiene más sentido ensamblar. Imagínalo como el "auto-corrector predictivo" de tu celular, pero millones de veces más grande.</div>
+                </div>
+                <div class="concept-card" onclick="toggleDesc(this)">
+                    <h3><span style="color: #ef4444"><i class='bx bx-ghost'></i> La Alucinación</span> <i class='bx bx-plus'></i></h3>
+                    <div class="concept-desc">A veces, solo para complacer tu pregunta y sonar coherente, la IA <strong>inventa datos falsos</strong> con muchísima seguridad (crea nombres, fechas o artículos científicos que no existen). Por eso, TÚ eres el jefe humano; nunca debes confiar a ciegas, tienes que verificar en Google.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-terminal'></i> 2. Ingeniería de Prompts (C.R.I.F)</h2>
+            <p class="section-text">Para que la máquina te entregue respuestas brillantes de nivel universitario y no un texto genérico, debes estructurar tus órdenes como los profesionales. Memoriza el acrónimo C.R.I.F:</p>
+            
+            <div class="grid-4" style="margin-top: 30px;">
+                <div style="background: rgba(234, 179, 8, 0.1); padding: 15px; border-radius: 8px; text-align: center; border-bottom: 3px solid #eab308;">
+                    <i class='bx bx-user-pin' style="color: #fef08a; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px; font-size: 1.1rem;">ROL</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 10px;">Dile quién es. <em>("Actúa como Ingeniero en...")</em></p>
+                </div>
+                <div style="background: rgba(234, 179, 8, 0.1); padding: 15px; border-radius: 8px; text-align: center; border-bottom: 3px solid #eab308;">
+                    <i class='bx bx-map-alt' style="color: #fef08a; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px; font-size: 1.1rem;">CONTEXTO</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 10px;">Dile qué tienes. <em>("Tengo un celular de 10W...")</em></p>
+                </div>
+                <div style="background: rgba(234, 179, 8, 0.1); padding: 15px; border-radius: 8px; text-align: center; border-bottom: 3px solid #eab308;">
+                    <i class='bx bx-task' style="color: #fef08a; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px; font-size: 1.1rem;">INSTRUCCIÓN</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 10px;">Dile qué hacer. <em>("Calcula cuánta luz...")</em></p>
+                </div>
+                <div style="background: rgba(234, 179, 8, 0.1); padding: 15px; border-radius: 8px; text-align: center; border-bottom: 3px solid #eab308;">
+                    <i class='bx bx-list-ul' style="color: #fef08a; font-size: 2rem;"></i>
+                    <p style="color: white; font-weight: 600; margin-top: 10px; font-size: 1.1rem;">FORMATO</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 10px;">Cómo entregarlo. <em>("Dámelo en una tabla...")</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-search-alt'></i> 3. El Interrogatorio Directo a la IA</h2>
+            <p class="section-text">Es tu turno. Selecciona tu electrodoméstico estrella. Abre el chat inteligente del <strong>Profesor Álvaro</strong> que flota abajo en tu pantalla, y envíale estos dos <em>Prompts</em> de Inegenería exactos completando tus números:</p>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent-cyan); font-family: monospace; color: #a5f3fc; font-size: 1.05rem; text-align: left; margin: 20px auto; line-height: 1.6;">
+                <span style="color: #fff; background: var(--accent-cyan); padding: 2px 10px; border-radius: 4px; color: #000; font-weight: bold; font-family: var(--font-body); font-size: 0.85rem; margin-bottom: 10px; display: inline-block;">Ronda 1: Comando Físico (Energía y Costos)</span><br><br>
+                "Actúa como un auditor energético. Tengo un/una <strong style="color: #fff;">[TU APARATO AQUÍ]</strong> que consume <strong style="color: #fff;">[WATTS AQUÍ]</strong> W y lo uso <strong style="color: #fff;">[HORAS]</strong> horas al día. Hazme el cálculo matemático de cuántos kWh consume en un año entero. Luego, estima el costo anual en pesos colombianos asumiendo que 1 kWh cuesta 800 COP. Dámelo en un formato claro y con viñetas."
+            </div>
+
+            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent-pink); font-family: monospace; color: #f9a8d4; font-size: 1.05rem; text-align: left; margin: 20px auto; line-height: 1.6;">
+                <span style="color: #fff; background: var(--accent-pink); padding: 2px 10px; border-radius: 4px; font-weight: bold; font-family: var(--font-body); font-size: 0.85rem; margin-bottom: 10px; display: inline-block;">Ronda 2: Comando Ético (Filosofía de Dussel)</span><br><br>
+                "Actúa como un sociólogo ambientalista (Filosofía de la Liberación). Explícame cuáles son los 2 minerales más conflictivos que se necesitan para fabricar mi <strong style="color: #fff;">[TU APARATO AQUÍ]</strong>. Menciona de qué países se extraen y qué injusticias sociales o ambientales ocurren en esas minas concretamente. Sé breve pero contundente."
+            </div>
+
+            <p style="color: var(--text-secondary); text-align: center; margin-top: 20px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <em>🔍 <strong>Validación Externa:</strong> Ve a Google normal y busca una noticia real que confirme lo que la IA te acaba de decir sobre el daño sociopolítico en las minas. ¿Dijo la verdad o alucinó?</em>
+            </p>
+        </section>
+
+        </section>
+
+        <!-- Sección de Flashcards (Reto de Saberes) -->
+        <div id="flashcards-container"></div>
+
+        <!-- Sección de Descargas (Final del Cuaderno) -->
+        <section class="interactive-section glass-panel" style="text-align: center; border-color: rgba(96, 165, 250, 0.3);">
+            <h2 style="justify-content: center; margin-bottom: 20px; font-size: 1.6rem;"><i class='bx bxs-download' style="color: #60a5fa;"></i> Archivos Base Descargables</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">Descarga la guía metodológica o las diapositivas de instrucción directa:</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="7-8-TIC.pdf" download style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class='bx bxs-file-pdf' style="color: #ef4444; font-size: 1.4rem;"></i> Descargar Guía (PDF)
+                </a>
+                <a href="https://drive.google.com/drive/folders/1Frybj-LR7z9F_VoZ3QhYX1kXq1j4Lmex?usp=sharing"  style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-primary); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class='bx bxs-slideshow' style="color: #3b82f6; font-size: 1.4rem;"></i> Ver Diapositivas (Drive)
+                </a>
+            </div>
+        </section>
+
+        <!-- Evaluación Final (Cuestionario) -->
+        <div id="quiz-container"></div>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                <strong>CONECTATE | Módulo de Apropiación Tecnológica IA</strong><br>
+                Institución Educativa Sor María Juliana - 2026
+            </p>
+        </footer>
+    </div>
+
+    <!-- Integración Automática de Tema y Lógica -->
+    <script>
+        // Datos de Flashcards (Enfoque: Naturaleza de la IA)
+        window.FLASH_DATA = [
+            { 
+                question: "¿Qué es un LLM?", 
+                answer: "Large Language Model. Es un programa que predice matemáticamente la siguiente palabra más probable en una frase, basándose en billones de textos.",
+                icon: "bx-code-curly"
+            },
+            { 
+                question: "¿La IA tiene sentimientos?", 
+                answer: "No. Aunque use palabras como 'siento' o 'entiendo', es solo una imitación estadística del lenguaje humano. No tiene conciencia ni emociones.",
+                icon: "bx-no-entry"
+            },
+            { 
+                question: "¿Qué es el Comando C.R.I.F.?", 
+                answer: "Es el método profesional para escribir Prompts: Contexto, Rol, Instrucción y Formato. Asegura respuestas precisas y brillantes.",
+                icon: "bx-terminal"
+            }
+        ];
+
+        // Datos del Cuestionario Final (LLMs Y C.R.I.F.)
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es la función real de un modelo como ChatGPT o Gemini?",
+                options: ["Pensar y resolver problemas como un humano", "Calcular probabilidades matemáticas para generar texto coherente", "Guardar carpetas de archivos en la nube"],
+                correct: 1
+            },
+            {
+                question: "En el método C.R.I.F., ¿qué significa el 'Rol'?",
+                options: ["Asignarle una personalidad o profesión a la IA (ej: Actúa como un experto en física)", "Decirle qué tan rápido debe responder", "El nombre de usuario del estudiante"],
+                correct: 0
+            },
+            {
+                question: "¿Por qué la IA a veces inventa datos falsos (Alucinaciones)?",
+                options: ["Porque quiere engañarnos a propósito", "Porque su prioridad es que la frase suene bien, no necesariamente que el dato sea verídico", "Porque tiene virus"],
+                correct: 1
+            },
+            {
+                question: "Hábito del Profesional: ¿Qué debemos hacer con las respuestas de la IA?",
+                options: ["Copiar y pegar directamente sin leer", "Verificarlas siempre usando el pensamiento crítico y fuentes humanas/Google", "Creerle todo porque es una máquina"],
+                correct: 1
+            },
+            {
+                question: "¿Qué elemento del C.R.I.F. indica cómo queremos que nos devuelva la información (ej: Tabla, Lista, Resumen)?",
+                options: ["Contexto", "Instrucción", "Formato"],
+                correct: 2
+            }
+        ];
+
+        const themeBtn = document.getElementById('notebook-theme-toggle');
+        if(themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                document.documentElement.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    icon.classList.replace('bx-sun', 'bx-moon');
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                setTimeout(() => preloader.remove(), 500); 
+            }
+        });
+
+        function toggleDesc(element) {
+            const desc = element.querySelector('.concept-desc');
+            const icon = element.querySelectorAll('h3 i')[1] || element.querySelector('h3 i.bx-plus, h3 i.bx-minus');
+            if (desc.style.display === 'block') {
+                desc.style.display = 'none';
+                if(icon) icon.className = 'bx bx-plus';
+            } else {
+                desc.style.display = 'block';
+                if(icon) icon.className = 'bx bx-minus';
+            }
+        }
+    </script>
+
+    <!-- Tutor Virtual IA Inyectado -->
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
+
+    <!-- Motor de Traducción Global -->
+    <script src="../translate-engine.js?v=2.3"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Interactivo | 11-8-TIC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/png" href="../IMAGENES/ID_CONECTATE.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../NOVENO/CORE/notebook-core.css?v=1.3">
+    <link rel="stylesheet" href="../CORE/exam-core.css?v=2.3">
+
+</head>
+<body class="notebook-body">
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">Iniciando Laboratorio de Oratoria...</p>
+    </div>
+
+    <div class="notebook-container glass-panel">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div style="display: flex; gap: 10px;">
+                <a id="btn-home" href="../index.html?section=home" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: all 0.3s ease;">
+                    <i class='bx bx-home-alt' style="font-size: 1.4rem;"></i>
+                </a>
+                <a id="btn-volver" href="../index.html?section=octavo" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-family: var(--font-body); font-weight: 500; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;">
+                    <i class='bx bx-list-ul' style="font-size: 1.2rem;"></i> Guías
+                </a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: none;" id="google_translate_element"></div>
+                <div class="translate-wrapper">
+                    <select id="custom-translate-select" onchange="translatePage(this.value)">
+                        <option value="es" class="translate-option">🇪🇸 Español</option>
+                        <option value="en" class="translate-option">🇺🇸 English</option>
+                        <option value="pt" class="translate-option">🇧🇷 Português</option>
+                        <option value="fr" class="translate-option">🇫🇷 Français</option>
+                    </select>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <button id="notebook-theme-toggle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                    <i class='bx bx-moon' style="font-size: 1.4rem;"></i>
+                </button>
+            </div>
+        </div>
+
+        <header class="hero">
+            <i class='bx bxs-megaphone'></i>
+            <h1>Guía 11: El Discurso y la Sustentación Final</h1>
+            <p>La tecnología necesita voz. Hoy aprenderemos a sustentar nuestro informe final con impacto, oratoria y responsabilidad ambiental.</p>
+        </header>
+
+        <!-- Sección 1 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-user-voice'></i> 1. El Arte de Hablar</h2>
+            <p class="section-text">Tu sustentación debe resumir 11 guías de investigación. El discurso final debe centrarse en 3 pilares: **Claridad**, **Evidencia** y **Pasión Ética**.</p>
+            
+            <div class="simulator-grid">
+                <!-- Nivel 1 -->
+                <div class="simulator-card">
+                    <div class="simulator-icon"><i class='bx bx-wink-smile'></i></div>
+                    <h3>El Espejo Virtual</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Recuerda: Manos abiertas, espalda recta y mirada a los ojos. No leas la diapositiva, ¡cuéntanos tu historia!</p>
+                </div>
+
+                <!-- Nivel 2 -->
+                <div class="simulator-card">
+                    <div class="simulator-icon"><i class='bx bx-brain'></i></div>
+                    <h3>Reto del Prof. Álvaro</h3>
+                    <div class="challenge-box" id="challenge-text">Haz clic para recibir una pregunta difícil del jurado...</div>
+                    <button class="btn-action" onclick="generateChallenge()">Nuevo Reto</button>
+                </div>
+
+                <!-- Nivel 3 -->
+                <div class="simulator-card">
+                    <div class="simulator-icon"><i class='bx bx-stopwatch'></i></div>
+                    <h3>Elevator Pitch</h3>
+                    <div class="timer-display" id="timer">60s</div>
+                    <button class="btn-action" id="timer-btn" onclick="toggleTimer()">Iniciar Minuto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-recycle'></i> 2. El Final es el Principio (RAEE)</h2>
+            <p class="section-text">¿Qué pasará con los componentes de tu proyecto cuando termine el año? No son basura, son **Residuos de Aparatos Eléctricos y Electrónicos (RAEE)**.</p>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0;">
+                <p style="margin: 0; line-height: 1.6; color: var(--text-secondary);"><strong>Regla de Oro:</strong> Nunca tires un Arduino, sensor o cable a la basura común. El plomo y el litio contaminarán el agua. Busca siempre los puntos de recolección de RAEE en tu ciudad.</p>
+            </div>
+        </section>
+
+        <!-- Nueva sección: Auditoría Final Integrada -->
+        <section class="interactive-section glass-panel">
+            <h2><i class='bx bx-cloud-upload'></i> 3. Carga de Informe Final</h2>
+            <p class="section-text">Sube tu informe final en PDF. Nuestra IA auditará tu escritura y la solidez de tu investigación ética.</p>
+            <div id="dropzone" class="dropzone" style="border: 2px dashed #f87171; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; text-align: center; cursor: pointer;">
+                <i class='bx bxs-file-pdf' style="font-size: 3rem; color: #f87171;"></i>
+                <p>Suelta tu PDF aquí o haz clic para subir</p>
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+            </div>
+        </section>
+
+        <!-- Flashcards -->
+        <div id="flashcards-container"></div>
+
+        <!-- Cuestionario -->
+        <div id="quiz-container"></div>
+
+        <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>CONECTATE | Módulo de Sustentación Final</strong><br>
+                ¡Felicidades por completar el ciclo, Inforg!
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="../CORE/audit-core.js?v=2.3"></script>
+    <script>
+        // Lógica del Temporizador
+        let timeLeft = 60;
+        let timerId = null;
+        function toggleTimer() {
+            const btn = document.getElementById('timer-btn');
+            if (timerId) {
+                clearInterval(timerId);
+                timerId = null;
+                btn.innerText = "Reiniciar";
+                timeLeft = 60;
+                document.getElementById('timer').innerText = "60s";
+            } else {
+                btn.innerText = "Detener";
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('timer').innerText = timeLeft + "s";
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        alert("¡Tiempo cumplido! ¿Lograste convencer al jurado?");
+                        btn.innerText = "Reiniciar";
+                    }
+                }, 1000);
+            }
+        }
+
+        // Retos de Oratoria
+        const challenges = [
+            "¿Qué harías si tu video falla al proyectarse en el festival?",
+            "Explica en 15 segundos qué es el Coltán a un niño de 5 años.",
+            "Tuviste 5 minutos de tiempo muerto por cables sueltos. ¿Cómo remontas el interés?",
+            "El jurado dice que tu proyecto es muy caro. Defiende el costo basado en la vida humana.",
+            "¿Cómo se relaciona tu proyecto con el derecho a la reparación?"
+        ];
+        function generateChallenge() {
+            const box = document.getElementById('challenge-text');
+            const random = challenges[Math.floor(Math.random() * challenges.length)];
+            box.innerText = '"' + random + '"';
+        }
+
+        // Datos del Cuestionario y Flashcards
+        window.FLASH_DATA = [
+            { question: "¿Qué es el RAEE?", answer: "Residuos de Aparatos Eléctricos y Electrónicos. No son basura, requieren reciclaje especial.", icon: "bx-recycle" },
+            { question: "¿Clave de la Oratoria?", answer: "No leer. El contacto visual y el dominio del tema con veracidad.", icon: "bx-bullseye" },
+            { question: "¿Elevator Pitch?", answer: "Resumen magnético de tu proyecto en menos de un minuto.", icon: "bx-timer" }
+        ];
+
+        window.QUIZ_DATA = [
+            {
+                question: "¿Cuál es el destino correcto de un Arduino dañado?",
+                options: ["Caneca de basura orgánica", "Punto de recolección de RAEE", "Enterrarlo en el jardín"],
+                correct: 1
+            },
+            {
+                question: "En una sustentación profesional, ¿qué rol juega el contacto visual?",
+                options: ["Demuestra nerviosismo", "Genera confianza y autoridad sobre el tema", "Es de mala educación"],
+                correct: 1
+            },
+            {
+                question: "Si el jurado te hace una pregunta que no sabes responder, lo mejor es:",
+                options: ["Inventar un dato rápido para salir del paso", "Reconocer que no tienes el dato exacto pero investigarlo después de la charla", "Quedarse en silencio total"],
+                correct: 1
+            }
+        ];
+
+        // Iniciar Auditoría (Mantenemos la funcionalidad anterior como complemento)
+        initAudit({
+            gradeLevel: '8',
+            professorWA: '573206324740',
+            apiUrl: 'https://gemini-proxy.alvaro-cardenas-orozco.workers.dev',
+            systemPrompt: `Eres el Auditor Maker de la I.E. Sor María Juliana. Evalúa la coherencia ética del informe final de Grado 8.`
+        });
+
+        window.addEventListener('load', () => { setTimeout(() => document.getElementById('preloader').remove(), 500); });
+    </script>
+    <script src="../gamification.js?v=2.3"></script>
+    <script src="../chat-tesla.js?v=2.3"></script>
+
+    <!-- Motor de Traducción Global -->
+    <script src="../translate-engine.js?v=2.3"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

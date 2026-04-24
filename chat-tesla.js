@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let currentContext = 'default';
         let conversationHistory = []; // Historial multi-turno
-        const MAX_HISTORY = 20; // Máximo de mensajes a recordar
+        const MAX_HISTORY = 6; // Máximo de mensajes a recordar (reducido para ahorrar tokens/créditos)
 
         const getBaseImgPath = () => {
             const path = window.location.pathname;

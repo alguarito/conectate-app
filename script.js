@@ -186,8 +186,10 @@ const sectionData = {
     }
 };
 
-// --- BASE DE DATOS PROVISIONAL DE PROYECTOS ---
-let ticProjects = [
+// --- BASE DE DATOS DE PROYECTOS (con persistencia localStorage) ---
+const PROJECTS_STORAGE_KEY = 'conectate_tic_projects_v2';
+
+const defaultProjects = [
     { 
         id: 1, 
         title: 'Eco-Solar Connect', 
@@ -195,7 +197,8 @@ let ticProjects = [
         tag: 'samsung', 
         tagLabel: 'Solve for Tomorrow', 
         desc: 'Sistema de riego inteligente alimentado por energía solar.', 
-        link: 'https://facebook.com/post/1' 
+        link: 'https://facebook.com/post/1',
+        isDefault: true
     },
     { 
         id: 2, 
@@ -213,9 +216,29 @@ let ticProjects = [
         tag: 'colegio', 
         tagLabel: 'Feria Colegio', 
         desc: 'Plataforma de denuncia anónima y apoyo emocional escolar.', 
-        link: 'https://facebook.com/post/3' 
+        link: 'https://facebook.com/post/3',
+        isDefault: true
     }
 ];
+
+function saveProjects() {
+    // Solo guardamos los proyectos creados por usuarios (no los default)
+    const userProjects = ticProjects.filter(p => !p.isDefault);
+    localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(userProjects));
+}
+
+function loadProjects() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(PROJECTS_STORAGE_KEY)) || [];
+        // Fusionar: proyectos default primero, luego los del usuario al inicio
+        ticProjects = [...saved, ...defaultProjects];
+    } catch(e) {
+        ticProjects = [...defaultProjects];
+    }
+}
+
+// Cargar proyectos al iniciar
+loadProjects();
 
 // DOM Elements
 const sidebarMenus = document.getElementById('sidebar-menus');
@@ -669,19 +692,30 @@ function renderProjectsGallery(filter = 'all') {
     } else {
         filtered.forEach(p => {
             const tagClass = `tag-${p.tag}`;
+            const deleteBtn = !p.isDefault 
+                ? `<button onclick="deleteProject(${p.id})" style="position:absolute; top:10px; right:10px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#ef4444; border-radius:8px; padding:4px 8px; cursor:pointer; font-size:0.75rem;"><i class='bx bx-trash'></i></button>`
+                : '';
             grid.innerHTML += `
-                <div class="project-card glass-panel">
+                <div class="project-card glass-panel" style="position:relative;">
+                    ${deleteBtn}
                     <div class="badge ${tagClass}">${p.tagLabel}</div>
                     <h3>${p.title}</h3>
                     <p class="project-author">Por: ${p.student}</p>
                     <p class="project-desc">${p.desc}</p>
-                    <a href="${p.link}" class="cv-button project-link">
+                    <a href="${p.link}" target="_blank" rel="noopener" class="cv-button project-link">
                         <i class='bx bxl-facebook-circle'></i> VER EN FACEBOOK
                     </a>
                 </div>
             `;
         });
     }
+}
+
+function deleteProject(id) {
+    ticProjects = ticProjects.filter(p => p.id !== id);
+    saveProjects();
+    renderProjectsGallery();
+    showToast('Proyecto eliminado.', 'info');
 }
 
 function openAddProjectModal() {
@@ -746,13 +780,15 @@ function openAddProjectModal() {
             tag: document.getElementById('p-tag').value,
             tagLabel: document.getElementById('p-tag').options[document.getElementById('p-tag').selectedIndex].text.split(' (')[0],
             desc: document.getElementById('p-desc').value,
-            link: document.getElementById('p-link').value
+            link: document.getElementById('p-link').value,
+            isDefault: false
         };
         
         ticProjects.unshift(newProj);
+        saveProjects(); // ← Persistencia real
         closeProjectModal();
         renderProjectsGallery();
-        alert('¡Proyecto publicado con éxito! (Nota: Por ahora se guarda localmente)');
+        showToast('¡Proyecto publicado y guardado! Aparecerá siempre que visites esta sección.', 'info');
     };
 }
 

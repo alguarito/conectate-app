@@ -3,7 +3,7 @@ const ADMIN_EMAIL = "alvaro.cardenas.orozco@gmail.com";
 
 // --- PERFIL DE CURADOR ESTÁTICO (Ecosistema Abierto) ---
 const currentUser = {
-    name: "Álvaro Cárdenas",
+    name: "Alvaro Cardenas",
     email: ADMIN_EMAIL,
     isAdmin: true,
     picture: "IMAGENES/ID_CONECTATE.png"
@@ -100,7 +100,7 @@ const sectionData = {
     home: {
         theme: 'theme-etico', icon: '<i class="bx bxs-home-heart"></i>', title: 'Bienvenido a CONECTATE', subtitle: 'IE Sor María Juliana - Tu Portal de Tecnología e Informática',
         features: [ 
-            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Álvaro Cárdenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
+            { icon: 'bx bx-user-circle', title: '¿Quién es tu Profesor?', desc: 'PhD. Alvaro Cardenas Orozco, apasionado por las TIC y la educación crítica.', action: 'openProfile' }, 
             { icon: 'bx bx-rocket', title: 'Orientación vocacional', desc: 'Descubre tu camino profesional: Apoyo y guía para explorar opciones en Cartago y el Valle.', action: 'openTeslaVocational' },
             { icon: 'bx bx-message-square-dots', title: 'Apoyo Personal', desc: 'Reconoce tus habilidades y talentos: Tips y recomendaciones para potenciar tu desarrollo personal.', action: 'openTeslaPotential' } 
         ]
@@ -1083,7 +1083,7 @@ function updateUIForUser() {
     
     if (userDetails) {
         userDetails.innerHTML = `
-            <p class="name" style="margin-bottom: 2px;">Álvaro Cárdenas</p>
+            <p class="name" style="margin-bottom: 2px;">Alvaro Cardenas</p>
             <span class="admin-badge">Docente TIC</span>
             <p class="role">
                 <a href="https://wa.me/573206324740" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.8rem; font-weight: 700;">
@@ -1120,7 +1120,7 @@ async function refineProjectText() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "system_instruction": {
-                    "parts": [{ "text": "Eres el Asistente Digital del Profesor Álvaro. Tu tarea es corregir la ortografía y mejorar la redacción de los proyectos TIC de los estudiantes. IMPORTANTE: Mantén el texto corto (máx 150 caracteres), formal pero inspirador, y siempre en SEGUNDA PERSONA o voz activa del proyecto. Solo devuelve el texto corregido, sin explicaciones ni saludos." }]
+                    "parts": [{ "text": "Eres el Asistente Digital del Profesor Alvaro. Tu tarea es corregir la ortografía y mejorar la redacción de los proyectos TIC de los estudiantes. IMPORTANTE: Mantén el texto corto (máx 150 caracteres), formal pero inspirador, y siempre en SEGUNDA PERSONA o voz activa del proyecto. Solo devuelve el texto corregido, sin explicaciones ni saludos." }]
                 },
                 "contents": [{ "role": "user", "parts": [{ "text": "Mejora este texto para mi proyecto: " + text }] }]
             })
@@ -1139,7 +1139,7 @@ async function refineProjectText() {
     } catch (error) {
         console.error(error);
         if (status) {
-            status.innerHTML = "<i class='bx bx-error-circle' style='color: #ef4444;'></i> Error al conectar con el Profe Álvaro.";
+            status.innerHTML = "<i class='bx bx-error-circle' style='color: #ef4444;'></i> Error al conectar con el Profe Alvaro.";
             setTimeout(() => { status.style.display = 'none'; }, 3000);
         }
     }
